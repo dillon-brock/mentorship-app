@@ -16,3 +16,8 @@ export type HashedUserFormInput = {
   passwordHash: string;
   type: string;
 }
+
+export type UserSignInInfo = {
+  email: string;
+  password: string;
+}

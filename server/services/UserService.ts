@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-import { UserFromSignUpForm, HashedUserFormInput } from '../../common/userTypes';
+import { UserFromSignUpForm, UserSignInInfo } from '../../common/userTypes';
 import { User } from '../models/User';
 
 export class UserService {
-  static async create({ email, password, type }: UserFromSignUpForm) {
+  static async create({ email, password, type }: UserFromSignUpForm): Promise<User> {
     if (email.length <= 6) {
       throw new Error('Invalid email');
     }
@@ -26,4 +26,24 @@ export class UserService {
 
     return user;
   }
+
+  static async signIn({ email, password = '' }: UserSignInInfo) {
+    try {
+      const user: User | null = await User.getByEmail(email);
+
+      if (!user) throw new Error('Invalid email');
+      if (!bcrypt.compareSync(password, user.passwordHash))
+        throw new Error('Invalid password');
+
+      const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {
+        expiresIn: '1 day',
+      });
+
+      return token;
+    } catch (error: any) {
+      error.status = 401;
+      throw error;
+    }
+  }
+
 }
