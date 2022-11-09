@@ -2,7 +2,7 @@ import express, { type Request, type Response } from 'express'
 
 const app = express()
 
-const server = app.listen(parseInt(process.env.APP_PORT || '7890'), () => {
+const server = app.listen(parseInt(process.env.PORT || '7890'), () => {
   console.log('Started server on ', server.address())
 })
 
