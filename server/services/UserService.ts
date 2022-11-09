@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { UserFromSignUpForm, UserSignInInfo } from '../../common/userTypes';
-import { User } from '../models/User';
+import { User } from '../models/User.js';
 
 export class UserService {
   static async create({ email, password, type }: UserFromSignUpForm): Promise<User> {

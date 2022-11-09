@@ -1,10 +1,17 @@
 import express, { type Request, type Response } from 'express'
+import cookieParser from 'cookie-parser';
+import teacherRouter from './controllers/teachers.js';
 
-const app = express()
+const app = express();
 
 const server = app.listen(parseInt(process.env.PORT || '7890'), () => {
-  console.log('Started server on ', server.address())
-})
+  console.log('Started server on ', server.address());
+});
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/teachers', teacherRouter);
 
 app.all('*', (req: Request, res: Response) => {
   console.log(`404 for ${req.url}`)

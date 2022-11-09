@@ -1,5 +1,5 @@
 import { NewTeacherInfo, TeacherFromDatabase } from "../../common/teacherTypes";
-import pool from "../database";
+import pool from "../database.js";
 
 export default class Teacher {
   id: string;
@@ -36,5 +36,13 @@ export default class Teacher {
     
     if (!rows[0]) return null;
     return new Teacher(rows[0]);
+  }
+
+  static async findAll(): Promise<Array<Teacher>> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teachers`
+    );
+
+    return rows.map(row => new Teacher(row));
   }
 }

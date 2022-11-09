@@ -33,7 +33,8 @@
       "react",
       "react-dom/experimental",
       "react-dom/next",
-      "ts-jest"
+      "ts-jest",
+      "./environment"
     ],
     "useUnknownInCatchVariables": true
   }

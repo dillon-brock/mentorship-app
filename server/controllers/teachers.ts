@@ -1,6 +1,6 @@
 import { Router, type Request, type Response} from 'express';
-import Teacher from '../models/Teacher';
-import { UserService } from '../services/UserService';
+import Teacher from '../models/Teacher.js';
+import { UserService } from '../services/UserService.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -35,3 +35,7 @@ export default Router()
       next(error);
     }
   })
+  .get('/', async (req, res, next) => {
+    const teachers = await Teacher.findAll();
+    res.json(teachers);
+  });

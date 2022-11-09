@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import url from 'node:url'
+
 import pool from './server/database.js'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))

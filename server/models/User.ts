@@ -1,5 +1,5 @@
 import { HashedUserFormInput, UserFromDatabase } from "../../common/userTypes";
-import pool from "../database";
+import pool from "../database.js";
 
 export class User {
   id: string;

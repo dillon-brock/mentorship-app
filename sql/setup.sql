@@ -1,11 +1,11 @@
 -- Use this file to define your SQL tables.
 -- The SQL in this file will be executed when you run `npm run setup-db`.
 
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS teachers_students;
-DROP TABLE IF EXISTS teachers;
-DROP TABLE IF EXISTS students;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS teachers_students CASCADE;
+DROP TABLE IF EXISTS teachers CASCADE;
+DROP TABLE IF EXISTS students CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -20,7 +20,8 @@ INSERT INTO users (email, password_hash) VALUES
   ('cat@cat.com', 'catHash'),
   ('hsw@gmail.comm', 'hash'),
   ('beepboop@jlaurent.com', 'fakehash'),
-  ('rh@dearrh.com', 'hash');
+  ('rh@dearrh.com', 'hash'),
+  ('testuser@test.com', 'hash');
 
 CREATE TABLE teachers (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
