@@ -37,6 +37,7 @@ export default Router()
   })
   .get('/', async (req, res, next) => {
     try {
+      console.log(req.query['subject']);
       let teachers;
       if (typeof req.query['subject'] === 'string') {
         teachers = await Teacher.findAll(req.query['subject']);

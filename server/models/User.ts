@@ -38,7 +38,7 @@ export class User {
       `SELECT * FROM users
       WHERE email = $1`, [email]
     );
-    console.log(rows);
+
     if (!rows[0]) return null;
     return new User(rows[0]);
   }

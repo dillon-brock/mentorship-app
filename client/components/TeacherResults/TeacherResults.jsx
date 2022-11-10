@@ -1,3 +1,4 @@
+import { Container } from "react-bootstrap";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import TeacherResult from "../TeacherResult/TeacherResult";
 
@@ -6,8 +7,8 @@ export default function TeacherResults({ subject }) {
   console.log(teachers);
 
   return (
-    <>
+    <Container>
       {teachers.map(teacher => <TeacherResult key={teacher.id} {...teacher} />)}
-    </>
+    </Container>
   )
 }

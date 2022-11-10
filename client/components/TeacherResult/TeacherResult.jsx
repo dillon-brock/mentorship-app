@@ -3,14 +3,18 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 export default function TeacherResult({ firstName, lastName, zipCode, subject, imageUrl }) {
   
   return (
-    <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '500px' }}>
+    <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
       <Col className="d-flex align-items-center justify-content-center">
         <Image roundedCircle src={imageUrl} style={{ width: '120px', height: '120px' }} />
       </Col>
       <Col>
         <Container>
-          <Row>{`${firstName} ${lastName}`}</Row>
-          <Row>{`${subject} | ${zipCode}`}</Row>
+          <Row>
+            <p>{`${firstName} ${lastName}`}</p>
+          </Row>
+          <Row>
+            <p>{`${subject} | ${zipCode}`}</p>
+          </Row>
         </Container>
       </Col>
       <Col className="d-flex align-items-center justify-content-end">
