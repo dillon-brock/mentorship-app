@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { signUpStudent, signUpTeacher } from '../../services/authService';
+import { useUserContext } from '../../context/UserContext';
+import { signUpStudent, signUpTeacher } from '../../services/auth';
 
 export default function SignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
+  const { user } = useUserContext();
+  console.log(user);
 
   const handleSignUp = async (e) => {
     e.preventDefault();

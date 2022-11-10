@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import { signIn } from "../../services/authService";
+import { signIn } from "../../services/auth";
 
 export default function SignInForm() {
 

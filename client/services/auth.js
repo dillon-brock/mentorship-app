@@ -72,3 +72,17 @@ export async function signIn({ email, password }) {
     }
   })
 }
+
+export async function getUser() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/me`, {
+    credentials: "include",
+    headers: {
+      "Accept": "application/json"
+    }
+  });
+
+  const user = await response.json();
+  if (response.ok) {
+    return user;
+  }
+}
