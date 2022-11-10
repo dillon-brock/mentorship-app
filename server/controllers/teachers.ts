@@ -37,10 +37,15 @@ export default Router()
   })
   .get('/', async (req, res, next) => {
     try {
-      const teachers = await Teacher.findAll();
+      let teachers;
+      if (typeof req.query['subject'] === 'string') {
+        teachers = await Teacher.findAll(req.query['subject']);
+      }
+      else {
+        teachers = await Teacher.findAll('');
+      }
       res.json(teachers);
-    }
-    catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   });
