@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './reset.css';
-// import './global.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import AuthPage from './components/AuthPage/AuthPage';
+
 
 const container = document.getElementById('app') || document.createElement('div')
 container.id = 'app'

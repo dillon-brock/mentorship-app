@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bootstrap": "^5.2.2",
     "classnames": "^2.3.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.2",
