@@ -57,3 +57,18 @@ export async function signUpTeacher({
     return response;
   }
 }
+
+export async function signIn({ email, password }) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/sessions`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify({
+      email,
+      password
+    }),
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    }
+  })
+}
