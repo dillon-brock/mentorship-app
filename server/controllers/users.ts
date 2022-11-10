@@ -1,21 +1,12 @@
 import { Router, type Request, type Response } from 'express';
-import Student from '../models/Student.js';
-import { UserService } from '../services/UserService.js';
+import { UserService } from '../services/UserService';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export default Router()
-  .post('/', async (req: Request, res: Response, next: (e?: any) => any) => {
+  .post('/sessions', async (req, res, next) => {
     try {
-      const {
-        email,
-        password,
-        firstName,
-        lastName,
-        imageUrl
-      } = req.body;
-      const newUser = await UserService.create({ email, password, type: 'student' });
-      await Student.create({ userId: newUser.id, firstName, lastName, imageUrl });
+      const { email, password } = req.body;
       const sessionToken = await UserService.signIn({ email, password });
 
       res
@@ -26,7 +17,7 @@ export default Router()
           maxAge: ONE_DAY_IN_MS,
         })
         .json({ message: 'Signed in successfully!' });
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   });
