@@ -6,7 +6,7 @@ export type TeacherFromDatabase = {
   last_name: string;
   image_url: string;
   bio: string;
-  zip_code: number;
+  zip_code: string;
   phone_number: string;
   contact_email: string;
 }
@@ -15,7 +15,7 @@ export type NewTeacherInfo = {
   userId: string;
   subject: string;
   bio: string | null;
-  zipCode: number;
+  zipCode: string;
   phoneNumber: string | null;
   contactEmail: string | null;
   firstName: string;

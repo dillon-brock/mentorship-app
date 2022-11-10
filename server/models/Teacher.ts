@@ -6,7 +6,7 @@ export default class Teacher {
   userId: string;
   subject: string;
   bio: string | null;
-  zipCode: number;
+  zipCode: string;
   phoneNumber: string | null;
   contactEmail: string | null;
   firstName: string;

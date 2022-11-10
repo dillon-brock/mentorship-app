@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { signUpStudent } from '../../services/authService';
+import { signUpStudent, signUpTeacher } from '../../services/authService';
 import { SignUpFormProps } from '../../types/propTypes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,13 +12,22 @@ export default function SignUpForm({ accountType }: SignUpFormProps): JSX.Elemen
   const handleSignUp = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    if (accountType === 'student') await signUpStudent({
+    const baseInfo = {
       firstName: formData.get('firstName') as string,
       lastName: formData.get('lastName') as string,
       email: formData.get('email') as string,
       password: formData.get('password') as string,
       imageUrl: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-    });
+    }
+    if (accountType === 'student') await signUpStudent({ ...baseInfo });
+    if (accountType === 'teacher') await signUpTeacher({
+      ...baseInfo,
+      zipCode: formData.get('zip') as string,
+      subject: formData.get('zip') as string,
+      bio: formData.get('bio') as string | null,
+      phoneNumber: formData.get('phoneNumber') as string | null,
+      contactEmail: formData.get('contactEmail') as string | null
+    })
   }
 
   return (
@@ -69,9 +78,13 @@ export default function SignUpForm({ accountType }: SignUpFormProps): JSX.Elemen
 
         {showContactInfoInput ?
           <div>
-            <Form.Group className="mb-2" controlId="phoneNumber">
+            <Form.Group className="mb-2" controlId="contactEmail">
               <Form.Label>Contact Email</Form.Label>
               <Form.Control type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
+            </Form.Group>
+            <Form.Group className="mb-2" controlId="phoneNumber">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control type="text" placeholder="(555)555-5555" name="phoneNumber"></Form.Control>
             </Form.Group>
           </div>
           :

@@ -31,18 +31,18 @@ CREATE TABLE teachers (
   last_name TEXT NOT NULL,
   image_url TEXT NOT NULL,
   bio TEXT,
-  zip_code INT NOT NULL,
+  zip_code TEXT NOT NULL,
   phone_number TEXT,
   contact_email TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 INSERT INTO teachers (user_id, subject, zip_code, first_name, last_name, image_url) VALUES
-  (3, 'scratching', 97214, 'Arlop', 'Beans', 'catpics.com'),
-  (4, 'Alexander Technique', 97214, 'Helen', 'Spencer-Wallace', 'helen.com'),
-  (5, 'ams', 97202, 'Jordan', 'Laurent', 'ams.com'),
-  (6, 'Alexander Technique', 48390, 'Rebecca', 'Harrison', 'dearrh.com'),
-  (1, 'p5.js', 97232, 'Dillon', 'Brock', 'image.com');
+  (3, 'scratching', '97214', 'Arlop', 'Beans', 'catpics.com'),
+  (4, 'Alexander Technique', '97214', 'Helen', 'Spencer-Wallace', 'helen.com'),
+  (5, 'ams', '97202', 'Jordan', 'Laurent', 'ams.com'),
+  (6, 'Alexander Technique', '48390', 'Rebecca', 'Harrison', 'dearrh.com'),
+  (1, 'p5.js', '97232', 'Dillon', 'Brock', 'image.com');
 
 CREATE TABLE students (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
