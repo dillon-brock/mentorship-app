@@ -1,6 +1,4 @@
-import { StudentSignUpInfo, TeacherSignUpInfo } from "../types/authTypes";
-
-export async function signUpStudent({ email, password, firstName, lastName, imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" }: StudentSignUpInfo) {
+export async function signUpStudent({ email, password, firstName, lastName, imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" }) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students`, {
     method: "POST",
     credentials: "include",
@@ -33,7 +31,7 @@ export async function signUpTeacher({
   phoneNumber,
   contactEmail,
   imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-}: TeacherSignUpInfo) {
+}) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers`, {
     method: "POST",
     credentials: "include",

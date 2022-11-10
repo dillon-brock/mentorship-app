@@ -1,32 +1,30 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { signUpStudent, signUpTeacher } from '../../services/authService';
-import { SignUpFormProps } from '../../types/propTypes';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function SignUpForm({ accountType }: SignUpFormProps): JSX.Element {
+export default function SignUpForm({ accountType }) {
 
-  const [showBioInput, setShowBioInput]: [boolean, (x: boolean) => void] = useState(false);
-  const [showContactInfoInput, setShowContactInfoInput]: [boolean, (x: boolean) => void] = useState(false);
+  const [showBioInput, setShowBioInput] = useState(false);
+  const [showContactInfoInput, setShowContactInfoInput] = useState(false);
 
-  const handleSignUp = async (e: any) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const formData = new FormData(e.target);
     const baseInfo = {
-      firstName: formData.get('firstName') as string,
-      lastName: formData.get('lastName') as string,
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      password: formData.get('password'),
       imageUrl: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     }
     if (accountType === 'student') await signUpStudent({ ...baseInfo });
     if (accountType === 'teacher') await signUpTeacher({
       ...baseInfo,
-      zipCode: formData.get('zip') as string,
-      subject: formData.get('zip') as string,
-      bio: formData.get('bio') as string | null,
-      phoneNumber: formData.get('phoneNumber') as string | null,
-      contactEmail: formData.get('contactEmail') as string | null
+      zipCode: formData.get('zip'),
+      subject: formData.get('zip'),
+      bio: formData.get('bio'),
+      phoneNumber: formData.get('phoneNumber'),
+      contactEmail: formData.get('contactEmail')
     })
   }
 

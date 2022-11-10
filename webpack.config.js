@@ -24,7 +24,7 @@ const env = Object.entries({
 }, {});
 
 export default {
-  entry: './client/app.tsx',
+  entry: './client/app.jsx',
   output: {
     filename: 'bundle.[hash].js',
     path: path.resolve(__dirname, './dist'),
@@ -68,6 +68,16 @@ export default {
   },
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', "@babel/preset-react"]
+          }
+        }
+      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
