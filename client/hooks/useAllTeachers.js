@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTeachers } from "../services/teacher";
+import { getTeachers } from "../services/teacher.js";
 
 export function useAllTeachers(subject) {
   const [teachers, setTeachers] = useState([]);
