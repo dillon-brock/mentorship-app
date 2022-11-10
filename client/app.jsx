@@ -2,6 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AuthPage from './components/AuthPage/AuthPage';
+import StudentListPage from './components/StudentListPage/StudentListPage';
+import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage';
 import { UserProvider } from './context/UserContext';
 
 
@@ -15,6 +17,8 @@ root.render(
         <Routes>
           <Route path="/auth/:method" element={<AuthPage />} />
           <Route path="/auth/:method/:accountType" element={<AuthPage />} />
+          <Route path="/find-teachers" element={<TeacherSearchPage />}/>
+          <Route path="/my-students" element={<StudentListPage />}/>
         </Routes>
       </Router>
     </UserProvider>
