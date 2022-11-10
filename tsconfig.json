@@ -34,7 +34,8 @@
       "react-dom/experimental",
       "react-dom/next",
       "ts-jest",
-      "./environment"
+      "./environment",
+      "./authenticatedRequest",
     ],
     "useUnknownInCatchVariables": true
   }
