@@ -1,5 +1,7 @@
 import { Router, type Request, type Response } from 'express';
-import { UserService } from '../services/UserService';
+import { UserService } from '../services/UserService.js';
+import authenticate from '../middleware/authenticate.js';
+import { User } from '../models/User.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -20,4 +22,17 @@ export default Router()
     } catch (error) {
       next(error);
     }
-  });
+  })
+  .get('/me', authenticate, async (req, res, next) => {
+    try {
+      const user = await User.getByEmail(req.user.email);
+      if (user && user.type) {
+        const userInfo = user.getAdditionalInfo();
+        res.json(userInfo);
+      } else {
+        res.json(user);
+      }
+    } catch (e) {
+      next(e);
+    }
+  })

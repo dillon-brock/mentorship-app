@@ -5,7 +5,7 @@ export class User {
   id: string;
   email: string;
   #passwordHash: string;
-  type: string;
+  type: string | null;
 
   constructor(row: UserFromDatabase) {
     this.id = row.id;
@@ -39,5 +39,18 @@ export class User {
 
   get passwordHash(): string {
     return this.#passwordHash;
+  }
+
+  async getAdditionalInfo() {
+    let query: string = `SELECT users.*, students.first_name, students.last_name, students.image_url FROM users
+    INNER JOIN students ON students.user_id = users.id
+    WHERE users.id = $1`
+    if (this.type === 'teacher') {
+      query = `SELECT users.*, teachers.first_name, teachers.last_name, teachers.image_url FROM users
+      INNER JOIN teachers ON teachers.user_id = users.id
+      WHERE users.id = $1`
+    }
+
+    const { rows } = await pool.query(query, [this.id]);
   }
 }

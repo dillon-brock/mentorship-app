@@ -2,7 +2,7 @@ export type UserFromDatabase = {
   id: string;
   email: string;
   password_hash: string;
-  type: string;
+  type: string | null;
 }
 
 export type UserFromSignUpForm = {

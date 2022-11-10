@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { type Request, type Response } from 'express';
 
-module.exports = async (req: Request, res: Response, next: (e?: any) => any) => {
+export default async (req: Request, res: Response, next: (e?: any) => any) => {
   try {
     const cookie = req.cookies[process.env.COOKIE_NAME];
 
