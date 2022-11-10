@@ -36,6 +36,11 @@ export default Router()
     }
   })
   .get('/', async (req, res, next) => {
-    const teachers = await Teacher.findAll();
-    res.json(teachers);
+    try {
+      const teachers = await Teacher.findAll();
+      res.json(teachers);
+    }
+    catch (e) {
+      next(e);
+    }
   });
