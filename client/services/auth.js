@@ -71,6 +71,10 @@ export async function signIn({ email, password }) {
       "Accept": "application/json"
     }
   })
+
+  if (response.ok) {
+    return await response.json();
+  }
 }
 
 export async function getUser() {
@@ -83,5 +87,15 @@ export async function getUser() {
   const user = await response.json();
   if (response.ok) {
     return user;
+  }
+}
+
+export async function signOut() {
+  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/sessions`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    console.log('Something went wrong trying to sign out. Please try again');
   }
 }

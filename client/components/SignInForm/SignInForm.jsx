@@ -8,6 +8,7 @@ export default function SignInForm() {
   console.log(user);
 
   const handleSignIn = async (e) => {
+    e.preventDefault();
     const formData = new FormData(e.target);
     await signIn({ email: formData.get('email'), password: formData.get('password') });
     const userInfo = await getUser();
