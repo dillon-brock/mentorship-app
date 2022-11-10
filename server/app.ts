@@ -1,10 +1,21 @@
 import express, { type Request, type Response } from 'express'
+import cookieParser from 'cookie-parser';
+import teacherRouter from './controllers/teachers.js';
+import studentRouter from './controllers/students.js';
+import userRouter from './controllers/users.js';
 
-const app = express()
+const app = express();
 
-const server = app.listen(parseInt(process.env.APP_PORT || '7890'), () => {
-  console.log('Started server on ', server.address())
-})
+const server = app.listen(parseInt(process.env.PORT || '7890'), () => {
+  console.log('Started server on ', server.address());
+});
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/teachers', teacherRouter);
+app.use('/students', studentRouter);
+app.use('/users', userRouter);
 
 app.all('*', (req: Request, res: Response) => {
   console.log(`404 for ${req.url}`)
