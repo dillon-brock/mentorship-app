@@ -9,6 +9,7 @@ declare global {
       COOKIE_NAME: string;
       SALT_ROUNDS: string;
       JWT_SECRET: string;
+      API_FETCH_URL: string;
     }
   }
 }

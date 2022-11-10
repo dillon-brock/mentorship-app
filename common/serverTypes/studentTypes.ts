@@ -1,4 +1,4 @@
-import Teacher from "../server/models/Teacher.js";
+import Teacher from "../../server/models/Teacher.js";
 
 export type StudentFromDatabase = {
   id: string;

@@ -1,4 +1,4 @@
-import { NewStudentInfo, StudentFromDatabase } from "../../common/studentTypes.js";
+import { NewStudentInfo, StudentFromDatabase } from "../../common/serverTypes/studentTypes.js";
 import pool from "../database.js";
 import Teacher from "./Teacher.js";
 

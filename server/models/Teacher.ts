@@ -1,4 +1,4 @@
-import { NewTeacherInfo, TeacherFromDatabase } from "../../common/teacherTypes";
+import { NewTeacherInfo, TeacherFromDatabase } from "../../common/serverTypes/teacherTypes";
 import pool from "../database.js";
 
 export default class Teacher {

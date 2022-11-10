@@ -1,4 +1,4 @@
-import { HashedUserFormInput, UserFromDatabase } from "../../common/userTypes";
+import { HashedUserFormInput, UserFromDatabase } from "../../common/serverTypes/userTypes";
 import pool from "../database.js";
 
 export class User {

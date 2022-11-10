@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserFromSignUpForm, UserSignInInfo } from '../../common/userTypes';
+import { UserFromSignUpForm, UserSignInInfo } from '../../common/serverTypes/userTypes';
 import { User } from '../models/User.js';
 
 export class UserService {
