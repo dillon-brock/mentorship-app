@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { signUpStudent, signUpTeacher } from '../../services/auth';
+import { getUser, signUpStudent, signUpTeacher } from '../../services/auth';
 
 export default function SignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
-  const { user } = useUserContext();
-  console.log(user);
+  const { user, setUser } = useUserContext();
+
+  if (!accountType) {
+    return <Navigate to='/auth/sign-up/student' />
+  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -29,6 +33,9 @@ export default function SignUpForm({ accountType }) {
       phoneNumber: formData.get('phoneNumber'),
       contactEmail: formData.get('contactEmail')
     })
+    
+    const userInfo = await getUser();
+    setUser(userInfo);
   }
 
   return (

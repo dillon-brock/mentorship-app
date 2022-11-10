@@ -27,10 +27,10 @@ export default Router()
     try {
       const user = await User.getByEmail(req.user.email);
       if (user && user.type) {
-        const userInfo = user.getAdditionalInfo();
+        const userInfo = await user.getAdditionalInfo();
         res.json(userInfo);
       } else {
-        res.json(user);
+      res.json(user);
       }
     } catch (e) {
       next(e);

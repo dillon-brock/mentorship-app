@@ -80,7 +80,6 @@ export async function getUser() {
       "Accept": "application/json"
     }
   });
-
   const user = await response.json();
   if (response.ok) {
     return user;

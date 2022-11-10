@@ -3,6 +3,9 @@ export type UserFromDatabase = {
   email: string;
   password_hash: string;
   type: string | null;
+  first_name?: string;
+  last_name?: string;
+  image_url?: string;
 }
 
 export type UserFromSignUpForm = {
