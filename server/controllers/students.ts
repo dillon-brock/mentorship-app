@@ -1,11 +1,11 @@
-import { Router, type Request, type Response } from 'express';
+import { Router, type Request, type Response, type NextFunction } from 'express';
 import Student from '../models/Student.js';
 import { UserService } from '../services/UserService.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export default Router()
-  .post('/', async (req: Request, res: Response, next: (e?: any) => any) => {
+  .post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {
         email,

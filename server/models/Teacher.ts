@@ -48,4 +48,15 @@ export default class Teacher {
 
     return rows.map((row: TeacherFromDatabase) => new Teacher(row));
   }
+
+  static async findById(id: string): Promise<Teacher | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teachers
+      WHERE id = $1`,
+      [id]
+    );
+
+    if (!rows[0]) return null;
+    return new Teacher(rows[0]);
+  }
 }
