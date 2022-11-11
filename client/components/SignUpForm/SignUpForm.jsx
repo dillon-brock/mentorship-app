@@ -8,7 +8,7 @@ export default function SignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
 
   if (!accountType) {
     return <Navigate to='/auth/sign-up/student' />
