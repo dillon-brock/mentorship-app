@@ -1,4 +1,4 @@
-import { Router, type Request, type Response } from 'express';
+import { Router, type Request, type Response, type NextFunction} from 'express';
 import { UserService } from '../services/UserService.js';
 import authenticate from '../middleware/authenticate.js';
 import { User } from '../models/User.js';
@@ -6,7 +6,7 @@ import { User } from '../models/User.js';
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export default Router()
-  .post('/sessions', async (req, res, next) => {
+  .post('/sessions', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
       const sessionToken = await UserService.signIn({ email, password });
