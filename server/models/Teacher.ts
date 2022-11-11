@@ -38,12 +38,14 @@ export default class Teacher {
     return new Teacher(rows[0]);
   }
 
-  static async findAll(): Promise<Array<Teacher> | null> {
+  static async findAll(subject: string = ''): Promise<Array<Teacher>> {
+    subject = `${subject}%`
     const { rows } = await pool.query(
-      `SELECT * FROM teachers`
+      `SELECT * FROM teachers
+      WHERE subject ILIKE $1`,
+      [subject]
     );
-    if (!rows[0]) return null;
 
-    return rows.map(row => new Teacher(row));
+    return rows.map((row: TeacherFromDatabase) => new Teacher(row));
   }
 }

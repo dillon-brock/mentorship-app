@@ -8,7 +8,7 @@ export default function SignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
 
   if (!accountType) {
     return <Navigate to='/auth/sign-up/student' />
@@ -39,7 +39,7 @@ export default function SignUpForm({ accountType }) {
   }
 
   return (
-    <Form style={{ width: '50%', margin: '0 auto', textAlign: 'left' }} onSubmit={handleSignUp}>
+    <Form className="text-left" style={{ width: '50%', margin: '0 auto' }} onSubmit={handleSignUp}>
       <Form.Group className="mb-2" controlId="firstName">
         <Form.Label>First Name</Form.Label>
         <Form.Control type="text" placeholder="Jane" name="firstName"/>
