@@ -58,12 +58,12 @@ export default {
     }),
   ],
   resolve: {
-    alias: {
-      // Use this to allow use of process.env in the web. See also the
-      // ProvidePlugin usage in this file, dotenv usage in this file, and the
-      // added process package.
-      process: 'process/browser',
-    },
+    // alias: {
+    //   // Use this to allow use of process.env in the web. See also the
+    //   // ProvidePlugin usage in this file, dotenv usage in this file, and the
+    //   // added process package.
+    //   process: 'process/browser',
+    // },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {

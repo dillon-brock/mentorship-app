@@ -12,8 +12,9 @@ export default class Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
+  avgRating?: number;
 
-  constructor({ id, user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url }: TeacherFromDatabase) {
+  constructor({ id, user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating }: TeacherFromDatabase) {
     this.id = id;
     this.userId = user_id;
     this.subject = subject;
@@ -24,6 +25,7 @@ export default class Teacher {
     this.firstName = first_name;
     this.lastName = last_name;
     this.imageUrl = image_url;
+    if (avg_rating) this.avgRating = avg_rating;
   }
 
   static async create({ userId, subject, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl }: NewTeacherInfo): Promise<Teacher | null> {
@@ -51,9 +53,11 @@ export default class Teacher {
 
   static async findById(id: string): Promise<Teacher | null> {
     const { rows } = await pool.query(
-      `SELECT * FROM teachers
-      WHERE id = $1`,
-      [id]
+      `SELECT AVG(reviews.stars) as avg_rating, teachers.* FROM teachers
+      LEFT JOIN reviews ON reviews.teacher_id = teachers.id
+      WHERE teachers.id = $1
+      GROUP BY teachers.id
+      `, [id]
     );
 
     if (!rows[0]) return null;

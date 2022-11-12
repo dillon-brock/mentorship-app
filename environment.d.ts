@@ -10,6 +10,7 @@ declare global {
       SALT_ROUNDS: string;
       JWT_SECRET: string;
       API_FETCH_URL: string;
+      ZIPCODE_API_KEY: string;
     }
   }
 }

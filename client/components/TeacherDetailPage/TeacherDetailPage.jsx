@@ -9,7 +9,7 @@ export default function TeacherDetailPage() {
   const { id } = useParams();
   const { teacher } = useTeacher(id);
 
-  // if (!user) return <Navigate to='/auth/sign-in' />
+  if (!user) return <Navigate to='/auth/sign-in' />
 
   return (
     <>

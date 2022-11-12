@@ -4,7 +4,6 @@ import TeacherResult from "../TeacherResult/TeacherResult";
 
 export default function TeacherResults({ subject }) {
   const { teachers } = useAllTeachers(subject);
-  console.log(teachers);
 
   return (
     <Container>

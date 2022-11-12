@@ -9,6 +9,7 @@ export type TeacherFromDatabase = {
   zip_code: string;
   phone_number: string;
   contact_email: string;
+  avg_rating?: number;
 }
 
 export type NewTeacherInfo = {

@@ -1,5 +1,5 @@
-import { ReviewFromDatabase } from "../../common/serverTypes/reviewTypes";
-import pool from "../database";
+import { ReviewFromDatabase } from "../../common/serverTypes/reviewTypes.js";
+import pool from "../database.js";
 
 export default class Review {
   id: string;

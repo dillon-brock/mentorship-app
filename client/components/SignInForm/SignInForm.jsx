@@ -5,7 +5,6 @@ import { getUser, signIn } from "../../services/auth";
 export default function SignInForm() {
 
   const { user, setUser } = useUserContext();
-  console.log(user);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
