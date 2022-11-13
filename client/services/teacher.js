@@ -25,3 +25,17 @@ export async function getTeacherById(id) {
     return teacher;
   }
 }
+
+export async function getStudents(id) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/${id}/students`, {
+    credentials: "include",
+    headers: {
+      "Accept": "application/json"
+    }
+  })
+
+  if (response.ok) {
+    const students = await response.json();
+    return students;
+  }
+}

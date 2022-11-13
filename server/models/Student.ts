@@ -9,6 +9,7 @@ export default class Student {
   lastName: string;
   imageUrl: string;
   teachers?: Array<Teacher>
+  connectionApproved?: string;
 
   constructor(row: StudentFromDatabase) {
     this.id = row.id;
@@ -17,6 +18,7 @@ export default class Student {
     this.lastName = row.last_name;
     this.imageUrl = row.image_url;
     if (row.teachers) this.teachers = row.teachers.length ? row.teachers : [];
+    if (row.connection_approved) this.connectionApproved = row.connection_approved;
   }
 
   static async create({ userId, firstName, lastName, imageUrl }: NewStudentInfo): Promise<Student> {
