@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
+import StudentList from "../StudentList/StudentList";
 
 export default function StudentListPage() {
 
@@ -13,6 +14,7 @@ export default function StudentListPage() {
   return (
     <>
       <Header />
+      <StudentList />
     </>
   )
 }
