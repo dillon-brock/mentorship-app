@@ -1,4 +1,4 @@
-import { ConnectionFromDatabase } from "../../common/serverTypes/connectionTypes.js";
+import { ConnectionFromDatabase, NewConnection } from "../../common/serverTypes/connectionTypes.js";
 import pool from "../database.js";
 
 export default class Connection {
@@ -22,6 +22,17 @@ export default class Connection {
     );
 
     if (!rows[0]) return null;
+    return new Connection(rows[0]);
+  }
+
+  static async create({ teacherId, studentId, connectionApproved = 'pending' }: NewConnection): Promise<Connection> {
+    const { rows } = await pool.query(
+      `INSERT INTO teachers_students (teacher_id, student_id, connection_approved)
+      VALUES ($1, $2, $3)
+      RETURNING *`,
+      [teacherId, studentId, connectionApproved]
+    );
+    
     return new Connection(rows[0]);
   }
 }

@@ -7,7 +7,7 @@ export function useTeacher(id) {
   useEffect(() => {
     const fetchTeacherById = async () => {
       const data = await getTeacherById(id);
-      setTeacher(data);
+      setTeacher(data.teacher);
     }
     fetchTeacherById();
   }, []);

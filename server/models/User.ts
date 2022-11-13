@@ -9,6 +9,8 @@ export class User {
   firstName?: string;
   lastName?: string;
   imageUrl?: string;
+  studentId?: string;
+  teacherId?: string;
 
   constructor(row: UserFromDatabase) {
     this.id = row.id;
@@ -18,6 +20,8 @@ export class User {
     if (row.first_name) this.firstName = row.first_name;
     if (row.last_name) this.lastName = row.last_name;
     if (row.image_url) this.imageUrl = row.image_url;
+    if (row.student_id) this.studentId = row.student_id;
+    if (row.teacher_id) this.teacherId = row.teacher_id;
   }
 
   static async insert({ email, passwordHash, type }: HashedUserFormInput): Promise<User> {
@@ -50,12 +54,12 @@ export class User {
   async getAdditionalInfo() {
     let query: string = '';
     if (this.type === 'student') {
-      query = `SELECT users.*, students.first_name, students.last_name, students.image_url FROM users
+      query = `SELECT users.*, students.id AS student_id, students.first_name, students.last_name, students.image_url FROM users
       INNER JOIN students ON students.user_id = users.id
       WHERE users.id = $1` 
     }
     if (this.type === 'teacher') {
-      query = `SELECT users.*, teachers.first_name, teachers.last_name, teachers.image_url FROM users
+      query = `SELECT users.*, teachers.id AS teacher_id, teachers.first_name, teachers.last_name, teachers.image_url FROM users
       INNER JOIN teachers ON teachers.user_id = users.id
       WHERE users.id = $1`
     }

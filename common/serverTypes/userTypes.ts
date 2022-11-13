@@ -6,6 +6,8 @@ export type UserFromDatabase = {
   first_name?: string;
   last_name?: string;
   image_url?: string;
+  student_id?: string;
+  teacher_id?: string;
 }
 
 export type UserFromSignUpForm = {

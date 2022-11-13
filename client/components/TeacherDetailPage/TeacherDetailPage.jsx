@@ -8,10 +8,11 @@ import StarRating from "../StarRating/StarRating";
 export default function TeacherDetailPage() {
   const { user } = useUserContext();
   const { id } = useParams();
-  const { teacher } = useTeacher(id);
+  const { teacher, connection } = useTeacher(id);
 
   if (!user) return <Navigate to='/auth/sign-in' />
   console.log(teacher);
+  console.log(user);
 
   return (
     <>

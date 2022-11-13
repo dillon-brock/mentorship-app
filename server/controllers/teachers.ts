@@ -1,4 +1,6 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
+import authenticate from '../middleware/authenticate.js';
+import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
@@ -50,10 +52,13 @@ export default Router()
       next(error);
     }
   })
-  .get('/:id', async (req, res, next) => {
+  .get('/:id', authenticate, async (req, res, next) => {
     try {
-      const teacher = await Teacher.findById(req.params.id);
-      res.json(teacher);
+      if (req.params.id) {
+        const teacher = await Teacher.findById(req.params.id);
+        const connection = await Connection.findByIds(req.params.id, req.user.id);
+        res.json({ teacher, connection });
+      }
     }
     catch (e) {
       next(e);
