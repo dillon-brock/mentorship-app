@@ -12,7 +12,6 @@ export function useAllTeachers(subject, zipCode, radius) {
         const zipCodesInRadius = await getZipCodesInRadius({ zipCode, radius });
         setTeachers(data.filter(t => zipCodesInRadius.zip_codes.includes(t.zipCode)));
       } else {
-        console.log(zipCode, radius);
         setTeachers(data);
       }
     }

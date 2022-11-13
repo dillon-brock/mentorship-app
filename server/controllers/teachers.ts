@@ -21,10 +21,12 @@ export default Router()
         bio,
         zipCode,
         phoneNumber,
-        contactEmail
+        contactEmail,
+        city,
+        state
       } = req.body;
       const newUser = await UserService.create({ email, password, type: 'teacher' });
-      await Teacher.create({ userId: newUser.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl });
+      await Teacher.create({ userId: newUser.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
       const sessionToken = await UserService.signIn({ email, password });
       
       res

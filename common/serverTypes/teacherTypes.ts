@@ -7,6 +7,8 @@ export type TeacherFromDatabase = {
   image_url: string;
   bio: string;
   zip_code: string;
+  city: string | null;
+  state: string | null;
   phone_number: string;
   contact_email: string;
   avg_rating?: number;
@@ -17,6 +19,8 @@ export type NewTeacherInfo = {
   subject: string;
   bio: string | null;
   zipCode: string;
+  city: string | null;
+  state: string | null;
   phoneNumber: string | null;
   contactEmail: string | null;
   firstName: string;

@@ -3,11 +3,15 @@ import { Button, Form } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent, signUpTeacher } from '../../services/auth';
+import { getCityFromZipCode } from '../../services/zipcode';
 
 export default function SignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
+  const [showCityInput, setShowCityInput] = useState(false);
+  const [cityName, setCityName] = useState('');
+  const [stateName, setStateName] = useState('');
   const { setUser } = useUserContext();
 
   if (!accountType) {
@@ -31,11 +35,22 @@ export default function SignUpForm({ accountType }) {
       subject: formData.get('subject'),
       bio: formData.get('bio'),
       phoneNumber: formData.get('phoneNumber'),
-      contactEmail: formData.get('contactEmail')
+      contactEmail: formData.get('contactEmail'),
+      city: cityName,
+      state: stateName
     })
     
     const userInfo = await getUser();
     setUser(userInfo);
+  }
+
+  const handleEnterZipCode = async (e) => {
+    if (Number(e.target.value) && e.target.value.length === 5) {
+      const { city, state } = await getCityFromZipCode(e.target.value);
+      setShowCityInput(true);
+      setCityName(city);
+      setStateName(state);
+    }
   }
 
   return (
@@ -65,15 +80,23 @@ export default function SignUpForm({ accountType }) {
 
       {accountType === 'teacher' &&
       <>
-      <Form.Group className="mb-2" controlId="zipCode">
-        <Form.Label>Zip Code</Form.Label>
-        <Form.Control type="number" placeholder="97214" name="zip"></Form.Control>
-      </Form.Group>
-
         <Form.Group className="mb-2" controlId="subject">
           <Form.Label>Subject</Form.Label>
           <Form.Control type="text" placeholder="Art" name="subject"></Form.Control>
         </Form.Group>
+
+        <Form.Group className="mb-1" controlId="zipCode">
+          <Form.Label>Zip Code</Form.Label>
+          <Form.Control type="number" placeholder="97214" name="zip" onBlur={handleEnterZipCode}></Form.Control>
+        </Form.Group>
+
+        {showCityInput &&
+        <div>
+          <Form.Text>
+            {cityName}, {stateName}
+          </Form.Text>
+        </div>
+        }
 
         {showBioInput ?
           <Form.Group className="mb-2" controlId="bio">

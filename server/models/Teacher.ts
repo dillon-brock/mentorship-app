@@ -7,6 +7,8 @@ export default class Teacher {
   subject: string;
   bio: string | null;
   zipCode: string;
+  city: string | null;
+  state: string | null;
   phoneNumber: string | null;
   contactEmail: string | null;
   firstName: string;
@@ -14,12 +16,14 @@ export default class Teacher {
   imageUrl: string;
   avgRating?: number;
 
-  constructor({ id, user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating }: TeacherFromDatabase) {
+  constructor({ id, user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating, city, state }: TeacherFromDatabase) {
     this.id = id;
     this.userId = user_id;
     this.subject = subject;
     this.bio = bio;
     this.zipCode = zip_code;
+    this.city = city;
+    this.state = state;
     this.phoneNumber = phone_number;
     this.contactEmail = contact_email;
     this.firstName = first_name;
@@ -28,12 +32,24 @@ export default class Teacher {
     if (avg_rating) this.avgRating = avg_rating;
   }
 
-  static async create({ userId, subject, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl }: NewTeacherInfo): Promise<Teacher | null> {
+  static async create({ userId, subject, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher | null> {
     const { rows } = await pool.query(
-      `INSERT INTO teachers (user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO teachers (user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
       RETURNING *`,
-      [userId, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl]
+      [
+        userId,
+        subject,
+        bio,
+        zipCode,
+        phoneNumber,
+        contactEmail,
+        firstName,
+        lastName,
+        imageUrl,
+        city,
+        state
+      ]
     );
     
     if (!rows[0]) return null;

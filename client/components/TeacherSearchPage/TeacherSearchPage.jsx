@@ -8,7 +8,7 @@ import TeacherSearchForm from "../TeaherSearchForm/TeacherSearchForm";
 
 export default function TeacherSearchPage() {
 
-  const { user, setUser } = useUserContext();
+  const { user } = useUserContext();
   const [subject, setSubject] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState(0);
