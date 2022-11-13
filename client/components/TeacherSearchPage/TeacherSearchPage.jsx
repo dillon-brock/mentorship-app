@@ -10,6 +10,8 @@ export default function TeacherSearchPage() {
 
   const { user, setUser } = useUserContext();
   const [subject, setSubject] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [radius, setRadius] = useState(0);
 
   if (!user) {
     return <Navigate to='/auth/sign-in' />
@@ -19,8 +21,12 @@ export default function TeacherSearchPage() {
     <>
       <Header />
       <Container className="d-flex align-items-start justify-content-center">
-        <TeacherSearchForm subject={subject} setSubject={setSubject}/>
-        <TeacherResults subject={subject} />
+        <TeacherSearchForm
+          setSubject={setSubject}
+          setZipCode={setZipCode}
+          setRadius={setRadius}
+        />
+        <TeacherResults subject={subject} zipCode={zipCode} radius={radius} />
       </Container>
     </>
   )
