@@ -1,7 +1,7 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 
-export default function PendingStudent({ id, imageUrl, firstName, lastName, handleApproveConnection }) {
+export default function PendingStudent({ id, imageUrl, firstName, lastName, handleApprove, handleDeny }) {
 
   const { user } = useUserContext();
 
@@ -14,8 +14,8 @@ export default function PendingStudent({ id, imageUrl, firstName, lastName, hand
         <p>{`${firstName} ${lastName}`}</p>
       </Col>
       <Col className="d-flex align-items-center justify-content-end">
-        <Button onClick={() => handleApproveConnection(id)}>Add Student</Button>
-        <Button>Deny</Button>
+        <Button onClick={() => handleApprove(id)}>Add Student</Button>
+        <Button onClick={() => handleDeny(id)}>Deny</Button>
       </Col>
     </Container>
   )
