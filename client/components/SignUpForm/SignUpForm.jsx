@@ -28,7 +28,7 @@ export default function SignUpForm({ accountType }) {
     if (accountType === 'teacher') await signUpTeacher({
       ...baseInfo,
       zipCode: formData.get('zip'),
-      subject: formData.get('zip'),
+      subject: formData.get('subject'),
       bio: formData.get('bio'),
       phoneNumber: formData.get('phoneNumber'),
       contactEmail: formData.get('contactEmail')

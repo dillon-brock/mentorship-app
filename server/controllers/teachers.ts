@@ -2,6 +2,7 @@ import { Router, type Request, type Response, type NextFunction} from 'express';
 import authenticate from '../middleware/authenticate.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
+import Student from '../models/Student.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
 
@@ -70,6 +71,14 @@ export default Router()
         const reviews = await Review.findByTeacherId(req.params.id);
         res.json(reviews);
       }
+    } catch (e) {
+      next(e);
+    }
+  })
+  .get('/:id/students', async (req, res, next) => {
+    try {
+      const students = await Student.findByTeacherId(req.params.id);
+      res.json(students);
     } catch (e) {
       next(e);
     }

@@ -28,5 +28,17 @@ export default class Student {
     );
 
     return new Student(rows[0]);
-  } 
+  }
+  
+  static async findByTeacherId(teacherId: string): Promise<Array<Student> | null> {
+    const { rows } = await pool.query(
+      `SELECT students.*, teachers_students.connection_approved FROM students
+      INNER JOIN teachers_students ON teachers_students.student_id = students.id
+      WHERE teachers_students.teacher_id = $1`,
+      [teacherId]
+    );
+
+    if (!rows[0]) return null;
+    return rows.map(row => new Student(row));
+  }
 }
