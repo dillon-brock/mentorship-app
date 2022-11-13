@@ -9,6 +9,8 @@ export default function StudentList() {
     <>
       <p>Pending:</p>
       {pendingStudents.map(student => <PendingStudent {...student} />)}
+      <p>Current Students:</p>
+      {approvedStudents.map(student)}
     </>
   )
 }

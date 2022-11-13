@@ -1,4 +1,4 @@
-import { ConnectionFromDatabase, NewConnection } from "../../common/serverTypes/connectionTypes.js";
+import { ConnectionFromDatabase, ConnectionUpdate, NewConnection } from "../../common/serverTypes/connectionTypes.js";
 import pool from "../database.js";
 
 export default class Connection {
@@ -32,6 +32,18 @@ export default class Connection {
       RETURNING *`,
       [teacherId, studentId, connectionApproved]
     );
+    return new Connection(rows[0]);
+  }
+
+  static async update({ studentId, teacherId, connectionStatus}: ConnectionUpdate): Promise<Connection> {
+    const { rows } = await pool.query(
+      `UPDATE teachers_students
+      SET connection_approved = $1
+      WHERE student_id = $2 AND teacher_id = $3
+      RETURNING *`,
+      [connectionStatus, studentId, teacherId]
+    );
+
     return new Connection(rows[0]);
   }
 }

@@ -10,3 +10,9 @@ export type NewConnection = {
   teacherId: string;
   connectionApproved: string;
 }
+
+export type ConnectionUpdate = {
+  studentId: string;
+  teacherId: string;
+  connectionStatus: string;
+}
