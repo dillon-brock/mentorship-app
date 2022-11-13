@@ -8,8 +8,10 @@ export function useStudents(teacherId) {
   useEffect(() => {
     const fetchStudents = async () => {
       const data = await getStudents(teacherId);
-      setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
-      setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
+      if (data) {
+        setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
+        setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
+      }
     }
     fetchStudents();
   }, [teacherId]);

@@ -1,7 +1,7 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function TeacherResult({ id, firstName, lastName, zipCode, subject, imageUrl }) {
+export default function TeacherResult({ id, firstName, lastName, zipCode, subject, imageUrl, city, state }) {
   
   return (
     <Link to={`/teacher/${id}`} style={{ textDecoration: 'none' }}>
@@ -15,7 +15,11 @@ export default function TeacherResult({ id, firstName, lastName, zipCode, subjec
               <p>{`${firstName} ${lastName}`}</p>
             </Row>
             <Row>
-              <p>{`${subject} | ${zipCode}`}</p>
+              {city && state ?
+                <p>{`${subject} | ${city}, ${state}`}</p>
+                :
+                <p>{`${subject} | ${zipCode}`}</p>
+              }
             </Row>
           </Container>
         </Col>
