@@ -1,4 +1,5 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
+import Review from '../models/Review.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
 
@@ -37,7 +38,6 @@ export default Router()
   })
   .get('/', async (req, res, next) => {
     try {
-      console.log(req.query['subject']);
       let teachers;
       if (typeof req.query['subject'] === 'string') {
         teachers = await Teacher.findAll(req.query['subject']);
@@ -56,6 +56,16 @@ export default Router()
       res.json(teacher);
     }
     catch (e) {
+      next(e);
+    }
+  })
+  .get('/:id/reviews', async (req: Request, res: Response, next) => {
+    try {
+      if (req.params.id) {
+        const reviews = await Review.findByTeacherId(req.params.id);
+        res.json(reviews);
+      }
+    } catch (e) {
       next(e);
     }
   });

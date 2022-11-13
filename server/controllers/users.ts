@@ -10,7 +10,6 @@ export default Router()
     try {
       const { email, password } = req.body;
       const sessionToken = await UserService.signIn({ email, password });
-      console.log(sessionToken);
       res
         .cookie(process.env.COOKIE_NAME, sessionToken, {
           httpOnly: true,
