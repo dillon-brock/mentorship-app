@@ -1,5 +1,6 @@
 import { useUserContext } from "../../context/UserContext.js";
 import { useStudents } from "../../hooks/useStudents.js";
+import { updateConnectionStatus } from "../../services/connection.js";
 import ApprovedStudent from "../ApprovedStudent/ApprovedStudent.jsx";
 import PendingStudent from "../PendingStudent/PendingStudent.jsx";
 
@@ -16,10 +17,14 @@ export default function StudentList() {
 
   return (
     <>
-      <p>Pending:</p>
-      {pendingStudents.map(student => <PendingStudent {...student} handleApproveConnection={handleApproveConnection} />)}
+    {pendingStudents.length > 0 &&
+      <>
+        <p>Pending:</p>
+        {pendingStudents.map(student => <PendingStudent key={student.id} {...student} handleApproveConnection={handleApproveConnection} />)}
+      </>
+    }
       <p>Current Students:</p>
-      {approvedStudents.map(student => <ApprovedStudent {...student} />)};
+      {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} />)};
     </>
   )
 }

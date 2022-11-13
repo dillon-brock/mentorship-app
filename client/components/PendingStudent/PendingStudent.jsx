@@ -1,6 +1,5 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
-import { updateConnectionStatus } from "../../services/connection.js";
 
 export default function PendingStudent({ id, imageUrl, firstName, lastName, handleApproveConnection }) {
 
