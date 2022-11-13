@@ -1,5 +1,8 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
+import authenticate from '../middleware/authenticate.js';
+import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
+import Student from '../models/Student.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
 
@@ -50,10 +53,13 @@ export default Router()
       next(error);
     }
   })
-  .get('/:id', async (req, res, next) => {
+  .get('/:id', authenticate, async (req, res, next) => {
     try {
-      const teacher = await Teacher.findById(req.params.id);
-      res.json(teacher);
+      if (req.params.id) {
+        const teacher = await Teacher.findById(req.params.id);
+        const connection = await Connection.findByIds(req.params.id, req.user.id);
+        res.json({ teacher, connection });
+      }
     }
     catch (e) {
       next(e);
@@ -65,6 +71,14 @@ export default Router()
         const reviews = await Review.findByTeacherId(req.params.id);
         res.json(reviews);
       }
+    } catch (e) {
+      next(e);
+    }
+  })
+  .get('/:id/students', async (req, res, next) => {
+    try {
+      const students = await Student.findByTeacherId(req.params.id);
+      res.json(students);
     } catch (e) {
       next(e);
     }
