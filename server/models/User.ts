@@ -51,6 +51,17 @@ export class User {
     return this.#passwordHash;
   }
 
+  static async getById(id: string): Promise<User | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM users
+      WHERE id = $1`,
+      [id]
+    );
+
+    if (!rows[0]) return null;
+    return new User(rows[0]);
+  }
+
   async getAdditionalInfo() {
     let query: string = '';
     if (this.type === 'student') {

@@ -1,16 +1,18 @@
-export async function createConnection(teacherId) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/connections`, {
+export async function createConnection(teacherId, studentId) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections`, {
+    method: "POST",
     credentials: "include",
     headers: {
       "Content-type": "application/json",
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      teacherId
+      teacherId,
+      studentId
     })
   })
 
   if (response.ok) {
-    return response;
+    return await response.json();
   }
 }

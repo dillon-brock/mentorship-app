@@ -32,7 +32,6 @@ export default class Connection {
       RETURNING *`,
       [teacherId, studentId, connectionApproved]
     );
-    
     return new Connection(rows[0]);
   }
 }
