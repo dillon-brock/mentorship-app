@@ -30,7 +30,9 @@ export async function signUpTeacher({
   zipCode,
   phoneNumber,
   contactEmail,
-  imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+  imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+  city,
+  state
 }) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers`, {
     method: "POST",
@@ -45,7 +47,9 @@ export async function signUpTeacher({
       bio,
       zipCode,
       phoneNumber,
-      contactEmail
+      contactEmail,
+      city,
+      state
     }),
     headers: {
       "Content-type": "application/json",

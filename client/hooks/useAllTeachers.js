@@ -7,13 +7,16 @@ export function useAllTeachers(subject, zipCode, radius) {
 
   useEffect(() => {
     const fetchTeachers = async () => {
-      const zipCodesInRadius = await getZipCodesInRadius({ zipCode: '97214', radius: '300' });
-      console.log(zipCodesInRadius);
       const data = await getTeachers(subject);
-      setTeachers(data.filter(t => zipCodesInRadius.zip_codes.includes(t.zipCode)));
+      if (zipCode && radius) {
+        const zipCodesInRadius = await getZipCodesInRadius({ zipCode, radius });
+        setTeachers(data.filter(t => zipCodesInRadius.zip_codes.includes(t.zipCode)));
+      } else {
+        setTeachers(data);
+      }
     }
     fetchTeachers();
-  }, [subject])
+  }, [subject, zipCode, radius])
 
   return { teachers, setTeachers };
 

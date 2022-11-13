@@ -32,6 +32,8 @@ CREATE TABLE teachers (
   image_url TEXT NOT NULL,
   bio TEXT,
   zip_code TEXT NOT NULL,
+  city TEXT,
+  state TEXT,
   phone_number TEXT,
   contact_email TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id)
