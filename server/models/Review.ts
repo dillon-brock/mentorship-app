@@ -7,6 +7,10 @@ export default class Review {
   studentId: string | null;
   stars: number;
   detail: string | null;
+  createdAt: string;
+  firstName?: string;
+  lastName?: string;
+  imageUrl?: string;
 
   constructor(row: ReviewFromDatabase) {
     this.id = row.id;
@@ -14,12 +18,17 @@ export default class Review {
     this.studentId = row.student_id;
     this.stars = row.stars;
     this.detail = row.detail;
+    this.createdAt = row.created_at;
+    if (row.first_name) this.firstName = row.first_name;
+    if (row.last_name) this.lastName = row.last_name;
+    if (row.image_url) this.imageUrl = row.image_url;
   }
 
   static async findByTeacherId(teacherId: string): Promise<Array<Review>> {
     const { rows } = await pool.query(
-      `SELECT * FROM reviews
-      WHERE teacher_id = $1`,
+      `SELECT reviews.*, students.first_name, students.last_name, students.image_url FROM reviews
+      LEFT JOIN students ON reviews.student_id = students.id
+      WHERE reviews.teacher_id = $1`,
       [teacherId]
     );
 

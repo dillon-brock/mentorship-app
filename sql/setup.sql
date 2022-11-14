@@ -82,14 +82,14 @@ CREATE TABLE reviews (
   detail VARCHAR,
   teacher_id BIGINT NOT NULL,
   student_id BIGINT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (teacher_id) REFERENCES teachers(id),
   FOREIGN KEY (student_id) REFERENCES students(id)
 );
 
-INSERT INTO reviews (stars, teacher_id, student_id) VALUES
-  (5, 1, 1),
-  (4, 1, 2);
-
+INSERT INTO reviews (stars, detail, teacher_id, student_id) VALUES
+  (5, 'An absolutely incredible teacher!', 1, 1),
+  (4, 'I came in as a total beginner and I definitely learned a lot! For the most part I thought Arlop was great, there were just a couple of times where it seemed like he might have a tough time explaining things to total beginners.', 1, 2);
 
 
 

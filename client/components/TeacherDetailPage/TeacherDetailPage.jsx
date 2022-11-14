@@ -4,12 +4,13 @@ import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
 import Header from "../Header/Header";
+import ReviewListModal from "../ReviewListModal/ReviewListModal";
 import StarRating from "../StarRating/StarRating";
 
 export default function TeacherDetailPage() {
   const { user } = useUserContext();
   const { id } = useParams();
-  const { teacher, connection, setConnection } = useTeacher(id);
+  const { teacher, connection, setConnection, reviews } = useTeacher(id);
 
   console.log(teacher);
 
@@ -24,7 +25,10 @@ export default function TeacherDetailPage() {
       <p>{teacher.subject}  |  {teacher.zipCode}</p>
       <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
       {teacher.avgRating ?
-        <StarRating value={Number(teacher.avgRating)} editable={false} />
+        <>
+          <StarRating value={Number(teacher.avgRating)} editable={false} />
+          <ReviewListModal reviews={reviews} />
+        </>
         :
         <p><em>No reviews yet</em></p>
       }
