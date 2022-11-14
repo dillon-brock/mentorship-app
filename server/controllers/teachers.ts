@@ -57,9 +57,10 @@ export default Router()
   })
   .get('/:id', authenticate, async (req, res, next) => {
     try {
+      console.log(req.user.studentId);
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
-        const connection = await Connection.findByIds(req.params.id, req.user.id);
+        const connection = await Connection.findByIds(req.params.id, req.user.studentId);
         res.json({ teacher, connection });
       }
     }

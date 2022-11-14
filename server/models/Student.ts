@@ -43,4 +43,15 @@ export default class Student {
     if (!rows[0]) return null;
     return rows.map(row => new Student(row));
   }
+
+  static async findByUserId(userId: string): Promise<Student | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM students
+      WHERE user_id = $1`,
+      [userId]
+    );
+
+    if (!rows[0]) return null;
+    return new Student(rows[0]);
+  }
 }
