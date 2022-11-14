@@ -4,6 +4,7 @@ import teacherRouter from './controllers/teachers.js';
 import studentRouter from './controllers/students.js';
 import userRouter from './controllers/users.js';
 import connectionRouter from './controllers/connections.js';
+import reviewRouter from './controllers/reviews.js';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/teachers', teacherRouter);
 app.use('/students', studentRouter);
 app.use('/users', userRouter);
 app.use('/connections', connectionRouter);
+app.use('/reviews', reviewRouter);
 
 app.all('*', (req: Request, res: Response) => {
   console.log(`404 for ${req.url}`)

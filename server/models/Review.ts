@@ -1,4 +1,4 @@
-import { ReviewFromDatabase } from "../../common/serverTypes/reviewTypes.js";
+import { NewReview, ReviewFromDatabase } from "../../common/serverTypes/reviewTypes.js";
 import pool from "../database.js";
 
 export default class Review {
@@ -33,5 +33,16 @@ export default class Review {
     );
 
     return rows.map(row => new Review(row));
+  }
+
+  static async create({ studentId = null, stars, detail, teacherId }: NewReview): Promise<Review> {
+    const { rows } = await pool.query(
+      `INSERT INTO reviews (stars, detail, student_id, teacher_id)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *`,
+      [stars, detail, studentId, teacherId]
+    );
+
+    return new Review(rows[0]);
   }
 }

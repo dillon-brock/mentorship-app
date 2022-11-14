@@ -9,3 +9,10 @@ export type ReviewFromDatabase = {
   last_name?: string;
   image_url?: string;
 }
+
+export type NewReview = {
+  studentId: string | null;
+  stars: string;
+  detail: string;
+  teacherId: string;
+}
