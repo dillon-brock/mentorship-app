@@ -3,6 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
+import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import Header from "../Header/Header";
 import ReviewListModal from "../ReviewListModal/ReviewListModal";
 import StarRating from "../StarRating/StarRating";
@@ -10,12 +11,9 @@ import StarRating from "../StarRating/StarRating";
 export default function TeacherDetailPage() {
   const { user } = useUserContext();
   const { id } = useParams();
-  const { teacher, connection, setConnection, reviews } = useTeacher(id);
-
-  console.log(teacher);
+  const { teacher, setTeacher, connection, setConnection, reviews, setReviews } = useTeacher(id);
 
   if (!user) return <Navigate to='/auth/sign-in' />
-  console.log(teacher);
 
   return (
     <>
@@ -24,7 +22,7 @@ export default function TeacherDetailPage() {
       <p>{teacher.firstName} {teacher.lastName}</p>
       <p>{teacher.subject}  |  {teacher.zipCode}</p>
       <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
-      {teacher.avgRating ?
+      {reviews.length > 0 ?
         <>
           <StarRating value={Number(teacher.avgRating)} editable={false} />
           <ReviewListModal reviews={reviews} />
@@ -33,6 +31,7 @@ export default function TeacherDetailPage() {
         <p><em>No reviews yet</em></p>
       }
       {!connection && <AddConnectionModal {...teacher} connection={connection} setConnection={setConnection} />}
+      {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} teacher={teacher} setTeacher={setTeacher} reviews={reviews} />}
       <p>{teacher.bio}</p>
     </>
   )
