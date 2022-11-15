@@ -6,7 +6,6 @@ import { createConnection } from "../../services/connection.js";
 export default function AddConnectionModal({id, firstName, lastName, setConnection }) {
   const [studentWantsToConnect, setStudentWantsToConnect] = useState(false);
   const { user } = useUserContext();
-  console.log(user.studentId);
 
   const handleShow = () => setStudentWantsToConnect(true);
   const handleClose = () => setStudentWantsToConnect(false);
@@ -15,8 +14,6 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
     setConnection(newConnection);
     setStudentWantsToConnect(false);
   }
-
-  console.log(studentWantsToConnect);
 
   return (
     <>

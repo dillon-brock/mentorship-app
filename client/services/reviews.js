@@ -13,7 +13,6 @@ export async function getReviews(id) {
 }
 
 export async function postReview({ teacherId, studentId, stars, detail }) {
-  console.log(stars, detail, studentId, teacherId);
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/reviews`, {
     method: "POST",
     credentials: "include",

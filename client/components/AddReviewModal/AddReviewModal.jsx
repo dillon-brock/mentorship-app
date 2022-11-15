@@ -10,6 +10,8 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
   const { user } = useUserContext();
   
   const [studentWantsToAddReview, setStudentWantsToAddReview] = useState(false);
+  const [leaveAnonymously, setLeaveAnonymously] = useState(false);
+  const [stars, setStars] = useState(5);
 
   const handleShow = () => setStudentWantsToAddReview(true);
   const handleClose = () => setStudentWantsToAddReview(false);
@@ -18,13 +20,17 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
 
   const handleAddReview = async (e) => {
     e.preventDefault();
-    console.log('submitting review!');
     const formData = new FormData(e.target);
     const detail = formData.get("detail");
-    const newReview = await postReview({ teacherId: id, studentId: user.studentId, stars, detail });
+    const newReview = await postReview({
+      teacherId: id,
+      studentId: leaveAnonymously ? null : user.studentId,
+      stars,
+      detail
+    });
     setReviews(prev => [...prev, newReview]);
-    console.log([...reviews, newReview]);
     setTeacher({...teacher, avgRating: getAverageRating([...reviews, newReview ])})
+    setLeaveAnonymously(false);
     setStudentWantsToAddReview(false);
   }
 
@@ -41,9 +47,13 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
           <StarRating value={stars} editable={true} ratingChanged={ratingChanged} />
           <Form onSubmit={handleAddReview}>
             <Form.Group className="mb-2" controlId="detail">
-              <Form.Label></Form.Label>
               <Form.Control as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>
             </Form.Group>
+            <Form.Check
+              onChange={() => setLeaveAnonymously(!leaveAnonymously)}
+              type="checkbox"
+              label="Leave anonymously"
+            />
             <Button type="submit" variant="primary">
               Add Review
             </Button>
