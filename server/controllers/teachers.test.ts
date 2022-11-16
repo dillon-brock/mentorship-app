@@ -35,7 +35,7 @@ const testTeacher = {
 const registerAndLoginStudent = async () => {
   const agent = request.agent(app);
 
-  const agentResponse = await agent.post('/students').send(testStudent);
+  await agent.post('/students').send(testStudent);
   return agent;
 };
 
