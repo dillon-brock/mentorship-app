@@ -1,6 +1,6 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
 import { UserService } from '../services/UserService.js';
-import authenticate from '../middleware/authenticate.js';
+import authenticate from '../middleware/authenticateStudent.js';
 import { User } from '../models/User.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;

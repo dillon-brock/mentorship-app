@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authenticate from '../middleware/authenticate.js';
+import authenticate from '../middleware/authenticateStudent.js';
 import Connection from '../models/Connection.js';
 
 export default Router()

@@ -1,5 +1,5 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
-import authenticate from '../middleware/authenticate.js';
+import authenticateStudent from '../middleware/authenticateStudent.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Student from '../models/Student.js';
@@ -55,7 +55,7 @@ export default Router()
       next(error);
     }
   })
-  .get('/:id', authenticate, async (req, res, next) => {
+  .get('/:id', authenticateStudent, async (req, res, next) => {
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
@@ -67,7 +67,7 @@ export default Router()
       next(e);
     }
   })
-  .get('/:id/reviews', async (req: Request, res: Response, next) => {
+  .get('/:id/reviews', authenticateStudent, async (req: Request, res: Response, next) => {
     try {
       if (req.params.id) {
         const reviews = await Review.findByTeacherId(req.params.id);
@@ -79,8 +79,10 @@ export default Router()
   })
   .get('/:id/students', async (req, res, next) => {
     try {
-      const students = await Student.findByTeacherId(req.params.id);
-      res.json(students);
+      if (req.params.id) {
+        const students = await Student.findByTeacherId(req.params.id);
+        res.json(students);
+      }
     } catch (e) {
       next(e);
     }
