@@ -52,7 +52,6 @@ describe('teachers controller', () => {
   it("serves teacher info with id corresponding to params on GET /teachers/:id", async () => {
     const agent = await registerAndLoginStudent();
     const res = await agent.get('/teachers/1');
-    console.log(res);
     expect(res.status).toBe(200);
   })
 
