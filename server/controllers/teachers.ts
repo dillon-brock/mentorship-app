@@ -26,7 +26,7 @@ export default Router()
         state
       } = req.body;
       const newUser = await UserService.create({ email, password, type: 'teacher' });
-      await Teacher.create({ userId: newUser.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      const teacher = await Teacher.create({ userId: newUser.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
       const sessionToken = await UserService.signIn({ email, password });
       
       res
@@ -36,7 +36,7 @@ export default Router()
           sameSite: process.env.SECURE_COOKIES === 'true' ? 'none' : 'strict',
           maxAge: ONE_DAY_IN_MS,
         })
-        .json({ message: 'Signed in successfully!' });
+        .json({ message: 'Signed in successfully!', teacher });
     } catch (error) {
       next(error);
     }
