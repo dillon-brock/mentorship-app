@@ -5,37 +5,30 @@ import { useUserContext } from '../../context/UserContext';
 export default function ChatInbox() {
   const inboxEl = useRef();
   const { user } = useUserContext();
-  const [talkLoaded, setTalkLoaded] = useState(false);
+  // const [talkLoaded, setTalkLoaded] = useState(false);
 
   useEffect(() => {
-    Talk.ready.then(() => setTalkLoaded(true));
-
-    if (talkLoaded && user) {
-      const currentUser = new Talk.User({
-        id: user.id,
-        name: `${user.firstName} ${user.lastName}`,
-        photoUrl: user.imageUrl,
-        role: 'default'
-      });
-
-      if (!window.talkSession) {
-        window.talkSession = new Talk.Session({
-            appId: process.env.TALK_APP_ID,
-            me: currentUser
+    Talk.ready.then(() => {
+      if (user.id) {
+        const currentUser = new Talk.User({
+          id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
+          photoUrl: user.imageUrl,
+          role: 'default'
         });
-    }
-
-      const session = new Talk.Session({
-        appId: process.env.TALK_APP_ID,
-        me: currentUser
-      })
-
-      const inbox = session.createInbox();
-      inbox.mount(inboxEl.current);
-
-      return () => session.destroy();
-    }
-  }, [talkLoaded, user]);
+    
+        const session = new Talk.Session({
+          appId: process.env.TALK_APP_ID,
+          me: currentUser
+        })
+    
+        const inbox = session.createInbox();
+        inbox.mount(inboxEl.current);
+    
+        return () => session.destroy();
+      }
+    })
+  }, [user]);
 
   return (
   <Fragment>

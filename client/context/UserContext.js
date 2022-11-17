@@ -4,7 +4,7 @@ import { getUser } from '../services/auth.js';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const fetchUser = async () => {

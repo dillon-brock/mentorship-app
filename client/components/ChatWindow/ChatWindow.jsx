@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function ChatWindow({ primaryUser, secondaryUser }) {
   const chatboxEl = useRef();
-
   const [talkLoaded, setTalkLoaded] = useState(false);
 
   useEffect(() => {
