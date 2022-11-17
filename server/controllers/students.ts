@@ -15,7 +15,7 @@ export default Router()
         imageUrl
       } = req.body;
       const newUser = await UserService.create({ email, password, type: 'student' });
-      await Student.create({ userId: newUser.id, firstName, lastName, imageUrl });
+      const student = await Student.create({ userId: newUser.id, firstName, lastName, imageUrl });
       const sessionToken = await UserService.signIn({ email, password });
 
       res
@@ -25,8 +25,9 @@ export default Router()
           sameSite: process.env.SECURE_COOKIES === 'true' ? 'none' : 'strict',
           maxAge: ONE_DAY_IN_MS,
         })
-        .json({ message: 'Signed in successfully!' });
+        .json({ message: 'Signed in successfully!', student });
     } catch (e) {
+      console.log(e);
       next(e);
     }
   });
