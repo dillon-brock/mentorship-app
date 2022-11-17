@@ -4,6 +4,7 @@ import HtmlPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import dotenv from 'dotenv'
 import path from 'node:path'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import postcssImport from 'postcss-import'
 import postcssNested from 'postcss-nested'
 import webpack from 'webpack'
@@ -24,10 +25,10 @@ const env = Object.entries({
 }, {});
 
 export default {
-  entry: './client/app.tsx',
+  entry: './client/app.jsx',
   output: {
     filename: 'bundle.[hash].js',
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './public'),
     publicPath: '/',
   },
   devServer: {
@@ -47,8 +48,12 @@ export default {
     new CleanWebpackPlugin(),
     new webpack.EnvironmentPlugin(env),
     new CopyPlugin({
-      patterns: [{ from: 'public' }],
+      patterns: [{ from: 'client/public' }],
     }),
+    // This extracts CSS data and puts it into a CSS file, which is then
+    // included in our index.html. The gathering of the CSS data is done via the
+    // plugin's loader, which can be seen in the rules section below for CSS.
+    new MiniCssExtractPlugin(),
     // Bring this in to allow use of process.env in the web. See also the
     // resolve -> alias setting in this file, dotenv usage in this file, and
     // the added process package.
@@ -58,16 +63,23 @@ export default {
     }),
   ],
   resolve: {
-    alias: {
-      // Use this to allow use of process.env in the web. See also the
-      // ProvidePlugin usage in this file, dotenv usage in this file, and the
-      // added process package.
-      process: 'process/browser',
-    },
+    // alias: {
+    //   // Use this to allow use of process.env in the web. See also the
+    //   // ProvidePlugin usage in this file, dotenv usage in this file, and the
+    //   // added process package.
+    //   process: 'process/browser',
+    // },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        }
+      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
@@ -78,8 +90,12 @@ export default {
       {
         test: /\.css$/,
         use: [
+          MiniCssExtractPlugin.loader,
           {
-            loader: 'style-loader',
+            loader: 'css-modules-typescript-loader',
+            options: {
+              mode: process.env.CI ? 'verify' : 'emit'
+            },
           },
           {
             loader: 'css-loader',
@@ -87,6 +103,7 @@ export default {
               sourceMap: true,
               modules: {
                 localIdentName: '[name]__[local]__[hash:base64:5]',
+                exportLocalsConvention: 'camelCase',
               },
               importLoaders: 1,
             },
