@@ -11,6 +11,7 @@ declare global {
       JWT_SECRET: string;
       API_FETCH_URL: string;
       ZIPCODE_API_KEY: string;
+      SECURE_COOKIES: string;
     }
   }
 }
