@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose --runInBand --testLocationInResults --setupFiles dotenv/config --passWithNoTests",
     "test:watch": "npm run test -- --watch",
     "lint": "eslint --ext js --ext jsx .",
     "setup-db": "ts-node --esm setup-db.ts",
