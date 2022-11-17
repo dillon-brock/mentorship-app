@@ -1,13 +1,13 @@
 import Talk from 'talkjs';
 import { useEffect, useState, useRef } from 'react';
 
-export default function ChatBox({ primaryUser, secondaryUser }) {
+export default function ChatWindow({ primaryUser, secondaryUser }) {
   const chatboxEl = useRef();
 
-  const [talkLoaded, markTalkLoaded] = useState(false);
+  const [talkLoaded, setTalkLoaded] = useState(false);
 
   useEffect(() => {
-    Talk.ready.then(() => markTalkLoaded(true));
+    Talk.ready.then(() => setTalkLoaded(true));
 
     if (talkLoaded) {
       const currentUser = new Talk.User({
@@ -39,11 +39,9 @@ export default function ChatBox({ primaryUser, secondaryUser }) {
       chatbox.select(conversation);
       chatbox.mount(chatboxEl.current);
 
-      console.log(conversation);
-
       return () => session.destroy();
     }
   }, [talkLoaded]);
 
-  return <div style={{ height: '60vh', width: '20vw', position: 'fixed', bottom: '0px', right: '0px', transform: 'translate(-25%, 0)' }}ref={chatboxEl} />;
+  return <div style={{ height: '60vh', width: '20vw', position: 'fixed', bottom: '0px', right: '0px', transform: 'translate(-25%, 0)' }} ref={chatboxEl} />;
 }
