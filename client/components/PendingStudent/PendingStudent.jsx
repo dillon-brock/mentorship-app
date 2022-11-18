@@ -1,5 +1,4 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
-import { useUserContext } from "../../context/UserContext";
 
 export default function PendingStudent({ id, imageUrl, firstName, lastName, handleApprove, handleDeny, handleMessage }) {
 

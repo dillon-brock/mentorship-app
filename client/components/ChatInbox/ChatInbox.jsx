@@ -5,12 +5,10 @@ import { useUserContext } from '../../context/UserContext';
 export default function ChatInbox() {
   const inboxEl = useRef();
   const { user, doneGettingUser } = useUserContext();
-  // const [talkLoaded, setTalkLoaded] = useState(false);
 
   useEffect(() => {
-    if (doneGettingUser) {
       Talk.ready.then(() => {
-        if (user.id) {
+        if (doneGettingUser && user.id) {
           const currentUser = new Talk.User({
             id: user.id,
             name: `${user.firstName} ${user.lastName}`,
@@ -29,7 +27,6 @@ export default function ChatInbox() {
           return () => session.destroy();
         }
       })
-    }
   }, [user]);
 
   return (

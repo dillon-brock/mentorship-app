@@ -14,7 +14,7 @@ export default function Header() {
   }
 
   return (
-    <Navbar variant='light' expand='xl' className="mb-3">
+    <Navbar variant='light' expand={user ? false : 'xl'} className="mb-3">
       <Container fluid>
         <Navbar.Brand href="#">App Name</Navbar.Brand>
         <Navbar.Toggle />
@@ -31,7 +31,23 @@ export default function Header() {
                 </>
               }
               {user &&
-                <Button onClick={handleSignOut}>Sign Out</Button>
+                <>
+                  <Nav.Link href='/profile'>Profile</Nav.Link>
+                  {user.type == 'student' &&
+                    <>
+                      <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
+                      <Nav.Link onClick={handleSignOut} href='/auth/sign-up/teacher'>Create Teacher Profile</Nav.Link>
+                    </>
+                  }
+                  {user.type == 'teacher' &&
+                    <>
+                      <Nav.Link href='/my-students'>My Students</Nav.Link>
+                      <Nav.Link href='/find-teachers'>Create Student Profile</Nav.Link>
+                    </>
+                  }
+                  <Nav.Link href='/inbox'>Inbox</Nav.Link>
+                  <Button onClick={handleSignOut}>Sign Out</Button>
+                </>
               }
             </Nav>
           </Offcanvas.Body>
