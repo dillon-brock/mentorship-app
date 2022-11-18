@@ -5,16 +5,22 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [doneGettingUser, setDoneGettingUser] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const data = await getUser();
-      setUser(data);
+      try {
+        const data = await getUser();
+        setUser(data);
+        setDoneGettingUser(true);
+      } catch {
+        setDoneGettingUser(true);
+      }
     }
     fetchUser();
   }, [])
 
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser, doneGettingUser }}>{children}</UserContext.Provider>;
 };
 
 const useUserContext = () => {

@@ -6,9 +6,9 @@ import SignUpForm from "../SignUpForm/SignUpForm";
 
 export default function AuthPage() {
   const { method, accountType } = useParams();
-  const { user, setUser } = useUserContext();
+  const { user, doneGettingUser } = useUserContext();
 
-  if (user) {
+  if (doneGettingUser && user) {
     return <Navigate to={user.type === 'student' ? '/find-teachers' : '/my-students'} />
   }
 

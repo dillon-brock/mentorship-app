@@ -1,6 +1,6 @@
-import { Col, Container, Image } from "react-bootstrap";
+import { Button, Col, Container, Image } from "react-bootstrap";
 
-export default function ApprovedStudent({ id, imageUrl, firstName, lastName }) {
+export default function ApprovedStudent({ id, imageUrl, firstName, lastName, handleMessage }) {
   
   return (
     <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
@@ -11,6 +11,7 @@ export default function ApprovedStudent({ id, imageUrl, firstName, lastName }) {
         <p>{`${firstName} ${lastName}`}</p>
       </Col>
       <Col className="d-flex align-items-center justify-content-end">
+        <Button onClick={handleMessage}>Message</Button>
       </Col>
     </Container>
   )
