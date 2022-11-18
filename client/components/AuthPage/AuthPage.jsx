@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
 import SignInForm from "../SignInForm/SignInForm";
-import SignUpForm from "../SignUpForm/SignUpForm";
+import StudentSignUpForm from "../StudentSignUpForm/StudentSignUpForm";
 
 export default function AuthPage() {
   const { method, accountType } = useParams();
@@ -16,9 +17,13 @@ export default function AuthPage() {
     <>
       <Header />
       {method === 'sign-in' ?
-        <SignInForm />
-        :
-        <SignUpForm accountType={accountType} />
+          <SignInForm />
+          :
+          <>
+            {accountType == 'student' &&
+              <StudentSignUpForm />
+            }
+          </>
       }
     </>
   );

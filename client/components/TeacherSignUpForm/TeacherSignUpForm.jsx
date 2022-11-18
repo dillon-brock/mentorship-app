@@ -5,7 +5,7 @@ import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent, signUpTeacher } from '../../services/auth';
 import { getCityFromZipCode } from '../../services/zipcode';
 
-export default function SignUpForm({ accountType }) {
+export default function StudentSignUpForm({ accountType }) {
 
   const [showBioInput, setShowBioInput] = useState(false);
   const [showContactInfoInput, setShowContactInfoInput] = useState(false);
@@ -21,24 +21,13 @@ export default function SignUpForm({ accountType }) {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const baseInfo = {
-      firstName: formData.get('firstName'),
-      lastName: formData.get('lastName'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-      imageUrl: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+    let formDataObj = Object.fromEntries(formData);
+    formDataObj = {
+      ...formDataObj,
+      imageUrl: formData.get('imageUrl') || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     }
-    if (accountType === 'student') await signUpStudent({ ...baseInfo });
-    if (accountType === 'teacher') await signUpTeacher({
-      ...baseInfo,
-      zipCode: formData.get('zip'),
-      subject: formData.get('subject'),
-      bio: formData.get('bio'),
-      phoneNumber: formData.get('phoneNumber'),
-      contactEmail: formData.get('contactEmail'),
-      city: cityName,
-      state: stateName
-    })
+    if (accountType === 'student') await signUpStudent({...formDataObj});
+    if (accountType === 'teacher') await signUpTeacher({...formDataObj});
     
     const userInfo = await getUser();
     setUser(userInfo);
