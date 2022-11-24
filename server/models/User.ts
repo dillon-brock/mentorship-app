@@ -62,6 +62,18 @@ export class User {
     return new User(rows[0]);
   }
 
+  static async updateTypeById(id: string, type: string): Promise<User> {
+    const { rows } = await pool.query(
+      `UPDATE users
+      SET type = $1
+      WHERE id = $2
+      RETURNING *`,
+      [type, id]
+    );
+
+    return new User(rows[0]);
+  }
+
   async getAdditionalInfo() {
     let query: string = '';
     if (this.type === 'student') {

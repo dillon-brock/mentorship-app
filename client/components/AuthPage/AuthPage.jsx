@@ -4,6 +4,7 @@ import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
 import SignInForm from "../SignInForm/SignInForm";
 import StudentSignUpForm from "../StudentSignUpForm/StudentSignUpForm";
+import TeacherAuth from "../TeacherAuth/TeacherAuth";
 
 export default function AuthPage() {
   const { method, accountType } = useParams();
@@ -22,6 +23,9 @@ export default function AuthPage() {
           <>
             {accountType == 'student' &&
               <StudentSignUpForm />
+            }
+            {accountType == 'teacher' &&
+              <TeacherAuth />
             }
           </>
       }

@@ -5,45 +5,10 @@ import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent, signUpTeacher } from '../../services/auth';
 import { getCityFromZipCode } from '../../services/zipcode';
 
-export default function StudentSignUpForm({ accountType }) {
-
-  const [showBioInput, setShowBioInput] = useState(false);
-  const [showContactInfoInput, setShowContactInfoInput] = useState(false);
-  const [showCityInput, setShowCityInput] = useState(false);
-  const [cityName, setCityName] = useState('');
-  const [stateName, setStateName] = useState('');
-  const { setUser } = useUserContext();
-
-  if (!accountType) {
-    return <Navigate to='/auth/sign-up/student' />
-  }
-
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    let formDataObj = Object.fromEntries(formData);
-    formDataObj = {
-      ...formDataObj,
-      imageUrl: formData.get('imageUrl') || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-    }
-    if (accountType === 'student') await signUpStudent({...formDataObj});
-    if (accountType === 'teacher') await signUpTeacher({...formDataObj});
-    
-    const userInfo = await getUser();
-    setUser(userInfo);
-  }
-
-  const handleEnterZipCode = async (e) => {
-    if (Number(e.target.value) && e.target.value.length === 5) {
-      const { city, state } = await getCityFromZipCode(e.target.value);
-      setShowCityInput(true);
-      setCityName(city);
-      setStateName(state);
-    }
-  }
+export default function TeacherSignUpForm({ handleNext }) {
 
   return (
-    <Form className="text-left" style={{ width: '50%', margin: '0 auto' }} onSubmit={handleSignUp}>
+    <Form className="text-left" style={{ width: '50%', margin: '0 auto' }} onSubmit={handleNext}>
       <Form.Group className="mb-2" controlId="firstName">
         <Form.Label>First Name</Form.Label>
         <Form.Control type="text" placeholder="Jane" name="firstName"/>
@@ -67,55 +32,9 @@ export default function StudentSignUpForm({ accountType }) {
         <Form.Control type="password" placeholder="******" name="password"/>
       </Form.Group>
 
-      {accountType === 'teacher' &&
-      <>
-        <Form.Group className="mb-2" controlId="subject">
-          <Form.Label>Subject</Form.Label>
-          <Form.Control type="text" placeholder="Art" name="subject"></Form.Control>
-        </Form.Group>
-
-        <Form.Group className="mb-1" controlId="zipCode">
-          <Form.Label>Zip Code</Form.Label>
-          <Form.Control type="number" placeholder="97214" name="zip" onBlur={handleEnterZipCode}></Form.Control>
-        </Form.Group>
-
-        {showCityInput &&
-        <div>
-          <Form.Text>
-            {cityName}, {stateName}
-          </Form.Text>
-        </div>
-        }
-
-        {showBioInput ?
-          <Form.Group className="mb-2" controlId="bio">
-            <Form.Label>Bio</Form.Label>
-            <Form.Control as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio"></Form.Control>
-          </Form.Group>
-          :
-          <Button variant="outline-primary" onClick={() => setShowBioInput(true)}>+ Add Bio</Button>
-        }
-
-        {showContactInfoInput ?
-          <div>
-            <Form.Group className="mb-2" controlId="contactEmail">
-              <Form.Label>Contact Email</Form.Label>
-              <Form.Control type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
-            </Form.Group>
-            <Form.Group className="mb-2" controlId="phoneNumber">
-              <Form.Label>Phone Number</Form.Label>
-              <Form.Control type="text" placeholder="(555)555-5555" name="phoneNumber"></Form.Control>
-            </Form.Group>
-          </div>
-          :
-          <Button variant="outline-primary" onClick={() => setShowContactInfoInput(true)}>+ Add Contact Info</Button>
-        }
-
-      </>
-      }
       <div style={{ display: 'flex' }}>
         <Button variant="primary" type="submit">
-          Submit
+          Next
         </Button>
       </div>
     </Form>

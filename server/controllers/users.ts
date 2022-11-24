@@ -43,6 +43,16 @@ export default Router()
       next(e);
     }
   })
+  .put('/me', authenticate, async (req, res, next) => {
+    try {
+      const { type } = req.body;
+      const updatedUser = await User.updateTypeById(req.user.id, type);
+      res.json(updatedUser);
+    }
+    catch (e) {
+      next(e);
+    }
+  })
   .delete('/sessions', (req, res) => {
     res
       .clearCookie(process.env.COOKIE_NAME, {

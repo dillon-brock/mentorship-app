@@ -62,6 +62,26 @@ export async function signUpTeacher({
   }
 }
 
+export async function signUpUser({ email, password, type }) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify({
+      email,
+      password,
+      type
+    }),
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    }
+  });
+  const user = await response.json();
+  if (response.ok) {
+    return user;
+  }
+}
+
 export async function signIn({ email, password }) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/sessions`, {
     method: "POST",
@@ -102,4 +122,19 @@ export async function signOut() {
   if (!res.ok) {
     console.log('Something went wrong trying to sign out. Please try again');
   }
+}
+
+export async function updateUserType(type) {
+  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/me`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({ type })
+  });
+
+  const updatedUser = await res.json();
+  if (res.ok) return updatedUser;
 }
