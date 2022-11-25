@@ -5,9 +5,9 @@ import StudentList from "../StudentList/StudentList";
 
 export default function StudentListPage() {
 
-  const { user, setUser } = useUserContext();
-
-  if (!user) {
+  const { user, doneGettingUser } = useUserContext();
+  if (doneGettingUser) console.log(user);
+  if (!user && doneGettingUser) {
     return <Navigate to='/auth/sign-in' />
   }
 

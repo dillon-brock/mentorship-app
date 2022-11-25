@@ -36,7 +36,7 @@ export default function Header() {
                   {user.type == 'student' &&
                     <>
                       <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
-                      <Nav.Link onClick={handleSignOut} href='/auth/sign-up/teacher'>Create Teacher Profile</Nav.Link>
+                      <Nav.Link href='/add-account'>Create Teacher Profile</Nav.Link>
                     </>
                   }
                   {user.type == 'teacher' &&

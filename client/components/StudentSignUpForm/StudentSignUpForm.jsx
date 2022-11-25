@@ -1,15 +1,10 @@
 import { Button, Form } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
 
-export default function StudentSignUpForm({ accountType }) {
+export default function StudentSignUpForm() {
 
   const { setUser } = useUserContext();
-
-  if (!accountType) {
-    return <Navigate to='/auth/sign-up/student' />
-  }
 
   const handleSignUpStudent = async (e) => {
     e.preventDefault();

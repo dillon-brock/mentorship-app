@@ -21,6 +21,7 @@ export default function AuthPage() {
           <SignInForm />
           :
           <>
+            {!accountType && <Navigate to='/auth/sign-up/student'/>}
             {accountType == 'student' &&
               <StudentSignUpForm />
             }

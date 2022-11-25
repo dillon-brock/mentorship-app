@@ -40,8 +40,8 @@ export async function getStudents(id) {
   }
 }
 
-export async function signUpTeacher({ firstName, lastName, imageUrl, subject, bio, zipCode, phoneNumber, contactEmail, city, state }) {
-  const res = await fetch(`${process.env.API_FETCH_URL}`, {
+export async function addTeacherAccount({ firstName, lastName, imageUrl, subject, bio, zipCode, phoneNumber, contactEmail, city, state }) {
+  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/add-account`, {
     method: "POST",
     credentials: "include",
     headers: {

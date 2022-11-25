@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import AddTeacherAccountPage from './components/AddTeacherAccountPage/AddTeacherAccountPage';
 import AuthPage from './components/AuthPage/AuthPage';
 import InboxPage from './components/InboxPage/InboxPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
@@ -22,6 +23,7 @@ root.render(
         <Route path="/teacher/:id" element={<TeacherDetailPage />} />
         <Route path="/inbox" element={<InboxPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/add-account" element={<AddTeacherAccountPage />} />
       </Routes>
     </Router>
   </UserProvider>

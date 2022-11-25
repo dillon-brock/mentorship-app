@@ -77,13 +77,15 @@ export class User {
   async getAdditionalInfo() {
     let query: string = '';
     if (this.type === 'student') {
-      query = `SELECT users.*, students.id AS student_id, students.first_name, students.last_name, students.image_url FROM users
+      query = `SELECT users.*, students.id AS student_id, students.first_name, students.last_name, students.image_url, teachers.id AS teacher_id FROM users
       INNER JOIN students ON students.user_id = users.id
+      LEFT JOIN teachers ON teachers.user_id = users.id
       WHERE users.id = $1` 
     }
     if (this.type === 'teacher') {
-      query = `SELECT users.*, teachers.id AS teacher_id, teachers.first_name, teachers.last_name, teachers.image_url FROM users
+      query = `SELECT users.*, teachers.id AS teacher_id, teachers.first_name, teachers.last_name, teachers.image_url, students.id AS student_id FROM users
       INNER JOIN teachers ON teachers.user_id = users.id
+      LEFT JOIN students ON students.user_id = users.id
       WHERE users.id = $1`
     }
 
