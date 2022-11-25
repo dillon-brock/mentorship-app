@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import { getUser, signUpTeacher, signUpUser } from "../../services/auth";
+import { getUser, signUpTeacher } from "../../services/auth";
 import { getCityFromZipCode } from "../../services/zipcode";
 import TeacherBioForm from "../TeacherBioForm/TeacherBioForm";
 import TeacherLessonForm from "../TeacherLessonForm/TeacherLessonForm";
