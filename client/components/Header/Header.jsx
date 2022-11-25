@@ -36,13 +36,21 @@ export default function Header() {
                   {user.type == 'student' &&
                     <>
                       <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
-                      <Nav.Link href='/add-account'>Create Teacher Profile</Nav.Link>
+                      {user.teacherId ? 
+                          <Nav.Link onClick={() => setUser({ ...user, type: 'teacher'})} href='/my-students'>Go To Teacher Profile</Nav.Link>
+                          :
+                          <Nav.Link href='/add-account'>Create Teacher Profile</Nav.Link>
+                      }
                     </>
                   }
                   {user.type == 'teacher' &&
                     <>
                       <Nav.Link href='/my-students'>My Students</Nav.Link>
-                      <Nav.Link href='/find-teachers'>Create Student Profile</Nav.Link>
+                      {user.studentId ?
+                        <Nav.Link href='/find-teachers'>Go To Student Profile</Nav.Link>
+                        :
+                        <Nav.Link href='/find-teachers'>Create Student Profile</Nav.Link>
+                      }
                     </>
                   }
                   <Nav.Link href='/inbox'>Inbox</Nav.Link>
