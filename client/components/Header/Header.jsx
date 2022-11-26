@@ -1,5 +1,5 @@
-import { Button, Container, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth';
 import { addStudentAccount } from '../../services/student';
@@ -8,7 +8,6 @@ export default function Header() {
 
   const { method } = useParams();
   const { user, setUser } = useUserContext();
-
   const handleSignOut = async () => {
     await signOut();
     setUser(null);
@@ -68,7 +67,9 @@ export default function Header() {
                     </>
                   }
                   <Nav.Link href='/inbox'>Inbox</Nav.Link>
-                  <Button onClick={handleSignOut}>Sign Out</Button>
+                  <Link to='/auth/sign-in'>
+                    <Button onClick={handleSignOut}>Sign Out</Button>
+                  </Link>
                 </>
               }
             </Nav>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
@@ -18,7 +17,12 @@ export default function AuthRedirectModal({ teacherId, userNeedsToSignIn, setUse
           </Button>
           <Link to={`/auth/sign-in?callback=${pathname}`}>
             <Button variant="primary">
-              Go to Sign In
+              Sign In
+            </Button>
+          </Link>
+          <Link to={`/auth/sign-up/student?callback=${pathname}`}>
+            <Button variant="primary">
+              Sign Up
             </Button>
           </Link>
         </Modal.Footer>
