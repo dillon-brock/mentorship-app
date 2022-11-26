@@ -1,4 +1,5 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
+import authenticateStudent from '../middleware/authenticateStudent.js';
 import Student from '../models/Student.js';
 import { UserService } from '../services/UserService.js';
 
@@ -43,4 +44,12 @@ export default Router()
     } catch (e) {
       next(e);
     }
-  });
+  })
+  .get('/me', authenticateStudent, async (req, res, next) => {
+    try {
+      const student = Student.findById(req.user.studentId);
+      res.json(student);
+    } catch (e) {
+      next (e);
+    }
+  })

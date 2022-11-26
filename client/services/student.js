@@ -16,3 +16,15 @@ export async function addStudentAccount({ firstName, lastName, imageUrl }) {
   const newStudentInfo = await response.json();
   if (response.ok) return newStudentInfo;
 }
+
+export async function getStudentProfile() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/me`, {
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  const studentProfileInfo = await response.json();
+  if (response.ok) return studentProfileInfo;
+}
