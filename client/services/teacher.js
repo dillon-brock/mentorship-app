@@ -65,3 +65,40 @@ export async function addTeacherAccount({ firstName, lastName, imageUrl, subject
   const newTeacherInfo = await res.json();
   if (res.ok) return newTeacherInfo;
 }
+
+export async function updateAccount({ subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl}) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/me`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      subject,
+      bio,
+      zipCode,
+      city,
+      state,
+      phoneNumber,
+      contactEmail,
+      firstName,
+      lastName,
+      imageUrl
+    })
+  });
+
+  const updatedInfo = await response.json();
+  if (response.ok) return updatedInfo;
+}
+
+export async function getTeacherProfile() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/me`, {
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  const teacherProfileInfo = await response.json();
+  if (response.ok) return teacherProfileInfo;
+}

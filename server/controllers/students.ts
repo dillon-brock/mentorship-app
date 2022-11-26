@@ -1,4 +1,5 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
+import authenticateStudent from '../middleware/authenticateStudent.js';
 import Student from '../models/Student.js';
 import { UserService } from '../services/UserService.js';
 
@@ -40,6 +41,22 @@ export default Router()
       } = req.body;
       const student = Student.create({ userId: req.user.id, firstName, lastName, imageUrl });
       res.json(student);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .get('/me', authenticateStudent, async (req, res, next) => {
+    try {
+      const student = await Student.findById(req.user.studentId);
+      res.json(student);
+    } catch (e) {
+      next (e);
+    }
+  })
+  .put('/me', authenticateStudent, async (req, res, next) => {
+    try {
+      const updatedStudent = await Student.updateByUserId({ ...req.body, userId: req.user.id });
+      res.json(updatedStudent);
     } catch (e) {
       next(e);
     }

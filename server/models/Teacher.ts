@@ -80,4 +80,48 @@ export default class Teacher {
     return new Teacher(rows[0]);
   }
 
+  static async findByUserId(userId: string): Promise<Teacher | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teachers
+      WHERE user_id = $1`,
+      [userId]
+    );
+    if (!rows[0]) return null;
+    return new Teacher(rows[0]);
+  }
+
+  static async updateByUserId({
+    userId,
+    subject,
+    bio,
+    zipCode,
+    city,
+    state,
+    phoneNumber,
+    contactEmail,
+    firstName,
+    lastName,
+    imageUrl
+  }: NewTeacherInfo): Promise<Teacher | null> {
+    const { rows } = await pool.query(
+      `UPDATE teachers
+      SET subject = $1,
+      bio = $2,
+      zip_code = $3,
+      city = $4, 
+      state = $5,
+      phone_number = $6,
+      contact_email = $7,
+      first_name = $8,
+      last_name = $9,
+      image_url = $10
+      WHERE user_id = $11
+      RETURNING *
+      `,
+      [subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl, userId]
+    );
+    if (!rows[0]) return null;
+    return new Teacher(rows[0]);
+  }
+
 }

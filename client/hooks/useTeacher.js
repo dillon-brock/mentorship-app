@@ -11,7 +11,6 @@ export function useTeacher(id) {
   useEffect(() => {
     const fetchTeacherById = async () => {
       const data = await getTeacherById(id);
-      console.log(data);
       const reviews = await getReviews(id);
       setTeacher(data.teacher);
       setConnection(data.connection);
