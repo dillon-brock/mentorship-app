@@ -1,12 +1,11 @@
+import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function AuthRedirectModal({ teacherId, userNeedsToSignIn, setUserNeedsToSignIn }) {
 
+  const { pathname } = useLocation();
   const handleClose = () => setUserNeedsToSignIn(false);
-  const handleGoToSignIn = () => {
-    return <Navigate to={`/auth/sign-in?callback=/teacher/${teacherId}`} />
-  }
 
   return (
     <>
@@ -17,9 +16,11 @@ export default function AuthRedirectModal({ teacherId, userNeedsToSignIn, setUse
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleGoToSignIn}>
-            Go to Sign In
-          </Button>
+          <Link to={`/auth/sign-in?callback=${pathname}`}>
+            <Button variant="primary">
+              Go to Sign In
+            </Button>
+          </Link>
         </Modal.Footer>
       </Modal>
     </>

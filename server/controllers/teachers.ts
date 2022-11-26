@@ -75,19 +75,23 @@ export default Router()
       next(error);
     }
   })
-  .get('/:id', authenticateStudent, async (req, res, next) => {
+  .get('/:id', async (req, res, next) => {
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
-        const connection = await Connection.findByIds(req.params.id, req.user.studentId);
-        res.json({ teacher, connection });
+        if (req.user) {
+          const connection = await Connection.findByIds(req.params.id, req.user.studentId);
+          res.json({ teacher, connection });
+        } else {
+          res.json({ teacher, connection: null })
+        }
       }
     }
     catch (e) {
       next(e);
     }
   })
-  .get('/:id/reviews', authenticateStudent, async (req: Request, res: Response, next) => {
+  .get('/:id/reviews', async (req: Request, res: Response, next) => {
     try {
       if (req.params.id) {
         const reviews = await Review.findByTeacherId(req.params.id);
