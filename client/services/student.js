@@ -28,3 +28,21 @@ export async function getStudentProfile() {
   const studentProfileInfo = await response.json();
   if (response.ok) return studentProfileInfo;
 }
+
+export async function updateAccount({ firstName, lastName, imageUrl }) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/me`, {
+    method: 'PUT',
+    credentials:  'include',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      imageUrl
+    })
+  });
+
+  if (response.ok) return await response.json();
+}
