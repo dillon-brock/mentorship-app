@@ -16,8 +16,6 @@ export default function TeacherDetailPage() {
   const { teacher, setTeacher, connection, setConnection, reviews, setReviews } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
 
-  if (!user) return <Navigate to='/auth/sign-in' />
-  console.log(teacher);
   return (
     <>
       <Header />

@@ -13,10 +13,6 @@ export default function TeacherSearchPage() {
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState(0);
 
-  if (!user && doneGettingUser) {
-    return <Navigate to='/auth/sign-in' />
-  }
-
   if (doneGettingUser) console.log(user);
   
   return (
