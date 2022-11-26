@@ -91,3 +91,15 @@ export async function updateAccount({ subject, bio, zipCode, city, state, phoneN
   const updatedInfo = await response.json();
   if (response.ok) return updatedInfo;
 }
+
+export async function getTeacherProfile(id) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/${id}/profile`, {
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  const teacherProfileInfo = await response.json();
+  if (response.ok) return teacherProfileInfo;
+}

@@ -92,6 +92,14 @@ export default Router()
       next(e);
     }
   })
+  .get('/:id/profile', async (req, res, next) => {
+    try {
+      const teacher = await Teacher.findById(req.params.id);
+      res.json(teacher);
+    } catch (e) {
+      next(e);
+    }
+  })
   .put('/:id', authenticateTeacher, async (req, res, next) => {
     try {
       const {
