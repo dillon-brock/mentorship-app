@@ -61,6 +61,7 @@ export default Router()
         imageUrl
       } = req.body;
       const updatedStudent = await Student.updateByUserId({ ...req.body, userId: req.user.id });
+      res.json(updatedStudent);
     } catch (e) {
       next(e);
     }

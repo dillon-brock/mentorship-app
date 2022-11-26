@@ -71,7 +71,7 @@ export default class Student {
       `UPDATE students
       SET first_name = $1,
       last_name = $2,
-      image_url = $3,
+      image_url = $3
       WHERE user_id = $4
       RETURNING *`,
       [firstName, lastName, imageUrl, userId]

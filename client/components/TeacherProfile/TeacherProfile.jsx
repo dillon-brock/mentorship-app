@@ -11,7 +11,8 @@ export default function TeacherProfile() {
   const { teacher, setTeacher, zipCode, setZipCode, stateName, setStateName, cityName, setCityName } = useTeacherProfile(user.teacherId);
   const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await updateAccount({ ...teacher })
     setUserWantsToEditProfile(false);
   }

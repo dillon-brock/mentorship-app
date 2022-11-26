@@ -2,13 +2,16 @@ import { useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from 'react-icons/fa';
 import useStudentProfile from "../../hooks/useStudentProfile"
+import { updateAccount } from "../../services/student";
 
 export default function StudentProfile() {
   const { student, setStudent } = useStudentProfile();
   const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
-
-  const handleSubmit = () => {
-
+  console.log(userWantsToEditProfile);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await updateAccount({ ...student });
+    setUserWantsToEditProfile(false);
   }
 
   return (
