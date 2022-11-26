@@ -34,12 +34,7 @@ export default Router()
   })
   .post('/add-account', async (req, res, next) => {
     try {
-      const {
-        firstName,
-        lastName,
-        imageUrl
-      } = req.body;
-      const student = Student.create({ userId: req.user.id, firstName, lastName, imageUrl });
+      const student = Student.create({ ...req.body, userId: req.user.id });
       res.json(student);
     } catch (e) {
       next(e);

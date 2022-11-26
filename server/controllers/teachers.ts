@@ -44,19 +44,7 @@ export default Router()
   })
   .post('/add-account', authenticateStudent, async (req, res, next) => {
     try {
-      const {
-        firstName,
-        lastName,
-        imageUrl,
-        subject,
-        bio,
-        zipCode,
-        phoneNumber,
-        contactEmail,
-        city,
-        state
-      } = req.body;
-      const teacher = await Teacher.create({ userId: req.user.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      const teacher = await Teacher.create({ ...req.body, userId: req.user.id });
       res.json(teacher);
     } catch (e) {
       next (e);
