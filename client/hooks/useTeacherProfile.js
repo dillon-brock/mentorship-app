@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { getTeacherProfile } from "../services/teacher";
+import { useEffect, useState } from "react";
+import { getTeacherProfile } from "../services/teacher.js";
 
 export default function useTeacherProfile(id) {
   const [teacher, setTeacher] = useState({});
@@ -15,8 +15,8 @@ export default function useTeacherProfile(id) {
       setCityName(data.city);
       setStateName(data.stateName);
     }
+    fetchProfileData();
   }, [id]);
-  fetchProfileData();
 
   return { teacher, setTeacher, zipCode, setZipCode, stateName, setStateName, cityName, setCityName };
 }

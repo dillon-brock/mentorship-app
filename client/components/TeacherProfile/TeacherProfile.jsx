@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext"
-import { useTeacher } from "../../hooks/useTeacher"
 import { FaEdit } from 'react-icons/fa';
 import { updateAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
+import useTeacherProfile from "../../hooks/useTeacherProfile";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
-  const { teacher, setTeacher } = useTeacher(user.teacherId);
+  const { teacher, setTeacher, zipCode, setZipCode, stateName, setStateName, cityName, setCityName } = useTeacherProfile(user.teacherId);
   const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
-  const [cityName, setCityName] = useState(teacher.city);
-  const [stateName, setStateName] = useState(teacher.state);
-  const [zipCode, setZipCode] = useState(teacher.zipCode);
 
   const handleSubmit = async () => {
     await updateAccount({ ...teacher })
@@ -25,7 +22,7 @@ export default function TeacherProfile() {
       if (city && state) {
         setCityName(city);
         setStateName(state);
-        setTeacher({ ...teacher, zipCode, city: cityName, state: stateName })
+        setTeacher({ ...teacher, zipCode, city, state })
       }
     }
   }
@@ -74,7 +71,7 @@ export default function TeacherProfile() {
           <Form.Control type="text" value={teacher.subject} onChange={(e) => setTeacher({ ...teacher, subject: e.target.value })} />
           <p>Zip Code</p>
           <Form.Control type="number" value={zipCode} onChange={(e) => setZipCode(e.target.value)} onBlur={handleChangeZipCode}/>
-          <p>{teacher.city} {teacher.state}</p>
+          <p>{cityName} {stateName}</p>
           <Button type="submit">Save Changes</Button>
         </Form>
       </>
