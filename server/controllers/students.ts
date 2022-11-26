@@ -47,7 +47,7 @@ export default Router()
   })
   .get('/me', authenticateStudent, async (req, res, next) => {
     try {
-      const student = Student.findById(req.user.studentId);
+      const student = await Student.findById(req.user.studentId);
       res.json(student);
     } catch (e) {
       next (e);
