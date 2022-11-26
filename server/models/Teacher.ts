@@ -117,7 +117,8 @@ export default class Teacher {
       image_url = $10
       WHERE user_id = $11
       RETURNING *
-      `
+      `,
+      [subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl, userId]
     );
     if (!rows[0]) return null;
     return new Teacher(rows[0]);

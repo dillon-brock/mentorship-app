@@ -5,9 +5,9 @@ import StudentProfile from "../StudentProfile/StudentProfile";
 import TeacherProfile from "../TeacherProfile/TeacherProfile";
 
 export default function ProfilePage() {
-  const { user, doneGettingUser } = useUserContext();
+  const { user } = useUserContext();
   const { pathname } = useLocation();
-  if (!user && doneGettingUser) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
+  if (!user) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
 
   return (
     <>
