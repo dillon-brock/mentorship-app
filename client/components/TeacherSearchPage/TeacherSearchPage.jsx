@@ -8,14 +8,12 @@ import TeacherSearchForm from "../TeaherSearchForm/TeacherSearchForm";
 
 export default function TeacherSearchPage() {
 
-  const { user } = useUserContext();
+  const { user, doneGettingUser } = useUserContext();
   const [subject, setSubject] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState(0);
 
-  if (!user) {
-    return <Navigate to='/auth/sign-in' />
-  }
+  if (doneGettingUser) console.log(user);
   
   return (
     <>

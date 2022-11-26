@@ -39,3 +39,29 @@ export async function getStudents(id) {
     return students;
   }
 }
+
+export async function addTeacherAccount({ firstName, lastName, imageUrl, subject, bio, zipCode, phoneNumber, contactEmail, city, state }) {
+  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/add-account`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      imageUrl,
+      subject,
+      bio,
+      zipCode,
+      phoneNumber,
+      contactEmail,
+      city,
+      state
+    })
+  });
+
+  const newTeacherInfo = await res.json();
+  if (res.ok) return newTeacherInfo;
+}

@@ -41,6 +41,26 @@ export default Router()
       next(error);
     }
   })
+  .post('/add-account', authenticateStudent, async (req, res, next) => {
+    try {
+      const {
+        firstName,
+        lastName,
+        imageUrl,
+        subject,
+        bio,
+        zipCode,
+        phoneNumber,
+        contactEmail,
+        city,
+        state
+      } = req.body;
+      const teacher = await Teacher.create({ userId: req.user.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      res.json(teacher);
+    } catch (e) {
+      next (e);
+    }
+  })
   .get('/', async (req, res, next) => {
     try {
       let teachers;
@@ -55,19 +75,23 @@ export default Router()
       next(error);
     }
   })
-  .get('/:id', authenticateStudent, async (req, res, next) => {
+  .get('/:id', async (req, res, next) => {
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
-        const connection = await Connection.findByIds(req.params.id, req.user.studentId);
-        res.json({ teacher, connection });
+        if (req.user) {
+          const connection = await Connection.findByIds(req.params.id, req.user.studentId);
+          res.json({ teacher, connection });
+        } else {
+          res.json({ teacher, connection: null })
+        }
       }
     }
     catch (e) {
       next(e);
     }
   })
-  .get('/:id/reviews', authenticateStudent, async (req: Request, res: Response, next) => {
+  .get('/:id/reviews', async (req: Request, res: Response, next) => {
     try {
       if (req.params.id) {
         const reviews = await Review.findByTeacherId(req.params.id);
