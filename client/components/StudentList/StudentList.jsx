@@ -29,6 +29,8 @@ export default function StudentList() {
     setOpenChatBox(true);
   }
 
+  if (pendingStudents.length === 0 && approvedStudents.length === 0) return <p>You have no current or pending students</p>;
+
   return (
     <>
     {pendingStudents.length > 0 &&
@@ -45,11 +47,15 @@ export default function StudentList() {
         ))}
       </>
     }
-      <p>Current Students:</p>
-      {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
-      {openChatBox &&
-        <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} />
-      }
+    {approvedStudents.length > 0 &&
+      <>
+        <p>Current Students:</p>
+        {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
+        {openChatBox &&
+          <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} />
+        }
+      </>   
+    }
     </>
   )
 }
