@@ -1,20 +1,33 @@
-import { Button, Container, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { signOut } from '../../services/auth';
+import { signOut, updateUserType } from '../../services/auth';
+import { addStudentAccount } from '../../services/student';
 
 export default function Header() {
 
   const { method } = useParams();
   const { user, setUser } = useUserContext();
-
   const handleSignOut = async () => {
     await signOut();
     setUser(null);
   }
 
+  const handleCreateStudentProfile = async () => {
+    const studentInfo = await addStudentAccount({ firstName: user.firstName, lastName: user.lastName, imageUrl: user.imageUrl });
+    setUser({ ...user, type: 'student', studentId: studentInfo.id });
+  }
+
+  const handleGoToStudentProfile = async () => {
+    await updateUserType('student');
+  }
+
+  const handleGoToTeacherProfile = async () => {
+    await updateUserType('teacher');
+  }
+
   return (
-    <Navbar variant='light' expand='xl' className="mb-3">
+    <Navbar variant='light' expand={user ? false : 'xl'} className="mb-3">
       <Container fluid>
         <Navbar.Brand href="#">App Name</Navbar.Brand>
         <Navbar.Toggle />
@@ -31,7 +44,33 @@ export default function Header() {
                 </>
               }
               {user &&
-                <Button onClick={handleSignOut}>Sign Out</Button>
+                <>
+                  <Nav.Link href='/profile'>Profile</Nav.Link>
+                  {user.type == 'student' &&
+                    <>
+                      <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
+                      {user.teacherId ? 
+                          <Nav.Link onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Nav.Link>
+                          :
+                          <Nav.Link href='/add-account'>Create Teacher Profile</Nav.Link>
+                      }
+                    </>
+                  }
+                  {user.type == 'teacher' &&
+                    <>
+                      <Nav.Link href='/my-students'>My Students</Nav.Link>
+                      {user.studentId ?
+                        <Nav.Link onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Nav.Link>
+                        :
+                        <Nav.Link onClick={handleCreateStudentProfile} href='/find-teachers'>Create Student Profile</Nav.Link>
+                      }
+                    </>
+                  }
+                  <Nav.Link href='/inbox'>Inbox</Nav.Link>
+                  <Link to='/auth/sign-in'>
+                    <Button onClick={handleSignOut}>Sign Out</Button>
+                  </Link>
+                </>
               }
             </Nav>
           </Offcanvas.Body>

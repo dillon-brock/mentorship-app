@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { useUserContext } from "../../context/UserContext.js";
 import { useStudents } from "../../hooks/useStudents.js";
 import { updateConnectionStatus } from "../../services/connection.js";
 import ApprovedStudent from "../ApprovedStudent/ApprovedStudent.jsx";
+import ChatWindow from "../ChatWindow/ChatWindow.jsx";
 import PendingStudent from "../PendingStudent/PendingStudent.jsx";
 
 export default function StudentList() {
   const { user } = useUserContext();
   const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents } = useStudents(user.teacherId);
+  const [openChatBox, setOpenChatBox] = useState(false);
+  const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
 
   const handleApprove = async (id) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
@@ -20,6 +24,11 @@ export default function StudentList() {
     setPendingStudents(prev => prev.filter(s => s.id !== id));
   }
 
+  const handleMessage = (student) => {
+    setStudentMessageRecipient(student);
+    setOpenChatBox(true);
+  }
+
   return (
     <>
     {pendingStudents.length > 0 &&
@@ -31,12 +40,16 @@ export default function StudentList() {
             {...student} 
             handleApprove={handleApprove} 
             handleDeny={handleDeny}
+            handleMessage={() => handleMessage(student)}
           />
         ))}
       </>
     }
       <p>Current Students:</p>
-      {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} />)};
+      {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
+      {openChatBox &&
+        <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} />
+      }
     </>
   )
 }

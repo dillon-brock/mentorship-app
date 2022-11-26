@@ -1,21 +1,17 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import ChatInbox from "../ChatInbox/ChatInbox";
 import Header from "../Header/Header";
-import StudentList from "../StudentList/StudentList";
 
-export default function StudentListPage() {
-
+export default function InboxPage() {
   const { user, doneGettingUser } = useUserContext();
   const { pathname } = useLocation();
 
-  if (!user && doneGettingUser) {
-    return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
-  }
-
+  if (doneGettingUser && !user) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
   return (
     <>
       <Header />
-      <StudentList />
+      <ChatInbox />
     </>
   )
 }

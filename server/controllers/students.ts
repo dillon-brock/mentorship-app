@@ -30,4 +30,17 @@ export default Router()
       console.log(e);
       next(e);
     }
+  })
+  .post('/add-account', async (req, res, next) => {
+    try {
+      const {
+        firstName,
+        lastName,
+        imageUrl
+      } = req.body;
+      const student = Student.create({ userId: req.user.id, firstName, lastName, imageUrl });
+      res.json(student);
+    } catch (e) {
+      next(e);
+    }
   });

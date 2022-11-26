@@ -3,11 +3,17 @@ import { Button, Modal } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext.js";
 import { createConnection } from "../../services/connection.js";
 
-export default function AddConnectionModal({id, firstName, lastName, setConnection }) {
+export default function AddConnectionModal({id, firstName, lastName, setConnection, setUserNeedsToSignIn }) {
   const [studentWantsToConnect, setStudentWantsToConnect] = useState(false);
   const { user } = useUserContext();
 
-  const handleShow = () => setStudentWantsToConnect(true);
+  const handleShow = () => {
+    if (!user) {
+      setUserNeedsToSignIn(true);
+      return;
+    }
+    setStudentWantsToConnect(true)
+  };
   const handleClose = () => setStudentWantsToConnect(false);
   const handleSendRequest = async () => {
     const newConnection = await createConnection(id, user.studentId);

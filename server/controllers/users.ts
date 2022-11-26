@@ -6,6 +6,14 @@ import { User } from '../models/User.js';
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 export default Router()
+  .post('/', async (req, res, next) => {
+    try {
+      const user = await UserService.create(req.body);
+      res.json(user);
+    } catch (e) {
+      next(e);
+    }
+  })
   .post('/sessions', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
@@ -32,6 +40,16 @@ export default Router()
       res.json(user);
       }
     } catch (e) {
+      next(e);
+    }
+  })
+  .put('/me', authenticate, async (req, res, next) => {
+    try {
+      const { type } = req.body;
+      const updatedUser = await User.updateTypeById(req.user.id, type);
+      res.json(updatedUser);
+    }
+    catch (e) {
       next(e);
     }
   })

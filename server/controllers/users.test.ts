@@ -14,6 +14,12 @@ const testUser = {
   type: 'student'
 }
 
+const testUser2 = {
+  email: 'test@teacher.com',
+  password: '123456',
+  type: 'student'
+}
+
 const testStudent = {
   firstName: 'Test',
   lastName: 'Student',
@@ -54,11 +60,27 @@ describe('teachers controller', () => {
     return setupDb()
   })
   it('signs in a user on POST /users/sessions', async () => {
-    const user = await UserService.create(testUser);
+    await UserService.create(testUser);
     const res = await request(app).post('/users/sessions').send(testUser);
     expect(res.status).toBe(200);
     expect(res.body.message).toEqual('Signed in successfully!');
   })
+  it('signs up a user on POST /users', async () => {
+    const studentRes = await request(app).post('/users').send(testUser);
+    expect(studentRes.status).toBe(200);
+    expect(studentRes.body).toEqual({
+      id: expect.any(String),
+      email: testUser.email,
+      type: testUser.type
+    });
+    const teacherRes = await request(app).post('/users').send(testUser2);
+    expect(teacherRes.status).toBe(200);
+    expect(teacherRes.body).toEqual({
+      id: expect.any(String),
+      email: testUser2.email,
+      type: testUser2.type
+    });
+  });
   it('gets the current user with student information for students on GET /users/me', async () => {
     const agent = await registerAndLoginStudent();
     const res = await agent.get('/users/me');
