@@ -6,13 +6,8 @@ import Student from '../models/Student.js';
 export default Router()
   .post('/', authenticateStudent, async (req, res, next) => {
     try {
-      const {
-        stars,
-        detail,
-        studentId,
-        teacherId
-      } = req.body;
-      const newReview = await Review.create({ studentId, stars, detail, teacherId });
+      const { studentId } = req.body;
+      const newReview = await Review.create({ ...req.body });
       if (studentId) {
         const reviewAuthor = await Student.findById(studentId);
         res.json({ ...newReview, firstName: reviewAuthor?.firstName, lastName: reviewAuthor?.lastName, imageUrl: reviewAuthor?.imageUrl });
