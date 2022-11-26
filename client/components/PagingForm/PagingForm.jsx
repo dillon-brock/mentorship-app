@@ -1,15 +1,15 @@
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
-export default function PagingForm({ setPageLength, setPage, totalPages }) {
+export default function PagingForm({ setPageLength, setPage, page, totalPages }) {
 
-  handlePreviousPage = () => {
+  const handlePreviousPage = () => {
     setPage(prev => {
       if (prev > 1) return prev - 1;
       return 1;
     })
   }
 
-  handleNextPage = () => {
+  const handleNextPage = () => {
     setPage(prev => {
       if (prev < totalPages) return prev + 1;
       return totalPages;
@@ -24,8 +24,8 @@ export default function PagingForm({ setPageLength, setPage, totalPages }) {
         <option value={25}>25</option>
         <option value={50}>50</option>
       </Form.Select>
-      <Button onClick={handlePreviousPage}>Prev</Button>
-      <Button onClick={handleNextPage}>Next</Button>
+      <Button disabled={page == 1} onClick={handlePreviousPage}>Prev</Button>
+      <Button disabled={page == totalPages} onClick={handleNextPage}>Next</Button>
     </Form.Group>
   )
 }
