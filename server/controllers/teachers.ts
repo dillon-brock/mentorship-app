@@ -1,5 +1,6 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Student from '../models/Student.js';
@@ -88,6 +89,37 @@ export default Router()
       }
     }
     catch (e) {
+      next(e);
+    }
+  })
+  .put('/:id', authenticateTeacher, async (req, res, next) => {
+    try {
+      const {
+        subject,
+        bio,
+        zipCode,
+        city,
+        state,
+        phoneNumber,
+        contactEmail,
+        firstName,
+        lastName,
+        imageUrl
+      } = req.body;
+      const updatedTeacher = Teacher.updateByUserId({
+        userId: req.user.id,
+        subject,
+        bio,
+        zipCode,
+        city,
+        state,
+        phoneNumber,
+        contactEmail,
+        firstName,
+        lastName,
+        imageUrl });
+      res.json(updatedTeacher);
+    } catch (e) {
       next(e);
     }
   })
