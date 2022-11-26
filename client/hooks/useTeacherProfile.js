@@ -9,7 +9,7 @@ export default function useTeacherProfile(id) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      const data = await getTeacherProfile(id);
+      const data = await getTeacherProfile();
       setTeacher(data);
       setZipCode(data.zipCode);
       setCityName(data.city);

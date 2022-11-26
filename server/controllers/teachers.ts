@@ -76,6 +76,22 @@ export default Router()
       next(error);
     }
   })
+  .get('/me', authenticateTeacher, async (req, res, next) => {
+    try {
+      const teacher = await Teacher.findById(req.user.teacherId);
+      res.json(teacher);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .put('/me', authenticateTeacher, async (req, res, next) => {
+    try {
+      const updatedTeacher = Teacher.updateByUserId({ ...req.body, userId: req.user.id });
+      res.json(updatedTeacher);
+    } catch (e) {
+      next(e);
+    }
+  })
   .get('/:id', async (req, res, next) => {
     try {
       if (req.params.id) {
@@ -89,45 +105,6 @@ export default Router()
       }
     }
     catch (e) {
-      next(e);
-    }
-  })
-  .get('/:id/profile', async (req, res, next) => {
-    try {
-      const teacher = await Teacher.findById(req.params.id);
-      res.json(teacher);
-    } catch (e) {
-      next(e);
-    }
-  })
-  .put('/:id', authenticateTeacher, async (req, res, next) => {
-    try {
-      const {
-        subject,
-        bio,
-        zipCode,
-        city,
-        state,
-        phoneNumber,
-        contactEmail,
-        firstName,
-        lastName,
-        imageUrl
-      } = req.body;
-      const updatedTeacher = Teacher.updateByUserId({
-        userId: req.user.id,
-        subject,
-        bio,
-        zipCode,
-        city,
-        state,
-        phoneNumber,
-        contactEmail,
-        firstName,
-        lastName,
-        imageUrl });
-      res.json(updatedTeacher);
-    } catch (e) {
       next(e);
     }
   })

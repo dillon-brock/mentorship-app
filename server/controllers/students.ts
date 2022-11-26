@@ -55,11 +55,6 @@ export default Router()
   })
   .put('/me', authenticateStudent, async (req, res, next) => {
     try {
-      const {
-        firstName,
-        lastName,
-        imageUrl
-      } = req.body;
       const updatedStudent = await Student.updateByUserId({ ...req.body, userId: req.user.id });
       res.json(updatedStudent);
     } catch (e) {
