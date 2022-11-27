@@ -8,7 +8,6 @@ import TeacherSignUpForm from "../TeacherSignUpForm/TeacherSignUpForm";
 
 export default function TeacherAuth() {
   const [step, setStep] = useState(1);
-  const [showCity, setShowCity] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cityName, setCityName] = useState('');
@@ -22,17 +21,6 @@ export default function TeacherAuth() {
   const { user, setUser, doneGettingUser } = useUserContext();
   
   if (user && doneGettingUser) return <Navigate to='/my-students'/>
-
-  const handleEnterZipCode = async (e) => {
-    if (Number(e.target.value) && e.target.value.length === 5) {
-      const { city, state } = await getCityFromZipCode(e.target.value);
-      if (city && state) {
-        setShowCity(true);
-        setCityName(city);
-        setStateName(state);
-      }
-    }
-  }
 
 
   return (
@@ -48,13 +36,13 @@ export default function TeacherAuth() {
       }
       {step === 2 &&
         <TeacherLessonForm
-          showCity={showCity}
-          handleEnterZipCode={handleEnterZipCode}
           setZipCode={setZipCode}
           setSubject={setSubject}
           setStep={setStep}
           cityName={cityName}
+          setCityName={setCityName}
           stateName={stateName}
+          setStateName={setStateName}
         />
       }
       {step === 3 &&
