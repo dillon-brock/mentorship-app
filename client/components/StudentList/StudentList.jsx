@@ -12,6 +12,7 @@ export default function StudentList() {
   const [openChatBox, setOpenChatBox] = useState(false);
   const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
 
+
   const handleApprove = async (id) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
     const updatedStudent = pendingStudents.find(s => s.id === id);
@@ -27,6 +28,10 @@ export default function StudentList() {
   const handleMessage = (student) => {
     setStudentMessageRecipient(student);
     setOpenChatBox(true);
+  }
+
+  const handleCloseChatBox = () => {
+    setOpenChatBox(false);
   }
 
   if (pendingStudents.length === 0 && approvedStudents.length === 0) return <p>You have no current or pending students</p>;
@@ -51,10 +56,10 @@ export default function StudentList() {
       <>
         <p>Current Students:</p>
         {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
-        {openChatBox &&
-          <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} />
-        }
       </>   
+    }
+    {openChatBox &&
+      <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />
     }
     </>
   )
