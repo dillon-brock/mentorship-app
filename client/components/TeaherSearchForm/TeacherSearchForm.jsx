@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
-export default function TeacherSearchForm({ setSubject, setZipCode, setRadius }) {
+export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, errorMessage, setErrorMessage }) {
 
   const [radiusForDisplay, setRadiusForDisplay] = useState(25);
 
@@ -30,6 +30,9 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius })
           <Form.Control type="range" min="0" max="50" step="5" name="radius" value={radiusForDisplay} onInput={(e) => setRadiusForDisplay(e.target.value)}/>
           <Form.Text>{radiusForDisplay} miles</Form.Text>
         </Form.Group>
+        {errorMessage && 
+          <Form.Text className="text-danger">{errorMessage}</Form.Text>
+        }
         <Button variant="primary" type="submit">
           Update Results
         </Button>

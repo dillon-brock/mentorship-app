@@ -53,6 +53,15 @@ export default Router()
       next(e);
     }
   })
+  .post('/find', async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      const user = await User.getByEmail(email);
+      res.json(user);
+    } catch (e) {
+      next(e);
+    }
+  })
   .delete('/sessions', (req, res) => {
     res
       .clearCookie(process.env.COOKIE_NAME, {

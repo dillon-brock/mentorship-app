@@ -65,4 +65,18 @@ export default class Student {
     if (!rows[0]) return null;
     return new Student(rows[0]);
   }
+
+  static async updateByUserId({ userId, firstName, lastName, imageUrl }: NewStudentInfo): Promise<Student | null> {
+    const { rows } = await pool.query(
+      `UPDATE students
+      SET first_name = $1,
+      last_name = $2,
+      image_url = $3
+      WHERE user_id = $4
+      RETURNING *`,
+      [firstName, lastName, imageUrl, userId]
+    );
+    if (!rows[0]) return null;
+    return new Student(rows[0]);
+  }
 }

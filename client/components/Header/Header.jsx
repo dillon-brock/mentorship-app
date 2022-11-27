@@ -9,8 +9,8 @@ export default function Header() {
   const { method } = useParams();
   const { user, setUser } = useUserContext();
   const handleSignOut = async () => {
-    await signOut();
     setUser(null);
+    await signOut();
   }
 
   const handleCreateStudentProfile = async () => {

@@ -1,5 +1,6 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Student from '../models/Student.js';
@@ -43,19 +44,7 @@ export default Router()
   })
   .post('/add-account', authenticateStudent, async (req, res, next) => {
     try {
-      const {
-        firstName,
-        lastName,
-        imageUrl,
-        subject,
-        bio,
-        zipCode,
-        phoneNumber,
-        contactEmail,
-        city,
-        state
-      } = req.body;
-      const teacher = await Teacher.create({ userId: req.user.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      const teacher = await Teacher.create({ ...req.body, userId: req.user.id });
       res.json(teacher);
     } catch (e) {
       next (e);
@@ -73,6 +62,22 @@ export default Router()
       res.json(teachers);
     } catch (error) {
       next(error);
+    }
+  })
+  .get('/me', authenticateTeacher, async (req, res, next) => {
+    try {
+      const teacher = await Teacher.findById(req.user.teacherId);
+      res.json(teacher);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .put('/me', authenticateTeacher, async (req, res, next) => {
+    try {
+      const updatedTeacher = Teacher.updateByUserId({ ...req.body, userId: req.user.id });
+      res.json(updatedTeacher);
+    } catch (e) {
+      next(e);
     }
   })
   .get('/:id', async (req, res, next) => {
