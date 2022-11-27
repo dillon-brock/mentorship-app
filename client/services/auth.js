@@ -94,9 +94,7 @@ export async function signIn({ email, password }) {
     }
   })
 
-  if (response.ok) {
-    return await response.json();
-  }
+  return await response.json();
 }
 
 export async function getUser() {
