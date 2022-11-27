@@ -35,18 +35,9 @@ export default function TeacherAuth() {
     }
   }
 
-  const goToBioForm = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    setSubject(formData.get('subject'));
-    setZipCode(formData.get('zip'));
-    setStep(3);
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData.get('bio'), formData.get('contactEmail'), formData.get('phoneNumber'));
     await signUpTeacher({
       email,
       password,
@@ -81,7 +72,9 @@ export default function TeacherAuth() {
         <TeacherLessonForm
           showCity={showCity}
           handleEnterZipCode={handleEnterZipCode}
-          handleNext={goToBioForm}
+          setZipCode={setZipCode}
+          setSubject={setSubject}
+          setStep={setStep}
           cityName={cityName}
           stateName={stateName}
         />
