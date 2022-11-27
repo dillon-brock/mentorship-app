@@ -134,3 +134,16 @@ export async function updateUserType(type) {
   const updatedUser = await res.json();
   if (res.ok) return updatedUser;
 }
+
+export async function checkForExistingUser(email) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/find`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ email })
+  });
+
+  return await response.json();
+}
