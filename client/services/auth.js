@@ -15,9 +15,7 @@ export async function signUpStudent({ email, password, firstName, lastName, imag
     }
   })
 
-  if (response.ok) {
-    return response;
-  }
+  return await response.json();
 }
 
 export async function signUpTeacher({
@@ -96,9 +94,7 @@ export async function signIn({ email, password }) {
     }
   })
 
-  if (response.ok) {
-    return await response.json();
-  }
+  return await response.json();
 }
 
 export async function getUser() {
@@ -137,4 +133,17 @@ export async function updateUserType(type) {
 
   const updatedUser = await res.json();
   if (res.ok) return updatedUser;
+}
+
+export async function checkForExistingUser(email) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/find`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ email })
+  });
+
+  return await response.json();
 }
