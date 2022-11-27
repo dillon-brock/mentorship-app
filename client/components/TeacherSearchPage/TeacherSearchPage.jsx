@@ -18,6 +18,8 @@ export default function TeacherSearchPage() {
   const [page, setPage] = useState(1);
   const { teachers, setTeachers, totalPages } = useAllTeachers(subject, zipCode, radius, page, pageLength);
 
+  if (doneGettingUser) console.log(user);
+
   
   return (
     <>

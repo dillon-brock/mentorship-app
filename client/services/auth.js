@@ -15,9 +15,7 @@ export async function signUpStudent({ email, password, firstName, lastName, imag
     }
   })
 
-  if (response.ok) {
-    return response;
-  }
+  return await response.json();
 }
 
 export async function signUpTeacher({
