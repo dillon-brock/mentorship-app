@@ -12,8 +12,6 @@ export default function StudentSignUpForm() {
   const [formErrors, setFormErrors] = useState({});
   const { setUser } = useUserContext();
 
-  console.log(formErrors);
-
   const isFormInvalid = () => {
     let invalid = false;
 

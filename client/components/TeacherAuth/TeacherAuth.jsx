@@ -35,16 +35,6 @@ export default function TeacherAuth() {
     }
   }
 
-  const goToLessonForm = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    setEmail(formData.get('email'));
-    setPassword(formData.get('password'));
-    setFirstName(formData.get('firstName'));
-    setLastName(formData.get('lastName'));
-    setStep(2);
-  }
-
   const goToBioForm = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -79,7 +69,13 @@ export default function TeacherAuth() {
   return (
     <>
       {step === 1 &&
-        <TeacherSignUpForm handleNext={goToLessonForm}/>
+        <TeacherSignUpForm
+          setEmail = {setEmail}
+          password = {setPassword}
+          setFirstName = {setFirstName}
+          setLastName = {setLastName}
+          setStep = {setStep}
+        />
       }
       {step === 2 &&
         <TeacherLessonForm
