@@ -1,4 +1,6 @@
+import { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { checkForExistingUser } from '../../services/auth';
 
 export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName, setLastName, setStep }) {
 
@@ -52,6 +54,11 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
     e.preventDefault();
     if (isFormInvalid()) return;
     const formData = new FormData(e.target);
+    const existingUser = await checkForExistingUser(formData.get('email'));
+    if (existingUser) {
+      setFormErrors({ ...formErrors, email: 'This email is already being used by another account. Please sign in or use a different email.' })
+      return;
+    }
     setEmail(formData.get('email'));
     setPassword(formData.get('password'));
     setFirstName(formData.get('firstName'));
@@ -65,11 +72,17 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       <Form.Group className="mb-2" controlId="firstName">
         <Form.Label>First Name</Form.Label>
         <Form.Control type="text" placeholder="Jane" name="firstName" onChange={handleChangeFirstName} ref={firstNameInputRef}/>
+        {formErrors.firstName && 
+          <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
+        }
       </Form.Group>
 
       <Form.Group className="mb-2" controlId="lastName">
         <Form.Label>Last Name</Form.Label>
         <Form.Control type="text" placeholder="Doe" name="lastName" onChange={handleChangeLastName} ref={lastNameInputRef}/>
+        {formErrors.lastName &&
+          <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
+        }
       </Form.Group>
 
       <Form.Group className="mb-2" controlId="formBasicEmail">
@@ -78,11 +91,19 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
         <Form.Text className="text-muted">
           We&apos;ll never share your email with anyone else.
         </Form.Text>
+        {formErrors.email &&
+        <div>
+          <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+        </div>
+        }
       </Form.Group>
 
       <Form.Group className="mb-2" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="******" name="password" onChange={handleChangePassword} ref={passwordInputRef} />
+        {formErrors.password &&
+          <Form.Text className="text-danger">{formErrors.password}</Form.Text>
+        }
       </Form.Group>
 
       <div style={{ display: 'flex' }}>

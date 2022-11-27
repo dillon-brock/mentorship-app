@@ -71,7 +71,7 @@ export default function TeacherAuth() {
       {step === 1 &&
         <TeacherSignUpForm
           setEmail = {setEmail}
-          password = {setPassword}
+          setPassword = {setPassword}
           setFirstName = {setFirstName}
           setLastName = {setLastName}
           setStep = {setStep}
