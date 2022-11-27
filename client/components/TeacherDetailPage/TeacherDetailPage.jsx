@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Image } from "react-bootstrap";
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
@@ -26,6 +26,11 @@ export default function TeacherDetailPage() {
     }
     setOpenChatWindow(true);
   }
+
+  const handleCloseChatWindow = () => {
+    setOpenChatWindow(false);
+  }
+
   return (
     <>
       <Header />
@@ -47,7 +52,7 @@ export default function TeacherDetailPage() {
       {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} teacher={teacher} setTeacher={setTeacher} reviews={reviews} />}
       <p>{teacher.bio}</p>
       {openChatWindow &&
-        <ChatWindow primaryUser={user} secondaryUser={teacher} />
+        <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
       }
     </>
   )
