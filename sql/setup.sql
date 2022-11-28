@@ -38,22 +38,35 @@ CREATE TABLE teachers (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-INSERT INTO teachers (user_id, subject, zip_code, first_name, last_name, image_url) VALUES
-  (3, 'scratching', '97214', 'Arlop', 'Beans', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-  (4, 'Alexander Technique', '97214', 'Helen', 'Spencer-Wallace', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-  (5, 'ams', '97202', 'Jordan', 'Laurent', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-  (6, 'Alexander Technique', '48390', 'Rebecca', 'Harrison', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-  (1, 'p5.js', '97232', 'Dillon', 'Brock', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
+INSERT INTO teachers (user_id, zip_code, first_name, last_name, image_url) VALUES
+  (3, '97214', 'Arlop', 'Beans', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+  (4, '97214', 'Helen', 'Spencer-Wallace', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+  (5, '97202', 'Jordan', 'Laurent', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+  (6, '48390', 'Rebecca', 'Harrison', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+  (1, '97232', 'Dillon', 'Brock', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
 
 CREATE TABLE subjects (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   teacher_id BIGINT NOT NULL,
   subject TEXT NOT NULL,
-  min_price TEXT NOT NULL,
-  max_price TEXT NOT NULL,
+  min_price INT NOT NULL,
+  max_price INT NOT NULL,
   lesson_type TEXT NOT NULL,
   FOREIGN KEY (teacher_id) REFERENCES teachers(id)
 );
+
+INSERT INTO subjects (teacher_id, subject, min_price, max_price, lesson_type) VALUES
+  (1, 'scratching', 0, 0, 'in person'),
+  (1, 'screaming', 0, 10, 'remote'),
+  (2, 'Alexander Technique', 50, 100, 'in person'),
+  (2, 'Analog Modular Synthesis', 90, 120, 'in person'),
+  (2, 'Coding', 80, 150, 'remote'),
+  (2, 'Voice', 40, 80, 'any'),
+  (3, 'Analog Modular Synthesis', 50, 80, 'any'),
+  (4, 'Alexander Technique', 90, 140, 'any'),
+  (5, 'Coding', 0, 90, 'remote'),
+  (5, 'Guitar', 20, 40, 'in person'),
+  (5, 'Math', 10, 50, 'any');
 
 CREATE TABLE students (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
