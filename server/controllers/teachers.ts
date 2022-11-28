@@ -4,6 +4,7 @@ import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Student from '../models/Student.js';
+import Subject from '../models/Subject.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
 
@@ -18,7 +19,7 @@ export default Router()
         firstName,
         lastName,
         imageUrl,
-        subject,
+        subjects,
         bio,
         zipCode,
         phoneNumber,
@@ -27,7 +28,10 @@ export default Router()
         state
       } = req.body;
       const newUser = await UserService.create({ email, password, type: 'teacher' });
-      const teacher = await Teacher.create({ userId: newUser.id, subject, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      const teacher = await Teacher.create({ userId: newUser.id, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
+      for (const subject of subjects) {
+        await Subject.create({ ...subject });
+      }
       const sessionToken = await UserService.signIn({ email, password });
       
       res

@@ -16,7 +16,6 @@ export type TeacherFromDatabase = {
 
 export type NewTeacherInfo = {
   userId: string;
-  subject: string;
   bio: string | null;
   zipCode: string;
   city: string | null;
