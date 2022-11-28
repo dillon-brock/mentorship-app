@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getUser, signUpTeacher } from "../../services/auth";
+import { getCityFromZipCode } from "../../services/zipcode";
 
 export default function TeacherBioForm({
   setImageUrl,
@@ -9,7 +10,7 @@ export default function TeacherBioForm({
   password,
   firstName,
   lastName,
-  subject,
+  subjects,
   cityName,
   setCityName,
   stateName,
@@ -25,6 +26,11 @@ export default function TeacherBioForm({
 
   const isFormInvalid = () => {
     let invalid = false;
+    
+    if (bioInputRef.current.value === '') {
+      setFormErrors({ ...formErrors, bio: 'Bio is required. This will help students know if you will be a good fit for them.'});
+      invalid = true;
+    }
 
     if (zipCodeInputRef.current.value === '') {
       setFormErrors({ ...formErrors, zipCode: 'Zip code is required'});
@@ -32,11 +38,6 @@ export default function TeacherBioForm({
     }
 
     if (formErrors.zipCode) invalid = true;
-
-    if (bioInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, bio: 'Bio is required. This will help students know if you will be a good fit for them.'});
-      invalid = true;
-    }
 
     return invalid;
   };
@@ -90,7 +91,7 @@ export default function TeacherBioForm({
       password,
       firstName,
       lastName,
-      subject,
+      subjects,
       bio: formData.get('bio'),
       zipCode: formData.get('zip'),
       phoneNumber: formData.get('phoneNumber'),
