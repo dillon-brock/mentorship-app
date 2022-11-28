@@ -24,7 +24,7 @@ jobs:
       - name: test
         run: |
           npm run setup-db
-          npm run test
+          npm run test -- --runInBand
         env:
           CI: true
           DATABASE_URL: postgres://alchemy:alchemy@postgres:5432/alchemy
