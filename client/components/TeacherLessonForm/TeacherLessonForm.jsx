@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import SubjectInputs from "../SubjectInputs/SubjectInputs";
 
@@ -14,32 +14,34 @@ export default function TeacherLessonForm({ setSubjects, setStep }) {
       if (!formData.get(`subject-${num}`)) {
         setFormErrors({ ...formErrors, subject: { num, message: 'Subject is required.'}});
         invalid = true;
+        return invalid;
       }
-
+      
       if (!formData.get(`minPrice-${num}`)) {
         setFormErrors({ ...formErrors, minPrice: { num, message: 'Minimum price is required.'}});
         invalid = true;
+        return invalid;
       }
-
+      
       if (!formData.get(`maxPrice-${num}`)) {
         setFormErrors({ ...formErrors, maxPrice: { num, message: 'Maximum price is required.'}});
         invalid = true;
+        return invalid;
       }
-
+      
       if (!formData.get(`lessonType-${num}`)) {
         setFormErrors({ ...formErrors, lessonType: { num, message: 'Please select a lesson format.'}});
         invalid = true;
+        return invalid;
       }
-
-      return invalid;
-
     }
+    return invalid;
   }
 
   const handleNext = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    if (areSubjectsInvalid()) return;
+    if (areSubjectsInvalid(formData)) return;
     for (const num of subjectNums) {
       subjectFormData.push({
         num,
@@ -60,7 +62,7 @@ export default function TeacherLessonForm({ setSubjects, setStep }) {
   return (
     <Form onSubmit={handleNext}>
 
-      {subjectNums.map((num) => <SubjectInputs key={num} num={num} subjectNums={subjectNums} setSubjectNums={setSubjectNums} />)}
+      {subjectNums.map((num) => <SubjectInputs key={num} num={num} setSubjectNums={setSubjectNums} formErrors={formErrors} setFormErrors={setFormErrors} />)}
 
       <Button variant="outline-primary" onClick={handleAddSubject}>+ Add Another Subject</Button>
 
