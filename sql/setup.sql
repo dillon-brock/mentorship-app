@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS teachers_students CASCADE;
 DROP TABLE IF EXISTS teachers CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS subjects;
+DROP TABLE IF EXISTS subjects CASCADE;
+DROP TABLE IF EXISTS students_subjects;
 
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -98,6 +99,14 @@ INSERT INTO teachers_students (teacher_id, student_id, connection_approved) VALU
   (3, 1, 'rejected'),
   (2, 1, 'approved');
 
+
+CREATE TABLE students_subjects (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  student_id BIGINT NOT NULL,
+  subject_id BIGINT NOT NULL,
+  FOREIGN KEY (student_id) REFERENCES students(id),
+  FOREIGN KEY (subject_id) REFERENCES subjects(id)
+);
 
 CREATE TABLE reviews (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

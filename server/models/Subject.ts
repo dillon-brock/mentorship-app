@@ -29,4 +29,13 @@ export default class Subject {
     if (!rows[0]) return null;
     return new Subject(rows[0]);
   }
+
+  static async findByTeacherId(teacherId: string): Promise<Array<Subject> | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM subjects
+      WHERE teacher_id = $1`,
+      [teacherId]
+    );
+    return rows.map(row => new Subject(row));
+  }
 }
