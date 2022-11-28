@@ -7,6 +7,8 @@ import {
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
 
+/* @jest-environment node */
+
 const testTeacher = {
   firstName: 'Test',
   lastName: 'Teacher',
