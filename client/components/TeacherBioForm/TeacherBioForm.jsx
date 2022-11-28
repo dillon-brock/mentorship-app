@@ -10,17 +10,28 @@ export default function TeacherBioForm({
   firstName,
   lastName,
   subject,
-  zipCode,
   cityName,
+  setCityName,
   stateName,
+  setStateName,
   setUser
 }) {
 
   const bioInputRef = useRef();
+  const zipCodeInputRef = useRef();
+  const [showCity, setShowCity] = useState(false);
+  const [zipCodeChecked, setZipCodeChecked] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
   const isFormInvalid = () => {
     let invalid = false;
+
+    if (zipCodeInputRef.current.value === '') {
+      setFormErrors({ ...formErrors, zipCode: 'Zip code is required'});
+      invalid = true;
+    }
+
+    if (formErrors.zipCode) invalid = true;
 
     if (bioInputRef.current.value === '') {
       setFormErrors({ ...formErrors, bio: 'Bio is required. This will help students know if you will be a good fit for them.'});
@@ -38,10 +49,38 @@ export default function TeacherBioForm({
     setImageUrl(URL.createObjectURL(e.target.files[0]));
   }
 
+  const handleEnterZipCode = async (e) => {
+    if (Number(e.target.value) && e.target.value.length === 5) {
+      const zipCodeResponse = await getCityFromZipCode(e.target.value);
+      if (zipCodeResponse.city && zipCodeResponse.state) {
+        setShowCity(true);
+        setCityName(zipCodeResponse.city);
+        setStateName(zipCodeResponse.state);
+        setZipCodeChecked(true);
+      }
+      else if (zipCodeResponse.error_msg) {
+        setFormErrors({ zipCode: 'Please enter a valid zip code'});
+        setZipCodeChecked(true);
+      }
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormInvalid()) return;
     const formData = new FormData(e.target);
+    if (!zipCodeChecked) {
+      const zipCodeResponse = await getCityFromZipCode(formData.get('zip'));
+      if (zipCodeResponse.city && zipCodeResponse.state) {
+        setCityName(zipCodeResponse.city);
+        setStateName(zipCodeResponse.state);
+        setZipCodeChecked(true);
+      }
+      else if (zipCodeResponse.error_msg) {
+        setFormErrors({ zipCode: 'Please enter a valid zip code'});
+        return;
+      }
+    }
     await signUpTeacher({
       email,
       password,
@@ -49,7 +88,7 @@ export default function TeacherBioForm({
       lastName,
       subject,
       bio: formData.get('bio'),
-      zipCode,
+      zipCode: formData.get('zip'),
       phoneNumber: formData.get('phoneNumber'),
       contactEmail: formData.get('contactEmail'),
       imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
@@ -66,6 +105,21 @@ export default function TeacherBioForm({
         <Form.Label>Profile Picture</Form.Label>
         <Form.Control type="file" name="image" onChange={handleChangeImage} />
       </Form.Group>
+      <Form.Group className="mb-1" controlId="zipCode">
+        <Form.Label>Zip Code</Form.Label>
+        <Form.Control type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
+        {formErrors.zipCode &&
+          <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
+        }
+      </Form.Group>
+
+      {showCity &&
+      <div>
+        <Form.Text>
+          {cityName}, {stateName}
+        </Form.Text>
+      </div>
+      }
       <Form.Group className="mb-2" controlId="bio">
         <Form.Label>Bio</Form.Label>
         <Form.Control as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio" ref={bioInputRef} onChange={handleChangeBio}></Form.Control>
