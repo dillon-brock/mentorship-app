@@ -28,6 +28,7 @@ export default class Teacher {
     this.firstName = first_name;
     this.lastName = last_name;
     this.imageUrl = image_url;
+    if (subjects) this.subjects = subjects;
     if (avg_rating) this.avgRating = avg_rating;
   }
 

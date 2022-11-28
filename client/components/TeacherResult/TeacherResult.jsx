@@ -1,8 +1,9 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function TeacherResult({ id, firstName, lastName, zipCode, subject, imageUrl, city, state }) {
+export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }) {
   
+  const subjectList = subjects.join(' | ');
   return (
     <Link to={`/teacher/${id}`} style={{ textDecoration: 'none' }}>
       <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
@@ -10,15 +11,18 @@ export default function TeacherResult({ id, firstName, lastName, zipCode, subjec
           <Image roundedCircle src={imageUrl} style={{ width: '120px', height: '120px' }} />
         </Col>
         <Col>
-          <Container>
+          <Container style={{width: '400px'}}>
             <Row>
               <p>{`${firstName} ${lastName}`}</p>
             </Row>
             <Row>
+              <p>{`${subjectList}`}</p>
+            </Row>
+            <Row>
               {city && state ?
-                <p>{`${subject} | ${city}, ${state}`}</p>
+                <p>{`${city}, ${state}`}</p>
                 :
-                <p>{`${subject} | ${zipCode}`}</p>
+                <p>{`${zipCode}`}</p>
               }
             </Row>
           </Container>

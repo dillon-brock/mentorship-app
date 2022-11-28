@@ -57,8 +57,10 @@ export default Router()
   .get('/', async (req, res, next) => {
     try {
       let teachers = await Teacher.findAll();
-      if (typeof req.query['subject'] === 'string') {
-        teachers = teachers.filter(teacher => teacher.subjects?.some(subject => subject.toLowerCase().startsWith(subject.toLowerCase())));
+      if (typeof req.query['subject'] === 'string' && req.query['subject'] !== '') {
+        const subjectQuery: string = req.query['subject'];
+        teachers = teachers.filter(teacher => teacher.subjects?.some(subject => subject.toLowerCase().startsWith(subjectQuery)));
+        console.log(teachers);
       }
       res.json(teachers);
     } catch (error) {
