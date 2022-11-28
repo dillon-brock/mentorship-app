@@ -49,6 +49,10 @@ export default function TeacherBioForm({
     setImageUrl(URL.createObjectURL(e.target.files[0]));
   }
 
+  const handleChangeZipCode = () => {
+    if (formErrors.zipCode) setFormErrors({ ...formErrors, zipCode: ''});
+  }
+
   const handleEnterZipCode = async (e) => {
     if (Number(e.target.value) && e.target.value.length === 5) {
       const zipCodeResponse = await getCityFromZipCode(e.target.value);
