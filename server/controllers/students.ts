@@ -1,6 +1,7 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
 import Student from '../models/Student.js';
+import StudentSubject from '../models/StudentSubject.js';
 import { UserService } from '../services/UserService.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
@@ -55,4 +56,13 @@ export default Router()
     } catch (e) {
       next(e);
     }
-  });
+  })
+  .post('/subject', authenticateStudent, async (req, res, next) => {
+    try {
+      const { subjectId } = req.body;
+      const newStudentSubject = await StudentSubject.create({ studentId: req.user.studentId, subjectId })
+      res.json(newStudentSubject);
+    } catch (e) {
+      next(e);
+    }
+  })

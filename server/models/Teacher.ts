@@ -4,7 +4,6 @@ import pool from "../database.js";
 export default class Teacher {
   id: string;
   userId: string;
-  subject: string;
   bio: string | null;
   zipCode: string;
   city: string | null;
@@ -14,12 +13,11 @@ export default class Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
-  avgRating?: number;
+  subjects?: Array<string>;
 
-  constructor({ id, user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating, city, state }: TeacherFromDatabase) {
+  constructor({ id, user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state, subjects }: TeacherFromDatabase) {
     this.id = id;
     this.userId = user_id;
-    this.subject = subject;
     this.bio = bio;
     this.zipCode = zip_code;
     this.city = city;
@@ -29,17 +27,16 @@ export default class Teacher {
     this.firstName = first_name;
     this.lastName = last_name;
     this.imageUrl = image_url;
-    if (avg_rating) this.avgRating = avg_rating;
+    if (subjects) this.subjects = subjects;
   }
 
-  static async create({ userId, subject, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher | null> {
+  static async create({ userId, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher | null> {
     const { rows } = await pool.query(
-      `INSERT INTO teachers (user_id, subject, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      `INSERT INTO teachers (user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *`,
       [
         userId,
-        subject,
         bio,
         zipCode,
         phoneNumber,
@@ -56,12 +53,11 @@ export default class Teacher {
     return new Teacher(rows[0]);
   }
 
-  static async findAll(subject: string = ''): Promise<Array<Teacher>> {
-    subject = `${subject}%`
+  static async findAll(): Promise<Array<Teacher>> {
     const { rows } = await pool.query(
-      `SELECT * FROM teachers
-      WHERE subject ILIKE $1`,
-      [subject]
+      `SELECT teachers.*, ARRAY_AGG(subject) AS subjects FROM teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
+      GROUP BY teachers.id`
     );
 
     return rows.map((row: TeacherFromDatabase) => new Teacher(row));
@@ -69,8 +65,8 @@ export default class Teacher {
 
   static async findById(id: string): Promise<Teacher | null> {
     const { rows } = await pool.query(
-      `SELECT AVG(reviews.stars) as avg_rating, teachers.* FROM teachers
-      LEFT JOIN reviews ON reviews.teacher_id = teachers.id
+      `SELECT ARRAY_AGG(subject) AS subjects, teachers.* FROM teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
       WHERE teachers.id = $1
       GROUP BY teachers.id
       `, [id]
@@ -92,7 +88,6 @@ export default class Teacher {
 
   static async updateByUserId({
     userId,
-    subject,
     bio,
     zipCode,
     city,
@@ -105,20 +100,19 @@ export default class Teacher {
   }: NewTeacherInfo): Promise<Teacher | null> {
     const { rows } = await pool.query(
       `UPDATE teachers
-      SET subject = $1,
-      bio = $2,
-      zip_code = $3,
-      city = $4, 
-      state = $5,
-      phone_number = $6,
-      contact_email = $7,
-      first_name = $8,
-      last_name = $9,
-      image_url = $10
-      WHERE user_id = $11
+      SET bio = $1,
+      zip_code = $2,
+      city = $3, 
+      state = $4,
+      phone_number = $5,
+      contact_email = $6,
+      first_name = $7,
+      last_name = $8,
+      image_url = $9
+      WHERE user_id = $10
       RETURNING *
       `,
-      [subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl, userId]
+      [bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl, userId]
     );
     if (!rows[0]) return null;
     return new Teacher(rows[0]);

@@ -11,12 +11,12 @@ export type TeacherFromDatabase = {
   state: string | null;
   phone_number: string;
   contact_email: string;
+  subjects?: Array<string>;
   avg_rating?: number;
 }
 
 export type NewTeacherInfo = {
   userId: string;
-  subject: string;
   bio: string | null;
   zipCode: string;
   city: string | null;

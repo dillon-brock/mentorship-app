@@ -1,105 +1,71 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { getCityFromZipCode } from "../../services/zipcode";
+import SubjectInputs from "../SubjectInputs/SubjectInputs";
 
-export default function TeacherLessonForm({ setSubject, setZipCode, setStep, cityName, setCityName, stateName, setStateName }) {
+export default function TeacherLessonForm({ setSubjects, setStep }) {
 
-  const subjectInputRef = useRef();
-  const zipCodeInputRef = useRef();
   const [formErrors, setFormErrors] = useState({});
-  const [showCity, setShowCity] = useState(false);
-  const [zipCodeChecked, setZipCodeChecked] = useState(false);
+  const [subjectNums, setSubjectNums] = useState([1]);
+  let subjectFormData = [];
 
-  console.log(formErrors);
-
-  const isFormInvalid = () => {
+  const areSubjectsInvalid = (formData) => {
     let invalid = false;
-
-    if (zipCodeInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, zipCode: 'Zip code is required'});
-      invalid = true;
+    for (const num of subjectNums) {
+      if (!formData.get(`subject-${num}`)) {
+        setFormErrors({ ...formErrors, subject: { num, message: 'Subject is required.'}});
+        invalid = true;
+        return invalid;
+      }
+      
+      if (!formData.get(`minPrice-${num}`)) {
+        setFormErrors({ ...formErrors, minPrice: { num, message: 'Minimum price is required.'}});
+        invalid = true;
+        return invalid;
+      }
+      
+      if (!formData.get(`maxPrice-${num}`)) {
+        setFormErrors({ ...formErrors, maxPrice: { num, message: 'Maximum price is required.'}});
+        invalid = true;
+        return invalid;
+      }
+      
+      if (!formData.get(`lessonType-${num}`)) {
+        setFormErrors({ ...formErrors, lessonType: { num, message: 'Please select a lesson format.'}});
+        invalid = true;
+        return invalid;
+      }
     }
-
-    if (formErrors.zipCode) invalid = true;
-    
-    if (subjectInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, subject: 'Subject is required'});
-      invalid = true;
-    }
-
     return invalid;
-  };
-
-  const handleChangeSubject = () => {
-    if (formErrors.subject) setFormErrors({ ...formErrors, subject: ''});
-  }
-
-  const handleChangeZipCode = () => {
-    if (formErrors.zipCode) setFormErrors({ ...formErrors, zipCode: ''});
   }
 
   const handleNext = async (e) => {
     e.preventDefault();
-    if (isFormInvalid()) return;
     const formData = new FormData(e.target);
-    if (!zipCodeChecked) {
-      const zipCodeResponse = await getCityFromZipCode(formData.get('zip'));
-      if (zipCodeResponse.city && zipCodeResponse.state) {
-        setCityName(zipCodeResponse.city);
-        setStateName(zipCodeResponse.state);
-        setZipCodeChecked(true);
-      }
-      else if (zipCodeResponse.error_msg) {
-        setFormErrors({ zipCode: 'Please enter a valid zip code'});
-        return;
-      }
+    if (areSubjectsInvalid(formData)) return;
+    for (const num of subjectNums) {
+      subjectFormData.push({
+        num,
+        subject: formData.get(`subject-${num}`),
+        minPrice: Number(formData.get(`minPrice-${num}`)),
+        maxPrice: Number(formData.get(`maxPrice-${num}`)),
+        lessonType: formData.get(`lessonType-${num}`)
+      })
     }
-    setSubject(formData.get('subject'));
-    setZipCode(formData.get('zip'));
+    setSubjects(subjectFormData);
     setStep(3);
   }
 
-  const handleEnterZipCode = async (e) => {
-    if (Number(e.target.value) && e.target.value.length === 5) {
-      const zipCodeResponse = await getCityFromZipCode(e.target.value);
-      if (zipCodeResponse.city && zipCodeResponse.state) {
-        setShowCity(true);
-        setCityName(zipCodeResponse.city);
-        setStateName(zipCodeResponse.state);
-        setZipCodeChecked(true);
-      }
-      else if (zipCodeResponse.error_msg) {
-        setFormErrors({ zipCode: 'Please enter a valid zip code'});
-        setZipCodeChecked(true);
-      }
-    }
+  const handleAddSubject = () => {
+    setSubjectNums(prev => [...prev, prev[prev.length - 1] + 1]);
   }
   
   return (
     <Form onSubmit={handleNext}>
-      <Form.Group className="mb-2" controlId="subject">
-        <Form.Label>Subject</Form.Label>
-        <Form.Control type="text" placeholder="Art" name="subject" ref={subjectInputRef} onChange={handleChangeSubject}></Form.Control>
-        {formErrors.subject &&
-          <Form.Text className="text-danger">{formErrors.subject}</Form.Text>
-        }
-      </Form.Group>
 
-      <Form.Group className="mb-1" controlId="zipCode">
-        <Form.Label>Zip Code</Form.Label>
-        <Form.Control type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
-        {formErrors.zipCode &&
-          <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
-        }
-      </Form.Group>
+      {subjectNums.map((num) => <SubjectInputs key={num} num={num} setSubjectNums={setSubjectNums} formErrors={formErrors} setFormErrors={setFormErrors} />)}
 
-      {showCity &&
-      <div>
-        <Form.Text>
-          {cityName}, {stateName}
-        </Form.Text>
-      </div>
-      }
+      <Button variant="outline-primary" onClick={handleAddSubject}>+ Add Another Subject</Button>
+
       <Button type="submit">Next</Button>
     </Form>
   );

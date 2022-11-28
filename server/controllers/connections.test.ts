@@ -21,7 +21,7 @@ const testTeacher = {
   email: 'teacher@test.com',
   password: '123456',
   imageUrl: 'testimage.com',
-  subject: 'test subject',
+  subjects: [{ subject: 'Drawing', minPrice: 10, maxPrice: 30, lessonType: 'In person' }],
   bio: 'I am a teacher',
   zipCode: '97214',
   phoneNumber: '5555555555',

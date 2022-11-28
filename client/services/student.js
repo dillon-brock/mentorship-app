@@ -46,3 +46,18 @@ export async function updateAccount({ firstName, lastName, imageUrl }) {
 
   if (response.ok) return await response.json();
 }
+
+export async function addStudentSubject(subjectId) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/subject`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ subjectId })
+  });
+
+  const newStudentSubject = await response.json();
+  return newStudentSubject;
+}
