@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSubjectsByTeacherId } from "../services/subjects";
+import { getSubjectsByTeacherId } from "../services/subjects.js";
 
 export default function useSubjects(id) {
   const [subjects, setSubjects] = useState([]);

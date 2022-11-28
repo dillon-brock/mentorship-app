@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import authenticateStudent from '../middleware/authenticateStudent';
-import Subject from '../models/Subject';
+import Subject from '../models/Subject.js';
 
 export default Router()
   .get('/:teacherId', async (req, res, next) => {
