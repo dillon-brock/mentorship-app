@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import { getCityFromZipCode } from "../../services/zipcode";
 import TeacherBioForm from "../TeacherBioForm/TeacherBioForm";
 import TeacherLessonForm from "../TeacherLessonForm/TeacherLessonForm";
 import TeacherSignUpForm from "../TeacherSignUpForm/TeacherSignUpForm";
@@ -15,7 +14,6 @@ export default function TeacherAuth() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [subjects, setSubjects] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
 
   const { user, setUser, doneGettingUser } = useUserContext();
   
@@ -41,8 +39,6 @@ export default function TeacherAuth() {
       }
       {step === 3 &&
         <TeacherBioForm
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
           email={email}
           password={password}
           firstName={firstName}
