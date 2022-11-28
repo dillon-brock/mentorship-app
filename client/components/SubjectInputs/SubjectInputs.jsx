@@ -1,9 +1,20 @@
-import { Form } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
-export default function SubjectInputs({ num }) {
+export default function SubjectInputs({ num, subjects, setSubjects }) {
+
+  const [show, setShow] = useState(true);
+  console.log(show, num);
+
+  if (!show) return <div></div>
+
+  const handleRemove = () => {
+    setSubjects(prev => prev.filter(s => s !== num));
+    setShow(false);
+  }
 
   return (
-    <>
+    <div>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
         <Form.Control type="text" placeholder="Art" name={`subject-${num}`} />
@@ -22,6 +33,7 @@ export default function SubjectInputs({ num }) {
         <Form.Check type="radio" label="Remote" value="Remote" />
         <Form.Check type="radio" label="Any" value="Any" />
       </Form.Group>
-    </>
+      <Button onClick={handleRemove}>Remove</Button>
+    </div>
   )
 }

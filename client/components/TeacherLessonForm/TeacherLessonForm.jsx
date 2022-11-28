@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getCityFromZipCode } from "../../services/zipcode";
+import SubjectInputs from "../SubjectInputs/SubjectInputs";
 
 export default function TeacherLessonForm({ setSubject, setZipCode, setStep, cityName, setCityName, stateName, setStateName }) {
 
@@ -9,6 +10,9 @@ export default function TeacherLessonForm({ setSubject, setZipCode, setStep, cit
   const [formErrors, setFormErrors] = useState({});
   const [showCity, setShowCity] = useState(false);
   const [zipCodeChecked, setZipCodeChecked] = useState(false);
+  const [subjects, setSubjects] = useState([1]);
+
+  console.log(subjects);
 
   console.log(formErrors);
 
@@ -74,16 +78,24 @@ export default function TeacherLessonForm({ setSubject, setZipCode, setStep, cit
       }
     }
   }
+
+  const handleAddSubject = () => {
+    setSubjects(prev => [...prev, prev[prev.length - 1] + 1]);
+  }
   
   return (
     <Form onSubmit={handleNext}>
-      <Form.Group className="mb-2" controlId="subject">
+      {/* <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
         <Form.Control type="text" placeholder="Art" name="subject" ref={subjectInputRef} onChange={handleChangeSubject}></Form.Control>
         {formErrors.subject &&
           <Form.Text className="text-danger">{formErrors.subject}</Form.Text>
         }
-      </Form.Group>
+      </Form.Group> */}
+
+      {subjects.map((num) => <SubjectInputs key={num} num={num} subjects={subjects} setSubjects={setSubjects} />)}
+      <Button variant="outline-primary" onClick={handleAddSubject}>+ Add Another Subject</Button>
+
 
       <Form.Group className="mb-1" controlId="zipCode">
         <Form.Label>Zip Code</Form.Label>
