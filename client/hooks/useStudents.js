@@ -7,10 +7,12 @@ export function useStudents(teacherId) {
 
   useEffect(() => {
     const fetchStudents = async () => {
-      const data = await getStudents(teacherId);
-      if (data) {
-        setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
-        setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
+      if (teacherId) {
+        const data = await getStudents(teacherId);
+        if (data) {
+          setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
+          setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
+        }
       }
     }
     fetchStudents();

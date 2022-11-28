@@ -8,7 +8,7 @@ import PendingStudent from "../PendingStudent/PendingStudent.jsx";
 
 export default function StudentList() {
   const { user } = useUserContext();
-  const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents } = useStudents(user.teacherId);
+  const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents } = useStudents(user?.teacherId);
   const [openChatBox, setOpenChatBox] = useState(false);
   const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
 
