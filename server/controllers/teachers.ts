@@ -30,7 +30,7 @@ export default Router()
       const newUser = await UserService.create({ email, password, type: 'teacher' });
       const teacher = await Teacher.create({ userId: newUser.id, bio, zipCode, phoneNumber, contactEmail, firstName, lastName, imageUrl, city, state });
       for (const subject of subjects) {
-        await Subject.create({ ...subject });
+        await Subject.create({ ...subject, teacherId: teacher?.id });
       }
       const sessionToken = await UserService.signIn({ email, password });
       
