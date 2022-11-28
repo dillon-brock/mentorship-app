@@ -13,9 +13,10 @@ export default class Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
+  subjects?: Array<string>;
   avgRating?: number;
 
-  constructor({ id, user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating, city, state }: TeacherFromDatabase) {
+  constructor({ id, user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, avg_rating, city, state, subjects }: TeacherFromDatabase) {
     this.id = id;
     this.userId = user_id;
     this.bio = bio;
@@ -53,12 +54,11 @@ export default class Teacher {
     return new Teacher(rows[0]);
   }
 
-  static async findAll(subject: string = ''): Promise<Array<Teacher>> {
-    subject = `${subject}%`
+  static async findAll(): Promise<Array<Teacher>> {
     const { rows } = await pool.query(
-      `SELECT * FROM teachers
-      WHERE subject ILIKE $1`,
-      [subject]
+      `SELECT teachers.*, ARRAY_AGG(subject) AS subjects FROM teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
+      GROUP BY teachers.id`
     );
 
     return rows.map((row: TeacherFromDatabase) => new Teacher(row));

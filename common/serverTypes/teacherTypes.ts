@@ -11,6 +11,7 @@ export type TeacherFromDatabase = {
   state: string | null;
   phone_number: string;
   contact_email: string;
+  subjects?: Array<string>;
   avg_rating?: number;
 }
 
