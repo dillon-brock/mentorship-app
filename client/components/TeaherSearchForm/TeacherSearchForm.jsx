@@ -12,8 +12,8 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, s
     setZipCode(formData.get('zipCode'));
     setRadius(formData.get('radius'));
     setLessonType(formData.get('lessonType'));
-    setMinPrice(formData.get('minPrice'));
-    setMaxPrice(formData.get('maxPrice'));
+    if (formData.get('minPrice')) setMinPrice(formData.get('minPrice'));
+    if (formData.get('maxPrice')) setMaxPrice(formData.get('maxPrice'));
   }
 
   return (
