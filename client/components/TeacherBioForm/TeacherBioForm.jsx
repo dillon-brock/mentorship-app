@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getUser, signUpTeacher } from "../../services/auth";
+import { uploadProfilePicture } from "../../services/image";
 import { getCityFromZipCode } from "../../services/zipcode";
 
 export default function TeacherBioForm({
-  setImageUrl,
-  imageUrl,
   email,
   password,
   firstName,
@@ -22,6 +21,7 @@ export default function TeacherBioForm({
   const zipCodeInputRef = useRef();
   const [showCity, setShowCity] = useState(false);
   const [zipCodeChecked, setZipCodeChecked] = useState(false);
+  const [imageData, setImageData] = useState(null);
   const [formErrors, setFormErrors] = useState({});
 
   const isFormInvalid = () => {
@@ -46,8 +46,12 @@ export default function TeacherBioForm({
     if (formErrors.bio) setFormErrors({ ...formErrors, bio: ''});
   }
 
-  const handleChangeImage = (e) => {
-    setImageUrl(URL.createObjectURL(e.target.files[0]));
+  const handleChangeImage = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+    setImageData(formData);
   }
 
   const handleChangeZipCode = () => {
@@ -85,6 +89,11 @@ export default function TeacherBioForm({
         setFormErrors({ zipCode: 'Please enter a valid zip code'});
         return;
       }
+    }
+    let imageUrl = '';
+    if (imageData) {
+      const uploadImageResponse = await uploadProfilePicture(imageData);
+      imageUrl = uploadImageResponse.secure_url;
     }
     await signUpTeacher({
       email,

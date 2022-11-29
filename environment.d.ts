@@ -12,6 +12,10 @@ declare global {
       API_FETCH_URL: string;
       ZIPCODE_API_KEY: string;
       SECURE_COOKIES: string;
+      CLOUDINARY_NAME: string;
+      CLOUDINARY_API_KEY: string;
+      CLOUDINARY_API_SECRET: string;
+      CLOUDINARY_PRESET_NAME: string;
     }
   }
 }

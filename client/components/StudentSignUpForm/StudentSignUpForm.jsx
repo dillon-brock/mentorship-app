@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
+import { uploadProfilePicture } from '../../services/image';
 
 export default function StudentSignUpForm() {
 
@@ -9,6 +10,7 @@ export default function StudentSignUpForm() {
   const passwordInputRef = useRef();
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
+  const [imageData, setImageData] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const { setUser } = useUserContext();
 
@@ -52,16 +54,25 @@ export default function StudentSignUpForm() {
     if (formErrors.lastName) setFormErrors({ ...formErrors, lastName: ''});
   } 
 
+  const handleChangeImage = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+    setImageData(formData);
+  }
+
   const handleSignUpStudent = async (e) => {
     e.preventDefault();
     if (isFormInvalid()) return;
     const formData = new FormData(e.target);
     let formDataObj = Object.fromEntries(formData);
-    formDataObj = {
-      ...formDataObj,
-      imageUrl: formData.get('imageUrl') || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+    let imageUrl = '';
+    if (imageData) {
+      const uploadImageResponse = await uploadProfilePicture(imageData);
+      imageUrl = uploadImageResponse.secure_url;
     }
-    let response = await signUpStudent({...formDataObj});
+    let response = await signUpStudent({...formDataObj, imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'});
     
     if (response.status && response.status === 500) {
       setFormErrors({ email: 'This email is already being used by another account. Please sign in or use a different email.'});
@@ -113,9 +124,15 @@ export default function StudentSignUpForm() {
         }
       </Form.Group>
 
+      <Form.Group className="mb-2" controlId="image">
+        <Form.Label>Profile Picture</Form.Label>
+        <Form.Control type="file" name="image" onChange={handleChangeImage} />
+        <Form.Text className="text-muted">This is optional and will only be visible in messages and to teachers with whom you are connected.</Form.Text>
+      </Form.Group>
+
       <div style={{ display: 'flex' }}>
         <Button variant="primary" type="submit">
-          Submit
+          Sign Up
         </Button>
       </div>
     </Form>
