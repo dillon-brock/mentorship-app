@@ -58,17 +58,15 @@ CREATE TABLE subjects (
 );
 
 INSERT INTO subjects (teacher_id, subject, min_price, max_price, lesson_type) VALUES
-  (1, 'scratching', 0, 0, 'in person'),
-  (1, 'screaming', 0, 10, 'remote'),
-  (2, 'Alexander Technique', 50, 100, 'in person'),
-  (2, 'Analog Modular Synthesis', 90, 120, 'in person'),
-  (2, 'Coding', 80, 150, 'remote'),
-  (2, 'Voice', 40, 80, 'any'),
-  (3, 'Analog Modular Synthesis', 50, 80, 'any'),
-  (4, 'Alexander Technique', 90, 140, 'any'),
-  (5, 'Coding', 0, 90, 'remote'),
-  (5, 'Guitar', 20, 40, 'in person'),
-  (5, 'Math', 10, 50, 'any');
+  (1, 'scratching', 0, 0, 'In person'),
+  (1, 'screaming', 0, 10, 'Remote'),
+  (2, 'Alexander Technique', 50, 100, 'In person'),
+  (2, 'Analog Modular Synthesis', 90, 120, 'In person'),
+  (2, 'Coding', 80, 150, 'Remote'),
+  (2, 'Voice', 40, 80, 'Any'),
+  (3, 'Analog Modular Synthesis', 50, 80, 'Any'),
+  (4, 'Alexander Technique', 90, 140, 'Any'),
+  (5, 'Coding', 0, 90, 'Remote');
 
 CREATE TABLE students (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

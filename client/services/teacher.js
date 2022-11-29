@@ -1,5 +1,11 @@
-export async function getTeachers(subject) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers?subject=${subject}`, {
+export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, maxPrice = 200) {
+  console.log(subject);
+  const params = new URLSearchParams;
+  params.set('subject', subject);
+  params.set('lessonType', lessonType);
+  params.set('minPrice', minPrice);
+  params.set('maxPrice', maxPrice);
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers?${params.toString()}`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"

@@ -1,3 +1,5 @@
+import { AggregatedSubject } from "./subjectTypes";
+
 export type TeacherFromDatabase = {
   id: string;
   user_id: string;
@@ -11,7 +13,7 @@ export type TeacherFromDatabase = {
   state: string | null;
   phone_number: string;
   contact_email: string;
-  subjects?: Array<string>;
+  subjects?: Array<AggregatedSubject>;
   avg_rating?: number;
 }
 
