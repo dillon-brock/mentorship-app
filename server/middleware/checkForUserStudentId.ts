@@ -6,7 +6,10 @@ export default async (req: Request, res: Response, next: (e?: any) => any) => {
   try {
     const cookie = req.cookies[process.env.COOKIE_NAME];
 
-    if (!cookie) next();
+    if (!cookie) {
+      next();
+      return;
+    }
 
     const user = jwt.verify(cookie, process.env.JWT_SECRET);
     if (typeof user !== 'string') {
