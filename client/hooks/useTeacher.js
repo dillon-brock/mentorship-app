@@ -21,5 +21,5 @@ export function useTeacher(id) {
     fetchTeacherById();
   }, []);
 
-  return { teacher, setTeacher, connection, setConnection, reviews, setReviews, avgRating };
+  return { teacher, setTeacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating };
 }

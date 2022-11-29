@@ -5,16 +5,19 @@ import { postReview } from "../../services/reviews";
 import { getAverageRating } from "../../utils";
 import StarRating from "../StarRating/StarRating";
 
-export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, teacher, setTeacher }) {
+export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }) {
 
   const { user } = useUserContext();
   
   const [studentWantsToAddReview, setStudentWantsToAddReview] = useState(false);
   const [leaveAnonymously, setLeaveAnonymously] = useState(false);
-  const [stars, setStars] = useState(5);
+  const [stars, setStars] = useState(0);
 
   const handleShow = () => setStudentWantsToAddReview(true);
-  const handleClose = () => setStudentWantsToAddReview(false);
+  const handleClose = () => {
+    setStars(0);
+    setStudentWantsToAddReview(false);
+  }
 
   const ratingChanged = (newRating) => setStars(newRating);
 
@@ -29,7 +32,8 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
       detail
     });
     setReviews(prev => [...prev, newReview]);
-    setTeacher({...teacher, avgRating: getAverageRating([...reviews, newReview ])})
+    setAvgRating(getAverageRating([...reviews, newReview]));
+    setStars(0);
     setLeaveAnonymously(false);
     setStudentWantsToAddReview(false);
   }
@@ -44,7 +48,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
           <Modal.Title>Add a review for {firstName} {lastName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <StarRating value={stars} editable={true} ratingChanged={ratingChanged} />
+          <StarRating value={stars} editable={true} ratingChanged={ratingChanged} half={false} />
           <Form onSubmit={handleAddReview}>
             <Form.Group className="mb-2" controlId="detail">
               <Form.Control as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>

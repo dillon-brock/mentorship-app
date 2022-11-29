@@ -1,10 +1,6 @@
 import ReactStars from 'react-stars'
 
-export default function StarRating({ value, editable, ratingChanged }) {
-  
-  // const ratingChanged = (newRating) => {
-  //   console.log(newRating)
-  // }
+export default function StarRating({ value, editable, ratingChanged, half }) {
   
   return (
     <ReactStars
@@ -14,6 +10,7 @@ export default function StarRating({ value, editable, ratingChanged }) {
       color2={'#ffd700'}
       edit={editable}
       value={value}
+      half={half}
       />
   )
 }
