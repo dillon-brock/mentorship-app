@@ -1,6 +1,7 @@
 import { Router, type Request, type Response, type NextFunction} from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
 import authenticateTeacher from '../middleware/authenticateTeacher.js';
+import checkForUserStudentId from '../middleware/checkForUserStudentId.js';
 import Connection from '../models/Connection.js';
 import Review from '../models/Review.js';
 import Student from '../models/Student.js';
@@ -83,7 +84,7 @@ export default Router()
       next(e);
     }
   })
-  .get('/:id', async (req, res, next) => {
+  .get('/:id', checkForUserStudentId, async (req, res, next) => {
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
