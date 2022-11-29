@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 
 export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }) {
   
-  const subjectList = subjects.join(' | ');
+  const subjectList = subjects
+    .reduce((a, b) => {
+      a.push(b.subject);
+      return a;
+    }, [])
+    .join(' | ');
+  // const subjectList = subjects.join(' | ');
   return (
     <Link to={`/teacher/${id}`} style={{ textDecoration: 'none' }}>
       <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>

@@ -1,3 +1,4 @@
+import { AggregatedSubject } from "../../common/serverTypes/subjectTypes";
 import { NewTeacherInfo, TeacherFromDatabase } from "../../common/serverTypes/teacherTypes";
 import pool from "../database.js";
 
@@ -13,7 +14,7 @@ export default class Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
-  subjects?: Array<string>;
+  subjects?: Array<AggregatedSubject>;
 
   constructor({ id, user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state, subjects }: TeacherFromDatabase) {
     this.id = id;
@@ -55,9 +56,13 @@ export default class Teacher {
 
   static async findAll(): Promise<Array<Teacher>> {
     const { rows } = await pool.query(
-      `SELECT teachers.*, ARRAY_AGG(subject) AS subjects FROM teachers
-      INNER JOIN subjects ON subjects.teacher_id = teachers.id
-      GROUP BY teachers.id`
+      `SELECT teachers.*,
+      COALESCE(
+        json_agg(json_build_object('id', subjects.id, 'subject', subjects.subject, 'minPrice', subjects.min_price, 'maxPrice', subjects.max_price, 'lessonType', subjects.lesson_type))
+        FILTER (WHERE subjects.id IS NOT NULL), '[]'
+        ) as subjects from teachers
+        LEFT JOIN subjects ON subjects.teacher_id = teachers.id 
+        GROUP BY teachers.id`
     );
 
     return rows.map((row: TeacherFromDatabase) => new Teacher(row));

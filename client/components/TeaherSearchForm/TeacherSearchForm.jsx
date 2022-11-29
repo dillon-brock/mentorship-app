@@ -5,7 +5,7 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, e
 
   const [radiusForDisplay, setRadiusForDisplay] = useState(25);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     setSubject(formData.get('subject'));
@@ -16,14 +16,14 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, e
   return (
     <Container>
       <p>Filter Results</p>
-      <Form style={{ textAlign: 'left'}} onSubmit={onSubmit}>
+      <Form style={{ textAlign: 'left'}} onSubmit={handleSubmit}>
         <Form.Group className="mb-2" controlId="subject">
           <Form.Label>Subject</Form.Label>
           <Form.Control type="text" placeholder="Coding" name="subject" />
         </Form.Group>
         <Form.Group className="mb-2" controlId="zipCode">
           <Form.Label>Zip Code</Form.Label>
-          <Form.Control type="number" minLength="5" maxLength="5" placeholder="97214" name="zipCode" />
+          <Form.Control type="number" minLength="5" maxLength="5" placeholder="97214" name="zipCode" onChange={() => setErrorMessage('')} />
         </Form.Group>
         <Form.Group className="mb-2" controlId="radius">
           <Form.Label>Distance</Form.Label>
@@ -33,6 +33,15 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, e
         {errorMessage && 
           <Form.Text className="text-danger">{errorMessage}</Form.Text>
         }
+        
+        <Form.Group>
+          <Form.Label>Lesson Format</Form.Label>
+          <Form.Select>
+            <option value="Any">Any</option>
+            <option value="In person">In person</option>
+            <option value="Remote">Remote</option>
+          </Form.Select>
+        </Form.Group>
         <Button variant="primary" type="submit">
           Update Results
         </Button>
