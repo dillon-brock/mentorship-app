@@ -16,13 +16,18 @@ export default function TeacherDetailPage() {
   
   const { user } = useUserContext();
   const { id } = useParams();
-  const { teacher, setTeacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
+  const { teacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [userNeedsToSignIn, setUserNeedsToSignIn] = useState(false);
 
   let formattedSubjectList;
   if (teacher.subjects) {
-    formattedSubjectList = teacher.subjects.join(' | ');
+    formattedSubjectList = teacher.subjects
+      .reduce((a, b) => {
+        a.push(b.subject);
+        return a;
+      }, [])
+      .join(' | ')
   }
 
   const handleUserWantsToSendMessage = () => {

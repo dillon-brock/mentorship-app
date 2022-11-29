@@ -70,8 +70,12 @@ export default class Teacher {
 
   static async findById(id: string): Promise<Teacher | null> {
     const { rows } = await pool.query(
-      `SELECT ARRAY_AGG(subject) AS subjects, teachers.* FROM teachers
-      INNER JOIN subjects ON subjects.teacher_id = teachers.id
+      `SELECT teachers.*,
+      COALESCE(
+        json_agg(json_build_object('id', subjects.id, 'subject', subjects.subject, 'minPrice', subjects.min_price, 'maxPrice', subjects.max_price, 'lessonType', subjects.lesson_type))
+        FILTER (WHERE subjects.id IS NOT NULL), '[]'
+        ) as subjects from teachers
+      LEFT JOIN subjects ON subjects.teacher_id = teachers.id
       WHERE teachers.id = $1
       GROUP BY teachers.id
       `, [id]
