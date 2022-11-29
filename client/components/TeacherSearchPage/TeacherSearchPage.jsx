@@ -12,9 +12,11 @@ export default function TeacherSearchPage() {
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState(0);
   const [lessonType, setLessonType] = useState('Any');
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
   const [pageLength, setPageLength] = useState(10);
   const [page, setPage] = useState(1);
-  const { teachers, totalPages, errorMessage, setErrorMessage } = useAllTeachers(subject, zipCode, lessonType, radius, page, pageLength);
+  const { teachers, totalPages, errorMessage, setErrorMessage } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
 
   
@@ -28,6 +30,8 @@ export default function TeacherSearchPage() {
             setZipCode={setZipCode}
             setRadius={setRadius}
             setLessonType={setLessonType}
+            setMinPrice={setMinPrice}
+            setMaxPrice={setMaxPrice}
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
           />

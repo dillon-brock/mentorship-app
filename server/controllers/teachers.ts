@@ -63,13 +63,8 @@ export default Router()
         teachers = teachers.filter(teacher => {
             return teacher.subjects?.some(subject => subject.subject.toLowerCase().startsWith(subjectQuery.toLowerCase())
             && (req.query['lessonType'] !== 'Any' ? 
-            (subject.lessonType === req.query['lessonType'] || subject.lessonType === 'Any') : subject))
-                // console.log(subject.subject.toLowerCase().startsWith(subjectQuery));
-                
-                // && (req.query['lessonType'] !== 'Any' ? 
-                // (subject.lessonType === req.query['lessonType'] || subject.lessonType === 'Any') : subject)
-                // && subject.minPrice >= Number(req.query['minPrice'])
-                // && subject.maxPrice >= Number(req.query['maxPrice'])
+            (subject.lessonType === req.query['lessonType'] || subject.lessonType === 'Any') : subject)
+            && (subject.minPrice <= Number(req.query['minPrice']) ? subject.maxPrice >= Number(req.query['minPrice']) : subject.minPrice <= Number(req.query['maxPrice'])))
             });
           }
       console.log(teachers);

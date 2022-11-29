@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Col, Container, Form } from "react-bootstrap";
 
-export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, setLessonType, errorMessage, setErrorMessage }) {
+export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, setMinPrice, setMaxPrice, setLessonType, errorMessage, setErrorMessage }) {
 
   const [radiusForDisplay, setRadiusForDisplay] = useState(25);
 
@@ -12,6 +12,8 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, s
     setZipCode(formData.get('zipCode'));
     setRadius(formData.get('radius'));
     setLessonType(formData.get('lessonType'));
+    setMinPrice(formData.get('minPrice'));
+    setMaxPrice(formData.get('maxPrice'));
   }
 
   return (
@@ -42,6 +44,19 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, s
             <option value="In person">In person</option>
             <option value="Remote">Remote</option>
           </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-2" controlId="price">
+          <Form.Label>Price Range</Form.Label>
+          <Container className="d-flex align-items-end justify-content-start">
+            <Col className="d-flex flex-column">
+              <Form.Text>Min</Form.Text>
+              <Form.Control type="number" placeholder="0" name="minPrice" style={{ width: '40%'}} />
+            </Col>
+            <Col className="d-flex flex-column">
+              <Form.Text>Max</Form.Text>
+              <Form.Control type="number" placeholder="100" name="maxPrice" style={{ width: '40%'}}/>
+            </Col>
+          </Container>
         </Form.Group>
         <Button variant="primary" type="submit">
           Update Results

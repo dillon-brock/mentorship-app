@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { getTeachers } from "../services/teacher.js";
 import { getZipCodesInRadius } from "../services/zipcode.js";
 
-export function useAllTeachers(subject, zipCode, lessonType, radius, page, pageLength) {
+export function useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength) {
   const [teachers, setTeachers] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchTeachers = async () => {
-      const data = await getTeachers(subject, lessonType);
+      const data = await getTeachers(subject, lessonType, minPrice, maxPrice);
+      console.log(data);
       if (zipCode && radius) {
         const zipCodesInRadius = await getZipCodesInRadius({ zipCode, radius });
         const errorStatus = zipCodesInRadius.error_code;
@@ -31,7 +32,7 @@ export function useAllTeachers(subject, zipCode, lessonType, radius, page, pageL
       }
     }
     fetchTeachers();
-  }, [subject, zipCode, radius, page, pageLength, lessonType])
+  }, [subject, zipCode, radius, page, pageLength, lessonType, minPrice, maxPrice])
 
   return { teachers, setTeachers, totalPages, errorMessage, setErrorMessage };
 
