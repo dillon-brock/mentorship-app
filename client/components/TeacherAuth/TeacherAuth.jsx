@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import { getCityFromZipCode } from "../../services/zipcode";
 import TeacherBioForm from "../TeacherBioForm/TeacherBioForm";
 import TeacherLessonForm from "../TeacherLessonForm/TeacherLessonForm";
 import TeacherSignUpForm from "../TeacherSignUpForm/TeacherSignUpForm";
@@ -14,9 +13,7 @@ export default function TeacherAuth() {
   const [stateName, setStateName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [subject, setSubject] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [subjects, setSubjects] = useState([]);
 
   const { user, setUser, doneGettingUser } = useUserContext();
   
@@ -36,27 +33,21 @@ export default function TeacherAuth() {
       }
       {step === 2 &&
         <TeacherLessonForm
-          setZipCode={setZipCode}
-          setSubject={setSubject}
+          setSubjects={setSubjects}
           setStep={setStep}
-          cityName={cityName}
-          setCityName={setCityName}
-          stateName={stateName}
-          setStateName={setStateName}
         />
       }
       {step === 3 &&
         <TeacherBioForm
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
           email={email}
           password={password}
           firstName={firstName}
           lastName={lastName}
-          subject={subject}
-          zipCode={zipCode}
+          subjects={subjects}
           cityName={cityName}
+          setCityName={setCityName}
           stateName={stateName}
+          setStateName={setStateName}
           setUser={setUser}
         />
       }

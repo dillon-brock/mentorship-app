@@ -23,9 +23,9 @@ const testTeacher = {
   email: 'teacher@test.com',
   password: '123456',
   imageUrl: 'testimage.com',
-  subject: 'test subject',
   bio: 'I am a teacher',
   zipCode: '97214',
+  subjects: [{ subject: 'Drawing', minPrice: 10, maxPrice: 30, lessonType: 'In person' }],
   phoneNumber: '5555555555',
   contactEmail: 'teacher@test.com',
   city: 'Portland',
@@ -49,8 +49,7 @@ describe('teachers controller', () => {
     expect(res.body.message).toBe('Signed in successfully!');
   })
   it("serves teacher info with id corresponding to params on GET /teachers/:id", async () => {
-    const agent = await registerAndLoginStudent();
-    const res = await agent.get('/teachers/1');
+    const res = await request(app).get('/teachers/1');
     expect(res.status).toBe(200);
   })
 
@@ -60,7 +59,6 @@ describe('teachers controller', () => {
     expect(res.body[0]).toEqual(expect.objectContaining({
       id: expect.any(String),
       userId: expect.any(String),
-      subject: expect.any(String),
       zipCode: expect.any(String),
       firstName: expect.any(String),
       lastName: expect.any(String),

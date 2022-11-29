@@ -4,6 +4,7 @@ import studentRouter from './controllers/students.js';
 import userRouter from './controllers/users.js';
 import connectionRouter from './controllers/connections.js';
 import reviewRouter from './controllers/reviews.js';
+import subjectRouter from './controllers/subjects.js';
 
 const app = express();
 
@@ -14,5 +15,6 @@ export default (): Router => {
   prefixRouter.use('/users', userRouter);
   prefixRouter.use('/connections', connectionRouter);
   prefixRouter.use('/reviews', reviewRouter);
+  prefixRouter.use('/subjects', subjectRouter);
   return prefixRouter;
 }

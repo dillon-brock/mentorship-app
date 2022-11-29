@@ -1,8 +1,10 @@
 import { Container } from "react-bootstrap";
-import { useAllTeachers } from "../../hooks/useAllTeachers";
 import TeacherResult from "../TeacherResult/TeacherResult";
 
-export default function TeacherResults({ teachers, page, pageLength }) {
+export default function TeacherResults({ teachers }) {
+  
+  if (!teachers.length)
+    return <p>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</p>
 
   return (
     <Container>

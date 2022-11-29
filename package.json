@@ -54,6 +54,7 @@
     "autoprefixer": "^10.4.12",
     "babel-loader": "^9.1.0",
     "clean-webpack-plugin": "^4.0.0",
+    "cloudinary": "^1.32.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "css-modules-typescript-loader": "^4.0.1",

@@ -1,9 +1,11 @@
 import Talk from 'talkjs';
 import { useEffect, useState, useRef } from 'react';
+import { Button, Image } from 'react-bootstrap';
 
-export default function ChatWindow({ primaryUser, secondaryUser }) {
+export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) {
   const chatboxEl = useRef();
   const [talkLoaded, setTalkLoaded] = useState(false);
+  const [recipient, setRecipient] = useState({});
 
   useEffect(() => {
     Talk.ready.then(() => setTalkLoaded(true));
@@ -23,6 +25,8 @@ export default function ChatWindow({ primaryUser, secondaryUser }) {
         role: 'default'
       });
 
+      setRecipient(otherUser);
+
       const session = new Talk.Session({
         appId: process.env.TALK_APP_ID,
         me: currentUser,
@@ -34,7 +38,7 @@ export default function ChatWindow({ primaryUser, secondaryUser }) {
       conversation.setParticipant(currentUser);
       conversation.setParticipant(otherUser);
 
-      const chatbox = session.createChatbox();
+      const chatbox = session.createChatbox({ showChatHeader: false });
       chatbox.select(conversation);
       chatbox.mount(chatboxEl.current);
 
@@ -42,5 +46,14 @@ export default function ChatWindow({ primaryUser, secondaryUser }) {
     }
   }, [talkLoaded]);
 
-  return <div style={{ height: '60vh', width: '20vw', position: 'fixed', bottom: '0px', right: '0px', transform: 'translate(-25%, 0)' }} ref={chatboxEl} />;
+  return (
+    <div style={{ height: '72vh', width: '300px', position: 'fixed', bottom: '0px', right: '0px', transform: 'translate(-25%, 0)' }}>
+      <div className="chatboxHeader d-flex align-items-center justify-content-between" style={{ height: '90px', width: '100%', border: '1px solid black' }}>
+        <Image roundedCircle src={recipient.photoUrl} style={{ height: '80px', width: '80px'}}/>
+        <p style={{ margin: '0'}}>{recipient.name}</p>
+        <Button onClick={handleClose}>X</Button>
+      </div>
+      <div style={{ height: '60vh', width: '100%'}} ref={chatboxEl} />;
+    </div>
+  ) 
 }
