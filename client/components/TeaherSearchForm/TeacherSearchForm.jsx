@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
-export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, errorMessage, setErrorMessage }) {
+export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, setLessonType, errorMessage, setErrorMessage }) {
 
   const [radiusForDisplay, setRadiusForDisplay] = useState(25);
 
@@ -11,6 +11,7 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, e
     setSubject(formData.get('subject'));
     setZipCode(formData.get('zipCode'));
     setRadius(formData.get('radius'));
+    setLessonType(formData.get('lessonType'));
   }
 
   return (
@@ -34,9 +35,9 @@ export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, e
           <Form.Text className="text-danger">{errorMessage}</Form.Text>
         }
         
-        <Form.Group>
+        <Form.Group className="mb-2" controlId="lessonType">
           <Form.Label>Lesson Format</Form.Label>
-          <Form.Select>
+          <Form.Select name="lessonType">
             <option value="Any">Any</option>
             <option value="In person">In person</option>
             <option value="Remote">Remote</option>
