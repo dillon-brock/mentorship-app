@@ -31,6 +31,7 @@ describe('teaching materials controller', () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
     const subjects = await agent.get(`/subjects/${teacherRes.body.teacher.id}`);
+    console.log(subjects);
     const subjectId = subjects.body[0].id;
     console.log(subjectId);
 
