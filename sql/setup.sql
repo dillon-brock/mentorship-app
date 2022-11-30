@@ -75,6 +75,7 @@ CREATE TABLE teaching_materials (
   url TEXT NOT NULL,
   type TEXT NOT NULL,
   name TEXT,
+  public BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );

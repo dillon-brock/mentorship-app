@@ -1,14 +1,27 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
 import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
+import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
   const { pathname } = useLocation();
   const { subjectsWithTeachingMaterials, setSubjectsWithTeachingMaterials } = useTeachingMaterials(user?.teacherId);
+  const subjects = subjectsWithTeachingMaterials.reduce((a, b) => {
+    a.push({ id: b.id, name: b.subject});
+    return a;
+  }, [])
+  const teachingMaterials = subjectsWithTeachingMaterials.reduce((a, b) => {
+    a.push(b.teachingMaterials);
+    return a;
+  }, [])
+  console.log(teachingMaterials);
+
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   if (!user && doneGettingUser) return <Navigate to={`/auth/sign-up/teacher?callback=${pathname}`} />
 
@@ -16,16 +29,18 @@ export default function TeachingMaterialsPage() {
     <>
       <Header />
       <h1>Your Teaching Materials</h1>
-      {subjectsWithTeachingMaterials.length > 0 ?
+      {teachingMaterials.some(material => material.length > 0) ?
       <>
+        <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
         {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } />)}
       </>
       :
       <div>
         <h3>You current have no uploaded teaching materials.</h3>
-        <Button>Upload Your First File</Button>
+        <Button onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
       </div>
       }
+      <MaterialUploadModal showUploadModal={showUploadModal} setShowUploadModal={setShowUploadModal} subjects={subjects} />
     </>
   )
 }

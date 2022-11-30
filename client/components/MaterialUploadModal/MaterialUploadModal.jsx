@@ -19,10 +19,10 @@ export default function MaterialUploadModal({ showUploadModal, setShowUploadModa
           justify
         >
           <Tab eventKey="file" title="File">
-            <MaterialFileUploadForm />
+            <MaterialFileUploadForm subjects={subjects} />
           </Tab>
           <Tab eventKey="link" title="Link">
-            <MaterialLinkUploadForm />
+            <MaterialLinkUploadForm subjects={subjects} />
           </Tab>
 
         </Tabs>
