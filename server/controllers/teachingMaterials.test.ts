@@ -1,3 +1,4 @@
+/* @jest-environment node */
 import request from 'supertest'
 import app from '../app'
 import {
@@ -22,14 +23,14 @@ const testTeacher = {
   state: 'OR'
 }
 
-describe('reviews controller', () => {
+describe('teaching materials controller', () => {
   beforeEach(() => {
     return setupDb();
   })
-  it('creates new review on POST /reviews', async () => {
+  it('creates new teaching materials on POST /teaching-materials', async () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
-    const subjects = await agent.get(`/${teacherRes.body.teacher.id}`);
+    const subjects = await agent.get(`/subjects/${teacherRes.body.teacher.id}`);
     const subjectId = subjects.body[0].id;
 
     const newTeachingMaterial = {
