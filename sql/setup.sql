@@ -74,6 +74,7 @@ CREATE TABLE teaching_materials (
   subject_id BIGINT,
   url TEXT NOT NULL,
   type TEXT NOT NULL,
+  name TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
