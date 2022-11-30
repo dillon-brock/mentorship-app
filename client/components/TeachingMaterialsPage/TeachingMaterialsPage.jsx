@@ -10,16 +10,12 @@ import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
   const { pathname } = useLocation();
-  const { subjectsWithTeachingMaterials, setSubjectsWithTeachingMaterials } = useTeachingMaterials(user?.teacherId);
-  const subjects = subjectsWithTeachingMaterials.reduce((a, b) => {
-    a.push({ id: b.id, name: b.subject});
-    return a;
-  }, [])
-  const teachingMaterials = subjectsWithTeachingMaterials.reduce((a, b) => {
-    a.push(b.teachingMaterials);
-    return a;
-  }, [])
-  console.log(teachingMaterials);
+  const {
+    subjectsWithTeachingMaterials,
+    subjects,
+    teachingMaterials,
+    setTeachingMaterials
+  } = useTeachingMaterials(user?.teacherId);
 
   const [showUploadModal, setShowUploadModal] = useState(false);
 
@@ -29,7 +25,7 @@ export default function TeachingMaterialsPage() {
     <>
       <Header />
       <h1>Your Teaching Materials</h1>
-      {teachingMaterials.some(material => material.length > 0) ?
+      {teachingMaterials.length > 0 ?
       <>
         <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
         {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } />)}
@@ -40,7 +36,12 @@ export default function TeachingMaterialsPage() {
         <Button onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
       </div>
       }
-      <MaterialUploadModal showUploadModal={showUploadModal} setShowUploadModal={setShowUploadModal} subjects={subjects} />
+      <MaterialUploadModal
+        showUploadModal={showUploadModal}
+        setShowUploadModal={setShowUploadModal}
+        subjects={subjects}
+        setTeachingMaterials={setTeachingMaterials}
+      />
     </>
   )
 }

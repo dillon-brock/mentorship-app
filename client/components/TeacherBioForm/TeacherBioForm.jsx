@@ -46,7 +46,7 @@ export default function TeacherBioForm({
     if (formErrors.bio) setFormErrors({ ...formErrors, bio: ''});
   }
 
-  const handleChangeImage = async (e) => {
+  const handleChangeImage = (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);

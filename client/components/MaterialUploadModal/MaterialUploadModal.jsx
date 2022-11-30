@@ -2,7 +2,7 @@ import { Modal, Tab, Tabs } from "react-bootstrap";
 import MaterialFileUploadForm from "../MaterialFileUploadForm/MaterialFileUploadForm";
 import MaterialLinkUploadForm from "../MaterialLinkUploadForm/MaterialLinkUploadForm";
 
-export default function MaterialUploadModal({ showUploadModal, setShowUploadModal, subjects }) {
+export default function MaterialUploadModal({ showUploadModal, setShowUploadModal, setTeachingMaterials, subjects }) {
   
   const handleClose = () => setShowUploadModal(false);
 
@@ -19,7 +19,11 @@ export default function MaterialUploadModal({ showUploadModal, setShowUploadModa
           justify
         >
           <Tab eventKey="file" title="File">
-            <MaterialFileUploadForm subjects={subjects} />
+            <MaterialFileUploadForm
+              setShowUploadModal={setShowUploadModal}
+              subjects={subjects}
+              setTeachingMaterials={setTeachingMaterials}
+            />
           </Tab>
           <Tab eventKey="link" title="Link">
             <MaterialLinkUploadForm subjects={subjects} />

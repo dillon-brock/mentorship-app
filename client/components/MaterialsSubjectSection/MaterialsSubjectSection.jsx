@@ -1,9 +1,9 @@
-import { useState } from "react"
 import { Image } from "react-bootstrap";
 
 export default function TeachingMaterialsSubjectSection({ subject, teachingMaterials }) {
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
+
   return (
     <section>
       <h3>Uploaded Files</h3>
@@ -11,8 +11,8 @@ export default function TeachingMaterialsSubjectSection({ subject, teachingMater
       <>
         {files.map(file => (
           <div>
-            <a href={file.url} target="_blank">
-              <Image src={file.url} rounded/>
+            <a href={file.url} key={file.url} target="_blank">
+              <Image src={`${file.url.slice(0, -3)}png`} rounded/>
               {file.name && <p>{file.name}</p>}
             </a>
           </div>
@@ -27,7 +27,7 @@ export default function TeachingMaterialsSubjectSection({ subject, teachingMater
       {links.length > 0 ?
         <ul>
           {links.map(link => {
-            if (link.name) return <a href={link.url} target="_blank">{link.name}</a>
+            if (link.name) return <a href={link.url} key={link.url} target="_blank">{link.name}</a>
             return <a href={link.url} target="_blank" />
           })}
         </ul>
