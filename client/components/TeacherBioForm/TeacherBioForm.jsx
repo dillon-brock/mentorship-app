@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getUser, signUpTeacher } from "../../services/auth";
-import { uploadProfilePicture } from "../../services/image";
+import { uploadProfilePicture } from "../../services/cloudinary";
 import { getCityFromZipCode } from "../../services/zipcode";
 
 export default function TeacherBioForm({

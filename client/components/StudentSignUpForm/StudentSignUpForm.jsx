@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
-import { uploadProfilePicture } from '../../services/image';
+import { uploadProfilePicture } from '../../services/cloudinary';
 
 export default function StudentSignUpForm() {
 
