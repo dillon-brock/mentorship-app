@@ -79,6 +79,12 @@ CREATE TABLE teaching_materials (
   FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+INSERT INTO teaching_materials (subject_id, url, type, name) VALUES
+  (6, 'singing.com', 'link', null),
+  (6, 'sdlkfj-sdlk.com', 'file', 'Scales'),
+  (4, 'i3oiwel.net', 'file', '4ms Manual'),
+  (4, 'synthslideshow.com', 'link', null);
+
 CREATE TABLE students (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   user_id BIGINT NOT NULL,
