@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
-import TeachingMaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
+import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
@@ -18,7 +18,7 @@ export default function TeachingMaterialsPage() {
       <h1>Your Teaching Materials</h1>
       {subjectsWithTeachingMaterials.length > 0 ?
       <>
-        {subjectsWithTeachingMaterials.map(subject => <TeachingMaterialsSubjectSection key={subject.id} { ...subject } />)}
+        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } />)}
       </>
       :
       <div>
