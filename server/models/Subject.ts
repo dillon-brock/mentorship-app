@@ -1,4 +1,4 @@
-import { NewSubjectInfo, SubjectFromDatabase } from "../../common/serverTypes/subjectTypes.js";
+import { NewSubjectInfo, SubjectFromDatabase } from "../types/subjectTypes.js";
 import pool from "../database.js";
 
 export default class Subject {
