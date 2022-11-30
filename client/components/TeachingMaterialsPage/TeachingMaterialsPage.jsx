@@ -1,7 +1,9 @@
+import { Button } from "react-bootstrap";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
+import TeachingMaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
@@ -14,7 +16,16 @@ export default function TeachingMaterialsPage() {
     <>
       <Header />
       <h1>Your Teaching Materials</h1>
-      
+      {subjectsWithTeachingMaterials.length > 0 ?
+      <>
+        {subjectsWithTeachingMaterials.map(subject => <TeachingMaterialsSubjectSection key={subject.id} { ...subject } />)}
+      </>
+      :
+      <div>
+        <h3>You current have no uploaded teaching materials.</h3>
+        <Button>Upload Your First File</Button>
+      </div>
+      }
     </>
   )
 }

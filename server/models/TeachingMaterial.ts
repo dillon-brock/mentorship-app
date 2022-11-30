@@ -1,4 +1,4 @@
-import pool from "../database";
+import pool from "../database.js";
 import { NewTeachingMaterialInfo, TeachingMaterialFromDatabase } from "../types/teachingMaterialTypes";
 
 export default class TeachingMaterial {
