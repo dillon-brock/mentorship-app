@@ -8,6 +8,7 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 import StudentListPage from './components/StudentListPage/StudentListPage';
 import TeacherDetailPage from './components/TeacherDetailPage/TeacherDetailPage';
 import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage';
+import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMaterialsPage';
 import { UserProvider } from './context/UserContext';
 
 const container = document.getElementById('app') || document.createElement('div')
@@ -25,6 +26,7 @@ root.render(
         <Route path="/inbox" element={<InboxPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-account" element={<AddTeacherAccountPage />} />
+        <Route path="/teaching-materials" element={<TeachingMaterialsPage />}/>
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
