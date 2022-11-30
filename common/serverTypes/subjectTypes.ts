@@ -14,3 +14,11 @@ export type NewSubjectInfo = {
   maxPrice: number;
   lessonType: string;
 }
+
+export type AggregatedSubject = {
+  id: string;
+  subject: string;
+  minPrice: number;
+  maxPrice: number;
+  lessonType: string;
+}

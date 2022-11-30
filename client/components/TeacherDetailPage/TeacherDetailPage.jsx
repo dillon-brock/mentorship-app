@@ -16,13 +16,18 @@ export default function TeacherDetailPage() {
   
   const { user } = useUserContext();
   const { id } = useParams();
-  const { teacher, setTeacher, connection, setConnection, reviews, setReviews, avgRating } = useTeacher(id);
+  const { teacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [userNeedsToSignIn, setUserNeedsToSignIn] = useState(false);
 
   let formattedSubjectList;
   if (teacher.subjects) {
-    formattedSubjectList = teacher.subjects.join(' | ');
+    formattedSubjectList = teacher.subjects
+      .reduce((a, b) => {
+        a.push(b.subject);
+        return a;
+      }, [])
+      .join(' | ')
   }
 
   const handleUserWantsToSendMessage = () => {
@@ -51,7 +56,7 @@ export default function TeacherDetailPage() {
       <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
       {reviews.length > 0 ?
         <>
-          <StarRating value={avgRating} editable={false} />
+          <StarRating value={avgRating} editable={false} half={true}/>
           <ReviewListModal reviews={reviews} />
         </>
         :
@@ -60,7 +65,7 @@ export default function TeacherDetailPage() {
       <Button onClick={handleUserWantsToSendMessage}>Message</Button>
       <AuthRedirectModal teacherId={id} userNeedsToSignIn={userNeedsToSignIn} setUserNeedsToSignIn={setUserNeedsToSignIn} />
       {!connection && <AddConnectionModal {...teacher} connection={connection} setConnection={setConnection} setUserNeedsToSignIn={setUserNeedsToSignIn} />}
-      {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} teacher={teacher} setTeacher={setTeacher} reviews={reviews} />}
+      {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} reviews={reviews} setAvgRating={setAvgRating} />}
       <p>{teacher.bio}</p>
       {openChatWindow &&
         <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
