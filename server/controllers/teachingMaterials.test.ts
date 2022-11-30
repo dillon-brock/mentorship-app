@@ -32,6 +32,7 @@ describe('teaching materials controller', () => {
     const teacherRes = await agent.post('/teachers').send(testTeacher);
     const subjects = await agent.get(`/subjects/${teacherRes.body.teacher.id}`);
     const subjectId = subjects.body[0].id;
+    console.log(subjectId);
 
     const newTeachingMaterial = {
       subjectId,
@@ -41,6 +42,7 @@ describe('teaching materials controller', () => {
     }
 
     const res = await agent.post('/teaching-materials').send(newTeachingMaterial);
+    console.log(res.body);
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ ...newTeachingMaterial }));
   })

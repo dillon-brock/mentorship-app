@@ -7,7 +7,6 @@ export default Router()
     try {
       if (req.params.teacherId) {
         const subjects = await Subject.findByTeacherId(req.params.teacherId);
-        console.log(subjects);
         res.json(subjects);
       }
     } catch (e) {

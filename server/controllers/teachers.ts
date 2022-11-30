@@ -67,7 +67,6 @@ export default Router()
             && (subject.minPrice <= Number(req.query['minPrice']) ? subject.maxPrice >= Number(req.query['minPrice']) : subject.minPrice <= Number(req.query['maxPrice'])))
             });
           }
-      console.log(teachers);
       res.json(teachers);
     } catch (error) {
       next(error);
