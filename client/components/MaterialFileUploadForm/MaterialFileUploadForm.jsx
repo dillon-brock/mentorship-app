@@ -43,7 +43,7 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
       <Form.Group>
         <Form.Label>Subject</Form.Label>
         <Form.Select name="subject">
-          <option disabled value=''>Choose the subject associated with this file...</option>
+          <option selected disabled value=''>Choose the subject associated with this file...</option>
           {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.name}</option>)}
         </Form.Select>
       </Form.Group>
