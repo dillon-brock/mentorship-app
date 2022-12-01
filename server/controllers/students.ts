@@ -69,7 +69,7 @@ export default Router()
   })
   .get('/learning-materials', authenticateStudent, async (req, res, next) => {
     try {
-      const teachers = await Teacher.findByStudentId(req.user.id);
+      const teachers = await Teacher.findByStudentId(req.user.studentId);
       await Promise.all(teachers.map(t => t.getTeachingMaterials()));
       res.json(teachers);
     } catch (e) {
