@@ -103,7 +103,7 @@ export default class Teacher {
       `SELECT teachers.* FROM teachers
       INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id
       INNER JOIN students ON students.id = teachers_students.student_id
-      WHERE student_id = $1`,
+      WHERE student_id = $1 AND connection_approved = 'approved'`,
       [studentId]
     );
     return rows.map(row => new Teacher(row));
