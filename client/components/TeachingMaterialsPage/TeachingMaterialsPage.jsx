@@ -17,6 +17,8 @@ export default function TeachingMaterialsPage() {
     setTeachingMaterials
   } = useTeachingMaterials(user?.teacherId);
 
+  console.log(teachingMaterials);
+
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   if (!user && doneGettingUser) return <Navigate to={`/auth/sign-up/teacher?callback=${pathname}`} />
@@ -28,7 +30,7 @@ export default function TeachingMaterialsPage() {
       {teachingMaterials.length > 0 ?
       <>
         <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
-        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } setTeachingMaterials={setTeachingMaterials} />)}
+        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
       </>
       :
       <div>

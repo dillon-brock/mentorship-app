@@ -144,7 +144,7 @@ export default class Teacher {
   async getTeachingMaterials() {
     const { rows } = await pool.query(
       `SELECT COALESCE(
-        json_agg(json_build_object('id', teaching_materials.id, 'name', teaching_materials.name, 'type', teaching_materials.type, 'url', teaching_materials.url))
+        json_agg(json_build_object('id', teaching_materials.id, 'subjectId', teaching_materials.subject_id, 'name', teaching_materials.name, 'type', teaching_materials.type, 'url', teaching_materials.url))
         FILTER (WHERE teaching_materials.id IS NOT NULL), '[]'
       ) as teaching_materials from teachers
       INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id

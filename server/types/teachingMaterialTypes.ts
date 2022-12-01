@@ -13,3 +13,10 @@ export type NewTeachingMaterialInfo = {
   type: string;
   name: string | null;
 }
+
+export type UpdateTeachingMaterialInfo = {
+  id: string;
+  subjectId: string;
+  url: string;
+  name: string | null;
+}

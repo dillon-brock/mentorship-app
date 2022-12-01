@@ -32,7 +32,6 @@ export default function MaterialUploadModal({ showUploadModal, setShowUploadModa
               setTeachingMaterials={setTeachingMaterials}
             />
           </Tab>
-
         </Tabs>
       </Modal.Body>
     </Modal>

@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { Button, Container, Image, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
-import DeleteFileModal from "../DeleteFileModal/DeleteFileModal";
+import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
+import EditFileModal from "../EditFileModal/EditFileModal";
 
-export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
+export default function FileMaterial({ id, subjectId, url, name, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
   const [userWantsToDeleteFile, setUserWantsToDeleteFile] = useState(false);
-  console.log(openPopover);
+  const [userWantsToEditFile, setUserWantsToEditFile] = useState(false);
 
   const handleMouseLeave = () => {
     setShowMenuButton(false);
@@ -20,11 +21,16 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
     setOpenPopover(false);
   }
 
+  const handleClickEdit = () => {
+    setUserWantsToEditFile(true);
+    setOpenPopover(false);
+  }
+
   const popover = (
   <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
-        <p>Edit</p>
+        <p onClick={handleClickEdit}>Edit</p>
         <p onClick={handleClickDelete}>Delete</p>
       </Container>
     </Popover.Body>
@@ -50,11 +56,21 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
         </div>
         }
       </div>
-      <DeleteFileModal
-        userWantsToDeleteFile={userWantsToDeleteFile}
-        setUserWantsToDeleteFile={setUserWantsToDeleteFile}
-        fileName={name}
+      <DeleteMaterialModal
+        userWantsToDelete={userWantsToDeleteFile}
+        setUserWantsToDelete={setUserWantsToDeleteFile}
         id={id}
+        setTeachingMaterials={setTeachingMaterials}
+        materialType={'file'}
+      />
+      <EditFileModal
+        userWantsToEditFile={userWantsToEditFile}
+        setUserWantsToEditFile={setUserWantsToEditFile}
+        id={id}
+        subjectId={subjectId}
+        name={name}
+        url={url}
+        subjects={subjects}
         setTeachingMaterials={setTeachingMaterials}
       />
     </>

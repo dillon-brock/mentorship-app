@@ -47,7 +47,7 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
           {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.name}</option>)}
         </Form.Select>
       </Form.Group>
-      {/* <Button onClick={() => setShowUploadModal(false)}>Cancel</Button> */}
+      <Button onClick={() => setShowUploadModal(false)}>Cancel</Button>
       <Button type="submit">Upload</Button>
     </Form>
   )
