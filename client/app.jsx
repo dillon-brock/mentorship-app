@@ -27,6 +27,7 @@ root.render(
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-account" element={<AddTeacherAccountPage />} />
         <Route path="/teaching-materials" element={<TeachingMaterialsPage />}/>
+        <Route path="/learning-materials" element={<LearningMaterialsPage />}/>
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
