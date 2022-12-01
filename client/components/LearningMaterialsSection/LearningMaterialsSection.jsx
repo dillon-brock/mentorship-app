@@ -1,18 +1,21 @@
 import { Accordion, Button, Container, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function LearningMaterialsSection({ i, imageUrl, firstName, lastName, teachingMaterials }) {
+export default function LearningMaterialsSection({ i, id, imageUrl, firstName, lastName, teachingMaterials, handleMessage }) {
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
 
   return (
     <Accordion.Item eventKey={i.toString()}>
       <Accordion.Header>
-        <Container className="d-flex align-items-center justify-content-start">
-          <Image roundedCircle src={imageUrl} style={{ width: '120px', height: '120px' }} />
+        <Container className="d-flex align-items-center justify-content-start" style={{ gap: '20px'}}>
+          <Image roundedCircle src={imageUrl} style={{ width: '100px', height: '100px' }} />
           <h3 style={{ display: "inline-block", width: "200px"}}>{firstName} {lastName}</h3>
-          <Container className="d-flex align-items-center justify-content-end">
-            <Button>View Profile</Button>
-            <Button>Message</Button>
+          <Container className="d-flex align-items-center justify-content-end" style={{ gap: '20px' }}>
+            <Link to={`/teacher/${id}`}>
+              <Button onClick={(e) => e.stopPropagation()}>View Profile</Button>
+            </Link>
+            <Button onClick={handleMessage}>Message</Button>
           </Container>
         </Container>
       </Accordion.Header>
