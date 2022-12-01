@@ -1,10 +1,22 @@
 import { useState } from "react"
-import { Button, Image } from "react-bootstrap";
+import { Button, Container, Image, Overlay, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
+import MaterialMenuPopover from "../MaterialMenuPopover/MaterialMenuPopover";
 
 export default function FileMaterial({ url, name}) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
+
+  const popover = (
+  <Popover id="popover-basic">
+    <Popover.Body>
+      <Container className="d-flex flex-column">
+        <p>Edit</p>
+        <p>Delete</p>
+      </Container>
+    </Popover.Body>
+  </Popover>
+  )
 
   return (
     <div onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={() => setShowMenuButton(false)} style={{ position: 'relative', display: 'flex', width: '275px', height: '360px', flexDirection: 'column', alignItems: 'center'}}>
@@ -16,9 +28,11 @@ export default function FileMaterial({ url, name}) {
       </a>
       {showMenuButton &&
       <div style={{ position: 'absolute', top: '5px', right: '5px' }}>
-        <Button variant="light">
-          <FaEllipsisV />
-        </Button>
+        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+          <Button variant="light">
+            <FaEllipsisV />
+          </Button>
+        </OverlayTrigger>
       </div>
       }
     </div>
