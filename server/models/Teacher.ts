@@ -1,5 +1,5 @@
-import { AggregatedSubject } from "../../common/serverTypes/subjectTypes";
-import { NewTeacherInfo, TeacherFromDatabase } from "../../common/serverTypes/teacherTypes";
+import { AggregatedSubject } from "../types/subjectTypes";
+import { NewTeacherInfo, TeacherFromDatabase } from "../types/teacherTypes";
 import pool from "../database.js";
 
 export default class Teacher {

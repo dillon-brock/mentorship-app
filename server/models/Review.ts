@@ -1,4 +1,4 @@
-import { NewReview, ReviewFromDatabase } from "../../common/serverTypes/reviewTypes.js";
+import { NewReview, ReviewFromDatabase } from "../types/reviewTypes.js";
 import pool from "../database.js";
 
 export default class Review {

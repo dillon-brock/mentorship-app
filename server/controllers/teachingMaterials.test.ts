@@ -8,14 +8,6 @@ import {
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
 
-const testStudent = {
-  firstName: 'Test',
-  lastName: 'Student',
-  email: 'student@test.com',
-  password: '123456',
-  imageUrl: 'testimage.com'
-};
-
 const testTeacher = {
   firstName: 'Test',
   lastName: 'Teacher',
@@ -31,22 +23,28 @@ const testTeacher = {
   state: 'OR'
 }
 
-describe('reviews controller', () => {
+describe('teaching materials controller', () => {
   beforeEach(() => {
     return setupDb();
   })
-  it('creates new review on POST /reviews', async () => {
+  it('creates new teaching materials on POST /teaching-materials', async () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
-    await agent.delete('/users/sessions');
-    const studentRes = await agent.post('/students').send(testStudent);
-    const res = await agent.post('/reviews').send({
-      teacherId: teacherRes.body.teacher.id,
-      studentId: studentRes.body.student.id,
-      detail: 'Great teacher!',
-      stars: 5
-    })
+    const subjects = await agent.get(`/subjects/${teacherRes.body.teacher.id}`);
+    console.log(subjects);
+    const subjectId = subjects.body[0].id;
+    console.log(subjectId);
+
+    const newTeachingMaterial = {
+      subjectId,
+      type: 'link',
+      url: 'fakelink.com',
+      name: 'new stuff'
+    }
+
+    const res = await agent.post('/teaching-materials').send(newTeachingMaterial);
+    console.log(res.body);
     expect(res.status).toBe(200);
-    expect(res.body).toEqual(expect.objectContaining({ detail: 'Great teacher!', stars: 5 }))
+    expect(res.body).toEqual(expect.objectContaining({ ...newTeachingMaterial }));
   })
 })

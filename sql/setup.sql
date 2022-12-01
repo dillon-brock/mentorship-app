@@ -7,7 +7,8 @@ DROP TABLE IF EXISTS teachers CASCADE;
 DROP TABLE IF EXISTS students CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS subjects CASCADE;
-DROP TABLE IF EXISTS students_subjects;
+DROP TABLE IF EXISTS students_subjects CASCADE;
+DROP TABLE IF EXISTS teaching_materials;
 
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -67,6 +68,23 @@ INSERT INTO subjects (teacher_id, subject, min_price, max_price, lesson_type) VA
   (3, 'Analog Modular Synthesis', 50, 80, 'Any'),
   (4, 'Alexander Technique', 90, 140, 'Any'),
   (5, 'Coding', 0, 90, 'Remote');
+
+CREATE TABLE teaching_materials (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  subject_id BIGINT,
+  url TEXT NOT NULL,
+  type TEXT NOT NULL,
+  name TEXT,
+  public BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  FOREIGN KEY (subject_id) REFERENCES subjects(id)
+);
+
+INSERT INTO teaching_materials (subject_id, url, type, name) VALUES
+  (6, 'singing.com', 'link', null),
+  (6, 'sdlkfj-sdlk.com', 'file', 'Scales'),
+  (4, 'i3oiwel.net', 'file', '4ms Manual'),
+  (4, 'synthslideshow.com', 'link', null);
 
 CREATE TABLE students (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

@@ -1,4 +1,4 @@
-import { ConnectionFromDatabase, ConnectionUpdate, NewConnection } from "../../common/serverTypes/connectionTypes.js";
+import { ConnectionFromDatabase, ConnectionUpdate, NewConnection } from "../types/connectionTypes.js";
 import pool from "../database.js";
 
 export default class Connection {
