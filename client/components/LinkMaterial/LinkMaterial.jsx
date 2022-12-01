@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button, Container, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisH } from "react-icons/fa";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
+import EditLinkModal from "../EditLinkModal/EditLinkModal";
 
-export default function LinkMaterial({ id, name, url, setTeachingMaterials }) {
+export default function LinkMaterial({ id, name, url, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
@@ -57,6 +58,15 @@ export default function LinkMaterial({ id, name, url, setTeachingMaterials }) {
       id={id}
       setTeachingMaterials={setTeachingMaterials}
       materialType={'link'}
+      />
+      <EditLinkModal
+        userWantsToEditLink={userWantsToEditLink}
+        setUserWantsToEditLink={setUserWantsToEditLink}
+        id={id}
+        name={name}
+        url={url}
+        setTeachingMaterials={setTeachingMaterials}
+        subjects={subjects}
       />
     </>
   )

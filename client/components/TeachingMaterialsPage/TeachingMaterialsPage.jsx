@@ -17,6 +17,8 @@ export default function TeachingMaterialsPage() {
     setTeachingMaterials
   } = useTeachingMaterials(user?.teacherId);
 
+  console.log(teachingMaterials);
+
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   if (!user && doneGettingUser) return <Navigate to={`/auth/sign-up/teacher?callback=${pathname}`} />
