@@ -28,3 +28,15 @@ export async function getTeachingMaterialsByTeacherId(teacherId) {
   const teachingMaterials = await response.json();
   return teachingMaterials;
 }
+
+export async function deleteTeachingMaterial(id) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  return await response.json();
+}
