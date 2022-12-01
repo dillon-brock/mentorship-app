@@ -1,5 +1,5 @@
 import pool from "../database.js";
-import { NewTeachingMaterialInfo, TeachingMaterialFromDatabase } from "../types/teachingMaterialTypes";
+import { NewTeachingMaterialInfo, TeachingMaterialFromDatabase, UpdateTeachingMaterialInfo } from "../types/teachingMaterialTypes";
 
 export default class TeachingMaterial {
   id: string;
@@ -38,6 +38,18 @@ export default class TeachingMaterial {
     );
 
     if (!rows[0]) return null;
+    return new TeachingMaterial(rows[0]);
+  }
+
+  static async updateById({ id, subjectId, url, name }: UpdateTeachingMaterialInfo): Promise<TeachingMaterial> {
+    const { rows } = await pool.query(
+      `UPDATE teaching_materials
+      SET subject_id = $1, url = $2, name = $3
+      WHERE id = $4
+      RETURNING *`,
+      [subjectId, url, name, id]
+    );
+
     return new TeachingMaterial(rows[0]);
   }
 }

@@ -8,6 +8,7 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
   const [userWantsToDeleteFile, setUserWantsToDeleteFile] = useState(false);
+  const [userWantsToEditFile, setUserWantsToEditFile] = useState(false);
   console.log(openPopover);
 
   const handleMouseLeave = () => {
