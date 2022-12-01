@@ -5,7 +5,7 @@ export default function SubjectList({ subjects }) {
   return (
     <>
       <h4>Subjects</h4>
-      <Tab.Container>
+      <Tab.Container defaultActiveKey={subjects[0].subject}>
           <Row>
           <Row sm={3}>
             <Nav variant="tabs">
