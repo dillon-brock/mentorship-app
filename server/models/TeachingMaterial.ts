@@ -28,4 +28,16 @@ export default class TeachingMaterial {
 
     return new TeachingMaterial(rows[0]);
   }
+
+  static async delete(id: string): Promise<TeachingMaterial | null> {
+    const { rows } = await pool.query(
+      `DELETE FROM teaching_materials
+      WHERE id = $1
+      RETURNING *`,
+      [id]
+    );
+
+    if (!rows[0]) return null;
+    return new TeachingMaterial(rows[0]);
+  }
 }

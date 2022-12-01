@@ -11,3 +11,13 @@ export default Router()
       next(e);
     }
   })
+  .delete('/:id', authenticateTeacher, async (req, res, next) => {
+    try {
+      if (req.params.id) {
+        const deletedMaterial = TeachingMaterial.delete(req.params.id);
+        res.json(deletedMaterial);
+      }
+    } catch (e) {
+      next(e);
+    }
+  })
