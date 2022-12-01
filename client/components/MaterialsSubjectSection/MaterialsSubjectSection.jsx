@@ -1,12 +1,11 @@
 import { Image } from "react-bootstrap";
 
 import FileMaterial from "../FileMaterial/FileMaterial";
+import LinkMaterial from "../LinkMaterial/LinkMaterial";
 
 export default function MaterialsSubjectSection({ subject, teachingMaterials, setTeachingMaterials, subjects }) {
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
-
-  console.log(files);
 
   return (
     <section>
@@ -25,10 +24,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
       <h3>Links</h3>
       {links.length > 0 ?
         <ul>
-          {links.map(link => {
-            if (link.name) return <a href={link.url} key={link.url} target="_blank">{link.name}</a>
-            return <a href={link.url} target="_blank" />
-          })}
+          {links.map(link => <LinkMaterial key={link.id} {...link} />)}
         </ul>
         :
         <h4>{`You currently have no links for the subject ${subject}.`}</h4>

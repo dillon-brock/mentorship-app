@@ -9,9 +9,6 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
   const [fileData, setFileData] = useState(null);
   const [nameFromInput, setNameFromInput] = useState(name);
 
-  console.log(subjectId);
-  console.log(subjects);
-
   const handleClose = () => setUserWantsToEditFile(false);
 
   const handleChangeName = (e) => setNameFromInput(e.target.value);
