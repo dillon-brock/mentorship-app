@@ -2,8 +2,9 @@ import { useState } from "react"
 import { Button, Container, Image, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
 import DeleteFileModal from "../DeleteFileModal/DeleteFileModal";
+import EditFileModal from "../EditFileModal/EditFileModal";
 
-export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
+export default function FileMaterial({ id, url, name, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
@@ -21,11 +22,16 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
     setOpenPopover(false);
   }
 
+  const handleClickEdit = () => {
+    setUserWantsToEditFile(true);
+    setOpenPopover(false);
+  }
+
   const popover = (
   <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
-        <p>Edit</p>
+        <p onClick={handleClickEdit}>Edit</p>
         <p onClick={handleClickDelete}>Delete</p>
       </Container>
     </Popover.Body>
@@ -57,6 +63,14 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials }) {
         fileName={name}
         id={id}
         setTeachingMaterials={setTeachingMaterials}
+      />
+      <EditFileModal
+        userWantsToEditFile={userWantsToEditFile}
+        setUserWantsToEditFile={setUserWantsToEditFile}
+        id={id}
+        name={name}
+        url={url}
+        subjects={subjects}
       />
     </>
   )

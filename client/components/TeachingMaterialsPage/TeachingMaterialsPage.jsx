@@ -28,7 +28,7 @@ export default function TeachingMaterialsPage() {
       {teachingMaterials.length > 0 ?
       <>
         <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
-        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } setTeachingMaterials={setTeachingMaterials} />)}
+        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} { ...subject } setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
       </>
       :
       <div>
