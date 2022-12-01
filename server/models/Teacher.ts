@@ -1,6 +1,7 @@
 import { AggregatedSubject } from "../types/subjectTypes";
 import { NewTeacherInfo, TeacherFromDatabase } from "../types/teacherTypes";
 import pool from "../database.js";
+import TeachingMaterial from "./TeachingMaterial.js";
 
 export default class Teacher {
   id: string;
@@ -15,20 +16,22 @@ export default class Teacher {
   lastName: string;
   imageUrl: string;
   subjects?: Array<AggregatedSubject>;
+  teachingMaterials?: Array<TeachingMaterial>
 
-  constructor({ id, user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state, subjects }: TeacherFromDatabase) {
-    this.id = id;
-    this.userId = user_id;
-    this.bio = bio;
-    this.zipCode = zip_code;
-    this.city = city;
-    this.state = state;
-    this.phoneNumber = phone_number;
-    this.contactEmail = contact_email;
-    this.firstName = first_name;
-    this.lastName = last_name;
-    this.imageUrl = image_url;
-    if (subjects) this.subjects = subjects;
+  constructor(row: TeacherFromDatabase) {
+    this.id = row.id;
+    this.userId = row.user_id;
+    this.bio = row.bio;
+    this.zipCode = row.zip_code;
+    this.city = row.city;
+    this.state = row.state;
+    this.phoneNumber = row.phone_number;
+    this.contactEmail = row.contact_email;
+    this.firstName = row.first_name;
+    this.lastName = row.last_name;
+    this.imageUrl = row.image_url;
+    if (row.subjects) this.subjects = row.subjects;
+    if (row.teaching_materials) this.teachingMaterials = row.teaching_materials;
   }
 
   static async create({ userId, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher | null> {
@@ -95,6 +98,17 @@ export default class Teacher {
     return new Teacher(rows[0]);
   }
 
+  static async findByStudentId(studentId: string): Promise<Array<Teacher>> {
+    const { rows } = await pool.query(
+      `SELECT teachers.* FROM teachers
+      INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id
+      INNER JOIN students ON students.id = teachers_students.student_id
+      WHERE student_id = $1 AND connection_approved = 'approved'`,
+      [studentId]
+    );
+    return rows.map(row => new Teacher(row));
+  }
+
   static async updateByUserId({
     userId,
     bio,
@@ -125,5 +139,24 @@ export default class Teacher {
     );
     if (!rows[0]) return null;
     return new Teacher(rows[0]);
+  }
+
+  async getTeachingMaterials() {
+    const { rows } = await pool.query(
+      `SELECT COALESCE(
+        json_agg(json_build_object('id', teaching_materials.id, 'name', teaching_materials.name, 'type', teaching_materials.type, 'url', teaching_materials.url))
+        FILTER (WHERE teaching_materials.id IS NOT NULL), '[]'
+      ) as teaching_materials from teachers
+      INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id
+      INNER JOIN students ON students.id = teachers_students.student_id
+      INNER JOIN students_subjects ON students_subjects.student_id = students.id
+      INNER JOIN subjects ON subjects.id = students_subjects.subject_id
+      LEFT JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
+      WHERE teachers.id = $1
+      GROUP BY teachers.id`,
+      [this.id]
+    );
+
+    this.teachingMaterials = rows[0].teaching_materials;
   }
 }

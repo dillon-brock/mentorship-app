@@ -2,6 +2,7 @@ import { Router, type Request, type Response, type NextFunction } from 'express'
 import authenticateStudent from '../middleware/authenticateStudent.js';
 import Student from '../models/Student.js';
 import StudentSubject from '../models/StudentSubject.js';
+import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
@@ -62,6 +63,15 @@ export default Router()
       const { subjectId } = req.body;
       const newStudentSubject = await StudentSubject.create({ studentId: req.user.studentId, subjectId })
       res.json(newStudentSubject);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .get('/learning-materials', authenticateStudent, async (req, res, next) => {
+    try {
+      const teachers = await Teacher.findByStudentId(req.user.studentId);
+      await Promise.all(teachers.map(t => t.getTeachingMaterials()));
+      res.json(teachers);
     } catch (e) {
       next(e);
     }

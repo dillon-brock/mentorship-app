@@ -61,3 +61,15 @@ export async function addStudentSubject(subjectId) {
   const newStudentSubject = await response.json();
   return newStudentSubject;
 }
+
+export async function getLearningMaterials() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/learning-materials`, {
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  const learningMaterials = await response.json();
+  return learningMaterials;
+}
