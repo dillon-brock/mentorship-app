@@ -48,6 +48,7 @@ export default function Header() {
                   <Nav.Link href='/profile'>Profile</Nav.Link>
                   {user.type == 'student' &&
                     <>
+                      <Nav.Link href='/learning-materials'>Learning Materials</Nav.Link>
                       <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
                       {user.teacherId ? 
                           <Nav.Link onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Nav.Link>
