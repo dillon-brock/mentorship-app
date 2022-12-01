@@ -4,7 +4,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import DeleteFileModal from "../DeleteFileModal/DeleteFileModal";
 import EditFileModal from "../EditFileModal/EditFileModal";
 
-export default function FileMaterial({ id, url, name, setTeachingMaterials, subjects }) {
+export default function FileMaterial({ id, subjectId, url, name, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
@@ -68,9 +68,11 @@ export default function FileMaterial({ id, url, name, setTeachingMaterials, subj
         userWantsToEditFile={userWantsToEditFile}
         setUserWantsToEditFile={setUserWantsToEditFile}
         id={id}
+        subjectId={subjectId}
         name={name}
         url={url}
         subjects={subjects}
+        setTeachingMaterials={setTeachingMaterials}
       />
     </>
   )

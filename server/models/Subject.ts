@@ -46,7 +46,7 @@ export default class Subject {
     const { rows } = await pool.query(
       `SELECT subjects.*,
       COALESCE(
-        json_agg(json_build_object('id', teaching_materials.id, 'url', teaching_materials.url, 'type', teaching_materials.type, 'name', teaching_materials.name, 'createdAt', teaching_materials.created_at))
+        json_agg(json_build_object('id', teaching_materials.id, 'subjectId', teaching_materials.subject_id, 'url', teaching_materials.url, 'type', teaching_materials.type, 'name', teaching_materials.name, 'createdAt', teaching_materials.created_at))
         FILTER (WHERE teaching_materials.id IS NOT NULL), '[]'
       ) as teaching_materials from subjects
       LEFT JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
