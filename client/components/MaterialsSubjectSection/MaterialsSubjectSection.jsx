@@ -24,7 +24,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
       <h3>Links</h3>
       {links.length > 0 ?
         <ul>
-          {links.map(link => <LinkMaterial key={link.id} {...link} />)}
+          {links.map(link => <LinkMaterial key={link.id} {...link} setTeachingMaterials={setTeachingMaterials} />)}
         </ul>
         :
         <h4>{`You currently have no links for the subject ${subject}.`}</h4>

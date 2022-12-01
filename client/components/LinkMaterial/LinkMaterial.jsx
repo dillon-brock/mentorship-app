@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button, Container, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisH } from "react-icons/fa";
+import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 
-export default function LinkMaterial({ name, url }) {
+export default function LinkMaterial({ id, name, url, setTeachingMaterials }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
-  const [userWantsToDeleteFile, setUserWantsToDeleteFile] = useState(false);
-  const [userWantsToEditFile, setUserWantsToEditFile] = useState(false);
+  const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
+  const [userWantsToEditLink, setUserWantsToEditLink] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
 
   const handleMouseLeave = () => {
@@ -15,12 +16,12 @@ export default function LinkMaterial({ name, url }) {
   }
 
   const handleClickDelete = () => {
-    setUserWantsToDeleteFile(true);
+    setUserWantsToDeleteLink(true);
     setOpenPopover(false);
   }
 
   const handleClickEdit = () => {
-    setUserWantsToEditFile(true);
+    setUserWantsToEditLink(true);
     setOpenPopover(false);
   }
 
@@ -36,18 +37,27 @@ export default function LinkMaterial({ name, url }) {
   )
 
   return (
-    <div style={{ height: '26px', display: 'flex', justifyContent: 'flex-start', gap: '20px', alignItems: 'start' }} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
-      {name ? <a href={url} target="_blank">{name}</a>
-      :
-      <a href={url} target="_blank" />
+    <>
+      <div style={{ height: '26px', display: 'flex', justifyContent: 'flex-start', gap: '20px', alignItems: 'start' }} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
+        {name ? <a href={url} target="_blank">{name}</a>
+        :
+        <a href={url} target="_blank" />
       }
-      {showMenuButton &&
-        <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
-          <Button variant="light" onClick={() => setOpenPopover(!openPopover)} style={{ padding: '0px 8px'}}>
-            <FaEllipsisH />
-          </Button>
-        </OverlayTrigger>
-      }
-    </div>
+        {showMenuButton &&
+          <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
+            <Button variant="light" onClick={() => setOpenPopover(!openPopover)} style={{ padding: '0px 8px'}}>
+              <FaEllipsisH />
+            </Button>
+          </OverlayTrigger>
+        }
+      </div>
+      <DeleteMaterialModal
+      userWantsToDelete={userWantsToDeleteLink}
+      setUserWantsToDelete={setUserWantsToDeleteLink}
+      id={id}
+      setTeachingMaterials={setTeachingMaterials}
+      materialType={'link'}
+      />
+    </>
   )
 }

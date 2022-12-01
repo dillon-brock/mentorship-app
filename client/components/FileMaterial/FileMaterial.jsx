@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Button, Container, Image, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
-import DeleteFileModal from "../DeleteFileModal/DeleteFileModal";
+import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import EditFileModal from "../EditFileModal/EditFileModal";
 
 export default function FileMaterial({ id, subjectId, url, name, setTeachingMaterials, subjects }) {
@@ -56,12 +56,12 @@ export default function FileMaterial({ id, subjectId, url, name, setTeachingMate
         </div>
         }
       </div>
-      <DeleteFileModal
-        userWantsToDeleteFile={userWantsToDeleteFile}
-        setUserWantsToDeleteFile={setUserWantsToDeleteFile}
-        fileName={name}
+      <DeleteMaterialModal
+        userWantsToDelete={userWantsToDeleteFile}
+        setUserWantsToDelete={setUserWantsToDeleteFile}
         id={id}
         setTeachingMaterials={setTeachingMaterials}
+        materialType={'file'}
       />
       <EditFileModal
         userWantsToEditFile={userWantsToEditFile}
