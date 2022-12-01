@@ -4,9 +4,9 @@ import FileMaterial from "../FileMaterial/FileMaterial";
 import LinkMaterial from "../LinkMaterial/LinkMaterial";
 
 export default function MaterialsSubjectSection({ subject, teachingMaterials, setTeachingMaterials, subjects }) {
-  const files = teachingMaterials.filter(material => material.type === 'file');
-  const links = teachingMaterials.filter(material => material.type === 'link');
-
+  const files = teachingMaterials.filter(material => material.type === 'file' && material.subjectId == subject.id );
+  const links = teachingMaterials.filter(material => material.type === 'link' && material.subjectId == subject.id );
+  console.log(subject);
   return (
     <section>
       <h3>Uploaded Files</h3>
@@ -18,7 +18,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
       </>
       :
       <>
-        <h4>{`You currently have no uploaded files for the subject ${subject}.`}</h4>
+        <h4>{`You currently have no uploaded files for the subject ${subject.subject}.`}</h4>
       </>
       }
       <h3>Links</h3>
@@ -27,7 +27,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
           {links.map(link => <LinkMaterial key={link.id} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
         </ul>
         :
-        <h4>{`You currently have no links for the subject ${subject}.`}</h4>
+        <h4>{`You currently have no links for the subject ${subject.subject}.`}</h4>
       }
     </section>
   )

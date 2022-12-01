@@ -9,3 +9,23 @@ export async function getSubjectsByTeacherId(teacherId) {
   const subjects = await response.json();
   return subjects;
 }
+
+export async function addSubject({ subject, minPrice, maxPrice, lessonType }) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/subjects`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      subject,
+      minPrice,
+      maxPrice,
+      lessonType
+    })
+  });
+
+  const newSubject = await response.json();
+  return newSubject;
+}
