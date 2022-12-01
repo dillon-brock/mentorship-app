@@ -2,7 +2,7 @@ import { Image } from "react-bootstrap";
 
 import FileMaterial from "../FileMaterial/FileMaterial";
 
-export default function TeachingMaterialsSubjectSection({ subject, teachingMaterials }) {
+export default function MaterialsSubjectSection({ subject, teachingMaterials, setTeachingMaterials }) {
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
 
@@ -12,7 +12,7 @@ export default function TeachingMaterialsSubjectSection({ subject, teachingMater
       {files.length > 0 ?
       <>
         {files.map(file => (
-          <FileMaterial key={file.id} {...file} />
+          <FileMaterial key={file.id} {...file} setTeachingMaterials={setTeachingMaterials} />
         ))}
       </>
       :
