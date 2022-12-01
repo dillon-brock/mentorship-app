@@ -1,3 +1,4 @@
+import TeachingMaterial from "../models/TeachingMaterial.js";
 import { AggregatedSubject } from "./subjectTypes";
 
 export type TeacherFromDatabase = {
@@ -14,7 +15,7 @@ export type TeacherFromDatabase = {
   phone_number: string;
   contact_email: string;
   subjects?: Array<AggregatedSubject>;
-  avg_rating?: number;
+  teaching_materials?: Array<TeachingMaterial>
 }
 
 export type NewTeacherInfo = {
