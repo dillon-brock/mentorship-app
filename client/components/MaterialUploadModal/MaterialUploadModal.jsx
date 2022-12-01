@@ -26,7 +26,11 @@ export default function MaterialUploadModal({ showUploadModal, setShowUploadModa
             />
           </Tab>
           <Tab eventKey="link" title="Link">
-            <MaterialLinkUploadForm subjects={subjects} />
+            <MaterialLinkUploadForm
+              subjects={subjects}
+              setShowUploadModal={setShowUploadModal}
+              setTeachingMaterials={setTeachingMaterials}
+            />
           </Tab>
 
         </Tabs>
