@@ -4,6 +4,7 @@ import AddTeacherAccountPage from './components/AddTeacherAccountPage/AddTeacher
 import AuthPage from './components/AuthPage/AuthPage';
 import HomePage from './components/HomePage/HomePage';
 import InboxPage from './components/InboxPage/InboxPage';
+import LearningMaterialsPage from './components/LearningMaterialsPage/LearningMaterialsPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import StudentListPage from './components/StudentListPage/StudentListPage';
 import TeacherDetailPage from './components/TeacherDetailPage/TeacherDetailPage';
