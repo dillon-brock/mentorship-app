@@ -40,7 +40,7 @@ describe('students controller', () => {
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Signed in successfully!');
   })
-  it('creates a student profile for authenticated teacher', async () => {
+  it('creates a student profile for authenticated teacher at POST /students/add-account', async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
     const res = await agent.post('/students/add-account').send(testTeacher);
@@ -53,4 +53,17 @@ describe('students controller', () => {
       imageUrl: teacherAuthRes.body.teacher.imageUrl
     });
   });
+  it('gets student profile information at GET /students/me', async () => {
+    const agent = request.agent(app);
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    const res = await agent.get('/students/me');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      userId: studentAuthRes.body.student.userId,
+      firstName: studentAuthRes.body.student.firstName,
+      lastName: studentAuthRes.body.student.lastName,
+      imageUrl: studentAuthRes.body.student.imageUrl
+    })
+  })
 })
