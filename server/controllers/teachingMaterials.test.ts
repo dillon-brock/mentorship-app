@@ -60,4 +60,17 @@ describe('teaching materials controller', () => {
       })
     )
   })
+  it('updates a teaching material on PUT /teaching-materials/:id', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    const newMaterialRes = await agent.post('/teaching-materials').send({ ...testTeachingMaterial, subjectId });
+    const res = await agent.put(`/teaching-materials/${newMaterialRes.body.id}`).send({ ...testTeachingMaterial, subjectId, url: 'updatetest.com' });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      ...testTeachingMaterial,
+      url: 'updatetest.com'
+    }))
+  })
 })
