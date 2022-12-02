@@ -1,5 +1,6 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Student from '../models/Student.js';
 import StudentSubject from '../models/StudentSubject.js';
 import Teacher from '../models/Teacher.js';
@@ -34,9 +35,9 @@ export default Router()
       next(e);
     }
   })
-  .post('/add-account', async (req, res, next) => {
+  .post('/add-account', authenticateTeacher, async (req, res, next) => {
     try {
-      const student = Student.create({ ...req.body, userId: req.user.id });
+      const student = await Student.create({ ...req.body, userId: req.user.id });
       res.json(student);
     } catch (e) {
       next(e);
