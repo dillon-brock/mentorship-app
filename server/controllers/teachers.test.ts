@@ -7,22 +7,7 @@ import {
   it,
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
-import Teacher from '../models/Teacher.js'
-import { User } from '../models/User.js'
-import Student from '../models/Student'
-import Connection from '../models/Connection'
 
-const testTeacherUser = {
-  email: 'testteacher@test.com',
-  passwordHash: 'sdlkjfdslk',
-  type: 'teacher'
-}
-
-const testStudentUser = {
-  email: 'teststudent@test.com',
-  passwordHash: 'oiewrkxlc',
-  type: 'student'
-}
 
 const testStudent = {
   firstName: 'Test',
@@ -46,6 +31,24 @@ const testTeacher = {
   city: 'Portland',
   state: 'OR'
 }
+
+const testSubject = {
+  subject: 'Cooking',
+  minPrice: 30,
+  maxPrice: 50,
+  lessonType: 'Any'
+}
+
+const additionalTeacherInfo = {
+  bio: 'test bio',
+  zipCode: '97214',
+  phoneNumber: '(555)555-5555',
+  contactEmail: 'email@test.com',
+  city: 'Portland',
+  state: 'OR',
+  subjects: [{ ...testSubject }]
+}
+
 
 const registerAndLoginStudent = async () => {
   const agent = request.agent(app);
@@ -128,10 +131,29 @@ describe('teachers controller', () => {
       imageUrl: testTeacher.imageUrl
     }))
   })
+
+  it("adds a teacher account for students on POST /teachers/add-account", async () => {
+    const agent = request.agent(app);
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    const res = await agent.post('/teachers/add-account').send({
+      firstName: studentAuthRes.body.student.firstName,
+      lastName: studentAuthRes.body.student.lastName,
+      imageUrl: studentAuthRes.body.student.imageUrl,
+      ...additionalTeacherInfo
+    });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({ 
+        bio: additionalTeacherInfo.bio,
+        zipCode: additionalTeacherInfo.zipCode,
+        firstName: studentAuthRes.body.student.firstName,
+        lastName: studentAuthRes.body.student.lastName,
+        imageUrl: studentAuthRes.body.student.imageUrl
+      })
+    )
+  })
 })
 
 
-// GET /me
-// PUT /me
-// POST /add-account
+
 // GET /:id/reviews

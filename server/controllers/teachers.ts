@@ -49,7 +49,11 @@ export default Router()
   })
   .post('/add-account', authenticateStudent, async (req, res, next) => {
     try {
+      const { subjects } = req.body;
       const teacher = await Teacher.create({ ...req.body, userId: req.user.id });
+      for (const subject of subjects) {
+        await Subject.create({ ...subject, teacherId: teacher.id });
+      }
       res.json(teacher);
     } catch (e) {
       next (e);
