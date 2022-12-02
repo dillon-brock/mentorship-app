@@ -34,7 +34,7 @@ export default class Teacher {
     if (row.teaching_materials) this.teachingMaterials = row.teaching_materials;
   }
 
-  static async create({ userId, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher | null> {
+  static async create({ userId, bio = null, zipCode, phoneNumber = null, contactEmail = null, firstName, lastName, imageUrl, city, state }: NewTeacherInfo): Promise<Teacher> {
     const { rows } = await pool.query(
       `INSERT INTO teachers (user_id, bio, zip_code, phone_number, contact_email, first_name, last_name, image_url, city, state)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
@@ -53,7 +53,6 @@ export default class Teacher {
       ]
     );
     
-    if (!rows[0]) return null;
     return new Teacher(rows[0]);
   }
 
