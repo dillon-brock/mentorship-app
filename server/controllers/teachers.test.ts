@@ -104,4 +104,22 @@ describe('teachers controller', () => {
     const res = await request(app).get(`/teachers/${teacherAuthRes.body.teacher.id}/students`)
     expect(res.body[0]).toEqual(expect.objectContaining({ ...studentAuthRes.body.student }))
   })
+
+  it("serves a teacher's profile information on GET /teachers/me", async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.get('/teachers/me');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      firstName: testTeacher.firstName,
+      lastName: testTeacher.lastName,
+      imageUrl: testTeacher.imageUrl
+    }));
+  })
 })
+
+
+// GET /me
+// PUT /me
+// POST /add-account
+// GET /:id/reviews
