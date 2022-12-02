@@ -1,8 +1,8 @@
 import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
 import NewSubjectTab from "../NewSubjectTab/NewSubjectTab";
-import SubjectTabContent from "../SubjectTabContent/SubjectTabContent";
+import SubjectTabProfile from "../SubjectTabProfile/SubjectTabProfile";
 
-export default function SubjectList({ subjects, setTeacher }) {
+export default function SubjectListProfile({ subjects, setTeacher }) {
   console.log(subjects);
   return (
     <>
@@ -25,7 +25,7 @@ export default function SubjectList({ subjects, setTeacher }) {
             <Tab.Content>
               {subjects.map((subject, i) => (
                 <Tab.Pane key={subject.id} eventKey={subject.subject}>
-                  <SubjectTabContent {...subject} i={i} setTeacher={setTeacher} />
+                  <SubjectTabProfile {...subject} i={i} setTeacher={setTeacher} />
                 </Tab.Pane>
               ))}
               <Tab.Pane eventKey="add-new">

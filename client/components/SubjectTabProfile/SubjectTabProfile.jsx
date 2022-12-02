@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import { updateSubject } from "../../services/subjects";
 
-export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType, setTeacher }) {
+export default function SubjectTabProfile({ id, minPrice, maxPrice, lessonType, setTeacher }) {
   const [editing, setEditing] = useState(false);
   const [minPriceFromInput, setMinPriceFromInput] = useState(minPrice);
   const [maxPriceFromInput, setMaxPriceFromInput] = useState(maxPrice);
