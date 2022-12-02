@@ -93,18 +93,18 @@ describe('teachers controller', () => {
     }));
   });
 
-  it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
-    const agent = request.agent(app);
-    const newTeacherUser = await User.insert({ ...testTeacherUser });
-    const newStudentUser = await User.insert({ ...testStudentUser });
-    const newTeacher = await Teacher.create({ ...testTeacher, userId: newTeacherUser.id });
-    const newStudent = await Student.create({ ...testStudent, userId: newStudentUser.id });
-    await Connection.create({ teacherId: newTeacher.id, studentId: (await newStudent).id, connectionApproved: 'approved' })
-    const res = await request(app).get('/teachers/1/students');
-    expect(res.body[0]).toEqual(expect.objectContaining({
-      teacherId: expect.any(String),
-      studentId: expect.any(String),
-      connectionApproved: expect.any(String)
-    }))
-  })
+  // it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
+  //   const agent = request.agent(app);
+  //   const newTeacherUser = await User.insert({ ...testTeacherUser });
+  //   const newStudentUser = await User.insert({ ...testStudentUser });
+  //   const newTeacher = await Teacher.create({ ...testTeacher, userId: newTeacherUser.id });
+  //   const newStudent = await Student.create({ ...testStudent, userId: newStudentUser.id });
+  //   await Connection.create({ teacherId: newTeacher.id, studentId: (await newStudent).id, connectionApproved: 'approved' })
+  //   const res = await request(app).get('/teachers/1/students');
+  //   expect(res.body[0]).toEqual(expect.objectContaining({
+  //     teacherId: expect.any(String),
+  //     studentId: expect.any(String),
+  //     connectionApproved: expect.any(String)
+  //   }))
+  // })
 })
