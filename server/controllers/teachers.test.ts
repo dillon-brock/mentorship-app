@@ -49,6 +49,11 @@ const additionalTeacherInfo = {
   subjects: [{ ...testSubject }]
 }
 
+const testReview = {
+  stars: 5,
+  detail: 'Great teacher!'
+}
+
 
 const registerAndLoginStudent = async () => {
   const agent = request.agent(app);
@@ -152,8 +157,14 @@ describe('teachers controller', () => {
       })
     )
   })
+  it('serves a list of reviews at GET /teachers/:id/reviews', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    await agent.post('/reviews').send({ ...testReview, teacherId: teacherAuthRes.body.teacher.id });
+    const res = await agent.get(`/teachers/${teacherAuthRes.body.teacher.id}/reviews`);
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toEqual(expect.objectContaining({ ...testReview }));
+  })
 })
-
-
-
-// GET /:id/reviews
