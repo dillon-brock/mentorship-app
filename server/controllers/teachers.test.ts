@@ -116,6 +116,18 @@ describe('teachers controller', () => {
       imageUrl: testTeacher.imageUrl
     }));
   })
+  
+  it("updates a teacher's profile information on PUT /teachers/me", async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.put('/teachers/me').send({ ...testTeacher, firstName: 'Fake' });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      firstName: 'Fake',
+      lastName: testTeacher.lastName,
+      imageUrl: testTeacher.imageUrl
+    }))
+  })
 })
 
 

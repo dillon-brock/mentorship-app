@@ -82,7 +82,7 @@ export default Router()
   })
   .put('/me', authenticateTeacher, async (req, res, next) => {
     try {
-      const updatedTeacher = Teacher.updateByUserId({ ...req.body, userId: req.user.id });
+      const updatedTeacher = await Teacher.updateByUserId({ ...req.body, userId: req.user.id });
       res.json(updatedTeacher);
     } catch (e) {
       next(e);
