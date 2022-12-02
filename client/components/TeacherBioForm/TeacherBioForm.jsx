@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { getUser, signUpTeacher } from "../../services/auth";
+import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
+import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 
 export default function TeacherBioForm({
@@ -10,11 +11,9 @@ export default function TeacherBioForm({
   firstName,
   lastName,
   subjects,
-  cityName,
-  setCityName,
-  stateName,
-  setStateName,
-  setUser
+  setUser,
+  newUser,
+  user
 }) {
 
   const bioInputRef = useRef();
@@ -22,6 +21,8 @@ export default function TeacherBioForm({
   const [showCity, setShowCity] = useState(false);
   const [zipCodeChecked, setZipCodeChecked] = useState(false);
   const [imageData, setImageData] = useState(null);
+  const [cityName, setCityName] = useState('');
+  const [stateName, setStateName] = useState('');
   const [formErrors, setFormErrors] = useState({});
 
   const isFormInvalid = () => {
@@ -95,30 +96,52 @@ export default function TeacherBioForm({
       const uploadImageResponse = await uploadProfilePicture(imageData);
       imageUrl = uploadImageResponse.secure_url;
     }
-    await signUpTeacher({
-      email,
-      password,
-      firstName,
-      lastName,
-      subjects,
-      bio: formData.get('bio'),
-      zipCode: formData.get('zip'),
-      phoneNumber: formData.get('phoneNumber'),
-      contactEmail: formData.get('contactEmail'),
-      imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-      city: cityName,
-      state: stateName
-    });
-    const signedInTeacher = await getUser();
-    setUser(signedInTeacher);
+
+    if (newUser) {
+      await signUpTeacher({
+        email,
+        password,
+        firstName,
+        lastName,
+        subjects,
+        bio: formData.get('bio'),
+        zipCode: formData.get('zip'),
+        phoneNumber: formData.get('phoneNumber'),
+        contactEmail: formData.get('contactEmail'),
+        imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        city: cityName,
+        state: stateName
+      });
+      const signedInTeacher = await getUser();
+      setUser(signedInTeacher);
+    }
+
+    else if (!newUser) {
+      const teacherData = await addTeacherAccount({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        imageUrl: user.imageUrl,
+        subjects,
+        bio: formData.get('bio'),
+        zipCode: formData.get('zip'),
+        phoneNumber: formData.get('phoneNumber'),
+        contactEmail: formData.get('contactEmail'),
+        city: cityName,
+        state: stateName
+      })
+      await updateUserType('teacher');
+      setUser({ ...user, type: 'teacher', teacherId: teacherData.id });
+    }
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-2" controlId="image">
-        <Form.Label>Profile Picture</Form.Label>
-        <Form.Control type="file" name="image" onChange={handleChangeImage} />
-      </Form.Group>
+      {newUser &&
+        <Form.Group className="mb-2" controlId="image">
+          <Form.Label>Profile Picture</Form.Label>
+          <Form.Control type="file" name="image" onChange={handleChangeImage} />
+        </Form.Group>
+      }
       <Form.Group className="mb-1" controlId="zipCode">
         <Form.Label>Zip Code</Form.Label>
         <Form.Control type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
