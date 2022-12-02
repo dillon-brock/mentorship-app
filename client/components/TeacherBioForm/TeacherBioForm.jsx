@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getUser, signUpTeacher } from "../../services/auth";
-import { uploadProfilePicture } from "../../services/image";
+import { uploadProfilePicture } from "../../services/cloudinary";
 import { getCityFromZipCode } from "../../services/zipcode";
 
 export default function TeacherBioForm({
@@ -46,7 +46,7 @@ export default function TeacherBioForm({
     if (formErrors.bio) setFormErrors({ ...formErrors, bio: ''});
   }
 
-  const handleChangeImage = async (e) => {
+  const handleChangeImage = (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);

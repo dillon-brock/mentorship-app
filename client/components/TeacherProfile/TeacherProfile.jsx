@@ -5,6 +5,7 @@ import { FaEdit } from 'react-icons/fa';
 import { updateAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
+import SubjectList from "../SubjectList/SubjectList";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -29,7 +30,7 @@ export default function TeacherProfile() {
   }
 
   return (
-    <>
+    <div style={{ padding: '20px' }}>
     {!userWantsToEditProfile &&
       <>
         <Button onClick={() => setUserWantsToEditProfile(true)}>
@@ -46,8 +47,6 @@ export default function TeacherProfile() {
         <p>{teacher.phoneNumber}</p>
         <p>Contact Email</p>
         <p>{teacher.contactEmail}</p>
-        <p>Subject</p>
-        <p>{teacher.subject}</p>
         <p>Zip Code</p>
         <p>{teacher.zipCode}</p>
         <p>City</p>
@@ -68,15 +67,16 @@ export default function TeacherProfile() {
           <Form.Control type="text" value={teacher.phoneNumber} onChange={(e) => setTeacher({ ...teacher, phoneNumber: e.target.value })} />
           <p>Contact Email</p>
           <Form.Control type="email" value={teacher.contactEmail} onChange={(e) => setTeacher({ ...teacher, contactEmail: e.target.value })} />
-          <p>Subject</p>
-          <Form.Control type="text" value={teacher.subject} onChange={(e) => setTeacher({ ...teacher, subject: e.target.value })} />
           <p>Zip Code</p>
           <Form.Control type="number" value={zipCode} onChange={(e) => setZipCode(e.target.value)} onBlur={handleChangeZipCode}/>
-          <p>{cityName} {stateName}</p>
+          <p>{cityName}, {stateName}</p>
           <Button type="submit">Save Changes</Button>
         </Form>
       </>
     }
-    </>
+    {teacher.subjects &&
+      <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
+    }
+    </div>
   )
 }

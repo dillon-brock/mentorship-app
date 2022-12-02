@@ -1,5 +1,6 @@
-import { NewSubjectInfo, SubjectFromDatabase } from "../../common/serverTypes/subjectTypes.js";
+import { NewSubjectInfo, SubjectFromDatabase, UpdateSubjectInfo } from "../types/subjectTypes.js";
 import pool from "../database.js";
+import TeachingMaterial from "./TeachingMaterial.js";
 
 export default class Subject {
   id: string;
@@ -8,6 +9,7 @@ export default class Subject {
   minPrice: number;
   maxPrice: number;
   lessonType: string;
+  teachingMaterials?: Array<TeachingMaterial>
 
   constructor(row: SubjectFromDatabase) {
     this.id = row.id;
@@ -16,6 +18,7 @@ export default class Subject {
     this.minPrice = row.min_price;
     this.maxPrice = row.max_price;
     this.lessonType = row.lesson_type;
+    if (row.teaching_materials) this.teachingMaterials = row.teaching_materials
   }
 
   static async create({ teacherId, subject, minPrice, maxPrice, lessonType }: NewSubjectInfo): Promise<Subject | null> {
@@ -37,5 +40,33 @@ export default class Subject {
       [teacherId]
     );
     return rows.map(row => new Subject(row));
+  }
+
+  static async getTeachingMaterialsByTeacherId(teacherId: string): Promise<Array<Subject>> {
+    const { rows } = await pool.query(
+      `SELECT subjects.*,
+      COALESCE(
+        json_agg(json_build_object('id', teaching_materials.id, 'subjectId', teaching_materials.subject_id, 'url', teaching_materials.url, 'type', teaching_materials.type, 'name', teaching_materials.name, 'createdAt', teaching_materials.created_at))
+        FILTER (WHERE teaching_materials.id IS NOT NULL), '[]'
+      ) as teaching_materials from subjects
+      LEFT JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
+      WHERE subjects.teacher_id = $1
+      GROUP BY subjects.id`,
+      [teacherId]
+    );
+
+    return rows.map(row => new Subject(row));
+  }
+
+  static async updateById({ id, minPrice, maxPrice, lessonType }: UpdateSubjectInfo): Promise<Subject> {
+    const { rows } = await pool.query(
+      `UPDATE subjects
+      SET min_price = $1, max_price = $2, lesson_type = $3
+      WHERE id = $4
+      RETURNING *`,
+      [minPrice, maxPrice, lessonType, id]
+    );
+
+    return new Subject(rows[0]);
   }
 }

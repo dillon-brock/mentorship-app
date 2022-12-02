@@ -1,8 +1,16 @@
 import { Router } from 'express';
-import authenticateStudent from '../middleware/authenticateStudent';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Subject from '../models/Subject.js';
 
 export default Router()
+  .get('/teaching-materials/:teacherId', async (req, res, next) => {
+    try {
+      const subjectsWithTeachingMaterials = await Subject.getTeachingMaterialsByTeacherId(req.params.teacherId);
+      res.json(subjectsWithTeachingMaterials);
+    } catch (e) {
+      next(e);
+    }
+  })
   .get('/:teacherId', async (req, res, next) => {
     try {
       if (req.params.teacherId) {
@@ -12,4 +20,20 @@ export default Router()
     } catch (e) {
       next(e);
     }
-  });
+  })
+  .post('/', authenticateTeacher, async (req, res, next) => {
+    try {
+      const newSubject = Subject.create({ ...req.body, teacherId: req.user.teacherId});
+      res.json(newSubject);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .put('/:id', authenticateTeacher, async (req, res, next) => {
+    try {
+      const updatedSubject = await Subject.updateById({ ...req.body, id: req.params.id });
+      res.json(updatedSubject);
+    } catch (e) {
+      next(e);
+    }
+  })

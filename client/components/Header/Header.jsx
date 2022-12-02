@@ -48,6 +48,7 @@ export default function Header() {
                   <Nav.Link href='/profile'>Profile</Nav.Link>
                   {user.type == 'student' &&
                     <>
+                      <Nav.Link href='/learning-materials'>Learning Materials</Nav.Link>
                       <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
                       {user.teacherId ? 
                           <Nav.Link onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Nav.Link>
@@ -59,6 +60,7 @@ export default function Header() {
                   {user.type == 'teacher' &&
                     <>
                       <Nav.Link href='/my-students'>My Students</Nav.Link>
+                      <Nav.Link href='/teaching-materials'>Teaching Materials</Nav.Link>
                       {user.studentId ?
                         <Nav.Link onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Nav.Link>
                         :

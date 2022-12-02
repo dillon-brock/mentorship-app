@@ -4,10 +4,12 @@ import AddTeacherAccountPage from './components/AddTeacherAccountPage/AddTeacher
 import AuthPage from './components/AuthPage/AuthPage';
 import HomePage from './components/HomePage/HomePage';
 import InboxPage from './components/InboxPage/InboxPage';
+import LearningMaterialsPage from './components/LearningMaterialsPage/LearningMaterialsPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import StudentListPage from './components/StudentListPage/StudentListPage';
 import TeacherDetailPage from './components/TeacherDetailPage/TeacherDetailPage';
 import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage';
+import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMaterialsPage';
 import { UserProvider } from './context/UserContext';
 
 const container = document.getElementById('app') || document.createElement('div')
@@ -25,6 +27,8 @@ root.render(
         <Route path="/inbox" element={<InboxPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-account" element={<AddTeacherAccountPage />} />
+        <Route path="/teaching-materials" element={<TeachingMaterialsPage />}/>
+        <Route path="/learning-materials" element={<LearningMaterialsPage />}/>
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>

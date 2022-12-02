@@ -3,7 +3,6 @@ import { Button, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
-import { getAverageRating } from "../../utils";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import AuthRedirectModal from "../AuthRedirectModal/AuthRedirectModal";
@@ -11,6 +10,7 @@ import ChatWindow from "../ChatWindow/ChatWindow";
 import Header from "../Header/Header";
 import ReviewListModal from "../ReviewListModal/ReviewListModal";
 import StarRating from "../StarRating/StarRating";
+import SubjectList from "../SubjectList/SubjectList";
 
 export default function TeacherDetailPage() {
   
@@ -19,6 +19,7 @@ export default function TeacherDetailPage() {
   const { teacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [userNeedsToSignIn, setUserNeedsToSignIn] = useState(false);
+  console.log(teacher);
 
   let formattedSubjectList;
   if (teacher.subjects) {
@@ -67,6 +68,9 @@ export default function TeacherDetailPage() {
       {!connection && <AddConnectionModal {...teacher} connection={connection} setConnection={setConnection} setUserNeedsToSignIn={setUserNeedsToSignIn} />}
       {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} reviews={reviews} setAvgRating={setAvgRating} />}
       <p>{teacher.bio}</p>
+      {teacher.subjects &&
+        <SubjectList displayOnly={true} subjects={teacher.subjects} />
+      }
       {openChatWindow &&
         <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
       }
