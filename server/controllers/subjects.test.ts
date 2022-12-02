@@ -54,9 +54,26 @@ describe('subjects controller', () => {
   })
   it('adds a new subject corresponding to a teacher at POST /subjects', async () => {
     const agent = request.agent(app);
-    const teacherRes = await agent.post('/teachers').send(testTeacher);
+    await agent.post('/teachers').send(testTeacher);
     const res = await agent.post('/subjects').send(testSubject);
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ ...testSubject }));
   })
+  it('updates subject information at PUT /subjects/:id', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    const res = await agent.put(`/subjects/${newSubjectRes.body.id}`)
+      .send({
+        ...testSubject,
+        minPrice: 40,
+        maxPrice: 60
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      ...testSubject,
+      minPrice: 40,
+      maxPrice: 60
+    }))
+  });
 })
