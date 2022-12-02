@@ -1,7 +1,8 @@
 import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
 import SubjectTabContent from "../SubjectTabContent/SubjectTabContent";
 
-export default function SubjectList({ subjects }) {
+export default function SubjectList({ subjects, setTeacher }) {
+  console.log(subjects);
   return (
     <>
       <h4>Subjects</h4>
@@ -20,7 +21,7 @@ export default function SubjectList({ subjects }) {
             <Tab.Content>
               {subjects.map((subject, i) => (
                 <Tab.Pane eventKey={subject.subject}>
-                  <SubjectTabContent {...subject} i={i} />
+                  <SubjectTabContent {...subject} i={i} setTeacher={setTeacher} />
                 </Tab.Pane>
               ))}
             </Tab.Content>

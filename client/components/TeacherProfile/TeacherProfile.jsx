@@ -75,7 +75,7 @@ export default function TeacherProfile() {
       </>
     }
     {teacher.subjects &&
-      <SubjectList subjects={teacher.subjects} />
+      <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} />
     }
     </div>
   )

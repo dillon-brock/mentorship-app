@@ -1,12 +1,30 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
+import { updateSubject } from "../../services/subjects";
 
-export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType }) {
+export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType, setTeacher }) {
   const [editing, setEditing] = useState(false);
   const [minPriceFromInput, setMinPriceFromInput] = useState(minPrice);
   const [maxPriceFromInput, setMaxPriceFromInput] = useState(maxPrice);
   const [lessonTypeFromInput, setLessonTypeFromInput] = useState(lessonType);
+
+  const handleUpdateSubject = async () => {
+    const updatedSubject = await updateSubject({
+      id,
+      minPrice: minPriceFromInput,
+      maxPrice: maxPriceFromInput,
+      lessonType: lessonTypeFromInput
+    });
+    console.log(updatedSubject);
+    setTeacher(prev => ({
+      ...prev,
+      subjects: [
+        ...prev.subjects.filter(subject => subject.id !== id),
+        updatedSubject
+    ]}))
+    setEditing(false);
+  }
 
   return (
     <div style={{ position: "relative", paddingTop: '10px', width: '300px'}}>
@@ -42,7 +60,7 @@ export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType }
         </Button>
       }
       {editing &&
-        <Button style={{ marginTop: '12px' }}>Save Changes</Button>
+        <Button onClick={handleUpdateSubject} style={{ marginTop: '12px' }}>Save Changes</Button>
       }
     </div>
   )
