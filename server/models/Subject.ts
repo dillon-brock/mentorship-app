@@ -1,4 +1,4 @@
-import { NewSubjectInfo, SubjectFromDatabase } from "../types/subjectTypes.js";
+import { NewSubjectInfo, SubjectFromDatabase, UpdateSubjectInfo } from "../types/subjectTypes.js";
 import pool from "../database.js";
 import TeachingMaterial from "./TeachingMaterial.js";
 
@@ -56,5 +56,17 @@ export default class Subject {
     );
 
     return rows.map(row => new Subject(row));
+  }
+
+  static async updateById({ id, minPrice, maxPrice, lessonType }: UpdateSubjectInfo): Promise<Subject> {
+    const { rows } = await pool.query(
+      `UPDATE subjects
+      SET min_price = $1, max_price = $2, lesson_type = $3
+      WHERE id = $4
+      RETURNING *`,
+      [minPrice, maxPrice, lessonType, id]
+    );
+
+    return new Subject(rows[0]);
   }
 }

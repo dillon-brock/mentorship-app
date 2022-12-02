@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authenticateStudent from '../middleware/authenticateStudent';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Subject from '../models/Subject.js';
 
 export default Router()
@@ -17,6 +17,22 @@ export default Router()
         const subjects = await Subject.findByTeacherId(req.params.teacherId);
         res.json(subjects);
       }
+    } catch (e) {
+      next(e);
+    }
+  })
+  .post('/', authenticateTeacher, async (req, res, next) => {
+    try {
+      const newSubject = Subject.create({ ...req.body, teacherId: req.user.teacherId});
+      res.json(newSubject);
+    } catch (e) {
+      next(e);
+    }
+  })
+  .put('/:id', authenticateTeacher, async (req, res, next) => {
+    try {
+      const updatedSubject = await Subject.updateById({ ...req.body, id: req.params.id });
+      res.json(updatedSubject);
     } catch (e) {
       next(e);
     }
