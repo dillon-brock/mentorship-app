@@ -31,6 +31,13 @@ const testTeacher = {
   state: 'OR'
 }
 
+const testSubject = {
+  subject: 'Coding',
+  minPrice: 40,
+  maxPrice: 60,
+  lessonType: 'Remote'
+}
+
 describe('students controller', () => {
   beforeEach(() => {
     return setupDb();
@@ -64,6 +71,20 @@ describe('students controller', () => {
       firstName: studentAuthRes.body.student.firstName,
       lastName: studentAuthRes.body.student.lastName,
       imageUrl: studentAuthRes.body.student.imageUrl
+    })
+  });
+  it('serves a new student subject connection at POST /students/subject', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    const res = await agent.post('/students/subject').send({ subjectId: newSubjectRes.body.id });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      subjectId: newSubjectRes.body.id,
+      studentId: studentAuthRes.body.student.id
     })
   })
 })
