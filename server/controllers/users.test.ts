@@ -115,4 +115,10 @@ describe('teachers controller', () => {
     const res = await agent.delete('/users/sessions');
     expect(res.status).toBe(204);
   })
+  it('updates user type on PUT /users/me', async () => {
+    const agent = await registerAndLoginStudent();
+    const res = await agent.put('/users/me').send({ type: 'teacher' });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({ type: 'teacher' }));
+  })
 })

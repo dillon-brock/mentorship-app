@@ -45,9 +45,10 @@ describe('connections controller', () => {
   })
   it('creates new pending connection on POST /connections', async () => {
     const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
     const res = await agent.post('/connections').send({
       teacherId: teacher.id,
-      studentId: student.id
     });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -59,6 +60,8 @@ describe('connections controller', () => {
   })
   it('updates connection status on PUT /connections', async () => {
     const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
     await agent.post('/connections').send({
       teacherId: teacher.id,
       studentId: student.id
