@@ -38,6 +38,12 @@ const testSubject = {
   lessonType: 'Remote'
 }
 
+const testTeachingMaterial = {
+  url: 'materialtest.com',
+  type: 'link',
+  name: 'Test Material'
+}
+
 describe('students controller', () => {
   beforeEach(() => {
     return setupDb();
@@ -87,4 +93,28 @@ describe('students controller', () => {
       studentId: studentAuthRes.body.student.id
     })
   })
+  it("serves a student's learning materials at GET /students/learning-materials", async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const teachingMaterialsRes = await agent.post('/teaching-materials').send({ ...testTeachingMaterial, subjectId: subjectsRes.body[0].id });
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    await agent.post('/connections').send({
+      teacherId: teacherAuthRes.body.teacher.id
+    });
+    await agent.put('/connections').send({
+      teacherId: teacherAuthRes.body.teacher.id,
+      connectionStatus: 'approved'
+    });
+    await agent.post('/students/subject').send({
+      subjectId: subjectsRes.body[0].id
+    });
+    const res = await agent.get('/students/learning-materials');
+    console.log(res.body[0].teachingMaterials);
+    expect(res.status).toBe(200);
+    expect(res.body[0].teachingMaterials[0]).toEqual(
+      expect.objectContaining({
+      ...testTeachingMaterial
+    }))
+  });
 })
