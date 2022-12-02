@@ -6,6 +6,7 @@ import {
   it,
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
+import Subject from '../models/Subject'
 
 /* @jest-environment node */
 
@@ -27,11 +28,24 @@ const testTeacher = {
   state: 'OR'
 }
 
+const testSubject = {
+  subject: 'Cooking',
+  minPrice: 30,
+  maxPrice: 50,
+  lessonType: 'Any'
+}
+
+const testTeachingMaterial = {
+  url: 'materialtest.com',
+  type: 'link',
+  name: 'Test Material'
+}
+
 describe('subjects controller', () => {
   beforeEach(() => {
     return setupDb();
   })
-  it('serves a list of subjects corresponding to teacher from query params', async () => {
+  it('serves a list of subjects corresponding to teacher from query params at GET /subjects/:teacherId', async () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
     const res = await agent.get(`/subjects/${teacherRes.body.teacher.id}`);
@@ -44,5 +58,49 @@ describe('subjects controller', () => {
       maxPrice: expect.any(Number),
       lessonType: expect.any(String)
     }))
+  })
+  it('adds a new subject corresponding to a teacher at POST /subjects', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.post('/subjects').send(testSubject);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({ ...testSubject }));
+  })
+  it('updates subject information at PUT /subjects/:id', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    const res = await agent.put(`/subjects/${newSubjectRes.body.id}`)
+      .send({
+        ...testSubject,
+        minPrice: 40,
+        maxPrice: 60
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      ...testSubject,
+      minPrice: 40,
+      maxPrice: 60
+    }))
+  });
+  it('serves a list of subjects with teaching materials at GET /subjects/teaching-materials/:teacherId', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const newMaterialRes = await agent.post('/teaching-materials')
+      .send({
+        ...testTeachingMaterial,
+        subjectId: subjectsRes.body[0].id
+      });
+    const res = await agent.get(`/subjects/teaching-materials/${teacherAuthRes.body.teacher.id}`);
+    expect(res.status).toBe(200);
+    expect(res.body.find((subject: Subject) => subject.id === subjectsRes.body[0].id)).toEqual(
+      expect.objectContaining({
+        teachingMaterials: [
+          expect.objectContaining({ ...testTeachingMaterial })
+        ]
+      })
+    )
+    expect(newMaterialRes.status).toBe(200);
   })
 })

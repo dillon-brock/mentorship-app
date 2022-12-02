@@ -9,8 +9,6 @@ export default function TeacherAuth() {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [cityName, setCityName] = useState('');
-  const [stateName, setStateName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [subjects, setSubjects] = useState([]);
@@ -35,6 +33,7 @@ export default function TeacherAuth() {
         <TeacherLessonForm
           setSubjects={setSubjects}
           setStep={setStep}
+          newUser={true}
         />
       }
       {step === 3 &&
@@ -44,11 +43,9 @@ export default function TeacherAuth() {
           firstName={firstName}
           lastName={lastName}
           subjects={subjects}
-          cityName={cityName}
-          setCityName={setCityName}
-          stateName={stateName}
-          setStateName={setStateName}
           setUser={setUser}
+          newUser={true}
+          user={user}
         />
       }
     </>

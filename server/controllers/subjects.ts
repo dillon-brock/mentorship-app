@@ -23,7 +23,7 @@ export default Router()
   })
   .post('/', authenticateTeacher, async (req, res, next) => {
     try {
-      const newSubject = Subject.create({ ...req.body, teacherId: req.user.teacherId});
+      const newSubject = await Subject.create({ ...req.body, teacherId: req.user.teacherId});
       res.json(newSubject);
     } catch (e) {
       next(e);
