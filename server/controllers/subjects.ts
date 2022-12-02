@@ -29,3 +29,11 @@ export default Router()
       next(e);
     }
   })
+  .put('/:id', authenticateTeacher, async (req, res, next) => {
+    try {
+      const updatedSubject = await Subject.updateById({ ...req.body, id: req.params.id });
+      res.json(updatedSubject);
+    } catch (e) {
+      next(e);
+    }
+  })

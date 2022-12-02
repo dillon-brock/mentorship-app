@@ -12,7 +12,7 @@ export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType }
     <div style={{ position: "relative", paddingTop: '10px', width: '300px'}}>
       <h6>Lesson Format</h6>
       {editing ? 
-        <Form.Select defaultValue={lessonType}>
+        <Form.Select defaultValue={lessonType} onChange={(e) => setLessonTypeFromInput(e.target.value)}>
           <option value="Remote">Remote</option>
           <option value="In person">In person</option>
           <option value="Any">Any</option>
@@ -25,12 +25,12 @@ export default function SubjectTabContent({ id, minPrice, maxPrice, lessonType }
         <Container style={{ padding: '0', gap: '10px' }} className="d-flex align-items-center justify-content-start">
           <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-start">
             <p>$</p>
-            <Form.Control type="number" value={minPriceFromInput} />
+            <Form.Control type="number" value={minPriceFromInput} onChange={(e) => setMinPriceFromInput(e.target.value)} />
           </Container>
           <p>to</p>
           <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-end">
             <p>$</p>
-            <Form.Control type="number" value={maxPriceFromInput} />
+            <Form.Control type="number" value={maxPriceFromInput} onChange={(e) => setMaxPriceFromInput(e.target.value)} />
           </Container>
         </Container>
         :
