@@ -1,21 +1,21 @@
 import { Router } from 'express';
-import authenticate from '../middleware/authenticateStudent.js';
+import authenticateStudent from '../middleware/authenticateStudent.js';
 import Connection from '../models/Connection.js';
 
 export default Router()
-  .post('/', authenticate, async (req, res, next) => {
+  .post('/', authenticateStudent, async (req, res, next) => {
     try {
-      const newConnection = await Connection.create({ teacherId: req.body.teacherId, studentId: req.body.studentId, connectionApproved: 'pending' })
+      const newConnection = await Connection.create({ teacherId: req.body.teacherId, studentId: req.user.studentId, connectionApproved: 'pending' })
       res.json(newConnection);
     }
     catch (e) {
       next(e);
     }
   })
-  .put('/', authenticate, async (req, res, next) => {
+  .put('/', authenticateStudent, async (req, res, next) => {
     try {
       const updatedConnection = await Connection.update({ 
-        studentId: req.body.studentId,
+        studentId: req.user.studentId,
         teacherId: req.body.teacherId,
         connectionStatus: req.body.connectionStatus
       });

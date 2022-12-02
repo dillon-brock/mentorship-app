@@ -7,22 +7,7 @@ import {
   it,
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
-import Teacher from '../models/Teacher.js'
-import { User } from '../models/User.js'
-import Student from '../models/Student'
-import Connection from '../models/Connection'
 
-const testTeacherUser = {
-  email: 'testteacher@test.com',
-  passwordHash: 'sdlkjfdslk',
-  type: 'teacher'
-}
-
-const testStudentUser = {
-  email: 'teststudent@test.com',
-  passwordHash: 'oiewrkxlc',
-  type: 'student'
-}
 
 const testStudent = {
   firstName: 'Test',
@@ -46,6 +31,29 @@ const testTeacher = {
   city: 'Portland',
   state: 'OR'
 }
+
+const testSubject = {
+  subject: 'Cooking',
+  minPrice: 30,
+  maxPrice: 50,
+  lessonType: 'Any'
+}
+
+const additionalTeacherInfo = {
+  bio: 'test bio',
+  zipCode: '97214',
+  phoneNumber: '(555)555-5555',
+  contactEmail: 'email@test.com',
+  city: 'Portland',
+  state: 'OR',
+  subjects: [{ ...testSubject }]
+}
+
+const testReview = {
+  stars: 5,
+  detail: 'Great teacher!'
+}
+
 
 const registerAndLoginStudent = async () => {
   const agent = request.agent(app);
@@ -93,18 +101,70 @@ describe('teachers controller', () => {
     }));
   });
 
-  // it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
-  //   const agent = request.agent(app);
-  //   const newTeacherUser = await User.insert({ ...testTeacherUser });
-  //   const newStudentUser = await User.insert({ ...testStudentUser });
-  //   const newTeacher = await Teacher.create({ ...testTeacher, userId: newTeacherUser.id });
-  //   const newStudent = await Student.create({ ...testStudent, userId: newStudentUser.id });
-  //   await Connection.create({ teacherId: newTeacher.id, studentId: (await newStudent).id, connectionApproved: 'approved' })
-  //   const res = await request(app).get('/teachers/1/students');
-  //   expect(res.body[0]).toEqual(expect.objectContaining({
-  //     teacherId: expect.any(String),
-  //     studentId: expect.any(String),
-  //     connectionApproved: expect.any(String)
-  //   }))
-  // })
+  it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
+    const res = await request(app).get(`/teachers/${teacherAuthRes.body.teacher.id}/students`)
+    expect(res.body[0]).toEqual(expect.objectContaining({ ...studentAuthRes.body.student }))
+  })
+
+  it("serves a teacher's profile information on GET /teachers/me", async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.get('/teachers/me');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      firstName: testTeacher.firstName,
+      lastName: testTeacher.lastName,
+      imageUrl: testTeacher.imageUrl
+    }));
+  })
+  
+  it("updates a teacher's profile information on PUT /teachers/me", async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.put('/teachers/me').send({ ...testTeacher, firstName: 'Fake' });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      firstName: 'Fake',
+      lastName: testTeacher.lastName,
+      imageUrl: testTeacher.imageUrl
+    }))
+  })
+
+  it("adds a teacher account for students on POST /teachers/add-account", async () => {
+    const agent = request.agent(app);
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    const res = await agent.post('/teachers/add-account').send({
+      firstName: studentAuthRes.body.student.firstName,
+      lastName: studentAuthRes.body.student.lastName,
+      imageUrl: studentAuthRes.body.student.imageUrl,
+      ...additionalTeacherInfo
+    });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({ 
+        bio: additionalTeacherInfo.bio,
+        zipCode: additionalTeacherInfo.zipCode,
+        firstName: studentAuthRes.body.student.firstName,
+        lastName: studentAuthRes.body.student.lastName,
+        imageUrl: studentAuthRes.body.student.imageUrl
+      })
+    )
+  })
+  it('serves a list of reviews at GET /teachers/:id/reviews', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    await agent.post('/reviews').send({ ...testReview, teacherId: teacherAuthRes.body.teacher.id });
+    const res = await agent.get(`/teachers/${teacherAuthRes.body.teacher.id}/reviews`);
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toEqual(expect.objectContaining({ ...testReview }));
+  })
 })
