@@ -1,8 +1,8 @@
 import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
 import NewSubjectTab from "../NewSubjectTab/NewSubjectTab";
-import SubjectTabProfile from "../SubjectTabProfile/SubjectTabProfile";
+import SubjectTab from "../SubjectTab/SubjectTab";
 
-export default function SubjectListProfile({ subjects, setTeacher }) {
+export default function SubjectList({ subjects, setTeacher, displayOnly }) {
   console.log(subjects);
   return (
     <>
@@ -16,21 +16,25 @@ export default function SubjectListProfile({ subjects, setTeacher }) {
                   <Nav.Link eventKey={subject.subject}>{subject.subject}</Nav.Link>
                 </Nav.Item>
               ))}
-              <Nav.Item>
-                <Nav.Link eventKey="add-new">+</Nav.Link>
-              </Nav.Item>
+              {!displayOnly &&
+                <Nav.Item>
+                  <Nav.Link eventKey="add-new">+</Nav.Link>
+                </Nav.Item>
+              }
             </Nav>
           </Row>
           <Col sm={9}>
             <Tab.Content>
               {subjects.map((subject, i) => (
                 <Tab.Pane key={subject.id} eventKey={subject.subject}>
-                  <SubjectTabProfile {...subject} i={i} setTeacher={setTeacher} />
+                  <SubjectTab {...subject} i={i} setTeacher={setTeacher} displayOnly={displayOnly} />
                 </Tab.Pane>
               ))}
-              <Tab.Pane eventKey="add-new">
-                <NewSubjectTab setTeacher={setTeacher} />
-              </Tab.Pane>
+              {!displayOnly &&
+                <Tab.Pane eventKey="add-new">
+                  <NewSubjectTab setTeacher={setTeacher} />
+                </Tab.Pane>
+              }
             </Tab.Content>
           </Col>
         </Row>

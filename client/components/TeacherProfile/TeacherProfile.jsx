@@ -5,7 +5,7 @@ import { FaEdit } from 'react-icons/fa';
 import { updateAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
-import SubjectListProfile from "../SubjectListProfile/SubjectListProfile";
+import SubjectList from "../SubjectList/SubjectList";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -75,7 +75,7 @@ export default function TeacherProfile() {
       </>
     }
     {teacher.subjects &&
-      <SubjectListProfile subjects={teacher.subjects} setTeacher={setTeacher} />
+      <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
     }
     </div>
   )

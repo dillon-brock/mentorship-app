@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import { updateSubject } from "../../services/subjects";
 
-export default function SubjectTabProfile({ id, minPrice, maxPrice, lessonType, setTeacher }) {
+export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeacher, displayOnly }) {
   const [editing, setEditing] = useState(false);
   const [minPriceFromInput, setMinPriceFromInput] = useState(minPrice);
   const [maxPriceFromInput, setMaxPriceFromInput] = useState(maxPrice);
@@ -29,7 +29,7 @@ export default function SubjectTabProfile({ id, minPrice, maxPrice, lessonType, 
   return (
     <div style={{ position: "relative", paddingTop: '10px', width: '300px'}}>
       <h6>Lesson Format</h6>
-      {editing ? 
+      {editing && !displayOnly ? 
         <Form.Select defaultValue={lessonType} onChange={(e) => setLessonTypeFromInput(e.target.value)}>
           <option value="Remote">Remote</option>
           <option value="In person">In person</option>
@@ -39,7 +39,7 @@ export default function SubjectTabProfile({ id, minPrice, maxPrice, lessonType, 
         <p>{lessonType}</p>
       }
       <h6>Price</h6>
-      {editing ? 
+      {editing && !displayOnly ? 
         <Container style={{ padding: '0', gap: '10px' }} className="d-flex align-items-center justify-content-start">
           <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-start">
             <p>$</p>
@@ -54,12 +54,12 @@ export default function SubjectTabProfile({ id, minPrice, maxPrice, lessonType, 
         :
         <p>${minPrice} to ${maxPrice}</p>
       }
-      {!editing &&
+      {!editing && !displayOnly &&
         <Button variant="light" style={{ position: "absolute", top: '10px', right: '10px' }} onClick={() => setEditing(true)}>
           <FaEdit />
         </Button>
       }
-      {editing &&
+      {editing && !displayOnly &&
         <Button onClick={handleUpdateSubject} style={{ marginTop: '12px' }}>Save Changes</Button>
       }
     </div>
