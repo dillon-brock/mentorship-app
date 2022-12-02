@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import SubjectInputs from "../SubjectInputs/SubjectInputs";
 
-export default function TeacherLessonForm({ setSubjects, setStep }) {
+export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
 
   const [formErrors, setFormErrors] = useState({});
   const [subjectNums, setSubjectNums] = useState([1]);
@@ -52,6 +52,10 @@ export default function TeacherLessonForm({ setSubjects, setStep }) {
       })
     }
     setSubjects(subjectFormData);
+    if (!newUser) {
+      setStep(2);
+      return;
+    }
     setStep(3);
   }
 
