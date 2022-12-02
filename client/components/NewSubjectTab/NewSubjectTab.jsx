@@ -1,8 +1,29 @@
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { addSubject } from "../../services/subjects";
 
-export default function NewSubjectTab() {
+export default function NewSubjectTab({ setTeacher }) {
+
+  const handleAddSubject = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newSubject = await addSubject({
+      subject: formData.get('subject'),
+      minPrice: formData.get('minPrice'),
+      maxPrice: formData.get('maxPrice'),
+      lessonType: formData.get('lessonType')
+    });
+    setTeacher(prev => ({
+      ...prev,
+      subjects: [
+        ...prev.subjects,
+        newSubject
+      ]
+    }));
+    window.location.reload(true);
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleAddSubject}>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
         <Form.Control type="text" placeholder="Art" name="subject" />
@@ -33,6 +54,7 @@ export default function NewSubjectTab() {
           <Form.Text className="text-danger">{formErrors.lessonType}</Form.Text>
         } */}
       </Form.Group>
+      <Button type="submit">Add Subject</Button>
     </Form>
   )
 }

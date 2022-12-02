@@ -17,7 +17,7 @@ export default function SubjectList({ subjects, setTeacher }) {
                 </Nav.Item>
               ))}
               <Nav.Item>
-                <Nav.Link eventKey="new">+</Nav.Link>
+                <Nav.Link eventKey="add-new">+</Nav.Link>
               </Nav.Item>
             </Nav>
           </Row>
@@ -28,8 +28,8 @@ export default function SubjectList({ subjects, setTeacher }) {
                   <SubjectTabContent {...subject} i={i} setTeacher={setTeacher} />
                 </Tab.Pane>
               ))}
-              <Tab.Pane eventKey="new">
-                <NewSubjectTab />
+              <Tab.Pane eventKey="add-new">
+                <NewSubjectTab setTeacher={setTeacher} />
               </Tab.Pane>
             </Tab.Content>
           </Col>
