@@ -11,8 +11,8 @@ import TeacherSearchForm from "../TeaherSearchForm/TeacherSearchForm";
 export default function TeacherSearchPage() {
 
   const location = useLocation();
-  const newStudentFromLocation = location.state.newStudentAccount ? location.state.newStudentAccount : false;
-  const newStudentFromHistory = window.history.state.newStudentAccount;
+  console.log(location);
+  const newStudentFromLocation = location.state ? location.state.newStudentAccount : false;
   const [newStudentAccount, setNewStudentAccount] = useState(newStudentFromLocation);
   const [subject, setSubject] = useState('');
   const [zipCode, setZipCode] = useState('');
