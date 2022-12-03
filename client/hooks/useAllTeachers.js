@@ -10,7 +10,6 @@ export function useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice,
   useEffect(() => {
     const fetchTeachers = async () => {
       const data = await getTeachers(subject, lessonType, minPrice, maxPrice);
-      console.log(data);
       if (zipCode && radius) {
         const zipCodesInRadius = await getZipCodesInRadius({ zipCode, radius });
         const errorStatus = zipCodesInRadius.error_code;

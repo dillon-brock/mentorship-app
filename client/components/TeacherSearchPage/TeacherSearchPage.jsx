@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import Header from "../Header/Header";
+import NewStudentAccountModal from "../NewStudentAccountModal/NewStudentAccountModal";
 import PagingForm from "../PagingForm/PagingForm";
 import TeacherResults from "../TeacherResults/TeacherResults";
 import TeacherSearchForm from "../TeaherSearchForm/TeacherSearchForm";
 
 export default function TeacherSearchPage() {
 
+  const location = useLocation();
+  const newStudentFromLocation = location.state.newStudentAccount ? location.state.newStudentAccount : false;
+  const newStudentFromHistory = window.history.state.newStudentAccount;
+  const [newStudentAccount, setNewStudentAccount] = useState(newStudentFromLocation);
   const [subject, setSubject] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState(0);
@@ -18,8 +24,6 @@ export default function TeacherSearchPage() {
   const [page, setPage] = useState(1);
   const { teachers, totalPages, errorMessage, setErrorMessage } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
-
-  
   return (
     <>
       <Header />
@@ -43,6 +47,7 @@ export default function TeacherSearchPage() {
         </Container>
         <TeacherResults teachers={teachers} />
       </Container>
+      <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
     </>
   )
 }

@@ -1,8 +1,10 @@
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 export default function NewStudentAccountModal({ newStudentAccount, setNewStudentAccount }) {
 
-  const handleClose = () => setNewStudentAccount(false);
+  const handleClose = () => {
+    setNewStudentAccount(false);
+  }
 
   return (
     <Modal show={newStudentAccount} onHide={handleClose}>
