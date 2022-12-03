@@ -2,6 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
 import StudentList from "../StudentList/StudentList";
+import styles from './studentListPage.module.css';
 
 export default function StudentListPage() {
 
@@ -15,7 +16,7 @@ export default function StudentListPage() {
   return (
     <>
       <Header />
-      <h1>Your Students</h1>
+      <h1 className={styles.title}>Your Students</h1>
       <StudentList />
     </>
   )

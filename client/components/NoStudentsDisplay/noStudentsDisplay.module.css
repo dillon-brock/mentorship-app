@@ -1,0 +1,38 @@
+.title, .subtitle {
+  text-align: center;
+}
+
+.title {
+  margin-top: 60px;
+}
+
+.subtitle {
+  margin-top: 40px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.button {
+  padding: 10px 40px;
+  border-radius: 50px;
+  background-color: black;
+  border: none;
+}
+
+.button:hover {
+  background-color: var(--dark-yellow);
+}
+
+.button:focus {
+  background-color: black;
+  box-shadow: none;
+}
+
+
