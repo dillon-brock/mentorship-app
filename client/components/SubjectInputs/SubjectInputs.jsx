@@ -1,4 +1,6 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
+
+import styles from './subjectInputs.module.css';
 
 export default function SubjectInputs({ num, formErrors, setFormErrors, setSubjectNums }) {
 
@@ -31,38 +33,45 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, setSubje
   }
 
   return (
-    <div>
+    <div className={styles.container}>
+      <h4>Subject {num}</h4>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
-        <Form.Control type="text" placeholder="Art" name={`subject-${num}`} onChange={handleChangeSubject} />
+        <Form.Control className={styles.input} type="text" placeholder="Art" name={`subject-${num}`} onChange={handleChangeSubject} />
         {formErrors.subject && formErrors.subject.num == num &&
           <Form.Text className="text-danger">{formErrors.subject.message}</Form.Text>
         }
       </Form.Group>
 
-      <Form.Group className="mb-2" controlId="cost">
-        <Form.Label>Cost</Form.Label>
-        <Form.Control type="number" placeholder="0" name={`minPrice-${num}`} onChange={handleChangeMinPrice}/>
-        {formErrors.minPrice && formErrors.minPrice.num == num &&
-          <Form.Text className="text-danger">{formErrors.minPrice.message}</Form.Text>
-        }
-        <p>to</p>
-        <Form.Control type="number" placeholder="0" name={`maxPrice-${num}`} onChange={handleChangeMaxPrice} />
-        {formErrors.maxPrice && formErrors.maxPrice.num == num &&
-          <Form.Text className="text-danger">{formErrors.maxPrice.message}</Form.Text>
-        }
-      </Form.Group>
+      <Row xs={2}>
+        <Form.Group className="mb-2" controlId="cost">
+          <Form.Label>Min Price</Form.Label>
+          <Form.Control className={styles.input} type="number" placeholder="0" name={`minPrice-${num}`} onChange={handleChangeMinPrice}/>
+          {formErrors.minPrice && formErrors.minPrice.num == num &&
+            <Form.Text className="text-danger">{formErrors.minPrice.message}</Form.Text>
+          }
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Max Price</Form.Label>
+            <Form.Control className={styles.input} type="number" placeholder="0" name={`maxPrice-${num}`} onChange={handleChangeMaxPrice} />
+            {formErrors.maxPrice && formErrors.maxPrice.num == num &&
+              <Form.Text className="text-danger">{formErrors.maxPrice.message}</Form.Text>
+            }
+          </Form.Group>
+      </Row>
 
       <Form.Group className="mb-2" controlId="lessonType">
-        <Form.Label>Lesson Format</Form.Label>
-        <Form.Check name={`lessonType-${num}`} type="radio" label="In person" value="In person" onChange={handleChangeLessonType} />
-        <Form.Check name={`lessonType-${num}`} type="radio" label="Remote" value="Remote" onChange={handleChangeLessonType} />
-        <Form.Check name={`lessonType-${num}`} type="radio" label="Any" value="Any" onChange={handleChangeLessonType} />
+        <Form.Select className={styles.input} name={`lessonType-${num}`} defaultValue='' onChange={handleChangeLessonType}>
+          <option value='' disabled>Select a lesson format...</option>
+          <option value="In person">In person</option>
+          <option value="Remote">Remote</option>
+          <option value="Any">Any</option>
+        </Form.Select>
         {formErrors.lessonType && formErrors.lessonType.num == num &&
           <Form.Text className="text-danger">{formErrors.lessonType.message}</Form.Text>
         }
       </Form.Group>
-      <Button onClick={handleRemove}>Remove</Button>
+      <Button className={styles.removeButton} onClick={handleRemove}>-</Button>
     </div>
   )
 }

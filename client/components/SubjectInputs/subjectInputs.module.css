@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.remove-button {
+  color: white;
+  background-color: black;
+  border-radius: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
