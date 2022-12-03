@@ -15,6 +15,7 @@ export default function StudentListPage() {
   return (
     <>
       <Header />
+      <h1>Your Students</h1>
       <StudentList />
     </>
   )

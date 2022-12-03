@@ -4,6 +4,7 @@ import { useStudents } from "../../hooks/useStudents.js";
 import { updateConnectionStatus } from "../../services/connection.js";
 import ApprovedStudent from "../ApprovedStudent/ApprovedStudent.jsx";
 import ChatWindow from "../ChatWindow/ChatWindow.jsx";
+import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay.jsx";
 import PendingStudent from "../PendingStudent/PendingStudent.jsx";
 
 export default function StudentList() {
@@ -34,13 +35,13 @@ export default function StudentList() {
     setOpenChatBox(false);
   }
 
-  if (pendingStudents.length === 0 && approvedStudents.length === 0) return <p>You have no current or pending students</p>;
+  if (!pendingStudents.length && !approvedStudents.length) return <NoStudentsDisplay />
 
   return (
     <>
-    {pendingStudents.length > 0 &&
+    <h3>Pending:</h3>
+    {pendingStudents.length > 0 ?
       <>
-        <p>Pending:</p>
         {pendingStudents.map(student => (
           <PendingStudent
             key={student.id}
@@ -51,12 +52,16 @@ export default function StudentList() {
           />
         ))}
       </>
+      :
+      <h6>You have no pending requests.</h6>
     }
-    {approvedStudents.length > 0 &&
+    <h3>Current Students:</h3>
+    {approvedStudents.length > 0 ?
       <>
-        <p>Current Students:</p>
         {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
-      </>   
+      </>
+      :
+      <h6>You have no current students.</h6>   
     }
     {openChatBox &&
       <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />
