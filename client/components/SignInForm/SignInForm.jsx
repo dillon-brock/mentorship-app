@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 import { getUser, signIn } from "../../services/auth";
+
+import styles from './signInForm.module.css';
 
 export default function SignInForm() {
 
@@ -52,25 +54,29 @@ export default function SignInForm() {
   }
 
   return (
-    <Form style={{ width: '50%', margin: '0 auto', textAlign: 'left' }} onSubmit={handleSignIn}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
-        {formErrors.email &&
-          <Form.Text className="text-danger">{formErrors.email}</Form.Text>
-        }
-      </Form.Group>
+    <Card className={styles.card}>
+      <Card.Header as="h3">Sign In</Card.Header>
+      <Form className={styles.form} onSubmit={handleSignIn}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
+          {formErrors.email &&
+            <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+          }
+        </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
-        {formErrors.password &&
-          <Form.Text className="text-danger">{formErrors.password}</Form.Text>
-        }
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Sign In
-      </Button>
-    </Form>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
+          {formErrors.password &&
+            <Form.Text className="text-danger">{formErrors.password}</Form.Text>
+          }
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Sign In
+        </Button>
+      </Form>
+
+    </Card>
   )
 }

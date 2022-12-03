@@ -1,0 +1,11 @@
+.card {
+  width: 60%;
+  margin: 30px auto;
+  border-radius: 8px;
+}
+
+.form {
+  width: 90%;
+  margin: 30px auto;
+  text-align: left;
+}
