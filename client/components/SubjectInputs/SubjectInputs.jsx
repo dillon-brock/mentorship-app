@@ -2,7 +2,9 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 
 import styles from './subjectInputs.module.css';
 
-export default function SubjectInputs({ num, formErrors, setFormErrors, setSubjectNums }) {
+export default function SubjectInputs({ num, formErrors, setFormErrors, subjectNums, setSubjectNums }) {
+
+  let displayNum = subjectNums.indexOf(num) + 1;
 
   const handleRemove = () => {
     setSubjectNums(prev => prev.filter(s => s !== num));
@@ -34,7 +36,7 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, setSubje
 
   return (
     <div className={styles.container}>
-      <h4>Subject {num}</h4>
+      <h4>Subject {displayNum}</h4>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
         <Form.Control className={styles.input} type="text" placeholder="Art" name={`subject-${num}`} onChange={handleChangeSubject} />
@@ -71,7 +73,9 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, setSubje
           <Form.Text className="text-danger">{formErrors.lessonType.message}</Form.Text>
         }
       </Form.Group>
-      <Button className={styles.removeButton} onClick={handleRemove}>-</Button>
+      {subjectNums.length > 1 &&
+        <Button className={styles.removeButton} onClick={handleRemove}>-</Button>
+      }
     </div>
   )
 }

@@ -9,6 +9,8 @@ interface CssExports {
   'next-button-container': string;
   'nextButton': string;
   'nextButtonContainer': string;
+  'step-display': string;
+  'stepDisplay': string;
   'title': string;
 }
 export const cssExports: CssExports;
