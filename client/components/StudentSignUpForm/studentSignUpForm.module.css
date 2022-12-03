@@ -1,0 +1,45 @@
+.container {
+  margin-top: 100px;
+}
+
+.form {
+  width: 450px;
+  margin: 30px auto;
+  text-align: left;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
+.title {
+  text-align: center;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 10px 24px;
+  border-radius: 50px;
+  background-color: black;
+  border: none;
+}
+
+.button:hover {
+  background-color: var(--dark-yellow);
+}
+
+.button:focus {
+  background-color: black;
+  box-shadow: none;
+}
