@@ -54,12 +54,12 @@ export default function SignInForm() {
   }
 
   return (
-    <Card className={styles.card}>
-      <Card.Header as="h3">Sign In</Card.Header>
+    <div>
+      <h3 className={styles.title}>Sign In</h3>
       <Form className={styles.form} onSubmit={handleSignIn}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
+          <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
           {formErrors.email &&
             <Form.Text className="text-danger">{formErrors.email}</Form.Text>
           }
@@ -67,16 +67,17 @@ export default function SignInForm() {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
+          <Form.Control className={styles.input} type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
           {formErrors.password &&
             <Form.Text className="text-danger">{formErrors.password}</Form.Text>
           }
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Sign In
-        </Button>
+        <div className={styles.buttonContainer}>
+          <Button type="submit" className={styles.button}>
+            Sign In
+          </Button>
+        </div>
       </Form>
-
-    </Card>
+    </div>
   )
 }

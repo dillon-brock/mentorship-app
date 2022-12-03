@@ -1,3 +1,4 @@
+import { Container } from "react-bootstrap";
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
@@ -20,7 +21,9 @@ export default function AuthPage() {
     <>
       <Header />
       {method === 'sign-in' ?
+        <Container style={{ height: "60vh", display: "flex", justifyContent: 'center', alignItems: "center" }}>
           <SignInForm />
+        </Container>
           :
           <>
             {!accountType && <Navigate to='/auth/sign-up/student'/>}
