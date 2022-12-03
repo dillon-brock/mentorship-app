@@ -9,6 +9,11 @@
   border: 2px solid black;
 }
 
+.input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
 .title {
   text-align: center;
 }
@@ -28,4 +33,9 @@
 
 .button:hover {
   background-color: var(--dark-yellow);
+}
+
+.button:focus {
+  background-color: black;
+  box-shadow: none;
 }

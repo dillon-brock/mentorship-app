@@ -1,3 +1,7 @@
+.container {
+  margin-top: 100px;
+}
+
 .form {
   width: 450px;
   margin: 30px auto;
@@ -6,6 +10,11 @@
 
 .input {
   border-radius: 0;
+  border: 2px solid black;
+}
+
+.input:focus {
+  box-shadow: none;
   border: 2px solid black;
 }
 
@@ -28,4 +37,9 @@
 
 .button:hover {
   background-color: var(--dark-yellow);
+}
+
+.button:focus {
+  background-color: black;
+  box-shadow: none;
 }

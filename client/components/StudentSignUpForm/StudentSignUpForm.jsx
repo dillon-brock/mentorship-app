@@ -91,7 +91,7 @@ export default function StudentSignUpForm() {
   }
 
   return (
-    <div style={{ marginTop: '100px' }}>
+    <div className={styles.container}>
       <h3 className={styles.title}>Student Sign Up</h3>
       <Form className={styles.form} onSubmit={handleSignUpStudent}>
         <Row xl={2}>
