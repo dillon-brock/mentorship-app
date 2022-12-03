@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Card, Form, Row } from 'react-bootstrap';
 import { checkForExistingUser } from '../../services/auth';
+
+import styles from './teacherSignUpForm.module.css';
 
 export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName, setLastName, setStep }) {
 
@@ -68,49 +70,55 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
 
 
   return (
-    <Form className="text-left" style={{ width: '50%', margin: '0 auto' }} onSubmit={handleNext}>
-      <Form.Group className="mb-2" controlId="firstName">
-        <Form.Label>First Name</Form.Label>
-        <Form.Control type="text" placeholder="Jane" name="firstName" onChange={handleChangeFirstName} ref={firstNameInputRef}/>
-        {formErrors.firstName && 
-          <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
-        }
-      </Form.Group>
+    <Card className={styles.card}>
+      <Card.Header as="h3">Teacher Sign Up</Card.Header>
+      <Form className={styles.form} onSubmit={handleNext}>
+        <Row xl={2}>
+          <Form.Group className="mb-2" controlId="firstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control type="text" placeholder="Jane" name="firstName" onChange={handleChangeFirstName} ref={firstNameInputRef}/>
+            {formErrors.firstName && 
+              <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
+            }
+          </Form.Group>
 
-      <Form.Group className="mb-2" controlId="lastName">
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control type="text" placeholder="Doe" name="lastName" onChange={handleChangeLastName} ref={lastNameInputRef}/>
-        {formErrors.lastName &&
-          <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
-        }
-      </Form.Group>
+          <Form.Group className="mb-2" controlId="lastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" placeholder="Doe" name="lastName" onChange={handleChangeLastName} ref={lastNameInputRef}/>
+            {formErrors.lastName &&
+              <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
+            }
+          </Form.Group>
+        </Row>
 
-      <Form.Group className="mb-2" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" name="email" onChange={handleChangeEmail} ref={emailInputRef} />
-        <Form.Text className="text-muted">
-          We&apos;ll never share your email with anyone else.
-        </Form.Text>
-        {formErrors.email &&
-        <div>
-          <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+        <Form.Group className="mb-2" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="name@example.com" name="email" onChange={handleChangeEmail} ref={emailInputRef} />
+          <Form.Text className="text-muted">
+            We&apos;ll never share your email with anyone else.
+          </Form.Text>
+          {formErrors.email &&
+          <div>
+            <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+          </div>
+          }
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="******" name="password" onChange={handleChangePassword} ref={passwordInputRef} />
+          {formErrors.password &&
+            <Form.Text className="text-danger">{formErrors.password}</Form.Text>
+          }
+        </Form.Group>
+
+        <div className={styles.buttonContainer}>
+          <Button className={styles.nextButton} variant="primary" type="submit">
+            Next
+          </Button>
+          <p className={styles.stepDisplay}>Step 1 of 3</p>
         </div>
-        }
-      </Form.Group>
-
-      <Form.Group className="mb-2" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="******" name="password" onChange={handleChangePassword} ref={passwordInputRef} />
-        {formErrors.password &&
-          <Form.Text className="text-danger">{formErrors.password}</Form.Text>
-        }
-      </Form.Group>
-
-      <div style={{ display: 'flex' }}>
-        <Button variant="primary" type="submit">
-          Next
-        </Button>
-      </div>
-    </Form>
+      </Form>
+    </Card>
   );
 }

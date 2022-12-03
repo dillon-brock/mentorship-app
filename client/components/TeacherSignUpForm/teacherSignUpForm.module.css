@@ -1,0 +1,31 @@
+.card {
+  width: 60%;
+  margin: 30px auto;
+  border-radius: 8px;
+  box-shadow: 5px 5px 24px rgb(226, 226, 226);
+}
+
+.form {
+  width: 90%;
+  margin: 30px auto 10px auto;
+  text-align: left;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20px;
+}
+
+.next-button {
+  padding: 8px 30px;
+}
+
+.step-display {
+  color: gray;
+  font-size: 0.8rem;
+}
