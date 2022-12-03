@@ -28,7 +28,7 @@ export default function AuthPage() {
           <>
             {!accountType && <Navigate to='/auth/sign-up/student'/>}
             {accountType == 'student' &&
-              <StudentSignUpForm />
+              <StudentSignUpForm/>
             }
             {accountType == 'teacher' &&
               <TeacherAuth />

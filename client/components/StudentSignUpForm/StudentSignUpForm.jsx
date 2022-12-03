@@ -91,13 +91,13 @@ export default function StudentSignUpForm() {
   }
 
   return (
-    <Card className={styles.card}>
-      <Card.Header as="h3">Student Sign Up</Card.Header>
+    <div style={{ marginTop: '100px' }}>
+      <h3 className={styles.title}>Student Sign Up</h3>
       <Form className={styles.form} onSubmit={handleSignUpStudent}>
         <Row xl={2}>
           <Form.Group className="mb-2" controlId="firstName">
             <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
+            <Form.Control className={styles.input} type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
             {formErrors.firstName &&
               <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
             }
@@ -105,7 +105,7 @@ export default function StudentSignUpForm() {
 
           <Form.Group className="mb-2" controlId="lastName">
             <Form.Label>Last Name</Form.Label>
-            <Form.Control type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
+            <Form.Control className={styles.input} type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
             {formErrors.lastName &&
               <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
             }
@@ -114,7 +114,7 @@ export default function StudentSignUpForm() {
 
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
+          <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
           <Form.Text className="text-muted">
             We&apos;ll never share your email with anyone else.
           </Form.Text>
@@ -127,7 +127,7 @@ export default function StudentSignUpForm() {
 
         <Form.Group className="mb-2" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
+          <Form.Control className={styles.input} type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
           {formErrors.password &&
           <div>
             <Form.Text className="text-danger">{formErrors.password}</Form.Text>
@@ -137,16 +137,16 @@ export default function StudentSignUpForm() {
 
         <Form.Group className="mb-2" controlId="image">
           <Form.Label>Profile Picture</Form.Label>
-          <Form.Control type="file" name="image" onChange={handleChangeImage} />
+          <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
           <Form.Text className="text-muted">This is optional and will only be visible in messages and to teachers with whom you are connected.</Form.Text>
         </Form.Group>
 
-        <div style={{ display: 'flex' }}>
-          <Button variant="primary" type="submit">
+        <div className={styles.buttonContainer}>
+          <Button className={styles.button} type="submit">
             Sign Up
           </Button>
         </div>
       </Form>
-    </Card>
+    </div>
   );
 }

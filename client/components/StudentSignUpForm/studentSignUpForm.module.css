@@ -1,12 +1,31 @@
-.card {
-  width: 60%;
-  margin: 30px auto;
-  border-radius: 8px;
-  box-shadow: 5px 5px 24px rgb(226, 226, 226);
-}
-
 .form {
-  width: 90%;
+  width: 450px;
   margin: 30px auto;
   text-align: left;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.title {
+  text-align: center;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 10px 24px;
+  border-radius: 50px;
+  background-color: black;
+  border: none;
+}
+
+.button:hover {
+  background-color: var(--dark-yellow);
 }
