@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
 import { uploadProfilePicture } from '../../services/cloudinary';
@@ -19,24 +19,29 @@ export default function StudentSignUpForm() {
   const isFormInvalid = () => {
     let invalid = false;
 
-    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
-      setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
-      invalid = true;
-    }
-    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
-      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
-      invalid = true;
-    }
-
     if (firstNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, firstName: 'First name is required'});
       invalid = true;
+      return invalid;
     }
 
     if (lastNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, lastName: 'Last name is required'});
       invalid = true;
+      return invalid;
     }
+
+    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
+      setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
+      invalid = true;
+      return invalid;
+    }
+    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
+      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
+      invalid = true;
+      return invalid;
+    }
+
     return invalid;
   };
 
@@ -89,21 +94,23 @@ export default function StudentSignUpForm() {
     <Card className={styles.card}>
       <Card.Header as="h3">Student Sign Up</Card.Header>
       <Form className={styles.form} onSubmit={handleSignUpStudent}>
-        <Form.Group className="mb-2" controlId="firstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
-        </Form.Group>
-        {formErrors.firstName &&
-          <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
-        }
+        <Row xl={2}>
+          <Form.Group className="mb-2" controlId="firstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
+            {formErrors.firstName &&
+              <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
+            }
+          </Form.Group>
 
-        <Form.Group className="mb-2" controlId="lastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
-        </Form.Group>
-        {formErrors.lastName &&
-          <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
-        }
+          <Form.Group className="mb-2" controlId="lastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
+            {formErrors.lastName &&
+              <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
+            }
+          </Form.Group>
+        </Row>
 
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
