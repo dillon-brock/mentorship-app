@@ -1,6 +1,7 @@
 import { Modal, Tab, Tabs } from "react-bootstrap";
 import MaterialFileUploadForm from "../MaterialFileUploadForm/MaterialFileUploadForm";
 import MaterialLinkUploadForm from "../MaterialLinkUploadForm/MaterialLinkUploadForm";
+import styles from './materialUploadModal.module.css';
 
 export default function MaterialUploadModal({ showUploadModal, setShowUploadModal, setTeachingMaterials, subjects }) {
   
@@ -9,7 +10,7 @@ export default function MaterialUploadModal({ showUploadModal, setShowUploadModa
   return (
     <Modal show={showUploadModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Upload Teaching Materials</Modal.Title>
+        <Modal.Title className={styles.modalTitle}>Upload Teaching Materials</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Tabs
