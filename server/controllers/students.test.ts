@@ -102,15 +102,18 @@ describe('students controller', () => {
     await agent.post('/connections').send({
       teacherId: teacherAuthRes.body.teacher.id
     });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
     await agent.put('/connections').send({
-      teacherId: teacherAuthRes.body.teacher.id,
+      studentId: studentAuthRes.body.student.id,
       connectionStatus: 'approved'
     });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
     await agent.post('/students/subject').send({
       subjectId: subjectsRes.body[0].id
     });
     const res = await agent.get('/students/learning-materials');
-    console.log(res.body[0].teachingMaterials);
     expect(res.status).toBe(200);
     expect(res.body[0].teachingMaterials[0]).toEqual(
       expect.objectContaining({

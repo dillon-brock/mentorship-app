@@ -66,6 +66,8 @@ describe('connections controller', () => {
       teacherId: teacher.id,
       studentId: student.id
     });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
     const res = await agent.put('/connections').send({
       teacherId: teacher.id,
       studentId: student.id,
