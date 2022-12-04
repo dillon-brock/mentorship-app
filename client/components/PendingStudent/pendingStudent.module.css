@@ -1,0 +1,57 @@
+.action-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+  width: 25%;
+}
+
+.approve-button, .deny-button, .message-button {
+  padding: 4px 20px;
+  border-radius: 50px;
+  border: none;
+}
+
+.approve-button, .message-button {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: var(--dark-green);
+}
+
+.approve-button:hover, .message-button:hover {
+  background-color: var(--dark-green);
+  color: white;
+  border: 2px solid var(--dark-green);
+}
+
+.deny-button {
+  background-color: white;
+  border: 2px solid var(--warm-brown);
+  color: var(--warm-brown);
+}
+
+.deny-button:hover {
+  background-color: var(--warm-brown);
+  color: white;
+  border: 2px solid var(--warm-brown)
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.info-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
