@@ -1,6 +1,6 @@
 .title {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .empty-subtitle {
@@ -15,7 +15,7 @@
   margin-top: 50px;
 }
 
-.first-button {
+.first-button, .upload-button {
   padding: 10px 40px;
   border-radius: 50px;
   background-color: var(--dark-green);
@@ -23,12 +23,12 @@
   border: 2px solid var(--dark-green);
 }
 
-.first-button:hover {
+.first-button:hover, .upload-button:hover {
   background-color: var(--dark-yellow);
   border: 2px solid var(--dark-yellow);
 }
 
-.first-button:focus {
+.first-button:focus, .upload-button:focus {
   box-shadow: none;
   background-color: var(--dark-green);
   border: 2px solid var(--dark-green);
@@ -36,4 +36,16 @@
 
 .first-button:active {
   box-shadow: none;
+}
+
+.upload-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.body {
+  width: 100%;
+  margin-top: 40px;
 }

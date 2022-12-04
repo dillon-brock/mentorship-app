@@ -9,7 +9,8 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
   console.log(subject);
   return (
     <section>
-      <h3>Uploaded Files</h3>
+      <h3>{subject.subject}</h3>
+      <h5>Uploaded Files</h5>
       {files.length > 0 ?
       <>
         {files.map(file => (
@@ -18,16 +19,16 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
       </>
       :
       <>
-        <h4>{`You currently have no uploaded files for the subject ${subject.subject}.`}</h4>
+        <h6>{`You currently have no uploaded files for the subject ${subject.subject}.`}</h6>
       </>
       }
-      <h3>Links</h3>
+      <h5>Links</h5>
       {links.length > 0 ?
         <ul>
           {links.map(link => <LinkMaterial key={link.id} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
         </ul>
         :
-        <h4>{`You currently have no links for the subject ${subject.subject}.`}</h4>
+        <h6>{`You currently have no links for the subject ${subject.subject}.`}</h6>
       }
     </section>
   )
