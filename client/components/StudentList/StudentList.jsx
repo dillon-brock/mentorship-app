@@ -7,6 +7,8 @@ import ChatWindow from "../ChatWindow/ChatWindow.jsx";
 import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay.jsx";
 import PendingStudent from "../PendingStudent/PendingStudent.jsx";
 
+import styles from './studentList.module.css';
+
 export default function StudentList() {
   const { user } = useUserContext();
   const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents } = useStudents(user?.teacherId);
@@ -38,34 +40,34 @@ export default function StudentList() {
   if (!pendingStudents.length && !approvedStudents.length) return <NoStudentsDisplay />
 
   return (
-    <>
-    <h3>Pending:</h3>
-    {pendingStudents.length > 0 ?
-      <>
-        {pendingStudents.map(student => (
-          <PendingStudent
-            key={student.id}
-            {...student} 
-            handleApprove={handleApprove} 
-            handleDeny={handleDeny}
-            handleMessage={() => handleMessage(student)}
-          />
-        ))}
-      </>
-      :
-      <h6>You have no pending requests.</h6>
-    }
-    <h3>Current Students:</h3>
-    {approvedStudents.length > 0 ?
-      <>
-        {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
-      </>
-      :
-      <h6>You have no current students.</h6>   
-    }
-    {openChatBox &&
-      <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />
-    }
-    </>
+    <section className={styles.container}>
+      <h3 className={styles.sectionTitle}>Pending:</h3>
+      {pendingStudents.length > 0 ?
+        <div>
+          {pendingStudents.map(student => (
+            <PendingStudent
+              key={student.id}
+              {...student} 
+              handleApprove={handleApprove} 
+              handleDeny={handleDeny}
+              handleMessage={() => handleMessage(student)}
+            />
+          ))}
+        </div>
+        :
+        <h4>You have no pending requests.</h4>
+      }
+      <h3 className={styles.sectionTitle}>Current Students:</h3>
+      {approvedStudents.length > 0 ?
+        <div>
+          {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
+        </div>
+        :
+        <h4>You have no current students.</h4>   
+      }
+      {openChatBox &&
+        <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />
+      }
+    </section>
   )
 }

@@ -22,7 +22,8 @@
 .button {
   padding: 10px 40px;
   border-radius: 50px;
-  background-color: black;
+  background-color: var(--dark-green);
+  font-size: 1.2rem;
   border: none;
 }
 
@@ -31,7 +32,7 @@
 }
 
 .button:focus {
-  background-color: black;
+  background-color: var(--dark-green);
   box-shadow: none;
 }
 
