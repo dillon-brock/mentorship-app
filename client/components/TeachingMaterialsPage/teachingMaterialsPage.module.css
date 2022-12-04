@@ -1,0 +1,39 @@
+.title {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.empty-subtitle {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.first-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.first-button {
+  padding: 10px 40px;
+  border-radius: 50px;
+  background-color: var(--dark-green);
+  font-size: 1.2rem;
+  border: 2px solid var(--dark-green);
+}
+
+.first-button:hover {
+  background-color: var(--dark-yellow);
+  border: 2px solid var(--dark-yellow);
+}
+
+.first-button:focus {
+  box-shadow: none;
+  background-color: var(--dark-green);
+  border: 2px solid var(--dark-green);
+}
+
+.first-button:active {
+  box-shadow: none;
+}

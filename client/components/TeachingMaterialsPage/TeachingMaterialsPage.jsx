@@ -6,6 +6,7 @@ import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
 import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
 import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
+import styles from './teachingMaterialsPage.module.css';
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
@@ -26,7 +27,7 @@ export default function TeachingMaterialsPage() {
   return (
     <>
       <Header />
-      <h1>Your Teaching Materials</h1>
+      <h1 className={styles.title}>Your Teaching Materials</h1>
       {teachingMaterials.length > 0 ?
       <>
         <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
@@ -34,8 +35,10 @@ export default function TeachingMaterialsPage() {
       </>
       :
       <div>
-        <h3>You current have no uploaded teaching materials.</h3>
-        <Button onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
+        <h3 className={styles.emptySubtitle}>You current have no uploaded teaching materials.</h3>
+        <div className={styles.firstButtonContainer}>
+          <Button className={styles.firstButton} onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
+        </div>
       </div>
       }
       <MaterialUploadModal
