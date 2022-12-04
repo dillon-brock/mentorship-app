@@ -26,6 +26,13 @@
   border: 2px solid var(--dark-green);
 }
 
+.message-button:focus {
+  background-color: var(--dark-green);
+  color: white;
+  border: 2px solid var(--dark-green);
+  box-shadow: none;
+}
+
 .deny-button {
   background-color: white;
   border: 2px solid var(--warm-brown);

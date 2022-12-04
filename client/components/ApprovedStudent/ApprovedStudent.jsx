@@ -1,7 +1,7 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
 import styles from './approvedStudent.module.css';
 
-export default function ApprovedStudent({ imageUrl, firstName, lastName, handleMessage }) {
+export default function ApprovedStudent({ imageUrl, firstName, lastName, subject, handleMessage }) {
   
   return (
     <div>
@@ -11,6 +11,7 @@ export default function ApprovedStudent({ imageUrl, firstName, lastName, handleM
         </Col>
         <Col>
           <p className={styles.name}>{`${firstName} ${lastName}`}</p>
+          <p>{subject}</p>
         </Col>
         <Col className={styles.buttonContainer}>
           <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>

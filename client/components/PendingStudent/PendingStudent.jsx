@@ -1,8 +1,8 @@
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import styles from './pendingStudent.module.css';
 
-export default function PendingStudent({ id, imageUrl, firstName, lastName, handleApprove, handleDeny, handleMessage }) {
-
+export default function PendingStudent({ id, imageUrl, firstName, lastName, subject, handleApprove, handleDeny, handleMessage }) {
+  
   return (
     <div>
       <Container className="d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
@@ -12,6 +12,7 @@ export default function PendingStudent({ id, imageUrl, firstName, lastName, hand
           <Col className={styles.infoContainer}>
             <div className={styles.info}>
               <p className={styles.name}>{`${firstName} ${lastName}`}</p>
+              <p>{subject}</p>
               <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>
             </div>
           </Col>
