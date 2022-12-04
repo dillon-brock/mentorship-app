@@ -16,20 +16,20 @@
 
 .approve-button, .message-button {
   background-color: white;
-  border: 2px solid var(--dark-green);
-  color: var(--dark-green);
+  border: 2px solid black;
+  color: black;
 }
 
 .approve-button:hover, .message-button:hover {
-  background-color: var(--dark-green);
+  background-color: black;
   color: white;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
 }
 
 .message-button:focus {
-  background-color: var(--dark-green);
+  background-color: black;
   color: white;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
   box-shadow: none;
 }
 
@@ -45,10 +45,6 @@
   border: 2px solid var(--warm-brown)
 }
 
-.name {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
 
 .info-container {
   display: flex;
@@ -61,4 +57,15 @@
   align-items: center;
 }
 
+.name {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.subject {
+  font-weight: 500;
+  color: #606C38;
+  font-style: italic;
+}
 

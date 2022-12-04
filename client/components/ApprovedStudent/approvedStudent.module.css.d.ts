@@ -3,9 +3,13 @@
 interface CssExports {
   'button-container': string;
   'buttonContainer': string;
+  'info': string;
+  'info-container': string;
+  'infoContainer': string;
   'message-button': string;
   'messageButton': string;
   'name': string;
+  'subject': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

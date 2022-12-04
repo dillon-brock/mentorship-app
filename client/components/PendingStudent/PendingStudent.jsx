@@ -12,7 +12,7 @@ export default function PendingStudent({ id, imageUrl, firstName, lastName, subj
           <Col className={styles.infoContainer}>
             <div className={styles.info}>
               <p className={styles.name}>{`${firstName} ${lastName}`}</p>
-              <p>{subject}</p>
+              <p className={styles.subject}>{subject}</p>
               <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>
             </div>
           </Col>

@@ -9,9 +9,11 @@ export default function ApprovedStudent({ imageUrl, firstName, lastName, subject
         <Col className="d-flex align-items-center justify-content-center">
           <Image src={imageUrl} style={{ width: '130px', height: '130px' }} />
         </Col>
-        <Col>
-          <p className={styles.name}>{`${firstName} ${lastName}`}</p>
-          <p>{subject}</p>
+        <Col className={styles.infoContainer}>
+          <div className={styles.info}>
+            <p className={styles.name}>{`${firstName} ${lastName}`}</p>
+            <p className={styles.subject}>{subject}</p>
+          </div>
         </Col>
         <Col className={styles.buttonContainer}>
           <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>

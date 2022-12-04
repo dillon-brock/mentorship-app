@@ -10,26 +10,44 @@
 
 .message-button {
   background-color: white;
-  border: 2px solid var(--dark-green);
-  color: var(--dark-green);
+  border: 2px solid black;
+  color: black;
   padding: 4px 20px;
   border-radius: 50px;
 }
 
 .message-button:hover {
-  background-color: var(--dark-green);
+  background-color: black;
   color: white;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
 }
 
 .message-button:focus {
-  background-color: var(--dark-green);
+  background-color: black;
   color: white;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
   box-shadow: none;
+}
+
+.info-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .name {
   font-size: 1.4rem;
   font-weight: 500;
+  margin-bottom: 0;
+}
+
+.subject {
+  font-weight: 500;
+  color: #606C38;
+  font-style: italic;
 }

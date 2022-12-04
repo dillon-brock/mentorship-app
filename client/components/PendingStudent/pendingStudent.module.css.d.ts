@@ -13,6 +13,7 @@ interface CssExports {
   'message-button': string;
   'messageButton': string;
   'name': string;
+  'subject': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
