@@ -1,0 +1,35 @@
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+  width: 25%;
+}
+
+.message-button {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: var(--dark-green);
+  padding: 4px 20px;
+  border-radius: 50px;
+}
+
+.message-button:hover {
+  background-color: var(--dark-green);
+  color: white;
+  border: 2px solid var(--dark-green);
+}
+
+.message-button:focus {
+  background-color: var(--dark-green);
+  color: white;
+  border: 2px solid var(--dark-green);
+  box-shadow: none;
+}
+
+.name {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
