@@ -8,6 +8,7 @@ export type StudentFromDatabase = {
   image_url: string;
   teachers?: Array<Teacher>
   connection_approved?: string;
+  subject?: string;
 }
 
 export type NewStudentInfo = {

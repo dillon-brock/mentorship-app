@@ -10,6 +10,7 @@ export default class Student {
   imageUrl: string;
   teachers?: Array<Teacher>
   connectionApproved?: string;
+  subject?: string;
 
   constructor(row: StudentFromDatabase) {
     this.id = row.id;
@@ -19,6 +20,7 @@ export default class Student {
     this.imageUrl = row.image_url;
     if (row.teachers) this.teachers = row.teachers.length ? row.teachers : [];
     if (row.connection_approved) this.connectionApproved = row.connection_approved;
+    if (row.subject) this.subject = row.subject;
   }
 
   static async create({ userId, firstName, lastName, imageUrl }: NewStudentInfo): Promise<Student> {
@@ -34,8 +36,10 @@ export default class Student {
   
   static async findByTeacherId(teacherId: string): Promise<Array<Student> | null> {
     const { rows } = await pool.query(
-      `SELECT students.*, teachers_students.connection_approved FROM students
+      `SELECT students.*, teachers_students.connection_approved, subjects.subject FROM students
       INNER JOIN teachers_students ON teachers_students.student_id = students.id
+      INNER JOIN students_subjects ON students_subjects.student_id = students.id
+      INNER JOIN subjects ON subjects.id = students_subjects.subject_id
       WHERE teachers_students.teacher_id = $1`,
       [teacherId]
     );

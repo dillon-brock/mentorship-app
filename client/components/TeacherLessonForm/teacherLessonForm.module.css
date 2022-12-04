@@ -24,7 +24,7 @@
 .next-button {
   padding: 10px 40px;
   border-radius: 50px;
-  background-color: black;
+  background-color: var(--dark-green);
   border: none;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .next-button:focus {
-  background-color: black;
+  background-color: var(--dark-green);
   box-shadow: none;
 }
 
@@ -47,9 +47,9 @@
 .add-button {
   padding: 10px 24px;
   border-radius: 50px;
-  color: black;
+  color: var(--dark-green);
   background-color: white;
-  border: 2px solid black;
+  border: 2px solid var(--dark-green);
 }
 
 .add-button:hover {
@@ -59,9 +59,9 @@
 }
 
 .add-button:focus {
-  color: black;
+  color: var(--dark-green);
   background-color: white;
-  border: 2px solid black;
+  border: 2px solid var(--dark-green);
   box-shadow: none;
 }
 

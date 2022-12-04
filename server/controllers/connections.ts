@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import authenticateStudent from '../middleware/authenticateStudent.js';
+import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import Connection from '../models/Connection.js';
 
 export default Router()
@@ -12,11 +13,11 @@ export default Router()
       next(e);
     }
   })
-  .put('/', authenticateStudent, async (req, res, next) => {
+  .put('/', authenticateTeacher, async (req, res, next) => {
     try {
       const updatedConnection = await Connection.update({ 
-        studentId: req.user.studentId,
-        teacherId: req.body.teacherId,
+        teacherId: req.user.teacherId,
+        studentId: req.body.studentId,
         connectionStatus: req.body.connectionStatus
       });
       res.json(updatedConnection);

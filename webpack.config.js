@@ -74,6 +74,10 @@ export default {
   module: {
     rules: [
       {
+        test: /\.png/,
+        type: 'asset/resource'
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {

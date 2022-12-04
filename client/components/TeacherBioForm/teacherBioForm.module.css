@@ -34,7 +34,7 @@
 .button {
   padding: 10px 24px;
   border-radius: 50px;
-  background-color: black;
+  background-color: var(--dark-green);
   border: none;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .button:focus {
-  background-color: black;
+  background-color: var(--dark-green);
   box-shadow: none;
 }
 
