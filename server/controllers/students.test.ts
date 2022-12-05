@@ -1,5 +1,5 @@
 /* @jest-environment node */
-import request from 'supertest'
+import request, { agent } from 'supertest'
 import app from '../app'
 import {
   describe,
@@ -112,6 +112,7 @@ describe('students controller', () => {
       imageUrl: teacherAuthRes.body.teacher.imageUrl
     });
   });
+
   it('gives a 401 error for students on POST /add-account', async () => {
     const agent = request.agent(app);
     await agent.post('/students').send(testStudent);
@@ -119,11 +120,13 @@ describe('students controller', () => {
     expect(res.status).toBe(401);
     expect(res.body.message).toBe('Only teachers can perform this action.');
   })
+
   it('gives a 401 error for unauthenticated users on POST /add-account', async () => {
     const res = await request(app).post('/students/add-account').send(testTeacher);
     expect(res.status).toBe(401);
     expect(res.body.message).toBe('You must be signed in to continue');
   })
+
   it('gets student profile information at GET /students/me', async () => {
     const agent = request.agent(app);
     const studentAuthRes = await agent.post('/students').send(testStudent);
@@ -137,6 +140,21 @@ describe('students controller', () => {
       imageUrl: studentAuthRes.body.student.imageUrl
     })
   });
+
+  it('gives a 401 error for teachers at GET /students/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.get('/students/me');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only students are permitted to perform this action.');
+  });
+
+  it('gives a 401 error for unauthenticated users at GET /students/me', async () => {
+    const res = await request(app).get('/students/me');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it('serves a new student subject connection at POST /students/subject', async () => {
     const agent = request.agent(app);
     await agent.post('/teachers').send(testTeacher);
@@ -151,6 +169,26 @@ describe('students controller', () => {
       studentId: studentAuthRes.body.student.id
     })
   })
+
+  it('serves a 401 error for teachers at POST /students/subject', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    const res = await agent.post('/students/subject').send({ subjectId: newSubjectRes.body.id });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only students are permitted to perform this action.');
+  })
+
+  it('serves a 401 error for unauthenticated users at POST /students/subject', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    await agent.delete('/users/sessions');
+    const res = await agent.post('/students/subject').send({ subjectId: newSubjectRes.body.id });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it("serves a student's learning materials at GET /students/learning-materials", async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
