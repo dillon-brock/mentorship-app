@@ -89,18 +89,6 @@ describe('teachers controller', () => {
     }));
   })
 
-  it("serves a teacher's reviews with id corresponding to params on GET /teachers/:id/reviews", async () => {
-    const agent = await registerAndLoginStudent();
-    const res = await agent.get('/teachers/1/reviews');
-    expect(res.status).toBe(200);
-    expect(res.body[0]).toEqual(expect.objectContaining({
-      id: expect.any(String),
-      stars: expect.any(Number),
-      detail: expect.any(String),
-      teacherId: '1'
-    }));
-  });
-
   it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
@@ -159,15 +147,5 @@ describe('teachers controller', () => {
         imageUrl: studentAuthRes.body.student.imageUrl
       })
     )
-  })
-  it('serves a list of reviews at GET /teachers/:id/reviews', async () => {
-    const agent = request.agent(app);
-    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
-    await agent.delete('/users/sessions');
-    await agent.post('/students').send(testStudent);
-    await agent.post('/reviews').send({ ...testReview, teacherId: teacherAuthRes.body.teacher.id });
-    const res = await agent.get(`/teachers/${teacherAuthRes.body.teacher.id}/reviews`);
-    expect(res.status).toBe(200);
-    expect(res.body[0]).toEqual(expect.objectContaining({ ...testReview }));
   })
 })

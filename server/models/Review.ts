@@ -7,6 +7,7 @@ export default class Review {
   studentId: string | null;
   stars: number;
   detail: string | null;
+  anonymous: boolean;
   createdAt: string;
   firstName?: string;
   lastName?: string;
@@ -19,6 +20,7 @@ export default class Review {
     this.stars = row.stars;
     this.detail = row.detail;
     this.createdAt = row.created_at;
+    this.anonymous = row.anonymous;
     if (row.first_name) this.firstName = row.first_name;
     if (row.last_name) this.lastName = row.last_name;
     if (row.image_url) this.imageUrl = row.image_url;
@@ -35,12 +37,23 @@ export default class Review {
     return rows.map(row => new Review(row));
   }
 
-  static async create({ studentId = null, stars, detail, teacherId }: NewReview): Promise<Review> {
+  static async findByTeacherAndStudent(teacherId: string, studentId: string): Promise<Review | null> {
     const { rows } = await pool.query(
-      `INSERT INTO reviews (stars, detail, student_id, teacher_id)
-      VALUES ($1, $2, $3, $4)
+      `SELECT * FROM reviews
+      WHERE teacher_id = $1 AND student_id = $2`,
+      [teacherId, studentId]
+    );
+
+    if (!rows[0]) return null;
+    return new Review(rows[0]);
+  }
+
+  static async create({ studentId, stars, detail, teacherId, anonymous }: NewReview): Promise<Review> {
+    const { rows } = await pool.query(
+      `INSERT INTO reviews (stars, detail, student_id, teacher_id, anonymous)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *`,
-      [stars, detail, studentId, teacherId]
+      [stars, detail, studentId, teacherId, anonymous]
     );
 
     return new Review(rows[0]);

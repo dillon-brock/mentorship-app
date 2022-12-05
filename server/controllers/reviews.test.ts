@@ -31,9 +31,30 @@ const testTeacher = {
   state: 'OR'
 }
 
+const testReview = {
+  detail: 'Great teacher!',
+  stars: 5,
+  anonymous: false
+}
+
 describe('reviews controller', () => {
   beforeEach(() => {
     return setupDb();
+  })
+  it('serves a list of reviews corresponding to teacher id at GET /reviews/:teacherId', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    const reviewRes = await agent.post('/reviews').send({ ...testReview, teacherId: teacherAuthRes.body.teacher.id })
+    const res = await agent.get(`/reviews/${teacherAuthRes.body.teacher.id}`);
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toEqual(expect.objectContaining({
+      id: expect.any(String),
+      stars: expect.any(Number),
+      detail: expect.any(String),
+      teacherId: teacherAuthRes.body.teacher.id
+    }));
   })
   it('creates new review on POST /reviews', async () => {
     const agent = request.agent(app);
@@ -41,10 +62,8 @@ describe('reviews controller', () => {
     await agent.delete('/users/sessions');
     const studentRes = await agent.post('/students').send(testStudent);
     const res = await agent.post('/reviews').send({
+      ...testReview,
       teacherId: teacherRes.body.teacher.id,
-      studentId: studentRes.body.student.id,
-      detail: 'Great teacher!',
-      stars: 5
     })
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ detail: 'Great teacher!', stars: 5 }))
