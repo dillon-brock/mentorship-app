@@ -16,15 +16,9 @@ export default Router()
   })
   .post('/', authenticateStudent, async (req, res, next) => {
     try {
-      const { studentId } = req.body;
-      const newReview = await Review.create({ ...req.body });
-      if (studentId) {
-        const reviewAuthor = await Student.findById(studentId);
-        res.json({ ...newReview, firstName: reviewAuthor?.firstName, lastName: reviewAuthor?.lastName, imageUrl: reviewAuthor?.imageUrl });
-      }
-      else {
-        res.json(newReview);
-      }
+      const newReview = await Review.create({ ...req.body, studentId: req.user.studentId });
+      const reviewAuthor = await Student.findById(req.user.studentId);
+      res.json({ ...newReview, firstName: reviewAuthor?.firstName, lastName: reviewAuthor?.lastName, imageUrl: reviewAuthor?.imageUrl });
     } catch (e) {
       next(e);
     }

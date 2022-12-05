@@ -108,16 +108,6 @@ export default Router()
       next(e);
     }
   })
-  .get('/:id/reviews', async (req: Request, res: Response, next) => {
-    try {
-      if (req.params.id) {
-        const reviews = await Review.findByTeacherId(req.params.id);
-        res.json(reviews);
-      }
-    } catch (e) {
-      next(e);
-    }
-  })
   .get('/:id/students', async (req, res, next) => {
     try {
       if (req.params.id) {

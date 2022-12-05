@@ -48,7 +48,7 @@ export default class Review {
     return new Review(rows[0]);
   }
 
-  static async create({ studentId = null, stars, detail, teacherId, anonymous }: NewReview): Promise<Review> {
+  static async create({ studentId, stars, detail, teacherId, anonymous }: NewReview): Promise<Review> {
     const { rows } = await pool.query(
       `INSERT INTO reviews (stars, detail, student_id, teacher_id, anonymous)
       VALUES ($1, $2, $3, $4, $5)
