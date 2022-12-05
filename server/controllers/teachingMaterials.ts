@@ -1,6 +1,7 @@
-import { Router } from 'express';
+import { type Request, type Response, type NextFunction, Router } from 'express';
 import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import TeachingMaterial from '../models/TeachingMaterial.js';
+import authorizeTeacher from '../middleware/authorizeTeacherForMaterialInteraction.js';
 
 export default Router()
   .get('/', authenticateTeacher, async (req, res, next) => {
@@ -19,7 +20,7 @@ export default Router()
       next(e);
     }
   })
-  .delete('/:id', authenticateTeacher, async (req, res, next) => {
+  .delete('/:id', [authenticateTeacher, authorizeTeacher], async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (req.params.id) {
         const deletedMaterial = TeachingMaterial.delete(req.params.id);
@@ -29,7 +30,7 @@ export default Router()
       next(e);
     }
   })
-  .put('/:id', authenticateTeacher, async (req, res, next) => {
+  .put('/:id', [authenticateTeacher, authorizeTeacher], async (req: Request, res: Response, next: NextFunction) => {
     try {
       const updatedMaterial = await TeachingMaterial.updateById({ ...req.body, id: req.params.id });
       res.json(updatedMaterial);

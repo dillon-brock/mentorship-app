@@ -35,6 +35,14 @@ export default Router()
       next(e);
     }
   })
+  .get('/', authenticateTeacher, async (req, res, next) => {
+    try {
+      const students = await Student.findByTeacherId(req.user.teacherId);
+      res.json(students);
+    } catch (e) {
+      next(e);
+    }
+  })
   .post('/add-account', authenticateTeacher, async (req, res, next) => {
     try {
       const student = await Student.create({ ...req.body, userId: req.user.id });

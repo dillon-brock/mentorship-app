@@ -32,8 +32,8 @@ export async function getTeacherById(id) {
   }
 }
 
-export async function getStudents(id) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/${id}/students`, {
+export async function getStudents() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"
