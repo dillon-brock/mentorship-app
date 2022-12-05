@@ -13,15 +13,23 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
       <section className={styles.section}>
         <div className={styles.titleContainer}>
           <h3>{firstName} {lastName}</h3>
-          {expanded ?
-            <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
-              <FaChevronUp />
-            </Button>
-            :
-            <Button className={styles.chevronButton} onClick={() => setExpanded(true)}>
-              <FaChevronDown />
-            </Button>
-          }
+          <div className={styles.right}>
+            <div className={styles.buttonContainer}>
+              <Button className={styles.messageButton}>Message</Button>
+              <Link to={`/teacher/${id}`}>
+                <Button className={styles.profileButton}>View Profile</Button>  
+              </Link>
+            </div>
+            {expanded ?
+              <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
+                <FaChevronUp />
+              </Button>
+              :
+              <Button className={styles.chevronButton} onClick={() => setExpanded(true)}>
+                <FaChevronDown />
+              </Button>
+            }
+          </div>
         </div>
         <hr className={styles.hr} />
         {expanded &&
@@ -35,7 +43,7 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
                     <div className={styles.fileImageContainer}>
                       <Image className={styles.fileImage} src={`${file.url.slice(0, -3)}png`} rounded/>
                     </div>
-                    {file.name && <p>{file.name}</p>}
+                    {file.name && <p className={styles.fileName}>{file.name}</p>}
                   </a>
                 </div>
               ))}
@@ -45,14 +53,22 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
           }
           <h4 className={styles.subtitle}>Links</h4>
           {links.length ? 
-            <ul>
-              {links.map(link => {
-                if (link.name) return <a href={link.url} key={link.url} target="_blank">{link.name}</a>
-                return <a href={link.url} target="_blank" />
-              })}
-            </ul>
+          <>
+            {links.map(link => {
+              if (link.name) return (
+                <div className={styles.linkContainer}>
+                  <a href={link.url} key={link.url} target="_blank">{link.name}</a>
+                </div>
+              )
+              return (
+                <div className={styles.linkContainer}>
+                  <a href={link.url} target="_blank" />
+                </div>
+              )
+            })}
+          </>
             :
-            <h4>{firstName} has not uploaded any links.</h4>
+            <h5 className={styles.subtitle}>{firstName} has not uploaded any links.</h5>
           }
         </div>
         }
