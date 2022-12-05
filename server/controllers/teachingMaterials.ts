@@ -1,7 +1,7 @@
 import { type Request, type Response, type NextFunction, Router } from 'express';
 import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import TeachingMaterial from '../models/TeachingMaterial.js';
-import authorizeTeacher from '../middleware/authorizeTeacherForMaterialInteraction';
+import authorizeTeacher from '../middleware/authorizeTeacherForMaterialInteraction.js';
 
 export default Router()
   .get('/', authenticateTeacher, async (req, res, next) => {

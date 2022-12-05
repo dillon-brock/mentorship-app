@@ -107,13 +107,3 @@ export default Router()
       next(e);
     }
   })
-  .get('/:id/students', async (req, res, next) => {
-    try {
-      if (req.params.id) {
-        const students = await Student.findByTeacherId(req.params.id);
-        res.json(students);
-      }
-    } catch (e) {
-      next(e);
-    }
-  });

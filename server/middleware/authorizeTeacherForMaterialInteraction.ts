@@ -1,6 +1,6 @@
-import TeachingMaterial from "../models/TeachingMaterial";
+import TeachingMaterial from "../models/TeachingMaterial.js";
 import { type Request, type Response, type NextFunction } from 'express';
-import Subject from "../models/Subject";
+import Subject from "../models/Subject.js";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
