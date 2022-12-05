@@ -1,3 +1,4 @@
+/* @jest-environment node */
 import request, { agent } from 'supertest'
 import app from '../app'
 import {
@@ -73,13 +74,11 @@ describe('connections controller', () => {
     await agent.delete('/users/sessions');
     await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
     await agent.post('/connections').send({
-      teacherId: teacher.id,
-      studentId: student.id
+      teacherId: teacher.id
     });
     await agent.delete('/users/sessions');
     await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
     const res = await agent.put('/connections').send({
-      teacherId: teacher.id,
       studentId: student.id,
       connectionStatus: 'approved'
     });
@@ -90,5 +89,30 @@ describe('connections controller', () => {
       studentId: student.id,
       connectionApproved: 'approved'
     });
+  })
+  it('gives a 401 error for a student trying to update a connection', async () => {
+    const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    await agent.post('/connections').send({ teacherId: teacher.id });
+    const res = await agent.put('/connections').send({
+      teacherId: teacher.id,
+      studentId: student.id,
+      connectionStatus: 'approved'
+    });
+    expect(res.status).toBe(401);
+  });
+  it('gives a 401 error for an unauthenticated user trying to update a connection', async () => {
+    const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    const res = await agent.put('/connections').send({
+      teacherId: teacher.id,
+      studentId: student.id,
+      connectionStatus: 'approved'
+    });
+    expect(res.status).toBe(401);
   })
 })
