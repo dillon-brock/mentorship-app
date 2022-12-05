@@ -112,6 +112,18 @@ describe('students controller', () => {
       imageUrl: teacherAuthRes.body.teacher.imageUrl
     });
   });
+  it('gives a 401 error for students on POST /add-account', async () => {
+    const agent = request.agent(app);
+    await agent.post('/students').send(testStudent);
+    const res = await agent.post('/students/add-account').send(testTeacher);
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+  it('gives a 401 error for unauthenticated users on POST /add-account', async () => {
+    const res = await request(app).post('/students/add-account').send(testTeacher);
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
   it('gets student profile information at GET /students/me', async () => {
     const agent = request.agent(app);
     const studentAuthRes = await agent.post('/students').send(testStudent);
