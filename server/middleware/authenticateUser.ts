@@ -10,9 +10,6 @@ export default async (req: Request, res: Response, next: (e?: any) => any) => {
 
     const user = jwt.verify(cookie, process.env.JWT_SECRET);
     if (typeof user !== 'string') {
-      const student = await Student.findByUserId(user.id);
-      if (!student) throw new Error('Only students are permitted to perform this action.');
-      user.studentId = student?.id;
       req.user = user;
     }
     else {
