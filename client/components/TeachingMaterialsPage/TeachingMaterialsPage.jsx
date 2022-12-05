@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
 import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
 import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
+import styles from './teachingMaterialsPage.module.css';
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
@@ -26,24 +27,30 @@ export default function TeachingMaterialsPage() {
   return (
     <>
       <Header />
-      <h1>Your Teaching Materials</h1>
-      {teachingMaterials.length > 0 ?
-      <>
-        <Button onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
-        {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} subject={subject} teachingMaterials={teachingMaterials} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
-      </>
-      :
-      <div>
-        <h3>You current have no uploaded teaching materials.</h3>
-        <Button onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
-      </div>
-      }
-      <MaterialUploadModal
-        showUploadModal={showUploadModal}
-        setShowUploadModal={setShowUploadModal}
-        subjects={subjects}
-        setTeachingMaterials={setTeachingMaterials}
-      />
+        <h1 className={styles.title}>Your Teaching Materials</h1>
+        {teachingMaterials.length > 0 ?
+        <>
+          <div className={styles.uploadButtonContainer}>
+            <Button className={styles.uploadButton} onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
+          </div>
+          <Container className={styles.body}>
+            {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} subject={subject} teachingMaterials={teachingMaterials} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
+          </Container>
+        </>
+        :
+        <div>
+          <h3 className={styles.emptySubtitle}>You current have no uploaded teaching materials.</h3>
+          <div className={styles.firstButtonContainer}>
+            <Button className={styles.firstButton} onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
+          </div>
+        </div>
+        }
+        <MaterialUploadModal
+          showUploadModal={showUploadModal}
+          setShowUploadModal={setShowUploadModal}
+          subjects={subjects}
+          setTeachingMaterials={setTeachingMaterials}
+        />
     </>
   )
 }
