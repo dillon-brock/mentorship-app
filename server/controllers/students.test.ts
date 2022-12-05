@@ -53,6 +53,7 @@ describe('students controller', () => {
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Signed in successfully!');
   })
+
   it(`serves a list of user's students at GET /students`, async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
@@ -68,6 +69,36 @@ describe('students controller', () => {
     expect(res.status).toBe(200);
     expect(res.body[0]).toEqual(expect.objectContaining({ ...studentAuthRes.body.student }))
   })
+
+  it('gives a 401 error for student on GET /students', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    await agent.post('/students/subject').send({ subjectId });
+    const res = await agent.get(`/students`)
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated user on GET /students', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    await agent.post('/students/subject').send({ subjectId });
+    await agent.delete('/users/sessions');
+    const res = await agent.get(`/students`)
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it('creates a student profile for authenticated teacher at POST /students/add-account', async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
