@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
+import styles from './editLinkModal.module.css';
 
 export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
   const [nameFromInput, setNameFromInput] = useState(name);
@@ -37,21 +38,23 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
         <Form onSubmit={handleUpdate}>
           <Form.Group className="mb-3" controlId="url">
             <Form.Label>URL</Form.Label>
-            <Form.Control type="text" name="url" value={urlFromInput} onChange={handleChangeUrl} /> 
+            <Form.Control className={styles.input} type="text" name="url" value={urlFromInput} onChange={handleChangeUrl} /> 
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="File name" name="name" value={nameFromInput} onChange={handleChangeName} />
+            <Form.Control className={styles.input} type="text" placeholder="File name" name="name" value={nameFromInput} onChange={handleChangeName} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="subject">
             <Form.Label>Subject</Form.Label>
-            <Form.Select name="subject" defaultValue={subjectId}>
+            <Form.Select className={styles.input} name="subject" defaultValue={subjectId}>
               <option disabled value=''>Choose the subject associated with this file...</option>
-              {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.name}</option>)}
+              {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
             </Form.Select>
           </Form.Group>
-          <Button onClick={() => setUserWantsToEditLink(false)}>Cancel</Button>
-          <Button type="submit">Update</Button>
+          <div className={styles.buttonContainer}>
+            <Button className={styles.cancelButton} onClick={() => setUserWantsToEditLink(false)}>Cancel</Button>
+            <Button className={styles.updateButton} type="submit">Update</Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

@@ -1,5 +1,5 @@
 import { Button, Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth';
 import { addStudentAccount } from '../../services/student';
@@ -8,14 +8,23 @@ export default function Header() {
 
   const { method } = useParams();
   const { user, setUser } = useUserContext();
+  const navigate = useNavigate();
+
   const handleSignOut = async () => {
     setUser(null);
     await signOut();
   }
 
   const handleCreateStudentProfile = async () => {
-    const studentInfo = await addStudentAccount({ firstName: user.firstName, lastName: user.lastName, imageUrl: user.imageUrl });
+    console.log('running profile function');
+    const studentInfo = await addStudentAccount({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      imageUrl: user.imageUrl
+    });
+    await updateUserType('student');
     setUser({ ...user, type: 'student', studentId: studentInfo.id });
+    navigate('/find-teachers', {state: { newStudentAccount: true }});
   }
 
   const handleGoToStudentProfile = async () => {
@@ -64,7 +73,7 @@ export default function Header() {
                       {user.studentId ?
                         <Nav.Link onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Nav.Link>
                         :
-                        <Nav.Link onClick={handleCreateStudentProfile} href='/find-teachers'>Create Student Profile</Nav.Link>
+                        <Nav.Link onClick={handleCreateStudentProfile}>Create Student Profile</Nav.Link>
                       }
                     </>
                   }

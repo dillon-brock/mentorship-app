@@ -4,6 +4,7 @@ import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
+import styles from './teacherBioForm.module.css'
 
 export default function TeacherBioForm({
   email,
@@ -135,45 +136,52 @@ export default function TeacherBioForm({
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      {newUser &&
-        <Form.Group className="mb-2" controlId="image">
-          <Form.Label>Profile Picture</Form.Label>
-          <Form.Control type="file" name="image" onChange={handleChangeImage} />
-        </Form.Group>
-      }
-      <Form.Group className="mb-1" controlId="zipCode">
-        <Form.Label>Zip Code</Form.Label>
-        <Form.Control type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
-        {formErrors.zipCode &&
-          <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
-        }
-      </Form.Group>
+    <div className={styles.container}>
+        <h3 className={styles.title}>Tell us more about you</h3>
+        <Form className={styles.form} onSubmit={handleSubmit}>
+          {newUser &&
+            <Form.Group className="mb-2" controlId="image">
+              <Form.Label>Profile Picture</Form.Label>
+              <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
+            </Form.Group>
+          }
+          
+          <Form.Group className="mb-2" controlId="bio">
+            <Form.Label>Bio</Form.Label>
+            <Form.Control className={styles.input} as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio" ref={bioInputRef} onChange={handleChangeBio}></Form.Control>
+            {formErrors.bio &&
+              <Form.Text className="text-danger">{formErrors.bio}</Form.Text>
+            }
+          </Form.Group>
+          
+          <Form.Group className="mb-1" controlId="zipCode">
+            <Form.Label>Zip Code</Form.Label>
+            <Form.Control className={styles.input} type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
+            {formErrors.zipCode &&
+              <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
+            }
+          </Form.Group>
 
-      {showCity &&
-      <div>
-        <Form.Text>
-          {cityName}, {stateName}
-        </Form.Text>
-      </div>
-      }
-      <Form.Group className="mb-2" controlId="bio">
-        <Form.Label>Bio</Form.Label>
-        <Form.Control as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio" ref={bioInputRef} onChange={handleChangeBio}></Form.Control>
-        {formErrors.bio &&
-          <Form.Text className="text-danger">{formErrors.bio}</Form.Text>
-        }
-      </Form.Group>
-      <Form.Text>Fields below are optional, and the information will be displayed on your public profile.</Form.Text>
-      <Form.Group className="mb-2" controlId="contactEmail">
-        <Form.Label>Contact Email</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
-      </Form.Group>
-      <Form.Group className="mb-2" controlId="phoneNumber">
-        <Form.Label>Phone Number</Form.Label>
-        <Form.Control type="text" placeholder="(555)555-5555" name="phoneNumber"></Form.Control>
-      </Form.Group>
-      <Button type="submit">Submit</Button>
-  </Form>
+          {showCity &&
+          <div>
+            <Form.Text>
+              {cityName}, {stateName}
+            </Form.Text>
+          </div>
+          }
+          <Form.Text>Fields below are optional, and the information will be displayed on your public profile.</Form.Text>
+          <Form.Group className="mb-2" controlId="contactEmail">
+            <Form.Label>Contact Email</Form.Label>
+            <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-2" controlId="phoneNumber">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control className={styles.input} type="text" placeholder="(555)555-5555" name="phoneNumber"></Form.Control>
+          </Form.Group>
+          <div className={styles.buttonContainer}>
+            <Button className={styles.button} type="submit">Sign Up</Button>
+          </div>
+      </Form>
+    </div>
   )
 }

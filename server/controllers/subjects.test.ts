@@ -83,24 +83,4 @@ describe('subjects controller', () => {
       maxPrice: 60
     }))
   });
-  it('serves a list of subjects with teaching materials at GET /subjects/teaching-materials/:teacherId', async () => {
-    const agent = request.agent(app);
-    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
-    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
-    const newMaterialRes = await agent.post('/teaching-materials')
-      .send({
-        ...testTeachingMaterial,
-        subjectId: subjectsRes.body[0].id
-      });
-    const res = await agent.get(`/subjects/teaching-materials/${teacherAuthRes.body.teacher.id}`);
-    expect(res.status).toBe(200);
-    expect(res.body.find((subject: Subject) => subject.id === subjectsRes.body[0].id)).toEqual(
-      expect.objectContaining({
-        teachingMaterials: [
-          expect.objectContaining({ ...testTeachingMaterial })
-        ]
-      })
-    )
-    expect(newMaterialRes.status).toBe(200);
-  })
 })

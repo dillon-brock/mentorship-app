@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
 import { uploadProfilePicture } from '../../services/cloudinary';
+
+import styles from './studentSignUpForm.module.css';
 
 export default function StudentSignUpForm() {
 
@@ -17,24 +19,29 @@ export default function StudentSignUpForm() {
   const isFormInvalid = () => {
     let invalid = false;
 
-    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
-      setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
-      invalid = true;
-    }
-    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
-      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
-      invalid = true;
-    }
-
     if (firstNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, firstName: 'First name is required'});
       invalid = true;
+      return invalid;
     }
 
     if (lastNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, lastName: 'Last name is required'});
       invalid = true;
+      return invalid;
     }
+
+    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
+      setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
+      invalid = true;
+      return invalid;
+    }
+    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
+      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
+      invalid = true;
+      return invalid;
+    }
+
     return invalid;
   };
 
@@ -84,57 +91,62 @@ export default function StudentSignUpForm() {
   }
 
   return (
-    <Form className="text-left" style={{ width: '50%', margin: '0 auto' }} onSubmit={handleSignUpStudent}>
-      <Form.Group className="mb-2" controlId="firstName">
-        <Form.Label>First Name</Form.Label>
-        <Form.Control type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
-      </Form.Group>
-      {formErrors.firstName &&
-        <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
-      }
+    <div className={styles.container}>
+      <h3 className={styles.title}>Student Sign Up</h3>
+      <Form className={styles.form} onSubmit={handleSignUpStudent}>
+        <Row xl={2}>
+          <Form.Group className="mb-2" controlId="firstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control className={styles.input} type="text" placeholder="Jane" name="firstName" ref={firstNameInputRef} onChange={handleChangeFirstName}/>
+            {formErrors.firstName &&
+              <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
+            }
+          </Form.Group>
 
-      <Form.Group className="mb-2" controlId="lastName">
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
-      </Form.Group>
-      {formErrors.lastName &&
-        <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
-      }
+          <Form.Group className="mb-2" controlId="lastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control className={styles.input} type="text" placeholder="Doe" name="lastName" ref={lastNameInputRef} onChange={handleChangeLastName} />
+            {formErrors.lastName &&
+              <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
+            }
+          </Form.Group>
+        </Row>
 
-      <Form.Group className="mb-2" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
-        <Form.Text className="text-muted">
-          We&apos;ll never share your email with anyone else.
-        </Form.Text>
-        {formErrors.email &&
-        <div>
-          <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+        <Form.Group className="mb-2" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="email" ref={emailInputRef} onChange={handleChangeEmail}/>
+          <Form.Text className="text-muted">
+            We&apos;ll never share your email with anyone else.
+          </Form.Text>
+          {formErrors.email &&
+          <div>
+            <Form.Text className="text-danger">{formErrors.email}</Form.Text>
+          </div>
+          }
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control className={styles.input} type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
+          {formErrors.password &&
+          <div>
+            <Form.Text className="text-danger">{formErrors.password}</Form.Text>
+          </div>
+          }
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="image">
+          <Form.Label>Profile Picture</Form.Label>
+          <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
+          <Form.Text className="text-muted">This is optional and will only be visible in messages and to teachers with whom you are connected.</Form.Text>
+        </Form.Group>
+
+        <div className={styles.buttonContainer}>
+          <Button className={styles.button} type="submit">
+            Sign Up
+          </Button>
         </div>
-        }
-      </Form.Group>
-
-      <Form.Group className="mb-2" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="******" name="password" ref={passwordInputRef} onChange={handleChangePassword}/>
-        {formErrors.password &&
-        <div>
-          <Form.Text className="text-danger">{formErrors.password}</Form.Text>
-        </div>
-        }
-      </Form.Group>
-
-      <Form.Group className="mb-2" controlId="image">
-        <Form.Label>Profile Picture</Form.Label>
-        <Form.Control type="file" name="image" onChange={handleChangeImage} />
-        <Form.Text className="text-muted">This is optional and will only be visible in messages and to teachers with whom you are connected.</Form.Text>
-      </Form.Group>
-
-      <div style={{ display: 'flex' }}>
-        <Button variant="primary" type="submit">
-          Sign Up
-        </Button>
-      </div>
-    </Form>
+      </Form>
+    </div>
   );
 }

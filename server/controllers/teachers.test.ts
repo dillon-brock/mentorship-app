@@ -104,9 +104,12 @@ describe('teachers controller', () => {
   it("serves a teacher's students with id corresponding to params on GET /teachers/:id/students", async () => {
     const agent = request.agent(app);
     const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
     await agent.delete('/users/sessions');
     const studentAuthRes = await agent.post('/students').send(testStudent);
     await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    await agent.post('/students/subject').send({ subjectId });
     await agent.delete('/users/sessions');
     await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
     const res = await request(app).get(`/teachers/${teacherAuthRes.body.teacher.id}/students`)

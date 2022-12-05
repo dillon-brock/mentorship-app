@@ -26,6 +26,7 @@ export default function PagingForm({ setPageLength, setPage, page, totalPages })
       </Form.Select>
       <Button disabled={page == 1} onClick={handlePreviousPage}>Prev</Button>
       <Button disabled={page == totalPages} onClick={handleNextPage}>Next</Button>
+      <Form.Text>Page {page} of {totalPages ? totalPages : 1}</Form.Text>
     </Form.Group>
   )
 }

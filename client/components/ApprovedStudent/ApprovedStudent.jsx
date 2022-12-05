@@ -1,18 +1,25 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
+import styles from './approvedStudent.module.css';
 
-export default function ApprovedStudent({ id, imageUrl, firstName, lastName, handleMessage }) {
+export default function ApprovedStudent({ imageUrl, firstName, lastName, subject, handleMessage }) {
   
   return (
-    <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
-      <Col className="d-flex align-items-center justify-content-center">
-        <Image roundedCircle src={imageUrl} style={{ width: '120px', height: '120px' }} />
-      </Col>
-      <Col>
-        <p>{`${firstName} ${lastName}`}</p>
-      </Col>
-      <Col className="d-flex align-items-center justify-content-end">
-        <Button onClick={handleMessage}>Message</Button>
-      </Col>
-    </Container>
+    <div>
+      <Container className="d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
+        <Col className="d-flex align-items-center justify-content-center">
+          <Image src={imageUrl} style={{ width: '130px', height: '130px' }} />
+        </Col>
+        <Col className={styles.infoContainer}>
+          <div className={styles.info}>
+            <p className={styles.name}>{`${firstName} ${lastName}`}</p>
+            <p className={styles.subject}>{subject}</p>
+          </div>
+        </Col>
+        <Col className={styles.buttonContainer}>
+          <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>
+        </Col>
+      </Container>
+      <hr style={{ height: '1px', width: '60%', margin: '0 auto' }} />
+    </div>
   )
 }

@@ -3,8 +3,9 @@ import { Button, Container, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisH } from "react-icons/fa";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import EditLinkModal from "../EditLinkModal/EditLinkModal";
+import styles from './linkMaterial.module.css';
 
-export default function LinkMaterial({ id, name, url, setTeachingMaterials, subjects }) {
+export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
@@ -39,19 +40,21 @@ export default function LinkMaterial({ id, name, url, setTeachingMaterials, subj
 
   return (
     <>
-      <div style={{ height: '26px', display: 'flex', justifyContent: 'flex-start', gap: '20px', alignItems: 'start' }} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
+    <div className={styles.container}>
+      <div className={styles.linkContainer} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
         {name ? <a href={url} target="_blank">{name}</a>
         :
         <a href={url} target="_blank" />
       }
         {showMenuButton &&
           <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
-            <Button variant="light" onClick={() => setOpenPopover(!openPopover)} style={{ padding: '0px 8px'}}>
+            <Button variant="light" onClick={() => setOpenPopover(!openPopover)} className={styles.popupButton}>
               <FaEllipsisH />
             </Button>
           </OverlayTrigger>
         }
       </div>
+    </div>
       <DeleteMaterialModal
       userWantsToDelete={userWantsToDeleteLink}
       setUserWantsToDelete={setUserWantsToDeleteLink}
@@ -63,6 +66,7 @@ export default function LinkMaterial({ id, name, url, setTeachingMaterials, subj
         userWantsToEditLink={userWantsToEditLink}
         setUserWantsToEditLink={setUserWantsToEditLink}
         id={id}
+        subjectId={subjectId}
         name={name}
         url={url}
         setTeachingMaterials={setTeachingMaterials}

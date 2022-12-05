@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary";
 import { addTeachingMaterial } from "../../services/teachingMaterials";
+import styles from './materialFileUploadForm.module.css';
 
 export default function MaterialFileUploadForm({ setShowUploadModal, setTeachingMaterials, subjects }) {
 
@@ -25,30 +26,32 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
       type: 'file',
       name: formData.get('name')
     });
-    console.log(newTeachingMaterial);
+
     setTeachingMaterials((prev) => [...prev, newTeachingMaterial]);
     setShowUploadModal(false);
   }
 
   return (
-    <Form onSubmit={handleUpload}>
+    <Form className={styles.form} onSubmit={handleUpload}>
       <Form.Group className="mb-3" controlId="file">
-        <Form.Control type="file" name="file" onChange={handleChangeFile} />
+        <Form.Control className={styles.input} type="file" name="file" onChange={handleChangeFile} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="name">
         <Form.Label>Name</Form.Label>
-        <Form.Control type="text" placeholder="File name" name="name"/>
+        <Form.Control className={styles.input} type="text" placeholder="File name" name="name"/>
         <Form.Text>Give your file a descriptive name. This will help you and your students to more easily find what you are looking for.</Form.Text>
       </Form.Group>
       <Form.Group>
         <Form.Label>Subject</Form.Label>
-        <Form.Select name="subject">
+        <Form.Select className={styles.input} name="subject">
           <option selected disabled value=''>Choose the subject associated with this file...</option>
-          {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.name}</option>)}
+          {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
         </Form.Select>
       </Form.Group>
-      <Button onClick={() => setShowUploadModal(false)}>Cancel</Button>
-      <Button type="submit">Upload</Button>
+      <div className={styles.buttonContainer}>
+        <Button className={styles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
+        <Button className={styles.uploadButton} type="submit">Upload</Button>
+      </div>
     </Form>
   )
 }

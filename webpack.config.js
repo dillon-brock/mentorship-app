@@ -40,6 +40,7 @@ export default {
           '^/api/v1': ''
         },
         target: 'http://localhost:7890',
+        secure: false
       },
     },
   },
@@ -73,6 +74,10 @@ export default {
   },
   module: {
     rules: [
+      {
+        test: /\.png/,
+        type: 'asset/resource'
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,

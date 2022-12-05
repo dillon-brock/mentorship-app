@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import SubjectInputs from "../SubjectInputs/SubjectInputs";
+import styles from './teacherLessonForm.module.css';
 
 export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
 
@@ -64,13 +65,23 @@ export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
   }
   
   return (
-    <Form onSubmit={handleNext}>
+    <div className={styles.container}>
+      <h3 className={styles.title}>What do you want to teach?</h3>
+      <Form className={styles.form} onSubmit={handleNext}>
 
-      {subjectNums.map((num) => <SubjectInputs key={num} num={num} setSubjectNums={setSubjectNums} formErrors={formErrors} setFormErrors={setFormErrors} />)}
+        {subjectNums.map((num) => <SubjectInputs key={num} num={num} subjectNums={subjectNums} setSubjectNums={setSubjectNums} formErrors={formErrors} setFormErrors={setFormErrors} />)}
 
-      <Button variant="outline-primary" onClick={handleAddSubject}>+ Add Another Subject</Button>
+        <Button className={styles.addButton} onClick={handleAddSubject}>+ Add Another Subject</Button>
 
-      <Button type="submit">Next</Button>
-    </Form>
+        <div className={styles.nextButtonContainer}>
+          <Button className={styles.nextButton} type="submit">Next</Button>
+          {newUser ?
+            <p className={styles.stepDisplay}>Step 2 of 3</p>
+            :
+            <p className={styles.stepDisplay}>Step 1 of 2</p>
+          }
+        </div>
+      </Form>
+    </div>
   );
 }
