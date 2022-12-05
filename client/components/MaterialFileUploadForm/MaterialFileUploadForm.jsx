@@ -26,7 +26,7 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
       type: 'file',
       name: formData.get('name')
     });
-    console.log(newTeachingMaterial);
+
     setTeachingMaterials((prev) => [...prev, newTeachingMaterial]);
     setShowUploadModal(false);
   }

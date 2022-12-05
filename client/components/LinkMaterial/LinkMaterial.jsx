@@ -5,7 +5,7 @@ import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import EditLinkModal from "../EditLinkModal/EditLinkModal";
 import styles from './linkMaterial.module.css';
 
-export default function LinkMaterial({ id, name, url, setTeachingMaterials, subjects }) {
+export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }) {
 
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
@@ -66,6 +66,7 @@ export default function LinkMaterial({ id, name, url, setTeachingMaterials, subj
         userWantsToEditLink={userWantsToEditLink}
         setUserWantsToEditLink={setUserWantsToEditLink}
         id={id}
+        subjectId={subjectId}
         name={name}
         url={url}
         setTeachingMaterials={setTeachingMaterials}
