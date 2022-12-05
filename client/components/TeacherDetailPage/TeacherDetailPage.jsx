@@ -3,6 +3,7 @@ import { Button, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
+import { checkForReviewMatch } from "../../utils";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import AuthRedirectModal from "../AuthRedirectModal/AuthRedirectModal";
@@ -19,7 +20,10 @@ export default function TeacherDetailPage() {
   const { teacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [userNeedsToSignIn, setUserNeedsToSignIn] = useState(false);
-  console.log(teacher);
+  let alreadyReviewed = false;
+  if (user && user.studentId) {
+    alreadyReviewed = checkForReviewMatch(user.studentId, id, reviews);
+  }
 
   let formattedSubjectList;
   if (teacher.subjects) {
@@ -66,7 +70,7 @@ export default function TeacherDetailPage() {
       <Button onClick={handleUserWantsToSendMessage}>Message</Button>
       <AuthRedirectModal teacherId={id} userNeedsToSignIn={userNeedsToSignIn} setUserNeedsToSignIn={setUserNeedsToSignIn} />
       {!connection && <AddConnectionModal {...teacher} connection={connection} setConnection={setConnection} setUserNeedsToSignIn={setUserNeedsToSignIn} />}
-      {connection && connection.connectionApproved === 'approved' && <AddReviewModal {...teacher} setReviews={setReviews} reviews={reviews} setAvgRating={setAvgRating} />}
+      {connection && connection.connectionApproved === 'approved' && !alreadyReviewed && <AddReviewModal {...teacher} setReviews={setReviews} reviews={reviews} setAvgRating={setAvgRating} />}
       <p>{teacher.bio}</p>
       {teacher.subjects &&
         <SubjectList displayOnly={true} subjects={teacher.subjects} />
