@@ -34,6 +34,24 @@ describe('teaching materials controller', () => {
   beforeEach(() => {
     return setupDb();
   })
+  it('serves a list of teaching materials at GET /teaching-materials', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const newMaterialRes = await agent.post('/teaching-materials')
+      .send({
+        ...testTeachingMaterial,
+        subjectId: subjectsRes.body[0].id
+      });
+    const res = await agent.get('/teaching-materials');
+    expect(res.status).toBe(200);
+    expect(res.body[0]).toEqual(
+      expect.objectContaining({
+        ...testTeachingMaterial
+      })
+    )
+    expect(newMaterialRes.status).toBe(200);
+  })
   it('creates new teaching materials on POST /teaching-materials', async () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
@@ -53,12 +71,8 @@ describe('teaching materials controller', () => {
     const res = await agent.delete(`/teaching-materials/${newMaterialRes.body.id}`);
     expect(res.status).toBe(200);
 
-    const teachingMaterialsRes = await agent.get(`/subjects/teaching-materials/${teacherAuthRes.body.teacher.id}`);
-    expect(teachingMaterialsRes.body.find((subject: Subject) => subject.id === subjectId)).toEqual(
-      expect.objectContaining({
-        teachingMaterials: []
-      })
-    )
+    const teachingMaterialsRes = await agent.get(`/teaching-materials`);
+    expect(teachingMaterialsRes.body).toEqual([]);
   })
   it('updates a teaching material on PUT /teaching-materials/:id', async () => {
     const agent = request.agent(app);
