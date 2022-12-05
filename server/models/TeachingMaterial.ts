@@ -29,6 +29,18 @@ export default class TeachingMaterial {
     return new TeachingMaterial(rows[0]);
   }
 
+  static async findByTeacherId(teacherId: string): Promise<Array<TeachingMaterial>> {
+    const { rows } = await pool.query(
+      `SELECT teaching_materials.* FROM teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
+      INNER JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
+      WHERE teachers.id = $1`,
+      [teacherId]
+    );
+
+    return rows.map(row => new TeachingMaterial(row));
+  }
+
   static async delete(id: string): Promise<TeachingMaterial | null> {
     const { rows } = await pool.query(
       `DELETE FROM teaching_materials

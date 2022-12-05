@@ -6,8 +6,10 @@ export default function useSubjects(id) {
 
   useEffect(() => {
     const fetchSubjects = async () => {
-      const data = await getSubjectsByTeacherId(id);
-      setSubjects(data);
+      if (id) {
+        const data = await getSubjectsByTeacherId(id);
+        setSubjects(data);
+      }
     }
     fetchSubjects();
   }, [id]);

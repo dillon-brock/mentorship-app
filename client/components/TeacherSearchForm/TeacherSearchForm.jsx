@@ -1,20 +1,9 @@
 import { useState } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 
-export default function TeacherSearchForm({ setSubject, setZipCode, setRadius, setMinPrice, setMaxPrice, setLessonType, errorMessage, setErrorMessage }) {
+export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }) {
 
   const [radiusForDisplay, setRadiusForDisplay] = useState(25);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    setSubject(formData.get('subject'));
-    setZipCode(formData.get('zipCode'));
-    setRadius(formData.get('radius'));
-    setLessonType(formData.get('lessonType'));
-    if (formData.get('minPrice')) setMinPrice(formData.get('minPrice'));
-    if (formData.get('maxPrice')) setMaxPrice(formData.get('maxPrice'));
-  }
 
   return (
     <Container>

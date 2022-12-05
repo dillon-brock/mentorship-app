@@ -18,8 +18,9 @@ export async function addTeachingMaterial({ subjectId, url, type, name }) {
   return newTeachingMaterial;
 }
 
-export async function getTeachingMaterialsByTeacherId(teacherId) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/subjects/teaching-materials/${teacherId}`, {
+export async function getTeachingMaterials() {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials`, {
+    credentials: 'include',
     headers: {
       'Accept': 'application/json'
     }

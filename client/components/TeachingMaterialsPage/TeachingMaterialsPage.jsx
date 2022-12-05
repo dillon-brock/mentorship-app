@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import useSubjects from "../../hooks/useSubjects";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
 import Header from "../Header/Header";
 import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
@@ -12,11 +13,12 @@ export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
   const { pathname } = useLocation();
   const {
-    subjectsWithTeachingMaterials,
-    subjects,
     teachingMaterials,
-    setTeachingMaterials
+    setTeachingMaterials,
+    subjects
   } = useTeachingMaterials(user?.teacherId);
+
+  console.log(subjects);
 
   console.log(teachingMaterials);
 
@@ -34,7 +36,12 @@ export default function TeachingMaterialsPage() {
             <Button className={styles.uploadButton} onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
           </div>
           <Container className={styles.body}>
-            {subjectsWithTeachingMaterials.map(subject => <MaterialsSubjectSection key={subject.id} subject={subject} teachingMaterials={teachingMaterials} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
+            {subjects.map(subject => <MaterialsSubjectSection
+              key={subject.id}
+              subject={subject}
+              teachingMaterials={teachingMaterials}
+              setTeachingMaterials={setTeachingMaterials}
+              subjects={subjects} />)}
           </Container>
         </>
         :

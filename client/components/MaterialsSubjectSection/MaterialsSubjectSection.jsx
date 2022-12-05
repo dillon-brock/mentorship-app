@@ -43,7 +43,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
         <h4 className={styles.subtitle}>Links</h4>
         {links.length > 0 ?
           <ul>
-            {links.map(link => <LinkMaterial key={link.id} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
+            {links.map(link => <LinkMaterial key={link.id} link={link} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
           </ul>
           :
           <h5 className={styles.noContent}>You currently have no saved links.</h5>
