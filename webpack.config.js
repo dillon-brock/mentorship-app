@@ -40,6 +40,7 @@ export default {
           '^/api/v1': ''
         },
         target: 'http://localhost:7890',
+        secure: false
       },
     },
   },

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Accordion } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useLearningMaterials from "../../hooks/useLearningMaterials"
 import ChatWindow from "../ChatWindow/ChatWindow";
