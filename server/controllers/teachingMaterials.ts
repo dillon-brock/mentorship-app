@@ -3,6 +3,14 @@ import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import TeachingMaterial from '../models/TeachingMaterial.js';
 
 export default Router()
+  .get('/', authenticateTeacher, async (req, res, next) => {
+    try {
+      const teachingMaterials = await TeachingMaterial.findByTeacherId(req.user.teacherId);
+      res.json(teachingMaterials);
+    } catch (e) {
+      next(e);
+    }
+  })
   .post('/', authenticateTeacher, async (req, res, next) => {
     try {
       const newTeachingMaterial = await TeachingMaterial.create({ ...req.body });
