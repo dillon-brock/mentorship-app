@@ -33,7 +33,8 @@ const testTeacher = {
 
 const testReview = {
   detail: 'Great teacher!',
-  stars: 5
+  stars: 5,
+  anonymous: false
 }
 
 describe('reviews controller', () => {
