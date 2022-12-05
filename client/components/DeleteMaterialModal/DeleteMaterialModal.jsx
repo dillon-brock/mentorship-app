@@ -6,8 +6,8 @@ export default function DeleteMaterialModal({ userWantsToDelete, setUserWantsToD
   const handleClose = () => setUserWantsToDelete(false);
 
   const handleDelete = async () => {
-    const deletedMaterial = await deleteTeachingMaterial(id);
-    setTeachingMaterials(prev => prev.filter(material => material.id !== deletedMaterial.id));
+    await deleteTeachingMaterial(id);
+    setTeachingMaterials(prev => prev.filter(material => material.id !== id));
     setUserWantsToDelete(false);
   }
 
