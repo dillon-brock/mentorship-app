@@ -146,16 +146,16 @@ export default class Teacher {
         json_agg(json_build_object('id', teaching_materials.id, 'subjectId', teaching_materials.subject_id, 'name', teaching_materials.name, 'type', teaching_materials.type, 'url', teaching_materials.url))
         FILTER (WHERE teaching_materials.id IS NOT NULL), '[]'
       ) as teaching_materials from teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
       INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id
-      INNER JOIN students ON students.id = teachers_students.student_id
-      INNER JOIN students_subjects ON students_subjects.student_id = students.id
-      INNER JOIN subjects ON subjects.id = students_subjects.subject_id
-      LEFT JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
+      INNER JOIN students_subjects ON students_subjects.subject_id = subjects.id
+      INNER JOIN students ON students.id = students_subjects.student_id
+      INNER JOIN teaching_materials ON teaching_materials.subject_id = subjects.id
       WHERE teachers.id = $1
       GROUP BY teachers.id`,
       [this.id]
     );
-
-    this.teachingMaterials = rows[0].teaching_materials;
+ 
+    this.teachingMaterials = rows[0] ? rows[0].teaching_materials : [];
   }
 }

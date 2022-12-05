@@ -1,48 +1,77 @@
-import { Accordion, Button, Container, Image } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Image, Row } from "react-bootstrap";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import styles from './learningMaterialsSection.module.css';
 
 export default function LearningMaterialsSection({ i, id, imageUrl, firstName, lastName, teachingMaterials, handleMessage }) {
+  const [expanded, setExpanded] = useState(false);
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
 
   return (
-    <Accordion.Item eventKey={i.toString()}>
-      <Accordion.Header>
-        <Container className="d-flex align-items-center justify-content-start" style={{ gap: '20px'}}>
-          <Image roundedCircle src={imageUrl} style={{ width: '100px', height: '100px' }} />
-          <h3 style={{ display: "inline-block", width: "200px"}}>{firstName} {lastName}</h3>
-          <Container className="d-flex align-items-center justify-content-end" style={{ gap: '20px' }}>
-            <Link to={`/teacher/${id}`}>
-              <Button onClick={(e) => e.stopPropagation()}>View Profile</Button>
-            </Link>
-            <Button onClick={handleMessage}>Message</Button>
-          </Container>
-        </Container>
-      </Accordion.Header>
-      <Accordion.Body>
-        <h3>Files</h3>
-        <>
-          {files.map(file => (
-            <div>
-              <a href={file.url} key={file.url} target="_blank">
-                <Image src={`${file.url.slice(0, -3)}png`} rounded/>
-                {file.name && <p>{file.name}</p>}
-              </a>
+      <section className={styles.section}>
+        <div className={styles.titleContainer}>
+          <h3>{firstName} {lastName}</h3>
+          <div className={styles.right}>
+            <div className={styles.buttonContainer}>
+              <Button className={styles.messageButton}>Message</Button>
+              <Link to={`/teacher/${id}`}>
+                <Button className={styles.profileButton}>View Profile</Button>  
+              </Link>
             </div>
-          ))}
-        </>
-        <h3>Links</h3>
-        {links.length ? 
-          <ul>
+            {expanded ?
+              <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
+                <FaChevronUp />
+              </Button>
+              :
+              <Button className={styles.chevronButton} onClick={() => setExpanded(true)}>
+                <FaChevronDown />
+              </Button>
+            }
+          </div>
+        </div>
+        <hr className={styles.hr} />
+        {expanded &&
+        <div className={styles.content}>
+          <h4 className={styles.subtitle}>Files</h4>
+          {files.length > 0 ?
+            <Row className={styles.filesContainer}>
+              {files.map(file => (
+                <div style={{ position: 'relative', display: 'flex', width: '275px', height: '360px', flexDirection: 'column', alignItems: 'center'}}>
+                  <a href={file.url} key={file.url} target="_blank">
+                    <div className={styles.fileImageContainer}>
+                      <Image className={styles.fileImage} src={`${file.url.slice(0, -3)}png`} rounded/>
+                    </div>
+                    {file.name && <p className={styles.fileName}>{file.name}</p>}
+                  </a>
+                </div>
+              ))}
+            </Row>
+            :
+            <h5 className={styles.noContent}>{firstName} has not uploaded any files.</h5>
+          }
+          <h4 className={styles.subtitle}>Links</h4>
+          {links.length ? 
+          <>
             {links.map(link => {
-              if (link.name) return <a href={link.url} key={link.url} target="_blank">{link.name}</a>
-              return <a href={link.url} target="_blank" />
+              if (link.name) return (
+                <div className={styles.linkContainer}>
+                  <a href={link.url} key={link.url} target="_blank">{link.name}</a>
+                </div>
+              )
+              return (
+                <div className={styles.linkContainer}>
+                  <a href={link.url} target="_blank" />
+                </div>
+              )
             })}
-          </ul>
-          :
-          <h4>{firstName} has not uploaded any links.</h4>
+          </>
+            :
+            <h5 className={styles.subtitle}>{firstName} has not uploaded any links.</h5>
+          }
+        </div>
         }
-      </Accordion.Body>
-    </Accordion.Item>
+      </section>
   )
 }

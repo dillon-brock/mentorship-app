@@ -36,11 +36,12 @@ export default class Student {
   
   static async findByTeacherId(teacherId: string): Promise<Array<Student> | null> {
     const { rows } = await pool.query(
-      `SELECT students.*, teachers_students.connection_approved, subjects.subject FROM students
-      INNER JOIN teachers_students ON teachers_students.student_id = students.id
-      INNER JOIN students_subjects ON students_subjects.student_id = students.id
-      INNER JOIN subjects ON subjects.id = students_subjects.subject_id
-      WHERE teachers_students.teacher_id = $1`,
+      `SELECT students.*, teachers_students.connection_approved, subjects.subject FROM teachers
+      INNER JOIN subjects ON subjects.teacher_id = teachers.id
+      INNER JOIN teachers_students ON teachers_students.teacher_id = teachers.id
+      INNER JOIN students_subjects ON students_subjects.subject_id = subjects.id
+      INNER JOIN students ON students.id = students_subjects.student_id
+      WHERE teachers.id = $1`,
       [teacherId]
     );
 
