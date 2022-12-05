@@ -4,6 +4,8 @@ interface CssExports {
   'chevron-button': string;
   'chevronButton': string;
   'content': string;
+  'files-container': string;
+  'filesContainer': string;
   'hr': string;
   'section': string;
   'subtitle': string;
