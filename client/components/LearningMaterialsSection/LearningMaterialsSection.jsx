@@ -1,26 +1,18 @@
+import { useState } from "react";
 import { Accordion, Button, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function LearningMaterialsSection({ i, id, imageUrl, firstName, lastName, teachingMaterials, handleMessage }) {
+  const [expanded, setExpanded] = useState(false);
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
 
   return (
-    <Accordion.Item eventKey={i.toString()}>
-      <Accordion.Header>
-        <Container className="d-flex align-items-center justify-content-start" style={{ gap: '20px'}}>
-          <Image roundedCircle src={imageUrl} style={{ width: '100px', height: '100px' }} />
-          <h3 style={{ display: "inline-block", width: "200px"}}>{firstName} {lastName}</h3>
-          <Container className="d-flex align-items-center justify-content-end" style={{ gap: '20px' }}>
-            <Link to={`/teacher/${id}`}>
-              <Button onClick={(e) => e.stopPropagation()}>View Profile</Button>
-            </Link>
-            <Button onClick={handleMessage}>Message</Button>
-          </Container>
-        </Container>
-      </Accordion.Header>
-      <Accordion.Body>
-        <h3>Files</h3>
+      <section>
+        <div>
+          <h3>{firstName} {lastName}</h3>
+        </div>
+        <h4>Files</h4>
         <>
           {files.map(file => (
             <div>
@@ -31,7 +23,7 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
             </div>
           ))}
         </>
-        <h3>Links</h3>
+        <h4>Links</h4>
         {links.length ? 
           <ul>
             {links.map(link => {
@@ -42,7 +34,6 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
           :
           <h4>{firstName} has not uploaded any links.</h4>
         }
-      </Accordion.Body>
-    </Accordion.Item>
+      </section>
   )
 }

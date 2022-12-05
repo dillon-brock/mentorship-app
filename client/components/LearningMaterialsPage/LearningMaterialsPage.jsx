@@ -6,6 +6,7 @@ import useLearningMaterials from "../../hooks/useLearningMaterials"
 import ChatWindow from "../ChatWindow/ChatWindow";
 import Header from "../Header/Header";
 import LearningMaterialsSection from "../LearningMaterialsSection/LearningMaterialsSection";
+import styles from './learningMaterialsPage.module.css';
 
 export default function LearningMaterialsPage() {
   const { teachersWithMaterials } = useLearningMaterials();
@@ -27,21 +28,21 @@ export default function LearningMaterialsPage() {
   if (!user && doneGettingUser)
     return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
 
+  console.log(teachersWithMaterials);
+
   return (
     <>
       <Header />
-      <h1>Your Learning Materials</h1>
-      <Accordion defaultActiveKey="0">
-        {teachersWithMaterials.map((teacher, i) => (
-          <LearningMaterialsSection
-            key={teacher.id}
-            { ...teacher}
-            i={i}
-            setTeacherRecipient={setTeacherRecipient}
-            handleMessage={(e) => handleMessage(teacher, e)}
-          />
-        ))}
-      </Accordion>
+      <h1 className={styles.title}>Your Learning Materials</h1>
+      {teachersWithMaterials.map((teacher, i) => (
+        <LearningMaterialsSection
+          key={teacher.id}
+          { ...teacher }
+          i={i}
+          setTeacherRecipient={setTeacherRecipient}
+          handleMessage={(e) => handleMessage(teacher, e)}
+        />
+      ))}
       {openChatBox &&
         <ChatWindow
           primaryUser={user}
