@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import FileMaterial from "../FileMaterial/FileMaterial";
 import LinkMaterial from "../LinkMaterial/LinkMaterial";
@@ -37,7 +37,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
           </Row>
         :
         <>
-          <h5>You currently have no uploaded files.</h5>
+          <h5 className={styles.noContent}>You currently have no uploaded files.</h5>
         </>
         }
         <h4 className={styles.subtitle}>Links</h4>
@@ -46,7 +46,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
             {links.map(link => <LinkMaterial key={link.id} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
           </ul>
           :
-          <h5>You currently have no saved links.</h5>
+          <h5 className={styles.noContent}>You currently have no saved links.</h5>
         }
       </div>
       </>

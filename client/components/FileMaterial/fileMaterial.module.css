@@ -1,0 +1,18 @@
+.image-container {
+  width: 275px;
+  height: 330px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.file-name {
+  font-size: 1.1rem;
+  text-align: center;
+}
+

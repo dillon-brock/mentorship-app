@@ -7,6 +7,8 @@ interface CssExports {
   'files-container': string;
   'filesContainer': string;
   'hr': string;
+  'no-content': string;
+  'noContent': string;
   'section': string;
   'subtitle': string;
   'title-container': string;
