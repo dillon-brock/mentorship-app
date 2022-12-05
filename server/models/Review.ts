@@ -35,6 +35,17 @@ export default class Review {
     return rows.map(row => new Review(row));
   }
 
+  static async findByTeacherAndStudent(teacherId: string, studentId: string): Promise<Review | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM reviews
+      WHERE teacher_id = $1 AND student_id = $2`,
+      [teacherId, studentId]
+    );
+
+    if (!rows[0]) return null;
+    return new Review(rows[0]);
+  }
+
   static async create({ studentId = null, stars, detail, teacherId }: NewReview): Promise<Review> {
     const { rows } = await pool.query(
       `INSERT INTO reviews (stars, detail, student_id, teacher_id)
