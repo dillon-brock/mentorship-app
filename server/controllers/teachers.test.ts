@@ -144,13 +144,41 @@ describe('teachers controller', () => {
   it("updates a teacher's profile information on PUT /teachers/me", async () => {
     const agent = request.agent(app);
     await agent.post('/teachers').send(testTeacher);
-    const res = await agent.put('/teachers/me').send({ ...testTeacher, firstName: 'Fake' });
+    const res = await agent.put('/teachers/me').send({ 
+      ...testTeacher,
+      firstName: 'Fake'
+    });
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({
       firstName: 'Fake',
       lastName: testTeacher.lastName,
       imageUrl: testTeacher.imageUrl
     }))
+  })
+
+  it('gives a 401 error for students on PUT /teachers/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    const res = await agent.put('/teachers/me').send({
+      ...testTeacher, 
+      firstName: 'Fake'
+    });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated users on PUT /teachers/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    const res = await agent.put('/teachers/me').send({
+      ...testTeacher, 
+      firstName: 'Fake'
+    });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
   })
 
   it("adds a teacher account for students on POST /teachers/add-account", async () => {
