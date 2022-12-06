@@ -1,0 +1,19 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  text-align: center;
+  font-family: 'Poppins'
+}
+
+.image {
+  width: 240px;
+  height: 240px;
+  margin-bottom: 16px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
