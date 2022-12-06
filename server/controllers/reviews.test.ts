@@ -68,4 +68,27 @@ describe('reviews controller', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ detail: 'Great teacher!', stars: 5 }))
   })
+  it('gives a 401 error for teacher trying to post a review', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const res = await agent.post('/reviews').send({
+      teacherId: teacherAuthRes.body.teacher.id,
+      stars: 5,
+      detail: 'So good!',
+      anonymous: true
+    });
+    expect(res.status).toBe(401);
+  })
+  it('gives a 401 error for an unauthenticated user trying to post a review', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    const res = await agent.post('/reviews').send({
+      teacherId: teacherAuthRes.body.teacher.id,
+      stars: 5,
+      detail: 'Amazing!',
+      anonymous: false
+    });
+    expect(res.status).toBe(401);
+  })
 })
