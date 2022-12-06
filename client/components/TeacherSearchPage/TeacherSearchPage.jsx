@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import Header from "../Header/Header";
 import NewStudentAccountModal from "../NewStudentAccountModal/NewStudentAccountModal";
+import PagingButtons from "../PagingButtons/PagingButtons";
 import PagingSelect from "../PagingSelect/PagingSelect";
 import TeacherResults from "../TeacherResults/TeacherResults";
 import TeacherSearchForm from "../TeacherSearchForm/TeacherSearchForm";
@@ -51,6 +52,11 @@ export default function TeacherSearchPage() {
           />
         </div>
         <TeacherResults teachers={teachers} />
+        <PagingButtons
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
       </div>
       <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
     </>

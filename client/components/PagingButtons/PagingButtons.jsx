@@ -1,4 +1,5 @@
 import { Button, Form } from "react-bootstrap";
+import styles from './pagingButtons.module.css';
 
 export default function PagingButtons({ page, setPage, totalPages }) {
   
@@ -17,10 +18,12 @@ export default function PagingButtons({ page, setPage, totalPages }) {
   }
 
   return (
-    <div>
-      <Button disabled={page == 1} onClick={handlePreviousPage}>Prev</Button>
-      <Button disabled={page == totalPages} onClick={handleNextPage}>Next</Button>
-      <Form.Text>Page {page} of {totalPages ? totalPages : 1}</Form.Text>
+    <div className={styles.container}>
+      <div className={styles.buttonContainer}>
+        <Button className={styles.button} disabled={page == 1} onClick={handlePreviousPage}>Prev</Button>
+        <Button className={styles.button} disabled={page == totalPages} onClick={handleNextPage}>Next</Button>
+      </div>
+      <Form.Text className={styles.info}>Page {page} of {totalPages ? totalPages : 1}</Form.Text>
     </div>
   )
 }
