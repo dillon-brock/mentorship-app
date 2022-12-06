@@ -1,56 +1,73 @@
 import { useState } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
+import { FaChevronDown } from "react-icons/fa";
+import LocationDropdown from "../LocationDropdown/LocationDropdown.jsx";
+import PriceDropdown from "../PriceDropdown/PriceDropdown.jsx";
+import styles from './teacherSearchForm.module.css';
 
 export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }) {
-
-  const [radiusForDisplay, setRadiusForDisplay] = useState(25);
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [showPriceDropdown, setShowPriceDropdown] = useState(false);
+  const [radius, setRadius] = useState(25);
+  const [zipCode, setZipCode] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   return (
-    <Container>
-      <p>Filter Results</p>
-      <Form style={{ textAlign: 'left'}} onSubmit={handleSubmit}>
-        <Form.Group className="mb-2" controlId="subject">
-          <Form.Label>Subject</Form.Label>
-          <Form.Control type="text" placeholder="Coding" name="subject" />
+    <div className={styles.container}>
+      <p className={styles.title}>Filters</p>
+      <Form className={styles.form} onSubmit={handleSubmit}>
+        <Form.Group controlId="subject">
+          <Form.Control className={styles.subjectInput} type="text" placeholder="SUBJECT" name="subject" />
         </Form.Group>
-        <Form.Group className="mb-2" controlId="zipCode">
-          <Form.Label>Zip Code</Form.Label>
-          <Form.Control type="number" minLength="5" maxLength="5" placeholder="97214" name="zipCode" onChange={() => setErrorMessage('')} />
+
+        <Form.Group controlId="lessonType">
+          <Form.Select className={styles.select} name="lessonType" defaultValue={""}>
+            <option value="" disabled>LESSON FORMAT</option>
+            <option value="Any">ANY</option>
+            <option value="In person">IN PERSON</option>
+            <option value="Remote">REMOTE</option>
+          </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-2" controlId="radius">
-          <Form.Label>Distance</Form.Label>
-          <Form.Control type="range" min="0" max="50" step="5" name="radius" value={radiusForDisplay} onInput={(e) => setRadiusForDisplay(e.target.value)}/>
-          <Form.Text>{radiusForDisplay} miles</Form.Text>
-        </Form.Group>
+
+        <div className={styles.dropdownContainer}>
+          <div className={styles.dropdown} onClick={() => setShowLocationDropdown(prev => !prev)}>
+            <p className={styles.dropdownName}>DISTANCE</p>
+            <FaChevronDown />
+          </div>
+          {showLocationDropdown && 
+            <LocationDropdown 
+              radius={radius} 
+              setRadius={setRadius}
+              zipCode={zipCode}
+              setZipCode={setZipCode} 
+              setErrorMessage={setErrorMessage} 
+            />
+          }
+        </div>
+        <div className={styles.dropdownContainer}>
+          <div className={styles.dropdown} onClick={() => setShowPriceDropdown(prev => !prev)}>
+            <p className={styles.dropdownName}>PRICE</p>
+            <FaChevronDown />
+          </div>
+          {showPriceDropdown &&
+            <PriceDropdown
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+            />
+          }
+        </div>
         {errorMessage && 
           <Form.Text className="text-danger">{errorMessage}</Form.Text>
         }
-        
-        <Form.Group className="mb-2" controlId="lessonType">
-          <Form.Label>Lesson Format</Form.Label>
-          <Form.Select name="lessonType">
-            <option value="Any">Any</option>
-            <option value="In person">In person</option>
-            <option value="Remote">Remote</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="price">
-          <Form.Label>Price Range</Form.Label>
-          <Container className="d-flex align-items-end justify-content-start">
-            <Col className="d-flex flex-column">
-              <Form.Text>Min</Form.Text>
-              <Form.Control type="number" placeholder="0" name="minPrice" style={{ width: '40%'}} />
-            </Col>
-            <Col className="d-flex flex-column">
-              <Form.Text>Max</Form.Text>
-              <Form.Control type="number" placeholder="100" name="maxPrice" style={{ width: '40%'}}/>
-            </Col>
-          </Container>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Update Results
-        </Button>
+        <div className={styles.buttonContainer}>
+          <Button className={styles.button} type="submit">
+            SEARCH
+          </Button>
+        </div>
       </Form>
-    </Container>
+    </div>
   )
 }

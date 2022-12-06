@@ -4,9 +4,11 @@ import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import Header from "../Header/Header";
 import NewStudentAccountModal from "../NewStudentAccountModal/NewStudentAccountModal";
-import PagingForm from "../PagingForm/PagingForm";
+import PagingButtons from "../PagingButtons/PagingButtons";
+import PagingSelect from "../PagingSelect/PagingSelect";
 import TeacherResults from "../TeacherResults/TeacherResults";
 import TeacherSearchForm from "../TeacherSearchForm/TeacherSearchForm";
+import styles from './TeacherSearchPage.module.css';
 
 export default function TeacherSearchPage() {
 
@@ -38,21 +40,25 @@ export default function TeacherSearchPage() {
   return (
     <>
       <Header />
-      <Container className="d-flex align-items-start justify-content-center">
-        <Container className="d-flex flex-column align-items-center">
+      <div>
+        <h1 className={styles.title}>Find an Instructor</h1>
+        <div className={styles.controlsContainer}>
           <TeacherSearchForm
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             handleSubmit={handleSubmit}
           />
-          <PagingForm 
+          <PagingSelect 
             setPageLength={setPageLength}
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages} />
-        </Container>
+          />
+        </div>
         <TeacherResults teachers={teachers} />
-      </Container>
+        <PagingButtons
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
+      </div>
       <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
     </>
   )
