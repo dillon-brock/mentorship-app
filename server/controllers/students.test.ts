@@ -155,6 +155,42 @@ describe('students controller', () => {
     expect(res.body.message).toBe('You must be signed in to continue');
   })
 
+  it('updates a student profile at PUT /students/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/students').send(testStudent);
+    const res = await agent.put('/students/me')
+      .send({
+        ...testStudent,
+        firstName: 'New Name'
+      });
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(expect.objectContaining({
+      firstName: 'New Name',
+      lastName: testStudent.lastName,
+      imageUrl: testStudent.imageUrl
+    }));
+  })
+
+  it('gives a 401 error for teachers at PUT /students/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/students').send(testStudent);
+    await agent.delete('/users/sessions');
+    await agent.post('/teachers').send(testTeacher);
+    const res = await agent.put('/students/me').send({ ...testStudent, firstName: 'New Name'});
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only students are permitted to perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated users at PUT /students/me', async () => {
+    const res = await request(app).put('/students/me')
+      .send({
+        ...testStudent,
+        firstName: 'New Name'
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it('serves a new student subject connection at POST /students/subject', async () => {
     const agent = request.agent(app);
     await agent.post('/teachers').send(testTeacher);
