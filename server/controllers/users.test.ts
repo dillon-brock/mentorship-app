@@ -1,5 +1,5 @@
 /* @jest-environment node */
-import request from 'supertest'
+import request, { agent } from 'supertest'
 import app from '../app'
 import {
   describe,
@@ -65,7 +65,8 @@ describe('teachers controller', () => {
     const res = await request(app).post('/users/sessions').send(testUser);
     expect(res.status).toBe(200);
     expect(res.body.message).toEqual('Signed in successfully!');
-  })
+  });
+
   it('signs up a user on POST /users', async () => {
     const studentRes = await request(app).post('/users').send(testUser);
     expect(studentRes.status).toBe(200);
@@ -74,6 +75,7 @@ describe('teachers controller', () => {
       email: testUser.email,
       type: testUser.type
     });
+
     const teacherRes = await request(app).post('/users').send(testUser2);
     expect(teacherRes.status).toBe(200);
     expect(teacherRes.body).toEqual({
@@ -82,6 +84,7 @@ describe('teachers controller', () => {
       type: testUser2.type
     });
   });
+
   it('gets the current user with student information for students on GET /users/me', async () => {
     const agent = await registerAndLoginStudent();
     const res = await agent.get('/users/me');
@@ -96,6 +99,12 @@ describe('teachers controller', () => {
       imageUrl: testStudent.imageUrl,
     })
   })
+
+  it('gives a 401 error for unauthenticated users on GET /users/me', async () => {
+    const res = await request(app).get('/users/me');
+    expect(res.status).toBe(401);
+  })
+
   it('gets the current user with teacher information for teachers on GET /users/me', async () => {
     const agent = await registerAndLoginTeacher();
     const res = await agent.get('/users/me');
@@ -110,15 +119,22 @@ describe('teachers controller', () => {
       imageUrl: testTeacher.imageUrl,
     })
   })
+
   it('signs out a user on /users/sessions', async () => {
     const agent = await registerAndLoginStudent();
     const res = await agent.delete('/users/sessions');
     expect(res.status).toBe(204);
   })
+
   it('updates user type on PUT /users/me', async () => {
     const agent = await registerAndLoginStudent();
     const res = await agent.put('/users/me').send({ type: 'teacher' });
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ type: 'teacher' }));
+  })
+
+  it('gives a 401 error for unauthenticated users on PUT /users/me', async () => {
+    const res = await request(app).put('/users/me').send({ type: 'teacher' });
+    expect(res.status).toBe(401);
   })
 })
