@@ -4,8 +4,11 @@ interface CssExports {
   'button': string;
   'button-container': string;
   'buttonContainer': string;
+  'container': string;
   'dropdown': string;
+  'dropdown-container': string;
   'dropdown-name': string;
+  'dropdownContainer': string;
   'dropdownName': string;
   'form': string;
   'input': string;

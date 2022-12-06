@@ -4,9 +4,10 @@ import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import Header from "../Header/Header";
 import NewStudentAccountModal from "../NewStudentAccountModal/NewStudentAccountModal";
-import PagingForm from "../PagingForm/PagingForm";
+import PagingSelect from "../PagingSelect/PagingSelect";
 import TeacherResults from "../TeacherResults/TeacherResults";
 import TeacherSearchForm from "../TeacherSearchForm/TeacherSearchForm";
+import styles from './TeacherSearchPage.module.css';
 
 export default function TeacherSearchPage() {
 
@@ -39,17 +40,15 @@ export default function TeacherSearchPage() {
     <>
       <Header />
       <div>
-        <div>
+        <div className={styles.controlsContainer}>
           <TeacherSearchForm
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
             handleSubmit={handleSubmit}
           />
-          <PagingForm 
+          <PagingSelect 
             setPageLength={setPageLength}
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages} />
+          />
         </div>
         <TeacherResults teachers={teachers} />
       </div>

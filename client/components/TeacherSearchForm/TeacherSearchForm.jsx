@@ -14,14 +14,14 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
   const [maxPrice, setMaxPrice] = useState('');
 
   return (
-    <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingLeft: '24px' }}>
+    <div className={styles.container}>
       <p className={styles.title}>Filters</p>
       <Form className={styles.form} onSubmit={handleSubmit}>
-        <Form.Group className="mb-2" controlId="subject">
+        <Form.Group controlId="subject">
           <Form.Control className={styles.subjectInput} type="text" placeholder="SUBJECT" name="subject" />
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="lessonType">
+        <Form.Group controlId="lessonType">
           <Form.Select className={styles.select} name="lessonType" defaultValue={""}>
             <option value="" disabled>LESSON FORMAT</option>
             <option value="Any">ANY</option>
@@ -30,7 +30,7 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
           </Form.Select>
         </Form.Group>
 
-        <div style={{ position: 'relative' }}>
+        <div className={styles.dropdownContainer}>
           <div className={styles.dropdown} onClick={() => setShowLocationDropdown(prev => !prev)}>
             <p className={styles.dropdownName}>DISTANCE</p>
             <FaChevronDown />
@@ -45,7 +45,7 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
             />
           }
         </div>
-        <div style={{ position: 'relative' }}>
+        <div className={styles.dropdownContainer}>
           <div className={styles.dropdown} onClick={() => setShowPriceDropdown(prev => !prev)}>
             <p className={styles.dropdownName}>PRICE</p>
             <FaChevronDown />
