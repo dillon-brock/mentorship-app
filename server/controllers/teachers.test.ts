@@ -126,6 +126,20 @@ describe('teachers controller', () => {
       imageUrl: testTeacher.imageUrl
     }));
   })
+
+  it('gives a 401 error for students on GET /teachers/me', async () => {
+    const agent = request.agent(app);
+    await agent.post('/students').send(testStudent);
+    const res = await agent.get('/teachers/me');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated user on GET /teachers/me', async () => {
+    const res = await request(app).get('/teachers/me');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
   
   it("updates a teacher's profile information on PUT /teachers/me", async () => {
     const agent = request.agent(app);
