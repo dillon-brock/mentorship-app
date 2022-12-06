@@ -200,5 +200,29 @@ describe('teachers controller', () => {
         imageUrl: studentAuthRes.body.student.imageUrl
       })
     )
+  });
+
+  it('gives a 401 error for teachers ON POST /teachers/add-account', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const res = await agent.post('/teachers/add-account').send({
+      firstName: teacherAuthRes.body.teacher.firstName,
+      lastName: teacherAuthRes.body.teacher.lastName,
+      imageUrl: teacherAuthRes.body.teacher.imageUrl,
+      ...additionalTeacherInfo
+    });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only students are permitted to perform this action.');
+  });
+
+  it('gives a 401 error for unauthenticated users on POST /teachers/add-account', async () => {
+    const res = await request(app).post('/teachers/add-account').send({
+      firstName: 'First',
+      lastName: 'Last',
+      imageUrl: 'image.com',
+      ...additionalTeacherInfo
+    });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
   })
 })
