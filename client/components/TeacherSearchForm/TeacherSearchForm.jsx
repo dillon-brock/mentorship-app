@@ -2,12 +2,17 @@ import { useState } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { FaChevronDown } from "react-icons/fa";
 import LocationDropdown from "../LocationDropdown/LocationDropdown.jsx";
+import PriceDropdown from "../PriceDropdown/PriceDropdown.jsx";
 import styles from './teacherSearchForm.module.css';
 
 export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }) {
-
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
-  console.log(showLocationDropdown);
+  const [showPriceDropdown, setShowPriceDropdown] = useState(false);
+  const [radius, setRadius] = useState(25);
+  const [zipCode, setZipCode] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
   return (
     <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <p className={styles.title}>Filters</p>
@@ -29,13 +34,29 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
             <p className={styles.dropdownName}>DISTANCE</p>
             <FaChevronDown />
           </div>
-          {showLocationDropdown && <LocationDropdown setErrorMessage={setErrorMessage} />}
+          {showLocationDropdown && 
+            <LocationDropdown 
+              radius={radius} 
+              setRadius={setRadius}
+              zipCode={zipCode}
+              setZipCode={setZipCode} 
+              setErrorMessage={setErrorMessage} 
+            />
+          }
         </div>
-        <div>
-          <div className={styles.dropdown}>
-            <p className={styles.dropdownName}>Price</p>
+        <div style={{ position: 'relative' }}>
+          <div className={styles.dropdown} onClick={() => setShowPriceDropdown(prev => !prev)}>
+            <p className={styles.dropdownName}>PRICE</p>
             <FaChevronDown />
           </div>
+          {showPriceDropdown &&
+            <PriceDropdown
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+            />
+          }
         </div>
         {errorMessage && 
           <Form.Text className="text-danger">{errorMessage}</Form.Text>

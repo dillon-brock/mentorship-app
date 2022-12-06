@@ -1,10 +1,12 @@
-import { useState } from "react";
 import { Form } from "react-bootstrap";
 import styles from './locationDropdown.module.css';
 
-export default function LocationDropdown({ setErrorMessage }) {
+export default function LocationDropdown({ radius, setRadius, zipCode, setZipCode, setErrorMessage }) {
 
-  const [radiusForDisplay, setRadiusForDisplay] = useState(25);
+  const handleChangeZipCode = (e) => {
+    setZipCode(e.target.value);
+    setErrorMessage('');
+  }
 
   return (
     <div className={styles.container}>
@@ -15,11 +17,12 @@ export default function LocationDropdown({ setErrorMessage }) {
           minLength="5"
           maxLength="5"
           placeholder="ZIP CODE" 
-          name="zipCode" 
-          onChange={() => setErrorMessage('')} 
+          name="zipCode"
+          value={zipCode} 
+          onChange={handleChangeZipCode} 
         />
       </Form.Group>
-      <Form.Group controlId="radius">
+      <Form.Group className="mb-2" controlId="radius">
         <Form.Control 
           className={styles.input} 
           type="range" 
@@ -27,10 +30,10 @@ export default function LocationDropdown({ setErrorMessage }) {
           max="50" 
           step="5" 
           name="radius" 
-          value={radiusForDisplay} 
-          onInput={(e) => setRadiusForDisplay(e.target.value)}
+          value={radius} 
+          onInput={(e) => setRadius(e.target.value)}
         />
-        <Form.Text className={styles.radiusDisplay}>{radiusForDisplay} miles</Form.Text>
+        <Form.Text className={styles.radiusDisplay}>{radius} miles</Form.Text>
       </Form.Group>
     </div>
   );
