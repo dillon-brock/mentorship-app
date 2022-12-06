@@ -41,6 +41,7 @@ export default function TeacherSearchPage() {
     <>
       <Header />
       <div>
+        <h1 className={styles.title}>Find an Instructor</h1>
         <div className={styles.controlsContainer}>
           <TeacherSearchForm
             errorMessage={errorMessage}

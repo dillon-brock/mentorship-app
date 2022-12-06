@@ -19,11 +19,11 @@ export default function TeacherResult({ id, firstName, lastName, zipCode, subjec
         </div>
         <div>
           <p className={styles.name}>{firstName} {lastName}</p>
-          <p>{subjectList}</p>
+          <p className={styles.subjects}>{subjectList}</p>
           {city && state ?
-            <p>{city}, {state}</p>
+            <p className={styles.location}>{city}, {state}</p>
             :
-            <p>{zipCode}</p>
+            <p className={styles.location}>{zipCode}</p>
           }
         </div>
       </div>

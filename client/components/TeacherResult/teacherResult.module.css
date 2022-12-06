@@ -17,3 +17,13 @@
   font-weight: 700;
   font-size: 1.1rem;
 }
+
+.subjects {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.location {
+  font-size: 0.9rem;
+  font-style: italic;
+}
