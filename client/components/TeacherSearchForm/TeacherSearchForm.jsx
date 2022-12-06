@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Form } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import { FaChevronDown } from "react-icons/fa";
 import LocationDropdown from "../LocationDropdown/LocationDropdown.jsx";
 import PriceDropdown from "../PriceDropdown/PriceDropdown.jsx";
@@ -14,18 +14,19 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
   const [maxPrice, setMaxPrice] = useState('');
 
   return (
-    <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingLeft: '24px' }}>
       <p className={styles.title}>Filters</p>
       <Form className={styles.form} onSubmit={handleSubmit}>
         <Form.Group className="mb-2" controlId="subject">
-          <Form.Control className={styles.input} type="text" placeholder="SUBJECT" name="subject" />
+          <Form.Control className={styles.subjectInput} type="text" placeholder="SUBJECT" name="subject" />
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="lessonType">
-          <Form.Select className={styles.input} name="lessonType">
-            <option value="Any">Any</option>
-            <option value="In person">In person</option>
-            <option value="Remote">Remote</option>
+          <Form.Select className={styles.select} name="lessonType" defaultValue={""}>
+            <option value="" disabled>LESSON FORMAT</option>
+            <option value="Any">ANY</option>
+            <option value="In person">IN PERSON</option>
+            <option value="Remote">REMOTE</option>
           </Form.Select>
         </Form.Group>
 
@@ -63,7 +64,7 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
         }
         <div className={styles.buttonContainer}>
           <Button className={styles.button} type="submit">
-            Update Results
+            SEARCH
           </Button>
         </div>
       </Form>

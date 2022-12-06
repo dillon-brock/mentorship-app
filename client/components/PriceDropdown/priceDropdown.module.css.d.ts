@@ -3,7 +3,6 @@
 interface CssExports {
   'container': string;
   'input': string;
-  'label': string;
   'radius-display': string;
   'radiusDisplay': string;
 }

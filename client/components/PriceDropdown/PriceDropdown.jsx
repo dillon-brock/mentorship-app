@@ -6,7 +6,7 @@ export default function PriceDropdown({ minPrice, setMinPrice, maxPrice, setMaxP
   return (
     <div className={styles.container}>
       <Form.Group className="mb-2" controlId="minPrice">
-        <Form.Label className={styles.label}>MIN</Form.Label>
+        <Form.Label style={{ fontWeight: '600', fontSize: '0.8rem'}}>MIN</Form.Label>
         <Form.Control 
           className={styles.input} 
           type="number"
@@ -16,7 +16,7 @@ export default function PriceDropdown({ minPrice, setMinPrice, maxPrice, setMaxP
         />
       </Form.Group>
       <Form.Group className="mb-2" controlId="maxPrice">
-        <Form.Label className={styles.label}>MAX</Form.Label>
+        <Form.Label style={{ fontWeight: '600', fontSize: '0.8rem'}}>MAX</Form.Label>
         <Form.Control 
           className={styles.input} 
           type="number" 

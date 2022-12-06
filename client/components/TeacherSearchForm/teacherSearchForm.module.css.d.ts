@@ -9,6 +9,10 @@ interface CssExports {
   'dropdownName': string;
   'form': string;
   'input': string;
+  'select': string;
+  'subject-input': string;
+  'subjectInput': string;
+  'title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
