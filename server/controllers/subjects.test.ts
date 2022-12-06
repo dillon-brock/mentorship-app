@@ -1,4 +1,4 @@
-import request from 'supertest'
+import request, { agent } from 'supertest'
 import app from '../app'
 import {
   describe,
@@ -27,6 +27,14 @@ const testTeacher = {
   city: 'Portland',
   state: 'OR'
 }
+
+const testStudent = {
+  firstName: 'Test',
+  lastName: 'Student',
+  email: 'student@test.com',
+  password: '123456',
+  imageUrl: 'testimage.com'
+};
 
 const testSubject = {
   subject: 'Cooking',
@@ -58,7 +66,8 @@ describe('subjects controller', () => {
       maxPrice: expect.any(Number),
       lessonType: expect.any(String)
     }))
-  })
+  });
+
   it('adds a new subject corresponding to a teacher at POST /subjects', async () => {
     const agent = request.agent(app);
     await agent.post('/teachers').send(testTeacher);
@@ -66,6 +75,21 @@ describe('subjects controller', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual(expect.objectContaining({ ...testSubject }));
   })
+
+  it('gives a 401 error for students at POST /subjects', async () => {
+    const agent = request.agent(app);
+    await agent.post('/students').send(testStudent);
+    const res = await agent.post('/subjects').send(testSubject);
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated users at POST /subjects', async () => {
+    const res = await request(app).post('/subjects').send(testSubject);
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it('updates subject information at PUT /subjects/:id', async () => {
     const agent = request.agent(app);
     await agent.post('/teachers').send(testTeacher);
