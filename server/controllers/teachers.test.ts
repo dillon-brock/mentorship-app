@@ -25,7 +25,12 @@ const testTeacher = {
   imageUrl: 'testimage.com',
   bio: 'I am a teacher',
   zipCode: '97214',
-  subjects: [{ subject: 'Drawing', minPrice: 10, maxPrice: 30, lessonType: 'In person' }],
+  subjects: [{ 
+    subject: 'Drawing',
+    minPrice: 10,
+    maxPrice: 30,
+    lessonType: 'In person'
+  }],
   phoneNumber: '5555555555',
   contactEmail: 'teacher@test.com',
   city: 'Portland',
@@ -63,10 +68,39 @@ describe('teachers controller', () => {
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Signed in successfully!');
   })
+
   it("serves teacher info with id corresponding to params on GET /teachers/:id", async () => {
-    const res = await request(app).get('/teachers/1');
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const res = await agent.get(`/teachers/${teacherAuthRes.body.teacher.id}`);
     expect(res.status).toBe(200);
-  })
+    expect(res.body.teacher).toEqual(expect.objectContaining({
+      id: teacherAuthRes.body.teacher.id,
+      firstName: testTeacher.firstName,
+      lastName: testTeacher.lastName
+    }))
+  });
+
+  it('serves connection information for student on GET /teachers/:id', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    await agent.delete('/users/sessions');
+    const studentAuthRes = await agent.post('/students').send(testStudent);
+    await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    const res = await agent.get(`/teachers/${teacherAuthRes.body.teacher.id}`);
+    expect(res.status).toBe(200);
+    expect(res.body.teacher).toEqual(expect.objectContaining({
+      id: teacherAuthRes.body.teacher.id,
+      firstName: testTeacher.firstName,
+      lastName: testTeacher.lastName
+    }));
+    expect(res.body.connection).toEqual({
+      id: expect.any(String),
+      studentId: studentAuthRes.body.student.id,
+      teacherId: teacherAuthRes.body.teacher.id,
+      connectionApproved: 'pending'
+    })
+  });
 
   it('serves a list of teachers on GET /teachers', async () => {
     const res = await request(app).get('/teachers');
