@@ -1,6 +1,5 @@
 export async function getReviews(id) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/${id}/reviews`, {
-    credentials: "include",
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/reviews/${id}`, {
     headers: {
       "Accept": "application/json"
     }
@@ -12,7 +11,7 @@ export async function getReviews(id) {
   }
 }
 
-export async function postReview({ teacherId, studentId, stars, detail }) {
+export async function postReview({ teacherId, stars, detail, anonymous }) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/reviews`, {
     method: "POST",
     credentials: "include",
@@ -22,7 +21,7 @@ export async function postReview({ teacherId, studentId, stars, detail }) {
     },
     body: JSON.stringify({
       teacherId,
-      studentId,
+      anonymous,
       stars,
       detail
     })

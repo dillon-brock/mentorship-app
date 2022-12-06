@@ -1,4 +1,5 @@
-import request from 'supertest'
+/* @jest-environment node */
+import request, { agent } from 'supertest'
 import app from '../app'
 import {
   describe,
@@ -58,18 +59,26 @@ describe('connections controller', () => {
       connectionApproved: 'pending'
     });
   })
+  it('gives a 401 error for a teacher creating a new connection', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const res = await agent.post('/connections').send({ teacherId: teacherAuthRes.body.teacher.id });
+    expect(res.status).toBe(401);
+  })
+  it('gives a 401 error for an unauthenticated user creating a new connection', async () => {
+    const res = await request(app).post('/connections').send({ teacherId: '1' });
+    expect(res.status).toBe(401);
+  })
   it('updates connection status on PUT /connections', async () => {
     const { agent, student, teacher } = await createTeacherAndStudent();
     await agent.delete('/users/sessions');
     await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
     await agent.post('/connections').send({
-      teacherId: teacher.id,
-      studentId: student.id
+      teacherId: teacher.id
     });
     await agent.delete('/users/sessions');
     await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
     const res = await agent.put('/connections').send({
-      teacherId: teacher.id,
       studentId: student.id,
       connectionStatus: 'approved'
     });
@@ -80,5 +89,30 @@ describe('connections controller', () => {
       studentId: student.id,
       connectionApproved: 'approved'
     });
+  })
+  it('gives a 401 error for a student trying to update a connection', async () => {
+    const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    await agent.post('/connections').send({ teacherId: teacher.id });
+    const res = await agent.put('/connections').send({
+      teacherId: teacher.id,
+      studentId: student.id,
+      connectionStatus: 'approved'
+    });
+    expect(res.status).toBe(401);
+  });
+  it('gives a 401 error for an unauthenticated user trying to update a connection', async () => {
+    const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    const res = await agent.put('/connections').send({
+      teacherId: teacher.id,
+      studentId: student.id,
+      connectionStatus: 'approved'
+    });
+    expect(res.status).toBe(401);
   })
 })

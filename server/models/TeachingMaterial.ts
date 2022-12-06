@@ -29,6 +29,16 @@ export default class TeachingMaterial {
     return new TeachingMaterial(rows[0]);
   }
 
+  static async findById(id: string): Promise<TeachingMaterial | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teaching_materials
+      WHERE id = $1`,
+      [id]
+    );
+    if (!rows[0]) return null;
+    return new TeachingMaterial(rows[0]);
+  }
+
   static async findByTeacherId(teacherId: string): Promise<Array<TeachingMaterial>> {
     const { rows } = await pool.query(
       `SELECT teaching_materials.* FROM teachers

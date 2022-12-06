@@ -33,6 +33,17 @@ export default class Subject {
     return new Subject(rows[0]);
   }
 
+  static async findById(id: string): Promise<Subject | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM subjects
+      WHERE id = $1`,
+      [id]
+    );
+
+    if (!rows[0]) return null;
+    return new Subject(rows[0]);
+  }
+
   static async findByTeacherId(teacherId: string): Promise<Array<Subject> | null> {
     const { rows } = await pool.query(
       `SELECT * FROM subjects

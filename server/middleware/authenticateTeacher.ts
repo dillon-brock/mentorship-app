@@ -11,6 +11,7 @@ export default async (req: Request, res: Response, next: (e?: any) => any) => {
     const user = jwt.verify(cookie, process.env.JWT_SECRET);
     if (typeof user !== 'string') {
       const teacher = await Teacher.findByUserId(user.id);
+      if (!teacher) throw new Error('Only teachers can perform this action.');
       user.teacherId = teacher?.id;
       req.user = user;
     }

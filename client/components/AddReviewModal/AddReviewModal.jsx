@@ -27,9 +27,9 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
     const detail = formData.get("detail");
     const newReview = await postReview({
       teacherId: id,
-      studentId: leaveAnonymously ? null : user.studentId,
       stars,
-      detail
+      detail,
+      anonymous: leaveAnonymously
     });
     setReviews(prev => [...prev, newReview]);
     setAvgRating(getAverageRating([...reviews, newReview]));
