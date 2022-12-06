@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image } from "react-bootstrap";
+import { Button, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
@@ -12,6 +12,7 @@ import Header from "../Header/Header";
 import ReviewListModal from "../ReviewListModal/ReviewListModal";
 import StarRating from "../StarRating/StarRating";
 import SubjectList from "../SubjectList/SubjectList";
+import styles from './teacherDetailPage.module.css';
 
 export default function TeacherDetailPage() {
   
@@ -50,34 +51,63 @@ export default function TeacherDetailPage() {
   return (
     <>
       <Header />
-      <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
-      <p>{teacher.firstName} {teacher.lastName}</p>
-      <p>{formattedSubjectList}</p>
-      {teacher.city && teacher.state ? 
-        <p>{teacher.city}, {teacher.state}</p>
-        :
-        <p>{teacher.zipCode}</p>
-      }
-      <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
-      {reviews.length > 0 ?
-        <>
-          <StarRating value={avgRating} editable={false} half={true}/>
-          <ReviewListModal reviews={reviews} />
-        </>
-        :
-        <p><em>No reviews yet</em></p>
-      }
-      <Button onClick={handleUserWantsToSendMessage}>Message</Button>
-      <AuthRedirectModal teacherId={id} userNeedsToSignIn={userNeedsToSignIn} setUserNeedsToSignIn={setUserNeedsToSignIn} />
-      {!connection && <AddConnectionModal {...teacher} connection={connection} setConnection={setConnection} setUserNeedsToSignIn={setUserNeedsToSignIn} />}
-      {connection && connection.connectionApproved === 'approved' && !alreadyReviewed && <AddReviewModal {...teacher} setReviews={setReviews} reviews={reviews} setAvgRating={setAvgRating} />}
-      <p>{teacher.bio}</p>
-      {teacher.subjects &&
-        <SubjectList displayOnly={true} subjects={teacher.subjects} />
-      }
-      {openChatWindow &&
-        <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
-      }
+      <div className={styles.pageContainer}>
+        <div className={styles.infoContainer}>
+          <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
+          <div>
+            <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
+            <h4>{formattedSubjectList}</h4>
+            {teacher.city && teacher.state ? 
+              <p>{teacher.city}, {teacher.state}</p>
+              :
+              <p>{teacher.zipCode}</p>
+            }
+            <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
+            {reviews.length > 0 ?
+              <div className={styles.reviewsContainer}>
+                <StarRating value={avgRating} editable={false} half={true}/>
+                <ReviewListModal reviews={reviews} />
+              </div>
+              :
+              <p><em>No reviews yet</em></p>
+            }
+            <div className={styles.buttonContainer}>
+              <Button className={styles.button} onClick={handleUserWantsToSendMessage}>Message</Button>
+              {!connection && 
+                <AddConnectionModal 
+                  {...teacher} 
+                  connection={connection} 
+                  setConnection={setConnection} 
+                  setUserNeedsToSignIn={setUserNeedsToSignIn} 
+                />
+              }
+              {connection && connection.connectionApproved === 'approved' && !alreadyReviewed && 
+                <AddReviewModal 
+                  {...teacher}
+                  setReviews={setReviews} 
+                  reviews={reviews} 
+                  setAvgRating={setAvgRating}
+                />
+              }
+            </div>
+          </div>
+        </div>
+        <AuthRedirectModal teacherId={id} userNeedsToSignIn={userNeedsToSignIn} setUserNeedsToSignIn={setUserNeedsToSignIn} />
+        <div className={styles.detailsContainer}>
+          <div>
+            <h3>Bio</h3>
+            <p>{teacher.bio}</p>
+          </div>
+          <div>
+            {teacher.subjects &&
+              <SubjectList displayOnly={true} subjects={teacher.subjects} />
+            }
+          </div>
+          {openChatWindow &&
+            <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
+          }
+        </div>
+      </div>
     </>
   )
 }
