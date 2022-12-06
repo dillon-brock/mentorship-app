@@ -204,4 +204,64 @@ describe('teaching materials controller', () => {
       url: 'updatetest.com'
     }))
   })
+
+  it('gives a 401 error for students on PUT /teaching-materials/:id', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    const newMaterialRes = await agent.post('/teaching-materials').send({ 
+      ...testTeachingMaterial, 
+      subjectId
+    });
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    const res = await agent.put(`/teaching-materials/${newMaterialRes.body.id}`)
+      .send({ 
+        ...testTeachingMaterial, 
+        subjectId, url: 'updatetest.com' 
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  });
+
+  it('gives a 401 error for unauthenticated users on PUT /teaching-materials/:id', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    const newMaterialRes = await agent.post('/teaching-materials').send({ 
+      ...testTeachingMaterial, 
+      subjectId
+    });
+    await agent.delete('/users/sessions');
+    const res = await agent.put(`/teaching-materials/${newMaterialRes.body.id}`)
+      .send({ 
+        ...testTeachingMaterial, 
+        subjectId,
+        url: 'updatetest.com' 
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  });
+
+  it('gives a 403 error for unauthorized teacher on PUT /teaching-materials/:id', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    const subjectId = subjectsRes.body[0].id;
+    const newMaterialRes = await agent.post('/teaching-materials').send({
+      ...testTeachingMaterial,
+      subjectId
+    });
+    await agent.delete('/users/sessions');
+    await agent.post('/teachers').send(secondTestTeacher);
+    const res = await agent.put(`/teaching-materials/${newMaterialRes.body.id}`)
+      .send({
+        ...testTeachingMaterial,
+        subjectId,
+        url: 'updatetest.com'
+      })
+    expect(res.status).toBe(403);
+  })
 })
