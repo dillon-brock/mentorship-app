@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+  text-align: left;
+}
+
+.dropdown {
+  display: flex;
+  border: 2px solid black;
+  align-items: center;
+  gap: 30px;
+  padding: 6px 12px;
+  margin-bottom: 8px;
+  color: var(--dark-green);
+}
+
+.dropdown-name {
+  margin: 0;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
+.input::placeholder {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 10px 24px;
+  border-radius: 50px;
+  background-color: var(--dark-green);
+  border: none;
+}
+
+.button:hover {
+  background-color: var(--dark-yellow);
+}
+
+.button:focus {
+  background-color: var(--dark-green);
+  box-shadow: none;
+}

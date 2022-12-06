@@ -38,8 +38,8 @@ export default function TeacherSearchPage() {
   return (
     <>
       <Header />
-      <Container className="d-flex align-items-start justify-content-center">
-        <Container className="d-flex flex-column align-items-center">
+      <div>
+        <div>
           <TeacherSearchForm
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
@@ -50,9 +50,9 @@ export default function TeacherSearchPage() {
             page={page}
             setPage={setPage}
             totalPages={totalPages} />
-        </Container>
+        </div>
         <TeacherResults teachers={teachers} />
-      </Container>
+      </div>
       <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
     </>
   )
