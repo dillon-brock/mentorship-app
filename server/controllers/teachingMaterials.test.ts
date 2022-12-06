@@ -24,6 +24,14 @@ const testTeacher = {
   state: 'OR'
 }
 
+const testStudent = {
+  firstName: 'Test',
+  lastName: 'Student',
+  email: 'student@test.com',
+  password: '123456',
+  imageUrl: 'testimage.com'
+};
+
 const testTeachingMaterial = {
   type: 'link',
   url: 'fakelink.com',
@@ -51,7 +59,39 @@ describe('teaching materials controller', () => {
       })
     )
     expect(newMaterialRes.status).toBe(200);
+  });
+
+  it('gives a 401 error for students at GET /teaching-materials', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    await agent.post('/teaching-materials')
+      .send({
+        ...testTeachingMaterial,
+        subjectId: subjectsRes.body[0].id
+      });
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    const res = await agent.get('/teaching-materials');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
   })
+
+  it('gives a 401 error for unauthenticated users at GET /teaching-materials', async () => {
+    const agent = request.agent(app);
+    const teacherAuthRes = await agent.post('/teachers').send(testTeacher);
+    const subjectsRes = await agent.get(`/subjects/${teacherAuthRes.body.teacher.id}`);
+    await agent.post('/teaching-materials')
+      .send({
+        ...testTeachingMaterial,
+        subjectId: subjectsRes.body[0].id
+      });
+    await agent.delete('/users/sessions');
+    const res = await agent.get('/teaching-materials');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
+
   it('creates new teaching materials on POST /teaching-materials', async () => {
     const agent = request.agent(app);
     const teacherRes = await agent.post('/teachers').send(testTeacher);
