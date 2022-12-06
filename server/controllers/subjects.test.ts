@@ -1,3 +1,4 @@
+/* @jest-environment node */
 import request, { agent } from 'supertest'
 import app from '../app'
 import {
@@ -6,9 +7,6 @@ import {
   it,
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
-import Subject from '../models/Subject'
-
-/* @jest-environment node */
 
 const testTeacher = {
   firstName: 'Test',
@@ -107,4 +105,35 @@ describe('subjects controller', () => {
       maxPrice: 60
     }))
   });
+
+  it('gives a 401 error students at PUT /subjects/:id', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(testStudent);
+    const res = await agent.put(`/subjects/${newSubjectRes.body.id}`)
+      .send({
+        ...testSubject,
+        minPrice: 40,
+        maxPrice: 60
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Only teachers can perform this action.');
+  })
+
+  it('gives a 401 error for unauthenticated users at PUT /subjects/:id', async () => {
+    const agent = request.agent(app);
+    await agent.post('/teachers').send(testTeacher);
+    const newSubjectRes = await agent.post('/subjects').send(testSubject);
+    await agent.delete('/users/sessions');
+    const res = await agent.put(`/subjects/${newSubjectRes.body.id}`)
+      .send({
+        ...testSubject,
+        minPrice: 40,
+        maxPrice: 60
+      });
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('You must be signed in to continue');
+  })
 })
