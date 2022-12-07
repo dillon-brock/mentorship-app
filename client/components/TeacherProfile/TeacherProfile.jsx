@@ -6,6 +6,7 @@ import { updateAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
 import SubjectList from "../SubjectList/SubjectList";
+import styles from './teacherProfile.module.css';
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -32,26 +33,29 @@ export default function TeacherProfile() {
   return (
     <div style={{ padding: '20px' }}>
     {!userWantsToEditProfile &&
-      <>
-        <Button onClick={() => setUserWantsToEditProfile(true)}>
-          <FaEdit />
-        </Button>
-        <Image roundedCircle src={teacher.imageUrl} style={{ width: '200px', height: '200px' }} />
-        <p>First Name</p>
-        <p>{teacher.firstName}</p>
-        <p>Last Name</p>
-        <p>{teacher.lastName}</p>
-        <p>Bio</p>
-        <p>{teacher.bio}</p>
-        <p>Phone Number</p>
-        <p>{teacher.phoneNumber}</p>
-        <p>Contact Email</p>
-        <p>{teacher.contactEmail}</p>
-        <p>Zip Code</p>
-        <p>{teacher.zipCode}</p>
-        <p>City</p>
-        <p>{teacher.city} {teacher.state}</p>
-      </>
+    <div className={styles.profileContainer}>
+      <div className={styles.infoContainer}>
+      <Button className={styles.editButton} onClick={() => setUserWantsToEditProfile(true)}>
+        <FaEdit />
+      </Button>
+          <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
+          <div>
+            <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
+            {teacher.city && teacher.state ? 
+              <p>{teacher.city}, {teacher.state}</p>
+              :
+              <p>{teacher.zipCode}</p>
+            }
+            <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
+          </div>
+        </div>
+        <div className={styles.detailsContainer}>
+        <div>
+          <h3>Bio</h3>
+          <p>{teacher.bio}</p>
+        </div>
+      </div>
+    </div>
     }
     {userWantsToEditProfile && 
       <>
