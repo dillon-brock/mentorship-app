@@ -1,3 +1,8 @@
+.page-container {
+  padding: 20px 100px;
+  margin-bottom: 50px;
+}
+
 .profile-container {
   position: relative;
   margin-top: 40px;
@@ -6,8 +11,8 @@
 
 .edit-button, .edit-button:focus {
   position: absolute;
-  right: 120px;
-  top: 40px;
+  right: -12px;
+  top: -30px;
   background: white;
   border: 2px solid black;
   color: black;
@@ -43,6 +48,11 @@
   background-color: black;
   border: 2px solid black;
   color: white;
+}
+
+.title-container {
+  position: relative;
+  width: 500px;
 }
 
 .info-container {
@@ -82,6 +92,7 @@
 .form {
   font-family: 'Poppins';
   width: 520px;
+  margin-bottom: 100px;
 }
 
 .input {
@@ -169,5 +180,9 @@
   .details-container {
     padding: 0 60px;
     margin-top: 80px;
+  }
+
+  .subjects-container {
+    margin-left: 60px;
   }
 }

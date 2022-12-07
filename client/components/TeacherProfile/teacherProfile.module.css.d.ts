@@ -36,6 +36,8 @@ interface CssExports {
   'saveButton': string;
   'subjects-container': string;
   'subjectsContainer': string;
+  'title-container': string;
+  'titleContainer': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

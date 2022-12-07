@@ -43,13 +43,10 @@ export default function TeacherProfile() {
   }
 
   return (
-    <div style={{ padding: '20px 100px' }}>
+    <div className={styles.pageContainer}>
     {!userWantsToEditProfile &&
     <div className={styles.profileContainer}>
       <div className={styles.infoContainer}>
-      <Button className={styles.editButton} onClick={() => setUserWantsToEditProfile(true)}>
-        <FaEdit />
-      </Button>
           <div 
             className={styles.imageContainer} 
             onMouseEnter={() => setShowImageEditButton(true)}
@@ -63,7 +60,12 @@ export default function TeacherProfile() {
             <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
           </div>
           <div>
-            <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
+            <div className={styles.titleContainer}>
+              <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
+              <Button className={styles.editButton} onClick={() => setUserWantsToEditProfile(true)}>
+                <FaEdit />
+              </Button>
+            </div>
             {teacher.city && teacher.state ? 
               <h5 className={styles.location}>{teacher.city}, {teacher.state}</h5>
               :
