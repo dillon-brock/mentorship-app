@@ -1,6 +1,8 @@
-import { Form, Image, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form, Image, Modal } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 import { uploadProfilePicture } from "../../services/cloudinary";
+import { updateAccount } from "../../services/teacher";
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
@@ -13,7 +15,7 @@ export default function UpdateProfilePictureModal({
   const [imageData, setImageData] = useState(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
   const [imageUrl, setImageUrl] = useState(teacher.imageUrl);
-  console.log(imageUrl);
+  console.log(teacher.imageUrl);
 
   const handleClose = () => setUserWantsToEditImage(false);
 
@@ -29,8 +31,10 @@ export default function UpdateProfilePictureModal({
     setImageData(formData);
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setTeacher({ ...teacher, imageUrl });
+    await updateAccount({ ...teacher, imageUrl });
+    setUserWantsToEditImage(false);
   }
 
   return (
@@ -41,9 +45,14 @@ export default function UpdateProfilePictureModal({
       <Modal.Body>
         <Form.Control type="file" name="image" onChange={handleChangeImage} />
         {imageUrl && !loadingPreview &&
-          <Image src={imageUrl} style={{ height: '240px', width: '240px' }} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+            <Image src={imageUrl} style={{ height: '240px', width: '240px' }} />
+          </div>
         }
       </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={handleSave}>Save</Button>
+      </Modal.Footer>
     </Modal>
   )
 }

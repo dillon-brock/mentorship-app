@@ -7,6 +7,7 @@ import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
 import SubjectList from "../SubjectList/SubjectList";
 import styles from './teacherProfile.module.css';
+import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -105,6 +106,12 @@ export default function TeacherProfile() {
         <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
       </div>
     }
+    <UpdateProfilePictureModal
+      userWantsToEditImage={userWantsToEditImage}
+      setUserWantsToEditImage={setUserWantsToEditImage}
+      teacher={teacher}
+      setTeacher={setTeacher}
+    />
     </div>
   )
 }
