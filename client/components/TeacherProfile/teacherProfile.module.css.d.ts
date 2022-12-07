@@ -7,13 +7,21 @@ interface CssExports {
   'detailsContainer': string;
   'edit-button': string;
   'editButton': string;
+  'image-container': string;
+  'image-edit-button': string;
+  'imageContainer': string;
+  'imageEditButton': string;
   'info-container': string;
   'infoContainer': string;
+  'input': string;
+  'location': string;
   'name': string;
   'page-container': string;
   'pageContainer': string;
   'profile-container': string;
   'profileContainer': string;
+  'subjects-container': string;
+  'subjectsContainer': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

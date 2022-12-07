@@ -10,8 +10,19 @@ import styles from './teacherProfile.module.css';
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
-  const { teacher, setTeacher, zipCode, setZipCode, stateName, setStateName, cityName, setCityName } = useTeacherProfile(user.teacherId);
+  const { 
+    teacher, 
+    setTeacher, 
+    zipCode,
+    setZipCode, 
+    stateName, 
+    setStateName, 
+    cityName, 
+    setCityName 
+  } = useTeacherProfile(user.teacherId);
   const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
+  const [userWantsToEditImage, setUserWantsToEditImage] = useState(false);
+  const [showImageEditButton, setShowImageEditButton] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,20 +42,31 @@ export default function TeacherProfile() {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px 100px' }}>
     {!userWantsToEditProfile &&
     <div className={styles.profileContainer}>
       <div className={styles.infoContainer}>
       <Button className={styles.editButton} onClick={() => setUserWantsToEditProfile(true)}>
         <FaEdit />
       </Button>
-          <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
+          <div 
+            className={styles.imageContainer} 
+            onMouseEnter={() => setShowImageEditButton(true)}
+            onMouseLeave={() => setShowImageEditButton(false)}
+          >
+            {showImageEditButton &&
+              <Button className={styles.imageEditButton} onClick={() => setUserWantsToEditImage(true)}>
+                <FaEdit />
+              </Button>
+            }
+            <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
+          </div>
           <div>
             <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
             {teacher.city && teacher.state ? 
-              <p>{teacher.city}, {teacher.state}</p>
+              <h5 className={styles.location}>{teacher.city}, {teacher.state}</h5>
               :
-              <p>{teacher.zipCode}</p>
+              <h5 className={styles.location}>{teacher.zipCode}</h5>
             }
             <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
           </div>
@@ -62,24 +84,26 @@ export default function TeacherProfile() {
         <Image roundedCircle src={teacher.imageUrl} style={{ width: '200px', height: '200px' }} />
         <Form onSubmit={handleSubmit}>
           <p>First Name</p>
-          <Form.Control type="text" value={teacher.firstName} onChange={(e) => setTeacher({ ...teacher, firstName: e.target.value })}/>
+          <Form.Control className={styles.input} type="text" value={teacher.firstName} onChange={(e) => setTeacher({ ...teacher, firstName: e.target.value })}/>
           <p>Last Name</p>
-          <Form.Control type="text" value={teacher.lastName} onChange={(e) => setTeacher({ ...teacher, lastName: e.target.value })} />
+          <Form.Control className={styles.input} type="text" value={teacher.lastName} onChange={(e) => setTeacher({ ...teacher, lastName: e.target.value })} />
           <p>Bio</p>
-          <Form.Control as="textarea" value={teacher.bio} onChange={(e) => setTeacher({ ...teacher, bio: e.target.value })} />
+          <Form.Control as="textarea" className={styles.input} value={teacher.bio} onChange={(e) => setTeacher({ ...teacher, bio: e.target.value })} />
           <p>Phone Number</p>
-          <Form.Control type="text" value={teacher.phoneNumber} onChange={(e) => setTeacher({ ...teacher, phoneNumber: e.target.value })} />
+          <Form.Control className={styles.input} type="text" value={teacher.phoneNumber} onChange={(e) => setTeacher({ ...teacher, phoneNumber: e.target.value })} />
           <p>Contact Email</p>
-          <Form.Control type="email" value={teacher.contactEmail} onChange={(e) => setTeacher({ ...teacher, contactEmail: e.target.value })} />
+          <Form.Control type="email" className={styles.input} value={teacher.contactEmail} onChange={(e) => setTeacher({ ...teacher, contactEmail: e.target.value })} />
           <p>Zip Code</p>
-          <Form.Control type="number" value={zipCode} onChange={(e) => setZipCode(e.target.value)} onBlur={handleChangeZipCode}/>
+          <Form.Control className={styles.input} type="number" value={zipCode} onChange={(e) => setZipCode(e.target.value)} onBlur={handleChangeZipCode}/>
           <p>{cityName}, {stateName}</p>
           <Button type="submit">Save Changes</Button>
         </Form>
       </>
     }
     {teacher.subjects &&
-      <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
+      <div className={styles.subjectsContainer}>
+        <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
+      </div>
     }
     </div>
   )

@@ -1,6 +1,5 @@
 .profile-container {
   position: relative;
-  padding: 0 80px;
   margin-top: 40px;
   font-family: 'Poppins';
 }
@@ -20,6 +19,32 @@
   border: 2px solid black;
 }
 
+.image-container {
+  position: relative;
+}
+
+.image-edit-button {
+  position: absolute;
+  top: 129px;
+  left: 129px;
+  padding: 12px 16px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.image-edit-button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.image-edit-button:hover {
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+}
+
 .info-container {
   display: flex;
   flex-direction: row;
@@ -35,11 +60,24 @@
   margin-bottom: 24px;
 }
 
+.location {
+  margin-bottom: 20px;
+}
+
 .details-container {
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+.subjects-container {
+  margin-top: 40px;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
 }
 
 @media screen and (max-width: 900px) {
