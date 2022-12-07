@@ -1,0 +1,95 @@
+.form {
+  font-family: 'Poppins';
+  width: 240px;
+  margin-top: 10px;
+}
+
+.container {
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+
+.label {
+  font-weight: 600;
+  padding: 6px 0;
+  font-size: 1.1rem;
+}
+
+.price-inputs-container {
+  padding: 0;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.min-price-container {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.max-price-container {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.input, .price-input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.input {
+  width: 240px;
+}
+
+.price-input {
+  width: 80px;
+}
+
+.currency {
+  font-family: 'Poppins';
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+
+.button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  box-shadow: none;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
