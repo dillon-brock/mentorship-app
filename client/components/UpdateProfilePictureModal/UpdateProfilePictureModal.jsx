@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
 import { uploadProfilePicture } from "../../services/cloudinary";
-import { updateAccount } from "../../services/teacher";
 import styles from './updateProfilePictureModal.module.css';
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
   setUserWantsToEditImage,
-  teacher,
-  setTeacher
+  originalImageUrl,
+  handleSaveImage
 }) {
 
   const [loadingPreview, setLoadingPreview] = useState(false);
-  const [imageUrl, setImageUrl] = useState(teacher.imageUrl);
-  console.log(teacher.imageUrl);
+  const [imageUrl, setImageUrl] = useState(originalImageUrl);
 
   const handleClose = () => setUserWantsToEditImage(false);
 
@@ -26,12 +24,6 @@ export default function UpdateProfilePictureModal({
     const cloudinaryResponse = await uploadProfilePicture(formData);
     setImageUrl(cloudinaryResponse.secure_url);
     setLoadingPreview(false);
-  }
-
-  const handleSave = async () => {
-    setTeacher({ ...teacher, imageUrl });
-    await updateAccount({ ...teacher, imageUrl });
-    setUserWantsToEditImage(false);
   }
 
   return (
@@ -53,7 +45,7 @@ export default function UpdateProfilePictureModal({
       <Modal.Footer>
         <div className={styles.buttonContainer}>
           <Button className={styles.cancelButton} onClick={handleClose}>Cancel</Button>
-          <Button className={styles.saveButton} onClick={handleSave}>Save</Button>
+          <Button className={styles.saveButton} onClick={() => handleSaveImage(imageUrl)}>Save</Button>
         </div>
       </Modal.Footer>
     </Modal>

@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.title {
+  margin-top: 90px;
+  border-bottom: 2px solid black;
+  text-align: center;
+  font-family: 'Poppins';
+  padding: 6px 20px;
+}
+
+.image-container {
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+
+.name-container {
+  position: relative;
+  width: 400px;
+}
+
+.name {
+  margin-top: 10px;
+  font-family: 'Poppins';
+  text-align: center;
+}
+
+.edit-name-button, .edit-name-button:focus {
+  position: absolute;
+  right: 16px;
+  top: 6px;
+  padding: 3px 6px;
+  background-color: white;
+  border: 2px solid black;
+  color: black
+}
+
+.edit-name-button:hover {
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+}
+
+.edit-image-button {
+  position: absolute;
+  top: 129px;
+  left: 127px;
+  padding: 12px 16px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.edit-image-button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+.edit-image-button:hover {
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+}

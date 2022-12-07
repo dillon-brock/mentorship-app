@@ -42,6 +42,12 @@ export default function TeacherProfile() {
     }
   }
 
+  const handleSaveImage = async (url) => {
+    setTeacher({ ...teacher, imageUrl: url });
+    await updateAccount({ ...teacher, imageUrl: url });
+    setUserWantsToEditImage(false);
+  }
+
   return (
     <div className={styles.pageContainer}>
     {!userWantsToEditProfile &&
@@ -166,8 +172,8 @@ export default function TeacherProfile() {
     <UpdateProfilePictureModal
       userWantsToEditImage={userWantsToEditImage}
       setUserWantsToEditImage={setUserWantsToEditImage}
-      teacher={teacher}
-      setTeacher={setTeacher}
+      originalImageUrl={teacher.imageUrl}
+      handleSaveImage={handleSaveImage}
     />
     </div>
   )
