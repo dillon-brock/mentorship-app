@@ -66,7 +66,7 @@ export default function TeacherDetailPage() {
             {reviews.length > 0 ?
               <div className={styles.reviewsContainer}>
                 <StarRating value={avgRating} editable={false} half={true}/>
-                <ReviewListModal reviews={reviews} />
+                <ReviewListModal reviews={reviews} firstName={teacher.firstName} lastName={teacher.lastName} />
               </div>
               :
               <p><em>No reviews yet</em></p>
