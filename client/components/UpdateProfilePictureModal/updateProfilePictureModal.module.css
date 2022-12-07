@@ -1,0 +1,65 @@
+.modal {
+  font-family: 'Poppins';
+}
+
+.title {
+  font-weight: 600;
+}
+
+.preview-title {
+  margin-top: 20px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image {
+  height: 240px;
+  width: 240px;
+  border: 2px solid black;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.save-button, .cancel-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.save-button, .save-button:focus {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: 2px solid var(--dark-green);
+}
+
+.save-button:hover {
+  background-color: var(--dark-green);
+  border: 2px solid var(--dark-green);
+  color: white;
+}
+
+.cancel-button, .cancel-button:focus {
+  background-color: white;
+  border: 2px solid gray;
+  color: gray;
+}
+
+.cancel-button:hover {
+  background-color: gray;
+  border: 2px solid gray;
+  color: white;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+}

@@ -3,6 +3,7 @@ import { Button, Form, Image, Modal } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import { updateAccount } from "../../services/teacher";
+import styles from './updateProfilePictureModal.module.css';
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
@@ -11,8 +12,6 @@ export default function UpdateProfilePictureModal({
   setTeacher
 }) {
 
-  const { user } = useUserContext();
-  const [imageData, setImageData] = useState(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
   const [imageUrl, setImageUrl] = useState(teacher.imageUrl);
   console.log(teacher.imageUrl);
@@ -28,7 +27,6 @@ export default function UpdateProfilePictureModal({
     const cloudinaryResponse = await uploadProfilePicture(formData);
     setImageUrl(cloudinaryResponse.secure_url);
     setLoadingPreview(false);
-    setImageData(formData);
   }
 
   const handleSave = async () => {
@@ -38,20 +36,26 @@ export default function UpdateProfilePictureModal({
   }
 
   return (
-    <Modal show={userWantsToEditImage} onHide={handleClose}>
-      <Modal.Header closeButton>
+    <Modal className={styles.modal} show={userWantsToEditImage} onHide={handleClose}>
+      <Modal.Header className={styles.modal} closeButton>
         <Modal.Title>Update Profile Picture</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Control type="file" name="image" onChange={handleChangeImage} />
+        <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
         {imageUrl && !loadingPreview &&
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-            <Image src={imageUrl} style={{ height: '240px', width: '240px' }} />
+          <div>
+            <h6 className={styles.previewTitle}>Preview:</h6>
+            <div className={styles.imageContainer}>
+              <Image className={styles.image} src={imageUrl} />
+            </div>
           </div>
         }
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleSave}>Save</Button>
+        <div className={styles.buttonContainer}>
+          <Button className={styles.cancelButton} onClick={handleClose}>Cancel</Button>
+          <Button className={styles.saveButton} onClick={handleSave}>Save</Button>
+        </div>
       </Modal.Footer>
     </Modal>
   )
