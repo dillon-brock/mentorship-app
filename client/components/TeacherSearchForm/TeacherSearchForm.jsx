@@ -35,29 +35,27 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
             <p className={styles.dropdownName}>DISTANCE</p>
             <FaChevronDown />
           </div>
-          {showLocationDropdown && 
-            <LocationDropdown 
-              radius={radius} 
-              setRadius={setRadius}
-              zipCode={zipCode}
-              setZipCode={setZipCode} 
-              setErrorMessage={setErrorMessage} 
-            />
-          }
+          <LocationDropdown 
+            radius={radius} 
+            setRadius={setRadius}
+            zipCode={zipCode}
+            setZipCode={setZipCode} 
+            setErrorMessage={setErrorMessage}
+            showLocationDropdown={showLocationDropdown} 
+          />
         </div>
         <div className={styles.dropdownContainer}>
           <div className={styles.dropdown} onClick={() => setShowPriceDropdown(prev => !prev)}>
             <p className={styles.dropdownName}>PRICE</p>
             <FaChevronDown />
           </div>
-          {showPriceDropdown &&
-            <PriceDropdown
-              minPrice={minPrice}
-              setMinPrice={setMinPrice}
-              maxPrice={maxPrice}
-              setMaxPrice={setMaxPrice}
-            />
-          }
+          <PriceDropdown
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            showPriceDropdown={showPriceDropdown}
+          />
         </div>
         {errorMessage && 
           <Form.Text className="text-danger">{errorMessage}</Form.Text>

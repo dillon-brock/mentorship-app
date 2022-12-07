@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import styles from './locationDropdown.module.css';
 
-export default function LocationDropdown({ radius, setRadius, zipCode, setZipCode, setErrorMessage }) {
+export default function LocationDropdown({ radius, setRadius, zipCode, setZipCode, setErrorMessage, showLocationDropdown }) {
 
   const handleChangeZipCode = (e) => {
     setZipCode(e.target.value);
@@ -9,7 +9,7 @@ export default function LocationDropdown({ radius, setRadius, zipCode, setZipCod
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ visibility: showLocationDropdown ? 'visible' : 'hidden' }}>
       <Form.Group className="mb-2" controlId="zipCode">
         <Form.Control 
           className={styles.input} 

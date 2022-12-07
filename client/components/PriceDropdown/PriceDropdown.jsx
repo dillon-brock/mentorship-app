@@ -1,10 +1,10 @@
 import { Form } from 'react-bootstrap';
 import styles from './priceDropdown.module.css';
 
-export default function PriceDropdown({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
-
+export default function PriceDropdown({ minPrice, setMinPrice, maxPrice, setMaxPrice, showPriceDropdown }) {
+  console.log(showPriceDropdown);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ visibility: showPriceDropdown ? 'visible' : 'hidden' }}>
       <Form.Group className="mb-2" controlId="minPrice">
         <Form.Label style={{ fontWeight: '600', fontSize: '0.8rem'}}>MIN</Form.Label>
         <Form.Control 
