@@ -9,6 +9,7 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
   const [minPriceFromInput, setMinPriceFromInput] = useState(minPrice);
   const [maxPriceFromInput, setMaxPriceFromInput] = useState(maxPrice);
   const [lessonTypeFromInput, setLessonTypeFromInput] = useState(lessonType);
+  const [showEditButton, setShowEditButton] = useState(false);
 
   const handleUpdateSubject = async () => {
     const updatedSubject = await updateSubject({
@@ -28,10 +29,18 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
   }
 
   return (
-    <div className={styles.container}>
+    <div 
+      className={styles.container} 
+      onMouseEnter={() => setShowEditButton(true)} 
+      onMouseLeave={() => setShowEditButton(false)}
+    >
       <h6 className={styles.subtitle}>Lesson Format</h6>
       {editing && !displayOnly ? 
-        <Form.Select defaultValue={lessonType} onChange={(e) => setLessonTypeFromInput(e.target.value)}>
+        <Form.Select
+          className={styles.input}
+          defaultValue={lessonType} 
+          onChange={(e) => setLessonTypeFromInput(e.target.value)}
+        >
           <option value="Remote">Remote</option>
           <option value="In person">In person</option>
           <option value="Any">Any</option>
@@ -41,27 +50,29 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
       }
       <h6 className={styles.subtitle}>Price</h6>
       {editing && !displayOnly ? 
-        <Container style={{ padding: '0', gap: '10px' }} className="d-flex align-items-center justify-content-start">
-          <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-start">
-            <p>$</p>
-            <Form.Control type="number" value={minPriceFromInput} onChange={(e) => setMinPriceFromInput(e.target.value)} />
+        <Container className={styles.priceInputsContainer}>
+          <Container className={styles.priceContainer}>
+            <p className={styles.currency}>$</p>
+            <Form.Control className={styles.input} type="number" value={minPriceFromInput} onChange={(e) => setMinPriceFromInput(e.target.value)} />
           </Container>
-          <p>to</p>
-          <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-end">
-            <p>$</p>
-            <Form.Control type="number" value={maxPriceFromInput} onChange={(e) => setMaxPriceFromInput(e.target.value)} />
+          <p className={styles.currency}>to</p>
+          <Container className={styles.maxPriceContainer}>
+            <p className={styles.currency}>$</p>
+            <Form.Control className={styles.input} type="number" value={maxPriceFromInput} onChange={(e) => setMaxPriceFromInput(e.target.value)} />
           </Container>
         </Container>
         :
         <p>${minPrice} to ${maxPrice}</p>
       }
-      {!editing && !displayOnly &&
-        <Button variant="light" style={{ position: "absolute", top: '10px', right: '10px' }} onClick={() => setEditing(true)}>
+      {!editing && !displayOnly && showEditButton &&
+        <Button className={styles.editButton} onClick={() => setEditing(true)}>
           <FaEdit />
         </Button>
       }
       {editing && !displayOnly &&
-        <Button onClick={handleUpdateSubject} style={{ marginTop: '12px' }}>Save Changes</Button>
+        <div className={styles.buttonContainer}>
+          <Button className={styles.saveButton} onClick={handleUpdateSubject}>Save Changes</Button>
+        </div>
       }
     </div>
   )

@@ -13,7 +13,7 @@ export default function useTeacherProfile(id) {
       setTeacher(data);
       setZipCode(data.zipCode);
       setCityName(data.city);
-      setStateName(data.stateName);
+      setStateName(data.state);
     }
     fetchProfileData();
   }, [id]);

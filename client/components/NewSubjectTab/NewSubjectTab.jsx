@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { addSubject } from "../../services/subjects";
+import styles from './newSubjectTab.module.css'
 
 export default function NewSubjectTab({ setTeacher }) {
 
@@ -69,26 +70,26 @@ export default function NewSubjectTab({ setTeacher }) {
   }
 
   return (
-    <Form onSubmit={handleAddSubject}>
+    <Form className={styles.form} onSubmit={handleAddSubject}>
       <Form.Group className="mb-2" controlId="subject">
-        <Form.Label>Subject</Form.Label>
-        <Form.Control type="text" placeholder="Art" name="subject" onChange={handleChangeSubject} />
+        <Form.Label className={styles.label}>Subject</Form.Label>
+        <Form.Control className={styles.input} type="text" placeholder="Art" name="subject" onChange={handleChangeSubject} />
         {formErrors.subject &&
           <Form.Text className="text-danger">{formErrors.subject}</Form.Text>
         }
       </Form.Group>
 
       <Form.Group className="mb-2" controlId="cost">
-        <Form.Label>Cost</Form.Label>
-        <Container style={{ padding: '0', gap: '10px' }} className="d-flex align-items-center justify-content-start">
-          <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-start">
-            <p>$</p>
-            <Form.Control type="number" name="minPrice" onChange={handleChangeMinPrice} />
+        <Form.Label className={styles.label}>Price</Form.Label>
+        <Container className={styles.priceInputsContainer}>
+          <Container className={styles.minPriceContainer}>
+            <p className={styles.currency}>$</p>
+            <Form.Control className={styles.priceInput} type="number" name="minPrice" placeholder="0" onChange={handleChangeMinPrice} />
           </Container>
-          <p>to</p>
-          <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-end">
-            <p>$</p>
-            <Form.Control type="number" name="maxPrice" onChange={handleChangeMaxPrice} />
+          <p className={styles.currency}>to</p>
+          <Container className={styles.maxPriceContainer}>
+            <p className={styles.currency}>$</p>
+            <Form.Control className={styles.priceInput} type="number" name="maxPrice" placeholder="100" onChange={handleChangeMaxPrice} />
           </Container>
         </Container>
         {formErrors.minPrice &&
@@ -100,15 +101,19 @@ export default function NewSubjectTab({ setTeacher }) {
       </Form.Group>
 
       <Form.Group className="mb-2" controlId="lessonType">
-        <Form.Label>Lesson Format</Form.Label>
-        <Form.Check name="lessonType" type="radio" label="In person" value="In person" onChange={handleChangeLessonType} />
-        <Form.Check name="lessonType" type="radio" label="Remote" value="Remote" onChange={handleChangeLessonType} />
-        <Form.Check name="lessonType" type="radio" label="Any" value="Any" onChange={handleChangeLessonType} />
+        <Form.Label className={styles.label}>Lesson Format</Form.Label>
+        <Form.Select className={styles.input} onChange={handleChangeLessonType} name="lessonType">
+          <option value="In person">In person</option>
+          <option value="Remote">Remote</option>
+          <option value="Any">Any</option>
+        </Form.Select>
         {formErrors.lessonType &&
           <Form.Text className="text-danger">{formErrors.lessonType}</Form.Text>
         }
       </Form.Group>
-      <Button type="submit">Add Subject</Button>
+      <div className={styles.buttonContainer}>
+        <Button className={styles.button} type="submit">+ Add Subject</Button>
+      </div>
     </Form>
   )
 }
