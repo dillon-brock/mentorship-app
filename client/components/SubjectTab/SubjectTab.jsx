@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import { updateSubject } from "../../services/subjects";
+import styles from './subjectTab.module.css';
 
 export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeacher, displayOnly }) {
   const [editing, setEditing] = useState(false);
@@ -27,8 +28,8 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
   }
 
   return (
-    <div style={{ position: "relative", paddingTop: '10px', width: '300px'}}>
-      <h6>Lesson Format</h6>
+    <div className={styles.container}>
+      <h6 className={styles.subtitle}>Lesson Format</h6>
       {editing && !displayOnly ? 
         <Form.Select defaultValue={lessonType} onChange={(e) => setLessonTypeFromInput(e.target.value)}>
           <option value="Remote">Remote</option>
@@ -38,7 +39,7 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
         :
         <p>{lessonType}</p>
       }
-      <h6>Price</h6>
+      <h6 className={styles.subtitle}>Price</h6>
       {editing && !displayOnly ? 
         <Container style={{ padding: '0', gap: '10px' }} className="d-flex align-items-center justify-content-start">
           <Container style={{ padding: '0' }} className="d-flex align-items-center justify-content-start">

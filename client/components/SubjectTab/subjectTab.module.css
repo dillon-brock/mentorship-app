@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  padding-top: 10px;
+  width: 300px;
+  padding-left: 12px;
+  font-family: 'Poppins'
+}
+
+.subtitle {
+  font-weight: 600;
+  padding: 10px 0;
+  font-size: 1.1rem;
+}
+
+

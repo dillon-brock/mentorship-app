@@ -1,0 +1,66 @@
+.button, .cancel-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Poppins';
+}
+
+.button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  box-shadow: none;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+.modal {
+  font-family: 'Poppins'
+}
+
+.message {
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 12px 0px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.button, .button:focus {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: var(--dark-green);
+}
+
+.button:hover {
+  background-color: var(--dark-green);
+  border: 2px solid var(--dark-green);
+  color: white;
+}
+
+.cancel-button, .cancel-button:focus {
+  background-color: white;
+  border: 2px solid rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
+}
+
+.cancel-button:hover {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  border: 2px solid rgb(100, 100, 100);
+}
