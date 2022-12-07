@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
-import { useUserContext } from "../../context/UserContext";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import { updateAccount } from "../../services/teacher";
 import styles from './updateProfilePictureModal.module.css';

@@ -3,10 +3,21 @@
 interface CssExports {
   'button-container': string;
   'buttonContainer': string;
+  'cancel-button': string;
+  'cancelButton': string;
   'details-container': string;
   'detailsContainer': string;
   'edit-button': string;
+  'edit-title': string;
   'editButton': string;
+  'editTitle': string;
+  'form': string;
+  'form-city': string;
+  'form-content': string;
+  'form-info-container': string;
+  'formCity': string;
+  'formContent': string;
+  'formInfoContainer': string;
   'image-container': string;
   'image-edit-button': string;
   'imageContainer': string;
@@ -14,12 +25,15 @@ interface CssExports {
   'info-container': string;
   'infoContainer': string;
   'input': string;
+  'label': string;
   'location': string;
   'name': string;
   'page-container': string;
   'pageContainer': string;
   'profile-container': string;
   'profileContainer': string;
+  'save-button': string;
+  'saveButton': string;
   'subjects-container': string;
   'subjectsContainer': string;
 }
