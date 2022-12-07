@@ -11,6 +11,7 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
   const { subjects } = useSubjects(id);
   const [subjectId, setSubjectId] = useState('');
   const { user } = useUserContext();
+  const [subjectError, setSubjectError] = useState('');
 
   const handleShow = () => {
     if (!user) {
@@ -22,10 +23,15 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
   const handleClose = () => setStudentWantsToConnect(false);
 
   const handleChangeSubject = (e) => {
+    if (subjectError) setSubjectError('');
     setSubjectId(e.target.value);
   }
 
   const handleSendRequest = async () => {
+    if (!subjectId) {
+      setSubjectError('Subject is required.');
+      return;
+    }
     const newConnection = await createConnection(id, user.studentId);
     await addStudentSubject(subjectId);
     setConnection(newConnection);
@@ -50,6 +56,9 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
             <option value=''></option>
             {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
           </Form.Select>
+          {subjectError &&
+            <Form.Text className="text-danger">{subjectError}</Form.Text>
+          }
         </Modal.Body>
         <Modal.Footer>
           <Button className={styles.cancelButton} onClick={handleClose}>
