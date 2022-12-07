@@ -3,6 +3,7 @@
 interface CssExports {
   'nav-link': string;
   'navLink': string;
+  'title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

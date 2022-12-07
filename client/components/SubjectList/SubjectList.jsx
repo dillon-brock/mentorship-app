@@ -7,7 +7,7 @@ export default function SubjectList({ subjects, setTeacher, displayOnly }) {
   console.log(subjects);
   return (
     <>
-      <h4>Subjects</h4>
+      <h4 className={styles.title}>Subjects</h4>
       <Tab.Container defaultActiveKey={subjects[0].subject}>
           <Row>
           <Row md={3}>
