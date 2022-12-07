@@ -25,9 +25,11 @@ export default function TeacherSearchPage() {
   const [page, setPage] = useState(1);
   const { teachers, totalPages, errorMessage, setErrorMessage } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    console.log(Object.fromEntries(formData));
     setPage(1);
     setSubject(formData.get('subject'));
     setZipCode(formData.get('zipCode'));
