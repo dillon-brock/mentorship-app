@@ -155,7 +155,18 @@ export default class Teacher {
       GROUP BY teachers.id`,
       [this.id]
     );
- 
-    this.teachingMaterials = rows[0] ? rows[0].teaching_materials : [];
+
+    let teachingMaterials: Array<TeachingMaterial> = [];
+    if (rows[0]) {
+      teachingMaterials = rows[0]
+        .teaching_materials.filter((material: TeachingMaterial, i: number, arr: Array<TeachingMaterial>) => {
+          return i === arr.findIndex((m) => (
+            m.id === material.id
+          ));
+        });
+      console.log(teachingMaterials);
+    }
+
+    this.teachingMaterials = teachingMaterials;
   }
 }
