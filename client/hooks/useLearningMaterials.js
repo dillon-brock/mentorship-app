@@ -8,7 +8,6 @@ export default function useLearningMaterials() {
   useEffect(() => {
     const fetchMaterials = async () => {
       const data = await getLearningMaterials();
-      console.log(data);
       setTeachersWithMaterials(data);
     }
     fetchMaterials();

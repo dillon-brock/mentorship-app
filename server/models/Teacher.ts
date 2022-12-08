@@ -63,7 +63,7 @@ export default class Teacher {
         json_agg(json_build_object('id', subjects.id, 'subject', subjects.subject, 'minPrice', subjects.min_price, 'maxPrice', subjects.max_price, 'lessonType', subjects.lesson_type))
         FILTER (WHERE subjects.id IS NOT NULL), '[]'
         ) as subjects from teachers
-        LEFT JOIN subjects ON subjects.teacher_id = teachers.id 
+        LEFT JOIN subjects ON subjects.teacher_id = teachers.id
         GROUP BY teachers.id`
     );
 
@@ -158,13 +158,14 @@ export default class Teacher {
 
     let teachingMaterials: Array<TeachingMaterial> = [];
     if (rows[0]) {
+      // not the most efficient strategy to remove duplicates, but I struggled to build
+      // the SQL query to give distinct results
       teachingMaterials = rows[0]
         .teaching_materials.filter((material: TeachingMaterial, i: number, arr: Array<TeachingMaterial>) => {
           return i === arr.findIndex((m) => (
             m.id === material.id
           ));
         });
-      console.log(teachingMaterials);
     }
 
     this.teachingMaterials = teachingMaterials;

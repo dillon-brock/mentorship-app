@@ -10,11 +10,13 @@
     "lint": "eslint --ext js --ext jsx .",
     "setup-db": "ts-node --esm setup-db.ts",
     "start": "npm-run-all --parallel start:server start:web",
-    "start:server": "nodemon --esm server/index.ts",
+    "start:server": "nodemon -i client --esm server/index.ts",
     "start:production": "node dist/server/index.js",
     "start:web": "webpack serve --hot --mode development --devtool eval-source-map",
     "start:web:watch": "npm run start",
-    "build": "webpack --devtool source-map"
+    "build:web": "webpack --devtool source-map",
+    "build:server": "tsc -p server",
+    "build": "npm-run-all --parallel build:web build:server"
   },
   "keywords": [],
   "author": "",
