@@ -67,7 +67,8 @@ export default Router()
             return teacher.subjects?.some(subject => subject.subject.toLowerCase().startsWith(subjectQuery.toLowerCase())
             && (req.query['lessonType'] !== 'Any' ? 
             (subject.lessonType === req.query['lessonType'] || subject.lessonType === 'Any') : subject)
-            && (subject.minPrice <= Number(req.query['minPrice']) ? subject.maxPrice >= Number(req.query['minPrice']) : subject.minPrice <= Number(req.query['maxPrice'])))
+            && (subject.minPrice <= Number(req.query['minPrice']) ? 
+              subject.maxPrice >= Number(req.query['minPrice']) : subject.minPrice <= Number(req.query['maxPrice'])))
             });
           }
       res.json(teachers);
