@@ -13,6 +13,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
   const [studentWantsToAddReview, setStudentWantsToAddReview] = useState(false);
   const [leaveAnonymously, setLeaveAnonymously] = useState(false);
   const [stars, setStars] = useState(0);
+  const [reviewError, setReviewError] = useState('');
 
   const handleShow = () => setStudentWantsToAddReview(true);
   const handleClose = () => {
@@ -20,10 +21,17 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
     setStudentWantsToAddReview(false);
   }
 
-  const ratingChanged = (newRating) => setStars(newRating);
+  const ratingChanged = (newRating) => {
+    setStars(newRating);
+    setReviewError('');
+  }
 
   const handleAddReview = async (e) => {
     e.preventDefault();
+    if (stars === 0) {
+      setReviewError('Star rating is required.');
+      return;
+    }
     const formData = new FormData(e.target);
     const detail = formData.get("detail");
     const newReview = await postReview({
@@ -50,6 +58,9 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
         </Modal.Header>
         <Modal.Body>
           <StarRating value={stars} editable={true} ratingChanged={ratingChanged} half={false} />
+          {reviewError &&
+            <Form.Text className="text-danger">{reviewError}</Form.Text>
+          }
           <Form onSubmit={handleAddReview}>
             <Form.Group className="mb-2" controlId="detail">
               <Form.Control className={styles.input} as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>

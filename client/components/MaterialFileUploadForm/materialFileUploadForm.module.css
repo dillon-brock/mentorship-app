@@ -27,10 +27,14 @@
 .upload-button:hover {
   background-color: var(--dark-green);
   border: 2px solid var(--dark-green);
+  color: white;
 }
 
 .upload-button:focus {
   box-shadow: none;
+  background-color: white;
+  color: var(--dark-green);
+  border: 2px solid var(--dark-green);
 }
 
 .cancel-button {

@@ -60,7 +60,7 @@ export default function StudentList() {
       <h3 className={styles.sectionTitle}>Current Students:</h3>
       {approvedStudents.length > 0 ?
         <div>
-          {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)};
+          {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)}
         </div>
         :
         <h4>You have no current students.</h4>   
