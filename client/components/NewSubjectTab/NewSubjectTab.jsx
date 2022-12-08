@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { addSubject } from "../../services/subjects";
-import styles from './newSubjectTab.module.css'
+import styles from './newSubjectTab.module.css';
 
 export default function NewSubjectTab({ setTeacher }) {
 
