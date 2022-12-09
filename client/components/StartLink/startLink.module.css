@@ -2,7 +2,8 @@
   display: flex;
   align-items: space-around;
   justify-content: center;
-  border: 2px solid black;
+  border: 3px solid black;
+  border-radius: 6px;
   color: black;
   height: 200px;
   width: 420px;
