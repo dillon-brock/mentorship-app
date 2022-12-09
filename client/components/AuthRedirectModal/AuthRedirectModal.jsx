@@ -1,30 +1,35 @@
 import { Button, Modal } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import styles from './authRedirectModal.module.css';
 
-export default function AuthRedirectModal({ teacherId, userNeedsToSignIn, setUserNeedsToSignIn }) {
+export default function AuthRedirectModal({ userNeedsToSignIn, setUserNeedsToSignIn }) {
 
   const { pathname } = useLocation();
   const handleClose = () => setUserNeedsToSignIn(false);
 
   return (
     <>
-      <Modal show={userNeedsToSignIn} onHide={handleClose}>
+      <Modal className={styles.modal} show={userNeedsToSignIn} onHide={handleClose}>
         <Modal.Header closeButton />
-        <Modal.Body>Please sign in to continue</Modal.Body>
+        <Modal.Body>
+          <p className={styles.message}>Please sign in to continue.</p>
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Link to={`/auth/sign-in?callback=${pathname}`}>
-            <Button variant="primary">
-              Sign In
+          <div className={styles.buttonContainer}>
+            <Button className={styles.cancelButton} onClick={handleClose}>
+              Cancel
             </Button>
-          </Link>
-          <Link to={`/auth/sign-up/student?callback=${pathname}`}>
-            <Button variant="primary">
-              Sign Up
-            </Button>
-          </Link>
+            <Link to={`/auth/sign-in?callback=${pathname}`}>
+              <Button className={styles.button}>
+                Sign In
+              </Button>
+            </Link>
+            <Link to={`/auth/sign-up/student?callback=${pathname}`}>
+              <Button className={styles.button}>
+                Sign Up
+              </Button>
+            </Link>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

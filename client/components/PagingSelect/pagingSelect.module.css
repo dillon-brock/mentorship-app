@@ -1,0 +1,12 @@
+.label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: 'Poppins';
+}
+
+.select {
+  border-radius: 0;
+  border: 2px solid black;
+  font-family: 'Poppins';
+  font-weight: 700;
+}

@@ -1,5 +1,6 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import styles from './teacherResult.module.css';
 
 export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }) {
   
@@ -9,36 +10,23 @@ export default function TeacherResult({ id, firstName, lastName, zipCode, subjec
       return a;
     }, [])
     .join(' | ');
-  // const subjectList = subjects.join(' | ');
+
   return (
     <Link to={`/teacher/${id}`} style={{ textDecoration: 'none' }}>
-      <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '640px' }}>
-        <Col className="d-flex align-items-center justify-content-center">
-          <Image roundedCircle src={imageUrl} style={{ width: '120px', height: '120px' }} />
-        </Col>
-        <Col>
-          <Container style={{width: '400px'}}>
-            <Row>
-              <p>{`${firstName} ${lastName}`}</p>
-            </Row>
-            <Row>
-              <p>{`${subjectList}`}</p>
-            </Row>
-            <Row>
-              {city && state ?
-                <p>{`${city}, ${state}`}</p>
-                :
-                <p>{`${zipCode}`}</p>
-              }
-            </Row>
-          </Container>
-        </Col>
-        <Col className="d-flex align-items-center justify-content-end">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-            <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-          </svg>
-        </Col>
-      </Container>
+      <div className={styles.result}>
+        <div>
+          <Image className={styles.image} src={imageUrl} />
+        </div>
+        <div>
+          <p className={styles.name}>{firstName} {lastName}</p>
+          <p className={styles.subjects}>{subjectList}</p>
+          {city && state ?
+            <p className={styles.location}>{city}, {state}</p>
+            :
+            <p className={styles.location}>{zipCode}</p>
+          }
+        </div>
+      </div>
     </Link>
   )
 }

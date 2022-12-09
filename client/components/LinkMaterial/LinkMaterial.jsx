@@ -6,7 +6,7 @@ import EditLinkModal from "../EditLinkModal/EditLinkModal";
 import styles from './linkMaterial.module.css';
 
 export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }) {
-
+  console.log(url);
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
   const [userWantsToEditLink, setUserWantsToEditLink] = useState(false);
@@ -44,8 +44,8 @@ export default function LinkMaterial({ id, name, url, subjectId, setTeachingMate
       <div className={styles.linkContainer} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
         {name ? <a href={url} target="_blank">{name}</a>
         :
-        <a href={url} target="_blank" />
-      }
+        <a href={url} target="_blank">{url}</a>
+        }
         {showMenuButton &&
           <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
             <Button variant="light" onClick={() => setOpenPopover(!openPopover)} className={styles.popupButton}>

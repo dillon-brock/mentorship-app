@@ -1,0 +1,79 @@
+.button, .review-button, .cancel-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Poppins';
+}
+
+.button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  box-shadow: none;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+.modal {
+  font-family: 'Poppins'
+}
+
+.title {
+  font-weight: 600;
+}
+
+.input {
+  border-radius: 0;
+  margin: 12px 0;
+  border: 2px solid black;
+}
+
+.select {
+  border-radius: 0;
+  border: 2px solid black;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: black;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.review-button, .review-button:focus {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: var(--dark-green);
+}
+
+.review-button:hover {
+  background-color: var(--dark-green);
+  border: 2px solid var(--dark-green);
+  color: white;
+}
+
+.cancel-button, .cancel-button:focus {
+  background-color: white;
+  border: 2px solid rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
+}
+
+.cancel-button:hover {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  border: 2px solid rgb(100, 100, 100);
+}

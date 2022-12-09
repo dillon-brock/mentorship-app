@@ -1,0 +1,108 @@
+.container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+  gap: 18px;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown {
+  display: flex;
+  border: 2px solid black;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+  padding: 6px 12px;
+  color: black;
+}
+
+.dropdown-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif
+}
+
+.input, .subject-input, .select {
+  width: 170px;
+}
+
+.input, .subject-input {
+  border-radius: 0;
+  border: 2px solid black;
+}
+
+.input:focus, .subject-input:focus {
+  box-shadow: none;
+  border: 2px solid black;
+}
+
+.input::placeholder, .subject-input::placeholder {
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.subject-input {
+  padding: 5px 12px;
+}
+
+.select {
+  border-radius: 0;
+  border: 2px solid black;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: black;
+  font-family: 'Poppins', sans-serif;
+}
+
+.select:focus {
+  border: 2px solid black;
+  box-shadow: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+.button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  box-shadow: none;
+}

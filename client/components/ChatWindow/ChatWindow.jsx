@@ -1,6 +1,7 @@
 import Talk from 'talkjs';
 import { useEffect, useState, useRef } from 'react';
 import { Button, Image } from 'react-bootstrap';
+import styles from './chatWindow.module.css';
 
 export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) {
   const chatboxEl = useRef();
@@ -47,13 +48,15 @@ export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) 
   }, [talkLoaded]);
 
   return (
-    <div style={{ height: '72vh', width: '300px', position: 'fixed', bottom: '0px', right: '0px', transform: 'translate(-25%, 0)' }}>
-      <div className="chatboxHeader d-flex align-items-center justify-content-between" style={{ height: '90px', width: '100%', border: '1px solid black' }}>
-        <Image roundedCircle src={recipient.photoUrl} style={{ height: '80px', width: '80px'}}/>
-        <p style={{ margin: '0'}}>{recipient.name}</p>
-        <Button onClick={handleClose}>X</Button>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.recipientInfo}>
+          <Image className={styles.image} roundedCircle src={recipient.photoUrl} />
+          <p className={styles.name}>{recipient.name}</p>
+        </div>
+        <Button className={styles.button} onClick={handleClose}>X</Button>
       </div>
-      <div style={{ height: '60vh', width: '100%'}} ref={chatboxEl} />;
+      <div className={styles.window} ref={chatboxEl} />;
     </div>
   ) 
 }

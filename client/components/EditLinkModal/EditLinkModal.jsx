@@ -6,16 +6,26 @@ import styles from './editLinkModal.module.css';
 export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
   const [nameFromInput, setNameFromInput] = useState(name);
   const [urlFromInput, setUrlFromInput] = useState(url);
+  const [urlError, setUrlError] = useState('');
 
   const handleClose = () => setUserWantsToEditLink(false);
 
-  const handleChangeName = (e) => setNameFromInput(e.target.value);
+  const handleChangeName = (e) => {
+    setNameFromInput(e.target.value);
+  }
 
-  const handleChangeUrl = (e) => setUrlFromInput(e.target.value);
+  const handleChangeUrl = (e) => {
+    setUrlFromInput(e.target.value);
+    if (urlError) setUrlError('');
+  }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    if (!formData.get('url')) {
+      setUrlError('URL is required.');
+      return;
+    }
     const updatedLink = await updateTeachingMaterial({
       id,
       name: formData.get('name'),
@@ -39,6 +49,9 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
           <Form.Group className="mb-3" controlId="url">
             <Form.Label>URL</Form.Label>
             <Form.Control className={styles.input} type="text" name="url" value={urlFromInput} onChange={handleChangeUrl} /> 
+            {urlError &&
+              <Form.Text className="text-danger">{urlError}</Form.Text>
+            }
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>

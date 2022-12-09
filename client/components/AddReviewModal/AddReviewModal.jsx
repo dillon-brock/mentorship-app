@@ -4,6 +4,7 @@ import { useUserContext } from "../../context/UserContext";
 import { postReview } from "../../services/reviews";
 import { getAverageRating } from "../../utils";
 import StarRating from "../StarRating/StarRating";
+import styles from './addReviewModal.module.css';
 
 export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }) {
 
@@ -12,6 +13,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
   const [studentWantsToAddReview, setStudentWantsToAddReview] = useState(false);
   const [leaveAnonymously, setLeaveAnonymously] = useState(false);
   const [stars, setStars] = useState(0);
+  const [reviewError, setReviewError] = useState('');
 
   const handleShow = () => setStudentWantsToAddReview(true);
   const handleClose = () => {
@@ -19,10 +21,17 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
     setStudentWantsToAddReview(false);
   }
 
-  const ratingChanged = (newRating) => setStars(newRating);
+  const ratingChanged = (newRating) => {
+    setStars(newRating);
+    setReviewError('');
+  }
 
   const handleAddReview = async (e) => {
     e.preventDefault();
+    if (stars === 0) {
+      setReviewError('Star rating is required.');
+      return;
+    }
     const formData = new FormData(e.target);
     const detail = formData.get("detail");
     const newReview = await postReview({
@@ -40,27 +49,35 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className={styles.button} onClick={handleShow}>
         Leave Review
       </Button>
-      <Modal show={studentWantsToAddReview} onHide={handleClose}>
+      <Modal className={styles.modal} show={studentWantsToAddReview} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add a review for {firstName} {lastName}</Modal.Title>
+          <Modal.Title className={styles.title}>Add a review for {firstName} {lastName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <StarRating value={stars} editable={true} ratingChanged={ratingChanged} half={false} />
+          {reviewError &&
+            <Form.Text className="text-danger">{reviewError}</Form.Text>
+          }
           <Form onSubmit={handleAddReview}>
             <Form.Group className="mb-2" controlId="detail">
-              <Form.Control as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>
+              <Form.Control className={styles.input} as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>
             </Form.Group>
             <Form.Check
               onChange={() => setLeaveAnonymously(!leaveAnonymously)}
               type="checkbox"
               label="Leave anonymously"
             />
-            <Button type="submit" variant="primary">
-              Add Review
-            </Button>
+            <div className={styles.buttonContainer}>
+              <Button className={styles.cancelButton} onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button className={styles.reviewButton} type="submit">
+                Add Review
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

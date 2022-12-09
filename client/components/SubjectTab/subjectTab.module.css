@@ -1,0 +1,95 @@
+.container {
+  position: relative;
+  padding-top: 10px;
+  width: 300px;
+  padding-left: 12px;
+  font-family: 'Poppins'
+}
+
+.subtitle {
+  font-weight: 600;
+  padding: 10px 0;
+  font-size: 1.1rem;
+}
+
+.edit-button, .edit-button:focus {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 4px 10px;
+}
+
+.edit-button:hover {
+  border: 2px solid black;
+  background-color: black;
+  color: white;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.price-inputs-container {
+  padding: 0;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.max-price-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.currency {
+  font-family: 'Poppins';
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
+.save-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+
+.save-button:focus {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  box-shadow: none;
+}
+
+.save-button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+

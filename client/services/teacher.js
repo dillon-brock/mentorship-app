@@ -72,7 +72,7 @@ export async function addTeacherAccount({ firstName, lastName, imageUrl, subject
   if (res.ok) return newTeacherInfo;
 }
 
-export async function updateAccount({ subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl}) {
+export async function updateAccount({ subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }) {
   const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/me`, {
     method: 'PUT',
     credentials: 'include',

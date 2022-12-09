@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import Review from "../Review/Review";
+import styles from './reviewListModal.module.css';
 
-export default function ReviewListModal({ reviews }) {
+export default function ReviewListModal({ reviews, firstName, lastName }) {
 
   const [showReviews, setShowReviews] = useState(false);
   const handleShow = () => setShowReviews(true);
@@ -13,8 +14,10 @@ export default function ReviewListModal({ reviews }) {
     <Button variant="link" onClick={handleShow}>
         {reviews.length} {reviews.length > 1 ? 'reviews' : 'review'}
       </Button>
-      <Modal show={showReviews} onHide={handleClose}>
-        <Modal.Header closeButton />
+      <Modal className={styles.modal} show={showReviews} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className={styles.title}>Reviews for {firstName} {lastName}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           {reviews.map(review => <Review key={review.id} {...review} />)}
         </Modal.Body>

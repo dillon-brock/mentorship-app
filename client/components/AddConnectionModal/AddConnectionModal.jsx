@@ -4,12 +4,14 @@ import { useUserContext } from "../../context/UserContext.js";
 import useSubjects from "../../hooks/useSubjects.js";
 import { createConnection } from "../../services/connection.js";
 import { addStudentSubject } from "../../services/student.js";
+import styles from './addConnectionModal.module.css';
 
 export default function AddConnectionModal({id, firstName, lastName, setConnection, setUserNeedsToSignIn }) {
   const [studentWantsToConnect, setStudentWantsToConnect] = useState(false);
   const { subjects } = useSubjects(id);
   const [subjectId, setSubjectId] = useState('');
   const { user } = useUserContext();
+  const [subjectError, setSubjectError] = useState('');
 
   const handleShow = () => {
     if (!user) {
@@ -21,10 +23,15 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
   const handleClose = () => setStudentWantsToConnect(false);
 
   const handleChangeSubject = (e) => {
+    if (subjectError) setSubjectError('');
     setSubjectId(e.target.value);
   }
 
   const handleSendRequest = async () => {
+    if (!subjectId) {
+      setSubjectError('Subject is required.');
+      return;
+    }
     const newConnection = await createConnection(id, user.studentId);
     await addStudentSubject(subjectId);
     setConnection(newConnection);
@@ -34,27 +41,30 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Add as Instructor
+      <Button className={styles.button} onClick={handleShow}>
+        + Add as Instructor
       </Button>
-      <Modal show={studentWantsToConnect} onHide={handleClose}>
+      <Modal className={styles.modal} show={studentWantsToConnect} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add {firstName} {lastName} as an instructor</Modal.Title>
+          <Modal.Title className={styles.title}>Add {firstName} {lastName} as an instructor</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Requests must be approved by the instructor. If you haven&apos;t reached out to {firstName} yet, please do so before sending your request so you know you will be a good fit.</p>
+          <p className={styles.message}>Requests must be approved by the instructor. If you haven&apos;t reached out to {firstName} yet, please do so before sending your request so you know you will be a good fit.</p>
           <hr />
           <p>Please select the subject you&apos;re interested in learning:</p>
-          <Form.Select onChange={handleChangeSubject}>
+          <Form.Select className={styles.select} onChange={handleChangeSubject}>
             <option value=''></option>
             {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
           </Form.Select>
+          {subjectError &&
+            <Form.Text className="text-danger">{subjectError}</Form.Text>
+          }
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className={styles.cancelButton} onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSendRequest}>
+          <Button className={styles.sendButton} onClick={handleSendRequest}>
             Send Request
           </Button>
         </Modal.Footer>

@@ -1,19 +1,20 @@
 import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
 import NewSubjectTab from "../NewSubjectTab/NewSubjectTab";
 import SubjectTab from "../SubjectTab/SubjectTab";
+import styles from './subjectList.module.css';
 
 export default function SubjectList({ subjects, setTeacher, displayOnly }) {
   console.log(subjects);
   return (
     <>
-      <h4>Subjects</h4>
+      <h4 className={styles.title}>Subjects</h4>
       <Tab.Container defaultActiveKey={subjects[0].subject}>
           <Row>
           <Row md={3}>
             <Nav variant="tabs">
               {subjects.map((subject, i) => (
                 <Nav.Item key={subject.id}>
-                  <Nav.Link eventKey={subject.subject}>{subject.subject}</Nav.Link>
+                  <Nav.Link className={styles.navLink} eventKey={subject.subject}>{subject.subject}</Nav.Link>
                 </Nav.Item>
               ))}
               {!displayOnly &&

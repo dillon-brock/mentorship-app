@@ -28,8 +28,6 @@ export default function LearningMaterialsPage() {
   if (!user && doneGettingUser)
     return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
 
-  console.log(teachersWithMaterials);
-
   return (
     <>
       <Header />

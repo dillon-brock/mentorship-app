@@ -7,30 +7,46 @@ import styles from './editFileModal.module.css';
 export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditFile, id, subjectId, name, url, setTeachingMaterials, subjects }) {
 
   const [newFile, setNewFile] = useState(false);
-  const [fileData, setFileData] = useState(null);
   const [nameFromInput, setNameFromInput] = useState(name);
+  const [previewUrl, setPreviewUrl] = useState(`${url.slice(0, -3)}png`);
+  const [uploadUrl, setUploadUrl] = useState(url);
+  const [nameError, setNameError] = useState('');
+  const [subjectError, setSubjectError] = useState('');
 
   const handleClose = () => setUserWantsToEditFile(false);
 
-  const handleChangeName = (e) => setNameFromInput(e.target.value);
+  const handleChangeName = (e) => {
+    setNameFromInput(e.target.value);
+    if (nameError) setNameError('');
+  }
 
-  const handleChangeFile = (e) => {
+  const handleChangeFile = async (e) => {
     setNewFile(true);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    setFileData(formData);
+    const fileUploadResponse = await uploadFile(formData);
+    setUploadUrl(fileUploadResponse.secure_url);
+    setPreviewUrl(`${fileUploadResponse.secure_url.slice(0, -3)}png`);
   }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     let fileUrl = url;
-    if (newFile) {
-      const fileUploadResponse = await uploadFile(fileData);
-      fileUrl = fileUploadResponse.secure_url;
-    }
+    if (newFile) fileUrl = uploadUrl;
     const formData = new FormData(e.target);
+    
+    if (!formData.get('name')) {
+      setNameError('Name is required.');
+      return;
+    }
+
+    if (!formData.get('subject')) {
+      setSubjectError('Subject is required.');
+      return;
+    }
+
     const updatedFile = await updateTeachingMaterial({
       id,
       subjectId: formData.get('subject'),
@@ -52,21 +68,24 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleUpdate}>
-            <Form.Group className="mb-3" controlId="current-file">
-              <Form.Label>Current File:</Form.Label>
-                <a href={url} key={url} target="_blank">
-                  <div className={styles.imageContainer}>
-                    <Image src={`${url.slice(0, -3)}png`} style={{ width: '100%', height: '100%'}} rounded/>
-                  </div>
-                </a>
-            </Form.Group>
             <Form.Group className="mb-3" controlId="file">
               <Form.Label>New File</Form.Label>
               <Form.Control className={styles.input} type="file" name="file" onChange={handleChangeFile}/>
             </Form.Group>
+            <Form.Group className="mb-3" controlId="current-file">
+              <Form.Label>Preview:</Form.Label>
+                <a href={url} key={url} target="_blank">
+                  <div className={styles.imageContainer}>
+                    <Image src={previewUrl} style={{ width: '100%', height: '100%'}} rounded/>
+                  </div>
+                </a>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control className={styles.input} type="text" placeholder="File name" name="name" value={nameFromInput} onChange={handleChangeName} />
+              {nameError &&
+                <Form.Text className="text-danger">{nameError}</Form.Text>
+              }
             </Form.Group>
             <Form.Group className="mb-3" controlId="subject">
               <Form.Label>Subject</Form.Label>
@@ -74,6 +93,9 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
                 <option disabled value=''>Choose the subject associated with this file...</option>
                 {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
               </Form.Select>
+              {subjectError &&
+                <Form.Text className="text-danger">{subjectError}</Form.Text>
+              }
             </Form.Group>
             <div className={styles.buttonContainer}>
               <Button className={styles.cancelButton} onClick={() => setUserWantsToEditFile(false)}>Cancel</Button>

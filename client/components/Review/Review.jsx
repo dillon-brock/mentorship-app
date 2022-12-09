@@ -1,5 +1,6 @@
 import { Col, Container, Image } from "react-bootstrap";
 import StarRating from "../StarRating/StarRating";
+import styles from './review.module.css';
 
 export default function Review({ stars, detail, firstName, lastName, imageUrl, anonymous, createdAt }) {
 
@@ -9,11 +10,11 @@ export default function Review({ stars, detail, firstName, lastName, imageUrl, a
   return (
     <div style={{ position: 'relative' }}>
       {!anonymous &&
-      <Container className="d-flex align-items-center" style={{ gap: '12px' }}>
-        <Image src={imageUrl} roundedCircle style={{ width: '42px', height: '42px', display: "inline-block" }} />
+      <Container className={styles.container}>
+        <Image className={styles.image} src={imageUrl} roundedCircle style={{ width: '42px', height: '42px', display: "inline-block" }} />
         <Col>
-          <p style={{ margin: 0 }}>{firstName} {lastName}</p>
-          <p className="text-muted" style={{ margin: 0, fontStyle: 'italic' }}>{date}</p>
+          <p className={styles.name}>{firstName} {lastName}</p>
+          <p className={styles.date}>{date}</p>
         </Col>
       </Container>
       }
