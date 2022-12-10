@@ -19,6 +19,7 @@ interface CssExports {
   'linkContainer': string;
   'message-button': string;
   'messageButton': string;
+  'name': string;
   'no-content': string;
   'noContent': string;
   'profile-button': string;

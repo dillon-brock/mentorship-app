@@ -21,6 +21,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Poppins';
+}
+
+.name {
+  font-weight: 600;
 }
 
 .title-container {
@@ -92,12 +97,14 @@
   padding: 10px 24px;
   border-radius: 50px;
   border: none;
+  font-family: 'Poppins';
+  font-weight: 600;
 }
 
 .profile-button {
-  background-color: var(--dark-green);
+  background-color: black;
   color: white;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
 }
 
 .profile-button:hover {
