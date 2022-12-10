@@ -74,22 +74,22 @@ export default function Header() {
                       {user.teacherId ? 
                           <Link className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Link>
                           :
-                          <Link className={styles.navLink} href='/add-account'>Create Teacher Profile</Link>
+                          <Link className={styles.navLink} to='/add-account'>Create Teacher Profile</Link>
                       }
                     </>
                   }
                   {user.type == 'teacher' &&
                     <>
-                      <Link className={styles.navLink} href='/my-students'>My Students</Link>
-                      <Link className={styles.navLink} href='/teaching-materials'>Teaching Materials</Link>
+                      <Link className={styles.navLink} to='/my-students'>My Students</Link>
+                      <Link className={styles.navLink} to='/teaching-materials'>Teaching Materials</Link>
                       {user.studentId ?
-                        <Link className={styles.navLink} onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Link>
+                        <Link className={styles.navLink} onClick={handleGoToStudentProfile} to='/find-teachers'>Go To Student Profile</Link>
                         :
                         <Link className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</Link>
                       }
                     </>
                   }
-                  <Link className={styles.navLink} href='/inbox'>Inbox</Link>
+                  <Link className={styles.navLink} to='/inbox'>Inbox</Link>
                   <Link to='/auth/sign-in'>
                     <Button className={styles.signOutButton} onClick={handleSignOut}>Sign Out</Button>
                   </Link>
