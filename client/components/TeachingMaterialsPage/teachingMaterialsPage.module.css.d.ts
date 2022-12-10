@@ -8,6 +8,8 @@ interface CssExports {
   'first-button-container': string;
   'firstButton': string;
   'firstButtonContainer': string;
+  'loader-container': string;
+  'loaderContainer': string;
   'title': string;
   'upload-button': string;
   'upload-button-container': string;
