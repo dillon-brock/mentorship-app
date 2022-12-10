@@ -2,6 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'container': string;
+  'loader-container': string;
+  'loaderContainer': string;
   'section-title': string;
   'sectionTitle': string;
 }
