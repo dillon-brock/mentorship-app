@@ -72,7 +72,7 @@ export default function Header() {
                       <Link className={styles.navLink} to='/learning-materials'>Learning Materials</Link>
                       <Link className={styles.navLink} to='/find-teachers'>Find Teachers</Link>
                       {user.teacherId ? 
-                          <Link className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Link>
+                          <a className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</a>
                           :
                           <Link className={styles.navLink} to='/add-account'>Create Teacher Profile</Link>
                       }
@@ -83,9 +83,9 @@ export default function Header() {
                       <Link className={styles.navLink} to='/my-students'>My Students</Link>
                       <Link className={styles.navLink} to='/teaching-materials'>Teaching Materials</Link>
                       {user.studentId ?
-                        <Link className={styles.navLink} onClick={handleGoToStudentProfile} to='/find-teachers'>Go To Student Profile</Link>
+                        <a className={styles.navLink} onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</a>
                         :
-                        <Link className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</Link>
+                        <a className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</a>
                       }
                     </>
                   }
