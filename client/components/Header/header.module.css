@@ -1,0 +1,64 @@
+.header {
+  font-family: 'Poppins';
+  height: 90px;
+  box-sizing: border-box;
+  padding: 0px 30px;
+}
+
+.auth-navlink {
+  box-sizing: border-box;
+  color: black;
+  padding: 8px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.auth-navlink:hover {
+  color: black;
+  font-weight: 600;
+  border-bottom: 3px solid var(--apricot);
+}
+
+.portal-title {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.nav-toggle {
+  border: 2px solid black;
+  color: black;
+}
+
+.nav-link {
+  color: black;
+  font-family: 'Poppins';
+  width: 210px;
+}
+
+.nav-link:hover {
+  color: black;
+  border-bottom: 3px solid var(--apricot);
+}
+
+.sign-out-button {
+  padding: 10px 24px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+.sign-out-button:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+.sign-out-button:focus {
+  background-color: white;
+  box-shadow: none;
+  color: black;
+  border: 2px solid black;
+}
