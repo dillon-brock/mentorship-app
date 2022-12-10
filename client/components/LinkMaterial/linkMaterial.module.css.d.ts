@@ -4,6 +4,8 @@ interface CssExports {
   'container': string;
   'link-container': string;
   'linkContainer': string;
+  'popover-option': string;
+  'popoverOption': string;
   'popup-button': string;
   'popupButton': string;
 }

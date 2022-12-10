@@ -13,7 +13,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
   return (
     <section className={styles.section}>
       <div className={styles.titleContainer}>
-        <h3>{subject.subject}</h3>
+        <h3 className={styles.sectionTitle}>{subject.subject}</h3>
         {expanded ?
           <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
             <FaChevronUp />
@@ -42,7 +42,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
         }
         <h4 className={styles.subtitle}>Links</h4>
         {links.length > 0 ?
-          <ul>
+          <ul className={styles.linkList}>
             {links.map(link => <LinkMaterial key={link.id} link={link} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
           </ul>
           :

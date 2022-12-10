@@ -1,11 +1,19 @@
 .title {
   text-align: center;
-  margin-top: 95px;
+  margin: 60px auto 0 auto;
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 2.5rem;
+  padding: 12px 0;
+  border-bottom: 3px solid var(--apricot);
+  width: 500px;
 }
 
 .empty-subtitle {
   text-align: center;
-  margin-top: 85px;
+  margin-top: 110px;
+  margin-bottom: 110px;
+  font-family: 'Poppins';
 }
 
 .first-button-container {
@@ -18,20 +26,23 @@
 .first-button, .upload-button {
   padding: 10px 40px;
   border-radius: 50px;
-  background-color: var(--dark-green);
+  background-color: black;
   font-size: 1.2rem;
-  border: 2px solid var(--dark-green);
+  border: 2px solid black;
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+
+.first-button:focus, .upload-button:focus {
+  box-shadow: none;
+  background-color: black;
+  border: 2px solid black;
 }
 
 .first-button:hover, .upload-button:hover {
   background-color: var(--dark-yellow);
   border: 2px solid var(--dark-yellow);
-}
-
-.first-button:focus, .upload-button:focus {
-  box-shadow: none;
-  background-color: var(--dark-green);
-  border: 2px solid var(--dark-green);
 }
 
 .first-button:active {
@@ -42,7 +53,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 30px 0 50px 0;
+  margin: 50px 0 65px 0;
 }
 
 .body {
