@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
 import Header from "../Header/Header";
@@ -55,13 +54,13 @@ export default function TeacherSearchPage() {
           />
         </div>
         <TeacherResults teachers={teachers} loading={loading} />
-        <PagingButtons
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-          loading={loading}
-        />
       </div>
+      <PagingButtons
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+        loading={loading}
+      />
       <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
     </>
   )
