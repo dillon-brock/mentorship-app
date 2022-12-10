@@ -66,30 +66,30 @@ export default function Header() {
               }
               {user &&
                 <>
-                  <Nav.Link className={styles.navLink} href='/profile'>Profile</Nav.Link>
+                  <Link className={styles.navLink} style={{ marginTop: '20px' }} to='/profile'>Profile</Link>
                   {user.type == 'student' &&
                     <>
-                      <Nav.Link className={styles.navLink} href='/learning-materials'>Learning Materials</Nav.Link>
-                      <Nav.Link className={styles.navLink} href='/find-teachers'>Find Teachers</Nav.Link>
+                      <Link className={styles.navLink} to='/learning-materials'>Learning Materials</Link>
+                      <Link className={styles.navLink} to='/find-teachers'>Find Teachers</Link>
                       {user.teacherId ? 
-                          <Nav.Link className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Nav.Link>
+                          <Link className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Link>
                           :
-                          <Nav.Link className={styles.navLink} href='/add-account'>Create Teacher Profile</Nav.Link>
+                          <Link className={styles.navLink} href='/add-account'>Create Teacher Profile</Link>
                       }
                     </>
                   }
                   {user.type == 'teacher' &&
                     <>
-                      <Nav.Link className={styles.navLink} href='/my-students'>My Students</Nav.Link>
-                      <Nav.Link className={styles.navLink} href='/teaching-materials'>Teaching Materials</Nav.Link>
+                      <Link className={styles.navLink} href='/my-students'>My Students</Link>
+                      <Link className={styles.navLink} href='/teaching-materials'>Teaching Materials</Link>
                       {user.studentId ?
-                        <Nav.Link className={styles.navLink} onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Nav.Link>
+                        <Link className={styles.navLink} onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Link>
                         :
-                        <Nav.Link className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</Nav.Link>
+                        <Link className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</Link>
                       }
                     </>
                   }
-                  <Nav.Link className={styles.navLink} href='/inbox'>Inbox</Nav.Link>
+                  <Link className={styles.navLink} href='/inbox'>Inbox</Link>
                   <Link to='/auth/sign-in'>
                     <Button className={styles.signOutButton} onClick={handleSignOut}>Sign Out</Button>
                   </Link>
