@@ -23,7 +23,7 @@ export default function TeacherSearchPage() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [pageLength, setPageLength] = useState(10);
   const [page, setPage] = useState(1);
-  const { teachers, totalPages, errorMessage, setErrorMessage } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
+  const { teachers, totalPages, errorMessage, setErrorMessage, loading } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
   
   const handleSubmit = (e) => {
@@ -54,11 +54,12 @@ export default function TeacherSearchPage() {
             setPageLength={setPageLength}
           />
         </div>
-        <TeacherResults teachers={teachers} />
+        <TeacherResults teachers={teachers} loading={loading} />
         <PagingButtons
           page={page}
           setPage={setPage}
           totalPages={totalPages}
+          loading={loading}
         />
       </div>
       <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>

@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styles from './pagingButtons.module.css';
 
-export default function PagingButtons({ page, setPage, totalPages }) {
+export default function PagingButtons({ page, setPage, totalPages, loading }) {
   
+  const [showLoader, setShowLoader] = useState(true);
+
+  setTimeout(() => setShowLoader(false), 2000);
+
   const handlePreviousPage = () => {
     setPage(prev => {
       if (prev > 1) return prev - 1;
@@ -20,10 +25,24 @@ export default function PagingButtons({ page, setPage, totalPages }) {
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
-        <Button className={styles.button} disabled={page == 1} onClick={handlePreviousPage}>Prev</Button>
-        <Button className={styles.button} disabled={page == totalPages} onClick={handleNextPage}>Next</Button>
+        <Button 
+          className={styles.button} 
+          disabled={page == 1 || loading || showLoader} 
+          onClick={handlePreviousPage}>
+          Prev
+        </Button>
+        <Button 
+          className={styles.button} 
+          disabled={page == totalPages || loading || showLoader} 
+          onClick={handleNextPage}>
+          Next
+        </Button>
       </div>
-      <Form.Text className={styles.info}>Page {page} of {totalPages ? totalPages : 1}</Form.Text>
+      {!loading && !showLoader &&
+        <Form.Text className={styles.info}>
+          Page {page} of {totalPages ? totalPages : 1}
+        </Form.Text>
+      }
     </div>
   )
 }

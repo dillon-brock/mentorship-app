@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  align-items: space-around;
+  justify-content: center;
+  border: 3px solid black;
+  border-radius: 6px;
+  color: black;
+  height: 200px;
+  width: 420px;
+  padding-right: 8px;
+  margin: 0;
+  font-family: 'Poppins';
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+}
+
+.content {
+  width: 250px;
+}
+
+.title-container {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.title {
+  margin-bottom: 0px;
+}
+
+.description-container {
+  height: 140px; 
+}
+
+.chevron-container {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+}

@@ -4,17 +4,21 @@ import { getStudents } from "../services/teacher.js";
 export function useStudents() {
   const [pendingStudents, setPendingStudents] = useState([]);
   const [approvedStudents, setApprovedStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStudents = async () => {
       const data = await getStudents();
+      console.log('got students');
       if (data) {
         setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
         setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
+        setLoading(false);
       }
+      setLoading(false);
     }
     fetchStudents();
   }, []);
 
-  return { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents };
+  return { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading };
 }
