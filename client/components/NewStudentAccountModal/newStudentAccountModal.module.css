@@ -1,0 +1,41 @@
+.modal {
+  font-family: 'Poppins';
+}
+
+.title {
+  font-weight: 600;
+}
+
+.message {
+  font-size: 1.1rem;
+  padding: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.button {
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.button:focus {
+  box-shadow: none;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.button:hover {
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+}
+
