@@ -67,3 +67,36 @@
   border: 2px solid black;
   color: white;
 }
+
+.label {
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button, .save-button:focus {
+  font-family: 'Poppins';
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: 2px solid var(--dark-green);
+  background-color: white;
+  color: var(--dark-green);
+}
+
+.save-button:hover {
+  background-color: var(--dark-green);
+  color: white;
+  border: 2px solid var(--dark-green);
+}
+

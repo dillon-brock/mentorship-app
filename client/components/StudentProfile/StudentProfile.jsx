@@ -50,11 +50,13 @@ export default function StudentProfile() {
     {userWantsToEditProfile &&
       <>
         <Form onSubmit={handleSubmit}>
-          <p>First Name</p>
-          <Form.Control type="text" value={student.firstName} onChange={(e) => setStudent({ ...student, firstName: e.target.value })}/>
-          <p>Last Name</p>
-          <Form.Control type="text" value={student.lastName} onChange={(e) => setStudent({ ...student, lastName: e.target.value })} />
-          <Button type="submit">Save Changes</Button>
+          <Form.Label className={styles.label}>First Name</Form.Label>
+          <Form.Control className={styles.input} type="text" value={student.firstName} onChange={(e) => setStudent({ ...student, firstName: e.target.value })}/>
+          <Form.Label className={styles.label}>Last Name</Form.Label>
+          <Form.Control className={styles.input} type="text" value={student.lastName} onChange={(e) => setStudent({ ...student, lastName: e.target.value })} />
+          <div className={styles.buttonContainer}>
+            <Button className={styles.saveButton} type="submit">Save Changes</Button>
+          </div>
         </Form>
       </>
     }
