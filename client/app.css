@@ -1,7 +1,12 @@
 :root {
-  --dark-green: #283618;
+  --dark-green: #293728;
   --apricot: #FCCFBA;
   --background-color: #EBE6DA;
   --dark-yellow: #DDA15E;
   --warm-brown: #A3482E;
+  --header-background: #14281D;
+}
+
+* {
+  box-sizing: border-box;
 }
