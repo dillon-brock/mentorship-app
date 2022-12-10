@@ -1,35 +1,40 @@
 import { Col, Container, Row } from 'react-bootstrap';
+import styles from './startLink.module.css';
 
 export default function StartLink({ type }) {
   let description;
   if (type === 'teach') {
-    description = 'Create a public profile, upload teaching materials, and interact with your students.'
+    description = 'Create a public profile, upload teaching materials, and connect with students.'
   }
   else if (type === 'learn') {
     description = 'Create a student account to message instructors and view their learning materials'
   }
   else {
-    description = 'Search for instructors and view their profiles. You will need to create an account to interact with them.'
+    description = 'Search for instructors and view their profiles. You will need to create an account to connect with them.'
   }
 
   return (
-    <Container className="border d-flex align-items-center justify-content-center" style={{ color: 'black', height: '180px', width: '100%' }}>
-      <Col className="d-flex align-items-center justify-content-center">Image</Col>
-      <Col>
-        <Container>
+    <div className={styles.container}>
+      <div className={styles.imageContainer}>
+        <p>Image</p>
+      </div>
+      <div className={styles.content}>
+        <div className={styles.titleContainer}>
           {type ?
-            <Row>I want to {type}</Row>
+            <p className={styles.title}>I want to {type}</p>
             :
-            <Row>Find Instructors</Row>
+            <p className={styles.title}>Find Instructors</p>
           }
-          <Row>{description}</Row>
-        </Container>
-      </Col>
-      <Col className="d-flex align-items-center justify-content-end">
+        </div>
+        <div className={styles.descriptionContainer}>
+          <p>{description}</p>
+        </div>
+      </div>
+      <div className={styles.chevronContainer}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
           <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
         </svg>
-      </Col>
-    </Container>
+      </div>
+    </div>
   );
 }

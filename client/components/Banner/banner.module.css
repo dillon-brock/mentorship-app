@@ -1,0 +1,42 @@
+.banner-container {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  font-family: 'Poppins';
+}
+
+.banner {
+  height: 100%;
+  position: relative;
+}
+
+.title-container {
+  display: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 10%;
+  gap: 20px;
+}
+
+.title {
+  font-size: 4rem;
+  text-align: left;
+}
+
+.subtitle {
+  text-align: left;
+}
+
+@media screen and (max-width: 899px) {
+  .title {
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+}
