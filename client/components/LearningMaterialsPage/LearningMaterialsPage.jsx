@@ -7,9 +7,10 @@ import ChatWindow from "../ChatWindow/ChatWindow";
 import Header from "../Header/Header";
 import LearningMaterialsSection from "../LearningMaterialsSection/LearningMaterialsSection";
 import styles from './learningMaterialsPage.module.css';
+import loaderStyles from '../../loader.module.css';
 
 export default function LearningMaterialsPage() {
-  const { teachersWithMaterials } = useLearningMaterials();
+  const { teachersWithMaterials, loading } = useLearningMaterials();
   const { user, doneGettingUser } = useUserContext();
   const { pathname } = useLocation();
   const [openChatBox, setOpenChatBox] = useState(false);
@@ -32,15 +33,23 @@ export default function LearningMaterialsPage() {
     <>
       <Header />
       <h1 className={styles.title}>Your Learning Materials</h1>
-      {teachersWithMaterials.map((teacher, i) => (
-        <LearningMaterialsSection
-          key={teacher.id}
-          { ...teacher }
-          i={i}
-          setTeacherRecipient={setTeacherRecipient}
-          handleMessage={(e) => handleMessage(teacher, e)}
-        />
-      ))}
+      {loading ?
+        <div className={styles.loaderContainer}>
+          <div className={loaderStyles.loader}></div>
+        </div>
+        :
+        <>
+          {teachersWithMaterials.map((teacher, i) => (
+            <LearningMaterialsSection
+              key={teacher.id}
+              { ...teacher }
+              i={i}
+              setTeacherRecipient={setTeacherRecipient}
+              handleMessage={(e) => handleMessage(teacher, e)}
+            />
+          ))}
+        </>
+      }
       {openChatBox &&
         <ChatWindow
           primaryUser={user}
