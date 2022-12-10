@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Accordion } from "react-bootstrap";
-import { Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useLearningMaterials from "../../hooks/useLearningMaterials"
 import ChatWindow from "../ChatWindow/ChatWindow";
@@ -8,6 +7,7 @@ import Header from "../Header/Header";
 import LearningMaterialsSection from "../LearningMaterialsSection/LearningMaterialsSection";
 import styles from './learningMaterialsPage.module.css';
 import loaderStyles from '../../loader.module.css';
+import { Button } from "react-bootstrap";
 
 export default function LearningMaterialsPage() {
   const { teachersWithMaterials, loading } = useLearningMaterials();
@@ -39,15 +39,28 @@ export default function LearningMaterialsPage() {
         </div>
         :
         <>
-          {teachersWithMaterials.map((teacher, i) => (
-            <LearningMaterialsSection
-              key={teacher.id}
-              { ...teacher }
-              i={i}
-              setTeacherRecipient={setTeacherRecipient}
-              handleMessage={(e) => handleMessage(teacher, e)}
-            />
-          ))}
+          {teachersWithMaterials.length > 0 ?
+            <>
+              {teachersWithMaterials.map((teacher, i) => (
+                <LearningMaterialsSection
+                  key={teacher.id}
+                  { ...teacher }
+                  i={i}
+                  setTeacherRecipient={setTeacherRecipient}
+                  handleMessage={(e) => handleMessage(teacher, e)}
+                />
+              ))}
+            </>
+            :
+            <div>
+              <h3 className={styles.emptySubtitle}>You currently are not connected with any instructors.</h3>
+              <div className={styles.searchButtonContainer}>
+                <Link to="/find-teachers">
+                  <Button className={styles.searchButton}>Find an Instructor</Button>
+                </Link>
+              </div>
+            </div>
+          }
         </>
       }
       {openChatBox &&

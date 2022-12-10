@@ -2,8 +2,14 @@
 // Please do not change this file!
 interface CssExports {
   'body': string;
+  'empty-subtitle': string;
+  'emptySubtitle': string;
   'loader-container': string;
   'loaderContainer': string;
+  'search-button': string;
+  'search-button-container': string;
+  'searchButton': string;
+  'searchButtonContainer': string;
   'title': string;
 }
 export const cssExports: CssExports;
