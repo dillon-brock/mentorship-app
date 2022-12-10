@@ -3,6 +3,10 @@
 interface CssExports {
   'container': string;
   'list': string;
+  'loader-container': string;
+  'loaderContainer': string;
+  'top-level': string;
+  'topLevel': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
