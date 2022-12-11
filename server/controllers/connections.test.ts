@@ -115,4 +115,22 @@ describe('connections controller', () => {
     });
     expect(res.status).toBe(401);
   })
+  it('allows a student to delete a connection', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(200);
+  })
+  it('allows a teacher to delete a connection', async () => {
+    const { agent, student, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(200);
+  })
 })

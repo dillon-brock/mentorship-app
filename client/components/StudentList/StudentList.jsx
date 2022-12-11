@@ -15,6 +15,7 @@ export default function StudentList() {
   const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading } = useStudents(user?.teacherId);
   const [openChatBox, setOpenChatBox] = useState(false);
   const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
+  console.log(approvedStudents);
 
   const handleApprove = async (id) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
