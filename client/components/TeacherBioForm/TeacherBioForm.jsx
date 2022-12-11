@@ -137,7 +137,7 @@ export default function TeacherBioForm({
 
   return (
     <div className={styles.container}>
-        <h3 className={styles.title}>Tell us more about you</h3>
+        <h3 className={styles.title}>Tell us more about you.</h3>
         <Form className={styles.form} onSubmit={handleSubmit}>
           {newUser &&
             <Form.Group className="mb-2" controlId="image">

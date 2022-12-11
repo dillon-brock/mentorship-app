@@ -51,7 +51,7 @@ export default function StudentList() {
             <section className={styles.container}>
               <h3 className={styles.sectionTitle}>Pending:</h3>
               {pendingStudents.length > 0 ?
-                <div>
+                <div className={styles.sectionContainer}>
                   {pendingStudents.map(student => (
                     <PendingStudent
                       key={student.id}
@@ -63,15 +63,15 @@ export default function StudentList() {
                   ))}
                 </div>
                 :
-                <h4>You have no pending requests.</h4>
+                <h4 className={styles.emptyMessage}>You have no pending requests.</h4>
               }
               <h3 className={styles.sectionTitle}>Current Students:</h3>
               {approvedStudents.length > 0 ?
-                <div>
+                <div className={styles.sectionContainer}>
                   {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} handleMessage={() => handleMessage(student)} />)}
                 </div>
                 :
-                <h4>You have no current students.</h4>   
+                <h4 className={styles.emptyMessage}>You have no current students.</h4>   
               }
               {openChatBox &&
                 <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />

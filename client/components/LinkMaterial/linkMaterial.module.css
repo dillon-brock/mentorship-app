@@ -3,13 +3,37 @@
   justify-content: center;
 }
 
+
+
 .link-container {
-  height: 26px;
+  height: 40px;
+  width: 400px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
   align-items: flex-start;
+  position: relative;
 }
 
 .popup-button {
   padding: 0px 8px;
+}
+
+.popover-option {
+  font-family: 'Poppins';
+  text-align: left;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 8px 0;
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.popover-option:hover {
+  font-weight: 600;
+  background-color: white;
+  color: black;
+  cursor: pointer;
 }

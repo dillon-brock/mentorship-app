@@ -6,6 +6,7 @@ import SignInForm from "../SignInForm/SignInForm";
 import StudentSignUpForm from "../StudentSignUpForm/StudentSignUpForm";
 import TeacherAuth from "../TeacherAuth/TeacherAuth";
 // import background from './squiggle_background.png';
+import styles from './authPage.module.css';
 
 export default function AuthPage() {
   const { method, accountType } = useParams();
@@ -24,14 +25,16 @@ export default function AuthPage() {
       <div>
 
         {method === 'sign-in' ?
-          <Container style={{ height: "70vh", display: "flex", justifyContent: 'center', alignItems: "center" }}>
+          <div className={styles.formContainer}>
             <SignInForm />
-          </Container>
+          </div>
             :
             <>
               {!accountType && <Navigate to='/auth/sign-up/student'/>}
               {accountType == 'student' &&
-                <StudentSignUpForm/>
+                <div className={styles.formContainer}>
+                  <StudentSignUpForm/>
+                </div>
               }
               {accountType == 'teacher' &&
                 <TeacherAuth />

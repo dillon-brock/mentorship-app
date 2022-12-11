@@ -22,6 +22,7 @@
 .portal-title {
   margin-bottom: 0;
   font-weight: 600;
+  display: inline-block;
 }
 
 .nav-toggle {
@@ -63,4 +64,10 @@
   box-shadow: none;
   color: black;
   border: 2px solid black;
+}
+
+@media screen and (max-width: 640px) {
+  .portal-title {
+    display: none;
+  }
 }

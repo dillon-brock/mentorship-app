@@ -16,3 +16,22 @@
   text-align: center;
 }
 
+
+.popover-option {
+  font-family: 'Poppins';
+  text-align: left;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 8px 0;
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.popover-option:hover {
+  font-weight: 600;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+

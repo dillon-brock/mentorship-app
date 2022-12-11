@@ -1,5 +1,6 @@
 .container {
   margin-top: 100px;
+  font-family: 'Poppins';
 }
 
 .form {
@@ -20,6 +21,11 @@
 
 .title {
   text-align: center;
+  width: 300px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 12px 0;
+  border-bottom: 3px solid var(--apricot);
 }
 
 .button-container {

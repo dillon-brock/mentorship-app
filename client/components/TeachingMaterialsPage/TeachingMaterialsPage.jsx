@@ -49,7 +49,7 @@ export default function TeachingMaterialsPage() {
             </>
             :
             <div>
-              <h3 className={styles.emptySubtitle}>You current have no uploaded teaching materials.</h3>
+              <h3 className={styles.emptySubtitle}>You currently have no saved teaching materials.</h3>
               <div className={styles.firstButtonContainer}>
                 <Button className={styles.firstButton} onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
               </div>
