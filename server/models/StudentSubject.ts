@@ -22,4 +22,17 @@ export default class StudentSubject {
 
     return new StudentSubject(rows[0]);
   }
+
+  static async delete(studentId: string, subjectId: string): Promise<StudentSubject> {
+    const { rows } = await pool.query(
+      `DELETE FROM students_subjects
+      WHERE student_id = $1 AND subject_id = $2
+      RETURNING *`,
+      [studentId, subjectId]
+    );
+
+    return new StudentSubject(rows[0]);
+  }
+
+
 }

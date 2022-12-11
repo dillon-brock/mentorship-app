@@ -12,6 +12,7 @@ export default class Student {
   connectionApproved?: string;
   subject?: string;
   connectionId?: string;
+  subjectId?: string;
 
   constructor(row: StudentFromDatabase) {
     this.id = row.id;
@@ -23,6 +24,7 @@ export default class Student {
     if (row.connection_approved) this.connectionApproved = row.connection_approved;
     if (row.subject) this.subject = row.subject;
     if (row.connection_id) this.connectionId = row.connection_id;
+    if (row.subject_id) this.subjectId = row.subject_id;
   }
 
   static async create({ userId, firstName, lastName, imageUrl }: NewStudentInfo): Promise<Student> {
@@ -38,7 +40,7 @@ export default class Student {
   
   static async findByTeacherId(teacherId: string): Promise<Array<Student> | null> {
     const { rows } = await pool.query(
-      `SELECT students.*, teachers_students.connection_approved, teachers_students.id AS connection_id, subjects.subject FROM students
+      `SELECT students.*, teachers_students.connection_approved, teachers_students.id AS connection_id, subjects.subject, subjects.id AS subject_id FROM students
       INNER JOIN teachers_students ON teachers_students.student_id = students.id
       INNER JOIN teachers ON teachers.id = teachers_students.teacher_id
       INNER JOIN students_subjects ON students_subjects.student_id = students.id

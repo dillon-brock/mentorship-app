@@ -37,8 +37,8 @@ export async function updateConnectionStatus({ teacherId, studentId, connectionS
   }
 }
 
-export async function deleteConnection(id) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections/${id}`, {
+export async function deleteConnection({ id, studentId, subjectId }) {
+  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections/${id}?studentId=${studentId}&subjectId=${subjectId}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {

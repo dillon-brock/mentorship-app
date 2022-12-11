@@ -4,7 +4,8 @@ import { deleteConnection } from "../../services/connection";
 export default function RemoveStudentModal({
   id,
   firstName, 
-  connectionId, 
+  connectionId,
+  subjectId,
   setApprovedStudents, 
   userWantsToRemoveStudent, 
   setUserWantsToRemoveStudent 
@@ -13,7 +14,7 @@ export default function RemoveStudentModal({
   const handleClose = () => setUserWantsToRemoveStudent(false);
 
   const handleDisconnect = async () => {
-    await deleteConnection(connectionId);
+    await deleteConnection({ id: connectionId, subjectId, studentId: id });
     setApprovedStudents(prev => prev.filter(student => student.id !== id))
   }
 
