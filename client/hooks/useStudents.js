@@ -9,8 +9,8 @@ export function useStudents() {
   useEffect(() => {
     const fetchStudents = async () => {
       const data = await getStudents();
-      console.log('got students');
       if (data) {
+        console.log(data);
         setPendingStudents(data.filter(s => s.connectionApproved === 'pending'));
         setApprovedStudents(data.filter(s => s.connectionApproved === 'approved'));
         setLoading(false);
