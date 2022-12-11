@@ -6,7 +6,7 @@ import ApprovedStudent from "../ApprovedStudent/ApprovedStudent.jsx";
 import ChatWindow from "../ChatWindow/ChatWindow.jsx";
 import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay.jsx";
 import PendingStudent from "../PendingStudent/PendingStudent.jsx";
-import loaderStyles from '../../loader.module.css';
+import globalStyles from '../../global.module.css';
 
 import styles from './studentList.module.css';
 
@@ -42,7 +42,7 @@ export default function StudentList() {
     <>
       {loading ?
         <div className={styles.loaderContainer}>
-          <div className={loaderStyles.loader}></div>
+          <div className={globalStyles.loader}></div>
         </div>
         :
         <>

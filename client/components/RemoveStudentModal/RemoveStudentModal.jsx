@@ -1,5 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { deleteConnection } from "../../services/connection";
+import globalStyles from '../../global.module.css';
+import styles from './removeStudentModal.module.css';
 
 export default function RemoveStudentModal({
   id,
@@ -19,15 +21,15 @@ export default function RemoveStudentModal({
   }
 
   return (
-    <Modal show={userWantsToRemoveStudent} onHide={handleClose}>
+    <Modal className={styles.modal} show={userWantsToRemoveStudent} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Are you sure you want to disconnect from {firstName}?</Modal.Title>
+        <Modal.Title className={styles.title}>Are you sure you want to remove {firstName} from your students?</Modal.Title>
       </Modal.Header>
-        <Modal.Body>{firstName} will still see your profile when searching for instructors, but they will no longer be able to leave you reviews or have access to your learning materials.</Modal.Body>
+        <Modal.Body className={styles.body}>{firstName} will still see your profile when searching for instructors, but they will no longer be able to leave you reviews or have access to your teaching materials.</Modal.Body>
         <Modal.Footer>
-          <div>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleDisconnect}>Disconnect</Button>
+          <div className={styles.buttonContainer}>
+            <Button className={globalStyles.cancelButton} onClick={handleClose}>Cancel</Button>
+            <Button className={styles.removeButton} onClick={handleDisconnect}>Remove</Button>
           </div>
         </Modal.Footer>
     </Modal>

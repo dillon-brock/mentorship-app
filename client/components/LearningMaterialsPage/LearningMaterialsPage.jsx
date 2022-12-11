@@ -6,7 +6,7 @@ import ChatWindow from "../ChatWindow/ChatWindow";
 import Header from "../Header/Header";
 import LearningMaterialsSection from "../LearningMaterialsSection/LearningMaterialsSection";
 import styles from './learningMaterialsPage.module.css';
-import loaderStyles from '../../loader.module.css';
+import globalStyles from '../../global.module.css';
 import { Button } from "react-bootstrap";
 
 export default function LearningMaterialsPage() {
@@ -35,7 +35,7 @@ export default function LearningMaterialsPage() {
       <h1 className={styles.title}>Your Learning Materials</h1>
       {loading ?
         <div className={styles.loaderContainer}>
-          <div className={loaderStyles.loader}></div>
+          <div className={globalStyles.loader}></div>
         </div>
         :
         <>

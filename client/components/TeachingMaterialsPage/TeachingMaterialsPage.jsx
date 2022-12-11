@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
 import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
 import styles from './teachingMaterialsPage.module.css';
-import loaderStyles from '../../loader.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function TeachingMaterialsPage() {
   const { user, doneGettingUser} = useUserContext();
@@ -29,7 +29,7 @@ export default function TeachingMaterialsPage() {
         <h1 className={styles.title}>Your Teaching Materials</h1>
         {loading ?
           <div className={styles.loaderContainer}>
-            <div className={loaderStyles.loader}></div>
+            <div className={globalStyles.loader}></div>
           </div>
           :
           <>

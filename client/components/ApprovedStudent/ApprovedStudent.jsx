@@ -22,7 +22,7 @@ export default function ApprovedStudent({ id, imageUrl, firstName, lastName, sub
           </Col>
           <Col className={styles.buttonContainer}>
             <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>
-            <Button onClick={() => setUserWantsToRemoveStudent(true)}>Remove</Button>
+            <Button className={styles.removeButton} onClick={() => setUserWantsToRemoveStudent(true)}>Remove</Button>
           </Col>
         </Container>
         <hr style={{ height: '1px', width: '60%', margin: '0 auto' }} />
