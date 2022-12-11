@@ -25,6 +25,17 @@ export default class Connection {
     return new Connection(rows[0]);
   }
 
+  static async findById(id: string): Promise<Connection | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teachers_students
+      WHERE id = $1`,
+      [id]
+    );
+    
+    if (!rows[0]) return null;
+    return new Connection(rows[0]);
+  }
+
   static async create({ teacherId, studentId, connectionApproved = 'pending' }: NewConnection): Promise<Connection> {
     const { rows } = await pool.query(
       `INSERT INTO teachers_students (teacher_id, student_id, connection_approved)
