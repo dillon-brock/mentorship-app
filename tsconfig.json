@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -37,8 +38,6 @@
       "react-dom/experimental",
       "react-dom/next",
       "ts-jest",
-      "./environment",
-      "./authenticatedRequest",
     ],
     "useUnknownInCatchVariables": true
   }
