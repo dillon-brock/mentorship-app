@@ -26,6 +26,7 @@ const env = Object.entries({
 
 export default {
   entry: './client/app.jsx',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   output: {
     filename: 'bundle.[hash].js',
     path: path.resolve(__dirname, './public'),
@@ -99,7 +100,9 @@ export default {
           {
             loader: 'css-modules-typescript-loader',
             options: {
-              mode: process.env.CI ? 'verify' : 'emit'
+              mode: process.env.CI || process.env.NODE_ENV == 'production'
+                ? 'verify'
+                : 'emit'
             },
           },
           {
