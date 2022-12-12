@@ -40,6 +40,9 @@
       "ts-jest",
     ],
     "useUnknownInCatchVariables": true
+  },
+  "ts-node": {
+    "files": true
   }
 }
 

@@ -1,5 +1,5 @@
 export async function createConnection(teacherId, studentId) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections`, {
+  const response = await fetch(`/api/v1/connections`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -18,7 +18,7 @@ export async function createConnection(teacherId, studentId) {
 }
 
 export async function updateConnectionStatus({ teacherId, studentId, connectionStatus }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections`, {
+  const response = await fetch(`/api/v1/connections`, {
     method: "PUT",
     credentials: "include",
     headers: {
@@ -38,7 +38,7 @@ export async function updateConnectionStatus({ teacherId, studentId, connectionS
 }
 
 export async function deleteConnection({ id, studentId, subjectId }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/connections/${id}?studentId=${studentId}&subjectId=${subjectId}`, {
+  const response = await fetch(`/api/v1/connections/${id}?studentId=${studentId}&subjectId=${subjectId}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {

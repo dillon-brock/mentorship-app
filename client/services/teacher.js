@@ -5,7 +5,7 @@ export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, max
   params.set('lessonType', lessonType);
   params.set('minPrice', minPrice);
   params.set('maxPrice', maxPrice);
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers?${params.toString()}`, {
+  const response = await fetch(`/api/v1/teachers?${params.toString()}`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"
@@ -19,7 +19,7 @@ export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, max
 }
 
 export async function getTeacherById(id) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/${id}`, {
+  const response = await fetch(`/api/v1/teachers/${id}`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"
@@ -33,7 +33,7 @@ export async function getTeacherById(id) {
 }
 
 export async function getStudents() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students`, {
+  const response = await fetch(`/api/v1/students`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"
@@ -47,7 +47,7 @@ export async function getStudents() {
 }
 
 export async function addTeacherAccount({ firstName, lastName, imageUrl, subjects, bio, zipCode, phoneNumber, contactEmail, city, state }) {
-  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/add-account`, {
+  const res = await fetch(`/api/v1/teachers/add-account`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -73,7 +73,7 @@ export async function addTeacherAccount({ firstName, lastName, imageUrl, subject
 }
 
 export async function updateAccount({ subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/me`, {
+  const response = await fetch(`/api/v1/teachers/me`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -99,7 +99,7 @@ export async function updateAccount({ subject, bio, zipCode, city, state, phoneN
 }
 
 export async function getTeacherProfile() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers/me`, {
+  const response = await fetch(`/api/v1/teachers/me`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json'

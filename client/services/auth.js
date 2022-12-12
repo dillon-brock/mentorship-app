@@ -1,5 +1,5 @@
 export async function signUpStudent({ email, password, firstName, lastName, imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students`, {
+  const response = await fetch(`/api/v1/students`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({
@@ -32,7 +32,7 @@ export async function signUpTeacher({
   city,
   state
 }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teachers`, {
+  const response = await fetch(`/api/v1/teachers`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({
@@ -61,7 +61,7 @@ export async function signUpTeacher({
 }
 
 export async function signUpUser({ email, password, type }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users`, {
+  const response = await fetch(`/api/v1/users`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({
@@ -81,7 +81,7 @@ export async function signUpUser({ email, password, type }) {
 }
 
 export async function signIn({ email, password }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/sessions`, {
+  const response = await fetch(`/api/v1/users/sessions`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({
@@ -98,7 +98,7 @@ export async function signIn({ email, password }) {
 }
 
 export async function getUser() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/me`, {
+  const response = await fetch(`/api/v1/users/me`, {
     credentials: "include",
     headers: {
       "Accept": "application/json"
@@ -111,7 +111,7 @@ export async function getUser() {
 }
 
 export async function signOut() {
-  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/sessions`, {
+  const res = await fetch(`/api/v1/users/sessions`, {
     method: 'DELETE',
     credentials: 'include',
   });
@@ -121,7 +121,7 @@ export async function signOut() {
 }
 
 export async function updateUserType(type) {
-  const res = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/me`, {
+  const res = await fetch(`/api/v1/users/me`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -136,7 +136,7 @@ export async function updateUserType(type) {
 }
 
 export async function checkForExistingUser(email) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/users/find`, {
+  const response = await fetch(`/api/v1/users/find`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',

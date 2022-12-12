@@ -1,5 +1,5 @@
 export async function addStudentAccount({ firstName, lastName, imageUrl }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/add-account`, {
+  const response = await fetch(`/api/v1/students/add-account`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -18,7 +18,7 @@ export async function addStudentAccount({ firstName, lastName, imageUrl }) {
 }
 
 export async function getStudentProfile() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/me`, {
+  const response = await fetch(`/api/v1/students/me`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json'
@@ -30,7 +30,7 @@ export async function getStudentProfile() {
 }
 
 export async function updateAccount({ firstName, lastName, imageUrl }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/me`, {
+  const response = await fetch(`/api/v1/students/me`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -48,7 +48,7 @@ export async function updateAccount({ firstName, lastName, imageUrl }) {
 }
 
 export async function addStudentSubject(subjectId) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/subject`, {
+  const response = await fetch(`/api/v1/students/subject`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -63,7 +63,7 @@ export async function addStudentSubject(subjectId) {
 }
 
 export async function getLearningMaterials() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/students/learning-materials`, {
+  const response = await fetch(`/api/v1/students/learning-materials`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json'

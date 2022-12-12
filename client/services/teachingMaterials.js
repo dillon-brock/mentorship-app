@@ -1,5 +1,5 @@
 export async function addTeachingMaterial({ subjectId, url, type, name }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials`, {
+  const response = await fetch(`/api/v1/teaching-materials`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -19,7 +19,7 @@ export async function addTeachingMaterial({ subjectId, url, type, name }) {
 }
 
 export async function getTeachingMaterials() {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials`, {
+  const response = await fetch(`/api/v1/teaching-materials`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json'
@@ -31,7 +31,7 @@ export async function getTeachingMaterials() {
 }
 
 export async function deleteTeachingMaterial(id) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials/${id}`, {
+  const response = await fetch(`/api/v1/teaching-materials/${id}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -43,7 +43,7 @@ export async function deleteTeachingMaterial(id) {
 }
 
 export async function updateTeachingMaterial({ id, subjectId, url, name }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/teaching-materials/${id}`, {
+  const response = await fetch(`/api/v1/teaching-materials/${id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {

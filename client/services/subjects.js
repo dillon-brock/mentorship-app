@@ -1,5 +1,5 @@
 export async function getSubjectsByTeacherId(teacherId) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/subjects/${teacherId}`, {
+  const response = await fetch(`/api/v1/subjects/${teacherId}`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json'
@@ -11,7 +11,7 @@ export async function getSubjectsByTeacherId(teacherId) {
 }
 
 export async function addSubject({ subject, minPrice, maxPrice, lessonType }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/subjects`, {
+  const response = await fetch(`/api/v1/subjects`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -31,7 +31,7 @@ export async function addSubject({ subject, minPrice, maxPrice, lessonType }) {
 }
 
 export async function updateSubject({ id, minPrice, maxPrice, lessonType }) {
-  const response = await fetch(`${process.env.API_FETCH_URL}/api/v1/subjects/${id}`, {
+  const response = await fetch(`/api/v1/subjects/${id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
