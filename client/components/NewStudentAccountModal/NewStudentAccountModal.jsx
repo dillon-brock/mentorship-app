@@ -1,4 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
+import styles from './newStudentAccountModal.module.css';
 
 export default function NewStudentAccountModal({ newStudentAccount, setNewStudentAccount }) {
 
@@ -7,15 +8,17 @@ export default function NewStudentAccountModal({ newStudentAccount, setNewStuden
   }
 
   return (
-    <Modal show={newStudentAccount} onHide={handleClose}>
+    <Modal className={styles.modal} show={newStudentAccount} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Student Account Successfully Created</Modal.Title>
+        <Modal.Title className={styles.title}>Student Account Successfully Created</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={styles.message}>
         You can now connect with instructors with whom you want to study, and view teaching materials and leave reviews for your current instructors.
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose}>Continue</Button>
+        <div className={styles.buttonContainer}>
+          <Button className={styles.button} onClick={handleClose}>Continue</Button>
+        </div>
       </Modal.Footer>
     </Modal>
   )

@@ -16,6 +16,14 @@ const testStudent = {
   imageUrl: 'testimage.com'
 };
 
+const secondStudent = {
+  firstName: 'Second',
+  lastName: 'Student',
+  email: 'second@student.com',
+  password: '123456',
+  imageUrl: 'testimage.com'
+}
+
 const testTeacher = {
   firstName: 'Test',
   lastName: 'Teacher',
@@ -27,6 +35,21 @@ const testTeacher = {
   zipCode: '97214',
   phoneNumber: '5555555555',
   contactEmail: 'teacher@test.com',
+  city: 'Portland',
+  state: 'OR'
+}
+
+const secondTeacher = {
+  firstName: 'Second',
+  lastName: 'Teacher',
+  email: 'second@teacher.com',
+  password: '123456',
+  imageUrl: 'testimage.com',
+  subjects: [{ subject: 'Drawing', minPrice: 10, maxPrice: 30, lessonType: 'In person' }],
+  bio: 'I am also a teacher',
+  zipCode: '97214',
+  phoneNumber: '5555555555',
+  contactEmail: 'second@teacher.com',
   city: 'Portland',
   state: 'OR'
 }
@@ -114,5 +137,54 @@ describe('connections controller', () => {
       connectionStatus: 'approved'
     });
     expect(res.status).toBe(401);
+  })
+  it('allows a student to delete a connection on DELETE /connections/:id', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(200);
+  })
+  it('allows a teacher to delete a connection on DELETE /connections/:id', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testTeacher.email, password: testTeacher.password });
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(200);
+  })
+  it('gives a 401 error for unauthenticated users on DELETE /connections/:id', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(401);
+  })
+  it('gives a 403 error for unauthorized teacher on DELETE /connections/:id', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    await agent.post('/teachers').send(secondTeacher);
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(403);
+    expect(res.body.message).toBe('You are not authorized to remove this connection.');
+  })
+  it('gives a 403 error for unauthorized student on DELETE /connections/:id', async () => {
+    const { agent, teacher } = await createTeacherAndStudent();
+    await agent.delete('/users/sessions');
+    await agent.post('/users/sessions').send({ email: testStudent.email, password: testStudent.password });
+    const connectionRes = await agent.post('/connections').send({ teacherId: teacher.id });
+    await agent.delete('/users/sessions');
+    await agent.post('/students').send(secondStudent);
+    const res = await agent.delete(`/connections/${connectionRes.body.id}`);
+    expect(res.status).toBe(403);
+    expect(res.body.message).toBe('You are not authorized to remove this connection.');
   })
 })

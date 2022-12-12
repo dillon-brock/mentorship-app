@@ -2,6 +2,7 @@
   width: 400px;
   margin: 30px auto;
   text-align: left;
+  font-family: 'Poppins'
 }
 
 .input {
@@ -16,6 +17,12 @@
 
 .title {
   text-align: center;
+  font-family: 'Poppins';
+  font-weight: 600;
+  padding: 12px;
+  border-bottom: 3px solid var(--apricot);
+  width: 260px;
+  margin: 0 auto 40px auto;
 }
 
 .button-container {
@@ -29,6 +36,7 @@
   border-radius: 50px;
   background-color: var(--dark-green);
   border: none;
+  font-family: 'Poppins';
 }
 
 .button:hover {

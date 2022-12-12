@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from './learningMaterialsSection.module.css';
 
-export default function LearningMaterialsSection({ i, id, imageUrl, firstName, lastName, teachingMaterials, handleMessage }) {
+export default function LearningMaterialsSection({ id, firstName, lastName, teachingMaterials, handleMessage }) {
   const [expanded, setExpanded] = useState(false);
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
@@ -12,7 +12,7 @@ export default function LearningMaterialsSection({ i, id, imageUrl, firstName, l
   return (
       <section className={styles.section}>
         <div className={styles.titleContainer}>
-          <h3>{firstName} {lastName}</h3>
+          <h3 className={styles.name}>{firstName} {lastName}</h3>
           <div className={styles.right}>
             <div className={styles.buttonContainer}>
               <Button className={styles.messageButton}>Message</Button>

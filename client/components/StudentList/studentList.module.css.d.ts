@@ -2,9 +2,13 @@
 // Please do not change this file!
 interface CssExports {
   'container': string;
+  'empty-message': string;
+  'emptyMessage': string;
   'loader-container': string;
   'loaderContainer': string;
+  'section-container': string;
   'section-title': string;
+  'sectionContainer': string;
   'sectionTitle': string;
 }
 export const cssExports: CssExports;

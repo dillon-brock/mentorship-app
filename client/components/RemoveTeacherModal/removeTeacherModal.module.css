@@ -1,0 +1,65 @@
+.modal {
+  font-family: 'Poppins';
+}
+
+.title {
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.body {
+  padding: 16px;
+  font-size: 1.1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+.remove-button {
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 2px solid var(--warm-brown);
+  background-color: white;
+  color: var(--warm-brown);
+}
+
+.remove-button:focus {
+  border: 2px solid var(--warm-brown);
+  background-color: white;
+  color: var(--warm-brown);
+}
+
+.remove-button:hover {
+  border: 2px solid var(--warm-brown);
+  background-color: var(--warm-brown);
+  color: white;
+}
+
+.open-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  background-color: white;
+  border: 2px solid var(--warm-brown);
+  color: var(--warm-brown);
+  font-family: 'Poppins';
+}
+
+.open-button:focus {
+  background-color: white;
+  border: 2px solid var(--warm-brown);
+  color: var(--warm-brown);
+  box-shadow: none;
+}
+
+.open-button:hover {
+  background-color: var(--warm-brown);
+  color: white;
+  border: 2px solid var(--warm-brown);
+}

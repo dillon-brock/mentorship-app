@@ -1,14 +1,25 @@
 .container {
   width: 50%;
   margin: 60px auto;
+  padding: 0px 140px;
 }
 
 .section-title {
   margin: 40px 0;
+  font-family: 'Poppins';
+  font-weight: 600;
+}
+
+.section-container {
+  margin-bottom: 70px;
 }
 
 .loader-container {
   display: flex;
   justify-content: center;
   margin-top: 70px;
+}
+
+.empty-message {
+  font-family: 'Poppins';
 }

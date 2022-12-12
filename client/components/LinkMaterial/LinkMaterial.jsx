@@ -6,7 +6,6 @@ import EditLinkModal from "../EditLinkModal/EditLinkModal";
 import styles from './linkMaterial.module.css';
 
 export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }) {
-  console.log(url);
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
   const [userWantsToEditLink, setUserWantsToEditLink] = useState(false);
@@ -31,8 +30,8 @@ export default function LinkMaterial({ id, name, url, subjectId, setTeachingMate
     <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
-        <p onClick={handleClickEdit}>Edit</p>
-        <p onClick={handleClickDelete}>Delete</p>
+        <Button className={styles.popoverOption} onClick={handleClickEdit}>Edit</Button>
+        <Button className={styles.popoverOption} onClick={handleClickDelete}>Delete</Button>
       </Container>
     </Popover.Body>
   </Popover>
@@ -47,11 +46,13 @@ export default function LinkMaterial({ id, name, url, subjectId, setTeachingMate
         <a href={url} target="_blank">{url}</a>
         }
         {showMenuButton &&
+        <div style={{ position: 'absolute', right: '100px'}}>
           <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
             <Button variant="light" onClick={() => setOpenPopover(!openPopover)} className={styles.popupButton}>
               <FaEllipsisH />
             </Button>
           </OverlayTrigger>
+        </div>
         }
       </div>
     </div>

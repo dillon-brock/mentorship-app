@@ -1,12 +1,12 @@
-import { Button, Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import { Button, Container, Image, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth';
 import { addStudentAccount } from '../../services/student';
+import styles from './header.module.css';
 
 export default function Header() {
 
-  const { method } = useParams();
   const { user, setUser } = useUserContext();
   const navigate = useNavigate();
 
@@ -36,10 +36,22 @@ export default function Header() {
   }
 
   return (
-    <Navbar variant='light' expand={user ? false : 'xl'} className="mb-3">
+    <Navbar className={styles.header} variant="light" expand={user ? false : 'xl'}>
       <Container fluid>
-        <Navbar.Brand href="#">App Name</Navbar.Brand>
-        <Navbar.Toggle />
+        <Navbar.Brand style={{ color: 'black', fontWeight: '700', fontSize: '2rem' }}>App Name</Navbar.Brand>
+        {user ?
+          <>
+            <h4 className={styles.portalTitle}>{user.type == 'student' ? 'Student Portal' : 'Teacher Portal'}</h4>
+            <div style={{ display: 'flex', gap: '40px'}}>
+              <Link to='/profile'>
+                <Image src={user.imageUrl} roundedCircle style={{ width: '70px', height: '70px' }} />
+              </Link>
+              <Navbar.Toggle style={{ backgroundColor: 'white' }}/>
+            </div>
+          </>
+          :
+          <Navbar.Toggle className={styles.navToggle} />
+        }
         <Navbar.Offcanvas
           placement="end"
         >
@@ -47,39 +59,39 @@ export default function Header() {
             <Nav className="justify-content-end flex-grow-1 pe-3" style={{ gap: '24px' }}>
               {!user &&
                 <>
-                  <Nav.Link href='/auth/sign-up/student'>Student Sign Up</Nav.Link>
-                  <Nav.Link href='/auth/sign-up/teacher'>Teacher Sign Up</Nav.Link>
-                  <Nav.Link href='/auth/sign-in'>Log In</Nav.Link>
+                  <Link className={styles.authNavlink} to='/auth/sign-up/student'>Student Sign Up</Link>
+                  <Link className={styles.authNavlink} to='/auth/sign-up/teacher'>Teacher Sign Up</Link>
+                  <Link className={styles.authNavlink} to='/auth/sign-in'>Log In</Link>
                 </>
               }
               {user &&
                 <>
-                  <Nav.Link href='/profile'>Profile</Nav.Link>
+                  <Link className={styles.navLink} style={{ marginTop: '20px' }} to='/profile'>Profile</Link>
                   {user.type == 'student' &&
                     <>
-                      <Nav.Link href='/learning-materials'>Learning Materials</Nav.Link>
-                      <Nav.Link href='/find-teachers'>Find Teachers</Nav.Link>
+                      <Link className={styles.navLink} to='/learning-materials'>Learning Materials</Link>
+                      <Link className={styles.navLink} to='/find-teachers'>Find Teachers</Link>
                       {user.teacherId ? 
-                          <Nav.Link onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</Nav.Link>
+                          <a className={styles.navLink} onClick={handleGoToTeacherProfile} href='/my-students'>Go To Teacher Profile</a>
                           :
-                          <Nav.Link href='/add-account'>Create Teacher Profile</Nav.Link>
+                          <Link className={styles.navLink} to='/add-account'>Create Teacher Profile</Link>
                       }
                     </>
                   }
                   {user.type == 'teacher' &&
                     <>
-                      <Nav.Link href='/my-students'>My Students</Nav.Link>
-                      <Nav.Link href='/teaching-materials'>Teaching Materials</Nav.Link>
+                      <Link className={styles.navLink} to='/my-students'>My Students</Link>
+                      <Link className={styles.navLink} to='/teaching-materials'>Teaching Materials</Link>
                       {user.studentId ?
-                        <Nav.Link onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</Nav.Link>
+                        <a className={styles.navLink} onClick={handleGoToStudentProfile} href='/find-teachers'>Go To Student Profile</a>
                         :
-                        <Nav.Link onClick={handleCreateStudentProfile}>Create Student Profile</Nav.Link>
+                        <a className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</a>
                       }
                     </>
                   }
-                  <Nav.Link href='/inbox'>Inbox</Nav.Link>
+                  <Link className={styles.navLink} to='/inbox'>Inbox</Link>
                   <Link to='/auth/sign-in'>
-                    <Button onClick={handleSignOut}>Sign Out</Button>
+                    <Button className={styles.signOutButton} onClick={handleSignOut}>Sign Out</Button>
                   </Link>
                 </>
               }

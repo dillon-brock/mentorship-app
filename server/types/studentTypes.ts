@@ -9,6 +9,8 @@ export type StudentFromDatabase = {
   teachers?: Array<Teacher>
   connection_approved?: string;
   subject?: string;
+  connection_id?: string;
+  subject_id?: string;
 }
 
 export type NewStudentInfo = {

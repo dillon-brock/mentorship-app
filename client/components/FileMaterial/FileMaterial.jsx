@@ -31,8 +31,8 @@ export default function FileMaterial({ id, subjectId, url, name, setTeachingMate
   <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
-        <p onClick={handleClickEdit}>Edit</p>
-        <p onClick={handleClickDelete}>Delete</p>
+      <Button className={styles.popoverOption} onClick={handleClickEdit}>Edit</Button>
+        <Button className={styles.popoverOption} onClick={handleClickDelete}>Delete</Button>
       </Container>
     </Popover.Body>
   </Popover>

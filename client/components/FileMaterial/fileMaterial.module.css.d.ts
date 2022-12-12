@@ -6,6 +6,8 @@ interface CssExports {
   'image': string;
   'image-container': string;
   'imageContainer': string;
+  'popover-option': string;
+  'popoverOption': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

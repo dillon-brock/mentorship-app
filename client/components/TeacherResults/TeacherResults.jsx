@@ -1,6 +1,6 @@
 import TeacherResult from "../TeacherResult/TeacherResult";
 import styles from './teacherResults.module.css';
-import loaderStyles from '../../loader.module.css';
+import globalStyles from '../../global.module.css';
 import { useState } from "react";
 
 export default function TeacherResults({ teachers, loading }) {
@@ -17,7 +17,7 @@ export default function TeacherResults({ teachers, loading }) {
       {showLoader || loading ?
         <div className={styles.topLevel}>
           <div className={styles.loaderContainer}>
-            <div className={loaderStyles.loader} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
+            <div className={globalStyles.loader} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
           </div>
         </div>
         :

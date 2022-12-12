@@ -12,7 +12,6 @@ import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage'
 import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMaterialsPage';
 import { UserProvider } from './context/UserContext';
 import './app.css';
-import './global.css';
 
 const container = document.getElementById('app') || document.createElement('div')
 container.id = 'app'

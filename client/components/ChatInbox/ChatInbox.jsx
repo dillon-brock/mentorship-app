@@ -31,7 +31,7 @@ export default function ChatInbox() {
 
   return (
   <Fragment>
-    <div style={{height: '500px'}} className="inbox-container" ref={inboxEl}>Loading...</div>
+    <div style={{ height: '85%' }} className="inbox-container" ref={inboxEl}>Loading...</div>
   </Fragment>
   )
 }
