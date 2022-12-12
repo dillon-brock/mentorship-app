@@ -43,3 +43,25 @@
     transform: rotate(220deg);
   }
 }
+
+.cancel-button {
+  font-family: 'Poppins';
+  border: none;
+  background-color: white;
+  color: black;
+  padding: 10px 24px;
+  border-radius: 50px;
+}
+
+.cancel-button:focus {
+  border: none;
+  background-color: white;
+  color: black;
+}
+
+.cancel-button:hover {
+  border: none;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+}

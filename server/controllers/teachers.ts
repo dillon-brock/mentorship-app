@@ -4,6 +4,7 @@ import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import checkForUserStudentId from '../middleware/checkForUserStudentId.js';
 import Connection from '../models/Connection.js';
 import Student from '../models/Student.js';
+import StudentSubject from '../models/StudentSubject.js';
 import Subject from '../models/Subject.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
@@ -96,8 +97,12 @@ export default Router()
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
-        if (req.user) {
+        if (req.user.studentId) {
           const connection = await Connection.findByIds(req.params.id, req.user.studentId);
+          if (connection?.connectionApproved === 'approved') {
+            const { subjectId } = await StudentSubject.findByTeacherId(req.user.studentId, req.params.id);
+            connection.subjectId = subjectId;
+          }
           res.json({ teacher, connection });
         } else {
           res.json({ teacher, connection: null })

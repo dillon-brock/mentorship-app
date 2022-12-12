@@ -6,6 +6,7 @@ export default class Connection {
   studentId: string;
   teacherId: string;
   connectionApproved: string;
+  subjectId?: string;
 
   constructor(row: ConnectionFromDatabase) {
     this.id = row.id;
@@ -19,6 +20,17 @@ export default class Connection {
       `SELECT * FROM teachers_students
       WHERE teacher_id = $1 and student_id = $2`,
       [teacherId, studentId]
+    );
+
+    if (!rows[0]) return null;
+    return new Connection(rows[0]);
+  }
+
+  static async findById(id: string): Promise<Connection | null> {
+    const { rows } = await pool.query(
+      `SELECT * FROM teachers_students
+      WHERE id = $1`,
+      [id]
     );
 
     if (!rows[0]) return null;
@@ -42,6 +54,17 @@ export default class Connection {
       WHERE student_id = $2 AND teacher_id = $3
       RETURNING *`,
       [connectionStatus, studentId, teacherId]
+    );
+
+    return new Connection(rows[0]);
+  }
+
+  static async deleteById(id: string): Promise<Connection> {
+    const { rows } = await pool.query(
+      `DELETE FROM teachers_students
+      WHERE id = $1
+      RETURNING *`,
+      [id]
     );
 
     return new Connection(rows[0]);

@@ -50,7 +50,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
   return (
     <>
       <Button className={styles.button} onClick={handleShow}>
-        Leave Review
+        Review
       </Button>
       <Modal className={styles.modal} show={studentWantsToAddReview} onHide={handleClose}>
         <Modal.Header closeButton>
