@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: '18.x'
       - run: npm ci --dev
+      - run: npm ci
       - run: npm run lint
       - name: test
         run: |
