@@ -5,7 +5,7 @@ dotenv.config();
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: Boolean(process.env.PGSSLMODE) && { rejectUnauthorized: false },
+  ssl: !!process.env.PGSSLMODE && { rejectUnauthorized: false },
 });
 
 pool.on('connect', () => console.log('🐘 Postgres connected'));

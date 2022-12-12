@@ -3,6 +3,7 @@
     "chatbox",
     "cloudinary",
     "Nums",
+    "PGSSLMODE",
     "talkjs"
   ]
 }
