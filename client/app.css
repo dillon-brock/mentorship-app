@@ -3,7 +3,8 @@
   --apricot: #FCCFBA;
   --background-color: #EBE6DA;
   --dark-yellow: #DDA15E;
-  --warm-brown: #A3482E;
+  /* --warm-brown: #A3482E; */
+  --warm-brown: rgb(131, 10, 10);
   --header-background: #14281D;
 }
 
