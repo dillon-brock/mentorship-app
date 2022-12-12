@@ -3,12 +3,14 @@ import { Button, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
+import { deleteConnection } from "../../services/connection";
 import { checkForReviewMatch } from "../../utils";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
 import AuthRedirectModal from "../AuthRedirectModal/AuthRedirectModal";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import Header from "../Header/Header";
+import RemoveTeacherModal from "../RemoveTeacherModal/RemoveTeacherModal";
 import ReviewListModal from "../ReviewListModal/ReviewListModal";
 import StarRating from "../StarRating/StarRating";
 import SubjectList from "../SubjectList/SubjectList";
@@ -21,6 +23,7 @@ export default function TeacherDetailPage() {
   const { teacher, connection, setConnection, reviews, setReviews, avgRating, setAvgRating } = useTeacher(id);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [userNeedsToSignIn, setUserNeedsToSignIn] = useState(false);
+  const [userWantsToRemoveTeacher, setUserWantsToRemoveTeacher] = useState(false);
   let alreadyReviewed = false;
   if (user && user.studentId) {
     alreadyReviewed = checkForReviewMatch(user.studentId, id, reviews);
@@ -46,6 +49,16 @@ export default function TeacherDetailPage() {
 
   const handleCloseChatWindow = () => {
     setOpenChatWindow(false);
+  }
+
+  const handleRemoveTeacher = async () => {
+    await deleteConnection({ 
+      id: connection.id, 
+      subjectId: connection.subjectId, 
+      studentId: user.studentId
+    });
+    setConnection(null);
+    setUserWantsToRemoveTeacher(false);
   }
 
   return (
@@ -87,6 +100,14 @@ export default function TeacherDetailPage() {
                   setReviews={setReviews} 
                   reviews={reviews} 
                   setAvgRating={setAvgRating}
+                />
+              }
+              {connection && connection.connectionApproved === 'approved' &&
+                <RemoveTeacherModal
+                  userWantsToRemoveTeacher={userWantsToRemoveTeacher}
+                  setUserWantsToRemoveTeacher={setUserWantsToRemoveTeacher}
+                  firstName={teacher.firstName}
+                  handleRemoveTeacher={handleRemoveTeacher}
                 />
               }
             </div>

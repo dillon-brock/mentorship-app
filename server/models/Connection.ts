@@ -6,6 +6,7 @@ export default class Connection {
   studentId: string;
   teacherId: string;
   connectionApproved: string;
+  subjectId?: string;
 
   constructor(row: ConnectionFromDatabase) {
     this.id = row.id;
