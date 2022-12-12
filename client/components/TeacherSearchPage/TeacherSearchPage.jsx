@@ -7,7 +7,7 @@ import PagingButtons from "../PagingButtons/PagingButtons";
 import PagingSelect from "../PagingSelect/PagingSelect";
 import TeacherResults from "../TeacherResults/TeacherResults";
 import TeacherSearchForm from "../TeacherSearchForm/TeacherSearchForm";
-import styles from './TeacherSearchPage.module.css';
+import styles from './teacherSearchPage.module.css';
 
 export default function TeacherSearchPage() {
 
