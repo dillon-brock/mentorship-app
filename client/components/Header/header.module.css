@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=K2D:wght@800&display=swap');
+
 .header {
-  font-family: 'Poppins';
+  font-family: 'K2D';
   height: 90px;
   box-sizing: border-box;
   padding: 0px 30px;
