@@ -57,15 +57,15 @@ export default function TeacherSearchForm({ errorMessage, setErrorMessage, handl
             showPriceDropdown={showPriceDropdown}
           />
         </div>
-        {errorMessage && 
-          <Form.Text className="text-danger">{errorMessage}</Form.Text>
-        }
         <div className={styles.buttonContainer}>
           <Button className={styles.button} type="submit">
             SEARCH
           </Button>
         </div>
       </Form>
+      {errorMessage && 
+        <Form.Text className="text-danger">{errorMessage}</Form.Text>
+      }
     </div>
   )
 }

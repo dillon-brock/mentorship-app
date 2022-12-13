@@ -4,7 +4,14 @@ interface CssExports {
   'button-container': string;
   'buttonContainer': string;
   'container': string;
+  'currency': string;
   'input': string;
+  'price-input-container': string;
+  'price-inputs': string;
+  'price-label': string;
+  'priceInputContainer': string;
+  'priceInputs': string;
+  'priceLabel': string;
   'remove-button': string;
   'removeButton': string;
 }

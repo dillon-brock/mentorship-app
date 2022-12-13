@@ -76,6 +76,10 @@ export default function TeacherBioForm({
     }
   }
 
+  const handleEnterPhoneNumber = (e) => {
+    e.target.value = e.target.value.replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3");
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormInvalid()) return;
@@ -176,7 +180,13 @@ export default function TeacherBioForm({
           </Form.Group>
           <Form.Group className="mb-2" controlId="phoneNumber">
             <Form.Label>Phone Number</Form.Label>
-            <Form.Control className={styles.input} type="text" placeholder="(555)555-5555" name="phoneNumber"></Form.Control>
+            <Form.Control 
+              className={styles.input} 
+              type="text" 
+              placeholder="(555)555-5555" 
+              name="phoneNumber"
+              onChange={handleEnterPhoneNumber}
+            ></Form.Control>
           </Form.Group>
           <div className={styles.buttonContainer}>
             <Button className={styles.button} type="submit">Sign Up</Button>
