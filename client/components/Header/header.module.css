@@ -21,13 +21,14 @@
   box-sizing: border-box;
   color: black;
   padding: 8px;
+  font-weight: 600;
   text-decoration: none;
-  box-sizing: border-box;
+  font-family: 'Poppins';
 }
 
 .auth-navlink:hover {
   color: black;
-  font-weight: 600;
+  font-weight: 700;
   border-bottom: 3px solid var(--apricot);
 }
 

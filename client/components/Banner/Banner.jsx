@@ -1,6 +1,6 @@
 import { Image } from 'react-bootstrap';
 import styles from './banner.module.css';
-import bannerImage from './banner_image.png';
+import bannerImage from '../../assets/images/banner_image.png';
 
 export default function Banner() {
   return (

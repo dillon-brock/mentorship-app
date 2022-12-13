@@ -1,8 +1,8 @@
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import styles from './startLink.module.css';
-import teacherImage from './teacher_link.png';
-import studentImage from './student_link.png';
-import searchImage from './search_link.png';
+import teacherImage from '../../assets/images/teacher_link.png';
+import studentImage from '../../assets/images/student_link.png';
+import searchImage from '../../assets/images/search_link.png';
 
 export default function StartLink({ type }) {
   let description;
