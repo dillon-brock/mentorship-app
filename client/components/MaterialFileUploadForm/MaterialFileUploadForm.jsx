@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary";
 import { addTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './materialFileUploadForm.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function MaterialFileUploadForm({ setShowUploadModal, setTeachingMaterials, subjects }) {
 
@@ -79,7 +80,7 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
         }
       </Form.Group>
       <div className={styles.buttonContainer}>
-        <Button className={styles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
+        <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
         <Button className={styles.uploadButton} type="submit">Upload</Button>
       </div>
     </Form>

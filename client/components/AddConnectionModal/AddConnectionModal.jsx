@@ -5,6 +5,7 @@ import useSubjects from "../../hooks/useSubjects.js";
 import { createConnection } from "../../services/connection.js";
 import { addStudentSubject } from "../../services/student.js";
 import styles from './addConnectionModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function AddConnectionModal({id, firstName, lastName, setConnection, setUserNeedsToSignIn }) {
   const [studentWantsToConnect, setStudentWantsToConnect] = useState(false);
@@ -61,7 +62,7 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
           }
         </Modal.Body>
         <Modal.Footer>
-          <Button className={styles.cancelButton} onClick={handleClose}>
+          <Button className={globalStyles.cancelButton} onClick={handleClose}>
             Cancel
           </Button>
           <Button className={styles.sendButton} onClick={handleSendRequest}>

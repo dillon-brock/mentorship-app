@@ -3,8 +3,6 @@
 interface CssExports {
   'button-container': string;
   'buttonContainer': string;
-  'cancel-button': string;
-  'cancelButton': string;
   'form': string;
   'input': string;
   'upload-button': string;

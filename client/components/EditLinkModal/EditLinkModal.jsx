@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './editLinkModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
   const [nameFromInput, setNameFromInput] = useState(name);
@@ -65,7 +66,7 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
             </Form.Select>
           </Form.Group>
           <div className={styles.buttonContainer}>
-            <Button className={styles.cancelButton} onClick={() => setUserWantsToEditLink(false)}>Cancel</Button>
+            <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditLink(false)}>Cancel</Button>
             <Button className={styles.updateButton} type="submit">Update</Button>
           </div>
         </Form>

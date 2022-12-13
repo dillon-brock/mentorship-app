@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { addTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './materialLinkUploadForm.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials, setShowUploadModal }) {
 
@@ -54,7 +55,7 @@ export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials,
         }
       </Form.Group>
       <div className={styles.buttonContainer}>
-        <Button className={styles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
+        <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
         <Button className={styles.uploadButton} type="submit">Upload</Button>
       </div>
     </Form>

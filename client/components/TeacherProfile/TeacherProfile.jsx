@@ -6,8 +6,9 @@ import { updateAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
 import SubjectList from "../SubjectList/SubjectList";
-import styles from './teacherProfile.module.css';
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
+import styles from './teacherProfile.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -156,7 +157,7 @@ export default function TeacherProfile() {
                 onChange={(e) => setTeacher({ ...teacher, bio: e.target.value })} 
               />
               <div className={styles.buttonContainer}>
-                <Button className={styles.cancelButton} onClick={() => setUserWantsToEditProfile(false)}>Cancel</Button>
+                <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditProfile(false)}>Cancel</Button>
                 <Button className={styles.saveButton} type="submit">Save Changes</Button>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { deleteTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './deleteMaterialModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function DeleteMaterialModal({ userWantsToDelete, setUserWantsToDelete, id, setTeachingMaterials, materialType }) {
   const handleClose = () => setUserWantsToDelete(false);
@@ -17,7 +18,7 @@ export default function DeleteMaterialModal({ userWantsToDelete, setUserWantsToD
         <Modal.Header closeButton />
         <Modal.Body className={styles.modalContent}>Are you sure you want to delete this {materialType}?</Modal.Body>
         <Modal.Footer>
-          <Button className={styles.cancelButton} onClick={handleClose}>
+          <Button className={globalStyles.cancelButton} onClick={handleClose}>
             Cancel
           </Button>
           <Button className={styles.deleteButton} onClick={handleDelete}>

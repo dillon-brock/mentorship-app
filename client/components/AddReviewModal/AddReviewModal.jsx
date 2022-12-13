@@ -5,6 +5,7 @@ import { postReview } from "../../services/reviews";
 import { getAverageRating } from "../../utils";
 import StarRating from "../StarRating/StarRating";
 import styles from './addReviewModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }) {
 
@@ -71,7 +72,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
               label="Leave anonymously"
             />
             <div className={styles.buttonContainer}>
-              <Button className={styles.cancelButton} onClick={handleClose}>
+              <Button className={globalStyles.cancelButton} onClick={handleClose}>
                 Cancel
               </Button>
               <Button className={styles.reviewButton} type="submit">

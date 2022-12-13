@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import styles from './updateProfilePictureModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
@@ -44,7 +45,7 @@ export default function UpdateProfilePictureModal({
       </Modal.Body>
       <Modal.Footer>
         <div className={styles.buttonContainer}>
-          <Button className={styles.cancelButton} onClick={handleClose}>Cancel</Button>
+          <Button className={globalStyles.cancelButton} onClick={handleClose}>Cancel</Button>
           <Button className={styles.saveButton} onClick={() => handleSaveImage(imageUrl)}>Save</Button>
         </div>
       </Modal.Footer>

@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from './authRedirectModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function AuthRedirectModal({ userNeedsToSignIn, setUserNeedsToSignIn }) {
 
@@ -16,7 +17,7 @@ export default function AuthRedirectModal({ userNeedsToSignIn, setUserNeedsToSig
         </Modal.Body>
         <Modal.Footer>
           <div className={styles.buttonContainer}>
-            <Button className={styles.cancelButton} onClick={handleClose}>
+            <Button className={globalStyles.cancelButton} onClick={handleClose}>
               Cancel
             </Button>
             <Link to={`/auth/sign-in?callback=${pathname}`}>

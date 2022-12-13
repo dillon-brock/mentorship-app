@@ -3,6 +3,7 @@ import { Button, Form, Image, Modal } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './editFileModal.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditFile, id, subjectId, name, url, setTeachingMaterials, subjects }) {
 
@@ -98,7 +99,7 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
               }
             </Form.Group>
             <div className={styles.buttonContainer}>
-              <Button className={styles.cancelButton} onClick={() => setUserWantsToEditFile(false)}>Cancel</Button>
+              <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditFile(false)}>Cancel</Button>
               <Button className={styles.updateButton} type="submit">Update</Button>
             </div>
           </Form>
