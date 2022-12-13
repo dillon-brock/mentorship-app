@@ -4,6 +4,9 @@ interface CssExports {
   'banner': string;
   'banner-container': string;
   'bannerContainer': string;
+  'image': string;
+  'image-container': string;
+  'imageContainer': string;
   'subtitle': string;
   'title': string;
   'title-container': string;
