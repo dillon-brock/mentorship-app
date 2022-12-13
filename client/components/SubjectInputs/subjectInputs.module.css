@@ -4,6 +4,26 @@
   margin-top: 20px;
 }
 
+.price-inputs {
+  margin-bottom: 16px;
+}
+
+.price-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.price-label {
+  padding-left: 15px;
+}
+
+.currency {
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
 .input {
   border-radius: 0;
   border: 2px solid black;

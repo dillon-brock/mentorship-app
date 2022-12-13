@@ -45,17 +45,23 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, subjectN
         }
       </Form.Group>
 
-      <Row xs={2}>
+      <Row className={styles.priceInputs} xs={2}>
         <Form.Group className="mb-2" controlId="cost">
-          <Form.Label>Min Price</Form.Label>
-          <Form.Control className={styles.input} type="number" placeholder="0" name={`minPrice-${num}`} onChange={handleChangeMinPrice}/>
+          <Form.Label className={styles.priceLabel}>Min Price</Form.Label>
+          <div className={styles.priceInputContainer}>
+            <p className={styles.currency}>$</p>
+            <Form.Control className={styles.input} type="number" placeholder="0" name={`minPrice-${num}`} onChange={handleChangeMinPrice}/>
+          </div>
           {formErrors.minPrice && formErrors.minPrice.num == num &&
             <Form.Text className="text-danger">{formErrors.minPrice.message}</Form.Text>
           }
           </Form.Group>
           <Form.Group>
-            <Form.Label>Max Price</Form.Label>
-            <Form.Control className={styles.input} type="number" placeholder="0" name={`maxPrice-${num}`} onChange={handleChangeMaxPrice} />
+            <Form.Label className={styles.priceLabel}>Max Price</Form.Label>
+            <div className={styles.priceInputContainer}>
+              <p className={styles.currency}>$</p>
+              <Form.Control className={styles.input} type="number" placeholder="0" name={`maxPrice-${num}`} onChange={handleChangeMaxPrice} />
+            </div>
             {formErrors.maxPrice && formErrors.maxPrice.num == num &&
               <Form.Text className="text-danger">{formErrors.maxPrice.message}</Form.Text>
             }
