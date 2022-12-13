@@ -11,8 +11,7 @@
 
 .empty-subtitle {
   text-align: center;
-  margin-top: 110px;
-  margin-bottom: 110px;
+  margin: 110px 0;
   font-family: 'Poppins';
 }
 
@@ -24,7 +23,7 @@
 }
 
 .first-button, .upload-button {
-  padding: 10px 40px;
+  padding: 14px 40px;
   border-radius: 50px;
   background-color: black;
   font-size: 1.2rem;

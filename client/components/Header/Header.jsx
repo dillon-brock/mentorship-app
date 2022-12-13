@@ -39,11 +39,10 @@ export default function Header() {
     <Navbar className={styles.header} variant="light" expand={user ? false : 'xl'}>
       <Container fluid>
         <Link to='/' style={{ textDecoration: 'none' }}>
-          <Navbar.Brand style={{ color: 'black', fontWeight: '700', fontSize: '2.7rem' }}>SAGA</Navbar.Brand>
+          <Navbar.Brand style={{ color: 'black', fontWeight: '700', fontSize: '2rem', borderBottom: '2px solid black' }}>SAGA</Navbar.Brand>
         </Link>
         {user ?
           <>
-            <h4 className={styles.portalTitle}>{user.type == 'student' ? 'Student Portal' : 'Teacher Portal'}</h4>
             <div style={{ display: 'flex', gap: '40px'}}>
               <Link to='/profile'>
                 <Image src={user.imageUrl} roundedCircle style={{ width: '70px', height: '70px' }} />

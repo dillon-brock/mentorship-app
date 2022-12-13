@@ -1,13 +1,17 @@
+.container {
+  font-family: 'Poppins';
+}
+
 .title, .subtitle {
   text-align: center;
 }
 
 .title {
-  margin-top: 60px;
+  margin: 100px 0;
 }
 
 .subtitle {
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .button-container {
@@ -20,9 +24,10 @@
 }
 
 .button {
-  padding: 10px 40px;
+  padding: 14px 40px;
+  font-weight: 600;
   border-radius: 50px;
-  background-color: var(--dark-green);
+  background-color: black;
   font-size: 1.2rem;
   border: none;
 }
@@ -32,7 +37,7 @@
 }
 
 .button:focus {
-  background-color: var(--dark-green);
+  background-color: black;
   box-shadow: none;
 }
 

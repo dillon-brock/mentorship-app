@@ -20,10 +20,10 @@
 }
 
 .search-button {
-  padding: 10px 24px;
+  padding: 14px 24px;
   border-radius: 50px;
   font-family: 'Poppins';
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   background-color: black;
   color: white;
@@ -43,7 +43,7 @@
 }
 
 .empty-subtitle {
-  margin-top: 70px;
+  margin: 110px 0;
   text-align: center;
   font-family: 'Poppins'
 }

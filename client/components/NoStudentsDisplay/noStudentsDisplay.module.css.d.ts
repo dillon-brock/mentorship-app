@@ -4,6 +4,7 @@ interface CssExports {
   'button': string;
   'button-container': string;
   'buttonContainer': string;
+  'container': string;
   'subtitle': string;
   'title': string;
 }

@@ -1,7 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=K2D:wght@800&display=swap');
+@font-face {
+  font-family: 'TAN-Jambore';
+  src: url('../../assets/fonts/TAN-Jambore.eot'); /* IE9 Compat Modes */
+  src: url('../../assets/fonts/TAN-Jambore.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../assets/fonts/TAN-Jambore.woff') format('woff'), /* Modern Browsers */
+       url('../../assets/fonts/TAN-Jambore.ttf') format('truetype'); /* Safari, Android, iOS */
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
 
 .header {
-  font-family: 'K2D';
+  font-family: 'TAN-Jambore';
   height: 90px;
   box-sizing: border-box;
   padding: 0px 30px;
@@ -25,6 +35,7 @@
   margin-bottom: 0;
   font-weight: 600;
   display: inline-block;
+  font-family: 'Poppins';
 }
 
 .nav-toggle {
