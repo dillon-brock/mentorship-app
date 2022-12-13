@@ -2,7 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'container': string;
+  'currency': string;
   'input': string;
+  'input-container': string;
+  'inputContainer': string;
+  'label': string;
   'radius-display': string;
   'radiusDisplay': string;
 }
