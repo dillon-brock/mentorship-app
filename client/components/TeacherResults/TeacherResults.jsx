@@ -10,7 +10,7 @@ export default function TeacherResults({ teachers, loading }) {
   setTimeout(() => setShowLoader(false), 2000);
 
   if (!teachers.length)
-    return <p>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</p>
+    return 
 
   return (
     <>
@@ -21,11 +21,17 @@ export default function TeacherResults({ teachers, loading }) {
           </div>
         </div>
         :
-        <div className={styles.container}>
-          <div className={styles.list}>
-            {teachers.map(teacher => <TeacherResult key={teacher.id} {...teacher} />)}
-          </div>
-        </div>
+        <>
+          {teachers.length > 0 ?
+            <div className={styles.container}>
+              <div className={styles.list}>
+                {teachers.map(teacher => <TeacherResult key={teacher.id} {...teacher} />)}
+              </div>
+            </div>
+            :
+            <p>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</p>
+          }
+        </>
       }
     </>
   )

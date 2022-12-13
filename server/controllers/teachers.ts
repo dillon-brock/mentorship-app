@@ -97,7 +97,7 @@ export default Router()
     try {
       if (req.params.id) {
         const teacher = await Teacher.findById(req.params.id);
-        if (req.user.studentId) {
+        if (req.user && req.user.studentId) {
           const connection = await Connection.findByIds(req.params.id, req.user.studentId);
           if (connection?.connectionApproved === 'approved') {
             const { subjectId } = await StudentSubject.findByTeacherId(req.user.studentId, req.params.id);
