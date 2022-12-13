@@ -38,7 +38,9 @@ export default function Header() {
   return (
     <Navbar className={styles.header} variant="light" expand={user ? false : 'xl'}>
       <Container fluid>
-        <Navbar.Brand style={{ color: 'black', fontWeight: '700', fontSize: '2rem' }}>App Name</Navbar.Brand>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Navbar.Brand style={{ color: 'black', fontWeight: '700', fontSize: '2.7rem' }}>SAGA</Navbar.Brand>
+        </Link>
         {user ?
           <>
             <h4 className={styles.portalTitle}>{user.type == 'student' ? 'Student Portal' : 'Teacher Portal'}</h4>
