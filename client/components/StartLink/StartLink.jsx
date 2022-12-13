@@ -1,22 +1,29 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Image, Row } from 'react-bootstrap';
 import styles from './startLink.module.css';
+import teacherImage from './teacher_link.png';
+import studentImage from './student_link.png';
+import searchImage from './search_link.png';
 
 export default function StartLink({ type }) {
   let description;
+  let imageSrc;
   if (type === 'teach') {
     description = 'Create a public profile, upload teaching materials, and connect with students.'
+    imageSrc = teacherImage;
   }
   else if (type === 'learn') {
-    description = 'Create a student account to message instructors and view their learning materials'
+    description = 'Create a student account to message instructors and view their learning materials.'
+    imageSrc = studentImage;
   }
   else {
     description = 'Search for instructors and view their profiles. You will need to create an account to connect with them.'
+    imageSrc = searchImage;
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <p>Image</p>
+        <Image src={imageSrc} style={{ width: '100px', height: '100px' }} />
       </div>
       <div className={styles.content}>
         <div className={styles.titleContainer}>
