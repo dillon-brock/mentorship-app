@@ -16,6 +16,12 @@ declare global {
       CLOUDINARY_API_KEY: string;
       CLOUDINARY_API_SECRET: string;
       CLOUDINARY_PRESET_NAME: string;
+      GOOGLE_CLIENT_ID: string;
+      GOOGLE_CLIENT_SECRET: string;
+      LOGIN_REDIRECT_URI: string;
+      STUDENT_SIGNUP_REDIRECT_URI: string;
+      TEACHER_SIGNUP_REDIRECT_URI: string;
+      GOOGLE_SCOPE: string;
     }
   }
 }

@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-const exchangeCodeForToken = async (code: string) => {
+export const exchangeCodeForToken = async (code: string, redirect_uri: string) => {
   const client_id = process.env.GOOGLE_CLIENT_ID;
   const client_secret = process.env.GOOGLE_CLIENT_SECRET;
   const grant_type = 'authorization_code';
-  const redirect_uri = process.env.GGL_REDIRECT_URI;
 
   const response = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
@@ -25,12 +24,7 @@ const exchangeCodeForToken = async (code: string) => {
   return resp.id_token;
 };
 
-const getGoogleProfile = async (token: string) => {
+export const getGoogleProfile = async (token: string) => {
   const profile = jwt.decode(token);
   return profile;
-};
-
-module.exports = {
-  exchangeCodeForToken,
-  getGoogleProfile,
 };

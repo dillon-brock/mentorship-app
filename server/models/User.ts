@@ -4,7 +4,7 @@ import pool from "../database.js";
 export class User {
   id: string;
   email: string;
-  #passwordHash: string;
+  #passwordHash?: string;
   type: string | null;
   firstName?: string;
   lastName?: string;
@@ -15,8 +15,8 @@ export class User {
   constructor(row: UserFromDatabase) {
     this.id = row.id;
     this.email = row.email;
-    this.#passwordHash = row.password_hash;
     this.type = row.type;
+    if (row.password_hash) this.#passwordHash = row.password_hash;
     if (row.first_name) this.firstName = row.first_name;
     if (row.last_name) this.lastName = row.last_name;
     if (row.image_url) this.imageUrl = row.image_url;
@@ -37,6 +37,17 @@ export class User {
     return new User(rows[0]);
   }
 
+  static async createFromGoogle({ email }: { email: string }): Promise<User> {
+    const { rows } = await pool.query(
+      `INSERT INTO users (email)
+      VALUES ($1)
+      RETURNING *`,
+      [email]
+    );
+
+    return new User(rows[0]);
+  }
+
   static async getByEmail(email: string): Promise<User | null> {
     const { rows } = await pool.query(
       `SELECT * FROM users
@@ -47,7 +58,7 @@ export class User {
     return new User(rows[0]);
   }
 
-  get passwordHash(): string {
+  get passwordHash(): string | undefined {
     return this.#passwordHash;
   }
 
@@ -91,5 +102,9 @@ export class User {
 
     const { rows } = await pool.query(query, [this.id]);
     return new User(rows[0]);
+  }
+
+  toJSON() {
+    return { ...this };
   }
 }
