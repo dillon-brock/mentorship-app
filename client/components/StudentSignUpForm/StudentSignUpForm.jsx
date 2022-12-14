@@ -10,12 +10,14 @@ export default function StudentSignUpForm() {
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const passwordConfirmationRef = useRef();
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
+  const [showInvalidConfirmation, setShowInvalidConfirmation] = useState(false);
   const [imageData, setImageData] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const { setUser } = useUserContext();
-
+  
   const isFormInvalid = () => {
     let invalid = false;
 
@@ -37,7 +39,12 @@ export default function StudentSignUpForm() {
       return invalid;
     }
     if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
-      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
+      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters.'});
+      invalid = true;
+      return invalid;
+    }
+    if (passwordConfirmationRef.current.value !== passwordInputRef.current.value) {
+      setFormErrors({ ...formErrors, passwordConfirmation: 'Passwords do not match.'});
       invalid = true;
       return invalid;
     }
@@ -59,7 +66,16 @@ export default function StudentSignUpForm() {
 
   const handleChangeLastName = () => {
     if (formErrors.lastName) setFormErrors({ ...formErrors, lastName: ''});
-  } 
+  }
+
+  const handleChangePasswordConfirmation = () => {
+    if (passwordConfirmationRef.current.value === passwordInputRef.current.value) {
+      setShowInvalidConfirmation(false);
+    } else {
+      setShowInvalidConfirmation(true);
+      setFormErrors({ ...formErrors, passwordConfirmation: '' });
+    }
+  }
 
   const handleChangeImage = async (e) => {
     const file = e.target.files[0];
@@ -132,6 +148,23 @@ export default function StudentSignUpForm() {
           <div>
             <Form.Text className="text-danger">{formErrors.password}</Form.Text>
           </div>
+          }
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="passwordCheck">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control 
+            className={styles.input} 
+            type="password" 
+            placeholder="******" 
+            name="password-confirmation" 
+            ref={passwordConfirmationRef} 
+            isInvalid={showInvalidConfirmation}
+            onChange={handleChangePasswordConfirmation}
+            onFocus={() => setShowInvalidConfirmation(true)}
+          />
+          {formErrors.passwordConfirmation &&
+            <Form.Text className="text-danger">{formErrors.passwordConfirmation}</Form.Text>
           }
         </Form.Group>
 
