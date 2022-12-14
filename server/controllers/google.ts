@@ -2,6 +2,7 @@ import { Router, type Response, type Request, type NextFunction} from 'express';
 import { User } from '../models/User';
 import { exchangeCodeForToken, getGoogleProfile } from '../services/googleService';
 import jwt from 'jsonwebtoken';
+import Student from '../models/Student.js';
 const ONE_DAY_IN_MS = 1000 * 24 * 60 * 60
 
 export default Router()
@@ -20,16 +21,25 @@ export default Router()
         if (!user) {
           user = await User.createFromGoogle({
             email: googleProfile.email,
+            type: 'student'
           });
+
+          await Student.create({ 
+            userId: user.id,
+            firstName: googleProfile.given_name,
+            lastName: googleProfile.family_name,
+            imageUrl: googleProfile.picture
+          })
         }
         
-        const payload = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+        const payload = jwt.sign({ ...user }, process.env.JWT_SECRET, {
           expiresIn: '1 day',
         });
         
-        res
-        .cookie(process.env.COOKIE_NAME, payload, {
+        res.cookie(process.env.COOKIE_NAME, payload, {
           httpOnly: true,
+          secure: process.env.SECURE_COOKIES === 'true',
+          sameSite: process.env.SECURE_COOKIES === 'true' ? 'none' : 'strict',
           maxAge: ONE_DAY_IN_MS,
         })
       }

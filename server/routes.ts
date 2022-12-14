@@ -6,6 +6,7 @@ import connectionRouter from './controllers/connections.js';
 import reviewRouter from './controllers/reviews.js';
 import subjectRouter from './controllers/subjects.js';
 import teachingMaterialsRouter from './controllers/teachingMaterials.js';
+import googleRouter from './controllers/google.js';
 
 const app = express();
 
@@ -18,5 +19,6 @@ export default (): Router => {
   prefixRouter.use('/reviews', reviewRouter);
   prefixRouter.use('/subjects', subjectRouter);
   prefixRouter.use('/teaching-materials', teachingMaterialsRouter);
+  prefixRouter.use('/google', googleRouter);
   return prefixRouter;
 }

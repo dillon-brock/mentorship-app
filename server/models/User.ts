@@ -37,12 +37,12 @@ export class User {
     return new User(rows[0]);
   }
 
-  static async createFromGoogle({ email }: { email: string }): Promise<User> {
+  static async createFromGoogle({ email, type }: { email: string, type: string }): Promise<User> {
     const { rows } = await pool.query(
-      `INSERT INTO users (email)
-      VALUES ($1)
+      `INSERT INTO users (email, type)
+      VALUES ($1, $2)
       RETURNING *`,
-      [email]
+      [email, type]
     );
 
     return new User(rows[0]);
@@ -102,9 +102,5 @@ export class User {
 
     const { rows } = await pool.query(query, [this.id]);
     return new User(rows[0]);
-  }
-
-  toJSON() {
-    return { ...this };
   }
 }

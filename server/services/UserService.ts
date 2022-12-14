@@ -32,7 +32,7 @@ export class UserService {
       const user: User | null = await User.getByEmail(email);
 
       if (!user) throw new Error('Invalid email');
-      if (!bcrypt.compareSync(password, user.passwordHash))
+      if (!bcrypt.compareSync(password, user.passwordHash as string))
         throw new Error('Invalid password');
 
       const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {
