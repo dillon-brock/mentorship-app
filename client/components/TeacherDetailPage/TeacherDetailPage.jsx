@@ -86,7 +86,7 @@ export default function TeacherDetailPage() {
             }
             <div className={styles.buttonContainer}>
               <Button className={styles.button} onClick={handleUserWantsToSendMessage}>Message</Button>
-              {!connection && 
+              {!connection && !(user && user.type === 'teacher') && 
                 <AddConnectionModal 
                   {...teacher} 
                   connection={connection} 
