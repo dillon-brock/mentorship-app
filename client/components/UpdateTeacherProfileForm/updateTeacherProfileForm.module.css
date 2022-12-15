@@ -1,0 +1,74 @@
+.form {
+  font-family: 'Poppins';
+  width: 520px;
+  margin-bottom: 100px;
+}
+
+.input {
+  border-radius: 0;
+  border: 2px solid black;
+  width: 500px;
+}
+
+.form-city {
+  margin: 8px 0px 0px 0px;
+}
+
+.label {
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: flex-start;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+.form-info-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 50px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.save-button, .cancel-button {
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.save-button, .save-button:focus {
+  background-color: white;
+  border: 2px solid var(--dark-green);
+  color: 2px solid var(--dark-green);
+}
+
+.save-button:hover {
+  background-color: var(--dark-green);
+  border: 2px solid var(--dark-green);
+  color: white;
+}
+
+.cancel-button, .cancel-button:focus {
+  background-color: white;
+  border: 2px solid gray;
+  color: gray;
+}
+
+.cancel-button:hover {
+  background-color: gray;
+  border: 2px solid gray;
+  color: white;
+}
