@@ -6,7 +6,11 @@ interface CssExports {
   'buttonContainer': string;
   'container': string;
   'form': string;
+  'image': string;
+  'image-container': string;
+  'imageContainer': string;
   'input': string;
+  'label': string;
   'step-display': string;
   'stepDisplay': string;
   'title': string;

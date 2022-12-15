@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Image } from "react-bootstrap";
 import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import { addTeacherAccount } from "../../services/teacher";
@@ -24,6 +24,7 @@ export default function TeacherBioForm({
   const [imageData, setImageData] = useState(null);
   const [cityName, setCityName] = useState('');
   const [stateName, setStateName] = useState('');
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [formErrors, setFormErrors] = useState({});
 
   const isFormInvalid = () => {
@@ -50,6 +51,7 @@ export default function TeacherBioForm({
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
+    setImagePreviewUrl(URL.createObjectURL(file));
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
@@ -145,13 +147,17 @@ export default function TeacherBioForm({
         <Form className={styles.form} onSubmit={handleSubmit}>
           {newUser &&
             <Form.Group className="mb-2" controlId="image">
-              <Form.Label>Profile Picture</Form.Label>
+              <Form.Label className={styles.label}>Profile Picture</Form.Label>
               <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
             </Form.Group>
           }
-          
+          {imagePreviewUrl &&
+            <div className={styles.imageContainer}>
+              <Image src={imagePreviewUrl} className={styles.image} />
+            </div>
+          }
           <Form.Group className="mb-2" controlId="bio">
-            <Form.Label>Bio</Form.Label>
+            <Form.Label className={styles.label}>Bio</Form.Label>
             <Form.Control className={styles.input} as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio" ref={bioInputRef} onChange={handleChangeBio}></Form.Control>
             {formErrors.bio &&
               <Form.Text className="text-danger">{formErrors.bio}</Form.Text>
@@ -159,7 +165,7 @@ export default function TeacherBioForm({
           </Form.Group>
           
           <Form.Group className="mb-1" controlId="zipCode">
-            <Form.Label>Zip Code</Form.Label>
+            <Form.Label className={styles.label}>Zip Code</Form.Label>
             <Form.Control className={styles.input} type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
             {formErrors.zipCode &&
               <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
@@ -175,11 +181,11 @@ export default function TeacherBioForm({
           }
           <Form.Text>Fields below are optional, and the information will be displayed on your public profile.</Form.Text>
           <Form.Group className="mb-2" controlId="contactEmail">
-            <Form.Label>Contact Email</Form.Label>
+            <Form.Label className={styles.label}>Contact Email</Form.Label>
             <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
           </Form.Group>
           <Form.Group className="mb-2" controlId="phoneNumber">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label className={styles.label}>Phone Number</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="text" 
