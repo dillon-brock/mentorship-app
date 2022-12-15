@@ -9,9 +9,6 @@ export default function TeacherResults({ teachers, loading }) {
 
   setTimeout(() => setShowLoader(false), 2000);
 
-  if (!teachers.length)
-    return 
-
   return (
     <>
       {showLoader || loading ?
@@ -31,7 +28,9 @@ export default function TeacherResults({ teachers, loading }) {
               </div>
             </div>
             :
-            <p>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</p>
+            <div>
+              <h4 className={styles.noResultsMessage}>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</h4>
+            </div>
           }
         </>
       }

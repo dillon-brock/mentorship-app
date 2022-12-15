@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styles from './pagingButtons.module.css';
 
-export default function PagingButtons({ page, setPage, totalPages, loading }) {
+export default function PagingButtons({ page, setPage, totalPages, loading, teachers }) {
   
   const [showLoader, setShowLoader] = useState(true);
 
@@ -27,13 +27,13 @@ export default function PagingButtons({ page, setPage, totalPages, loading }) {
       <div className={styles.buttonContainer}>
         <Button 
           className={styles.button} 
-          disabled={page == 1 || loading || showLoader} 
+          disabled={page == 1 || loading || showLoader || !teachers.length} 
           onClick={handlePreviousPage}>
           Prev
         </Button>
         <Button 
           className={styles.button} 
-          disabled={page == totalPages || loading || showLoader} 
+          disabled={page == totalPages || loading || showLoader || !teachers.length} 
           onClick={handleNextPage}>
           Next
         </Button>

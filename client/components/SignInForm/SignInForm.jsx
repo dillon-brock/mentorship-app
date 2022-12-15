@@ -4,6 +4,7 @@ import { useUserContext } from "../../context/UserContext";
 import { getUser, signIn } from "../../services/auth";
 
 import styles from './signInForm.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function SignInForm() {
 
@@ -67,7 +68,7 @@ export default function SignInForm() {
       <h3 className={styles.title}>Sign In</h3>
       <Form className={styles.form} onSubmit={handleSignIn}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label className={globalStyles.authFormLabel}>Email address</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="email" 
@@ -82,7 +83,7 @@ export default function SignInForm() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className={globalStyles.authFormLabel}>Password</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="password" 

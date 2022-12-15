@@ -5,6 +5,8 @@ interface CssExports {
   'buttonContainer': string;
   'cancel-button': string;
   'cancelButton': string;
+  'edit-title': string;
+  'editTitle': string;
   'form': string;
   'form-city': string;
   'form-content': string;

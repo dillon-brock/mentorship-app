@@ -65,6 +65,7 @@ export default function TeacherSearchPage() {
         setPage={setPage}
         totalPages={totalPages}
         loading={loading}
+        teachers={teachers}
       />
       <NewStudentAccountModal 
         newStudentAccount={newStudentAccount} 

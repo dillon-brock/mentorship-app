@@ -14,6 +14,8 @@ interface CssExports {
   'priceLabel': string;
   'remove-button': string;
   'removeButton': string;
+  'subject-title': string;
+  'subjectTitle': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

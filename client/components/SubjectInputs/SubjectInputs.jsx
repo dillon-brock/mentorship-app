@@ -1,6 +1,7 @@
 import { Button, Form, Row } from "react-bootstrap";
 
 import styles from './subjectInputs.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function SubjectInputs({ num, formErrors, setFormErrors, subjectNums, setSubjectNums }) {
 
@@ -36,9 +37,9 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, subjectN
 
   return (
     <div className={styles.container}>
-      <h4>Subject {displayNum}</h4>
+      <h4 className={styles.subjectTitle}>Subject {displayNum}</h4>
       <Form.Group className="mb-2" controlId="subject">
-        <Form.Label>Subject</Form.Label>
+        <Form.Label className={globalStyles.authFormLabel}>Subject</Form.Label>
         <Form.Control 
           className={styles.input} 
           type="text" 

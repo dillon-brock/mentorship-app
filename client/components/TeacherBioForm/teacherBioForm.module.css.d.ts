@@ -4,13 +4,14 @@ interface CssExports {
   'button': string;
   'button-container': string;
   'buttonContainer': string;
+  'city-display': string;
+  'cityDisplay': string;
   'container': string;
   'form': string;
   'image': string;
   'image-container': string;
   'imageContainer': string;
   'input': string;
-  'label': string;
   'step-display': string;
   'stepDisplay': string;
   'title': string;

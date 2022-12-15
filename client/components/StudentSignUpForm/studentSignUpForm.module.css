@@ -1,5 +1,5 @@
 .container {
-  margin-top: 100px;
+  margin-top: 70px;
   font-family: 'Poppins';
 }
 
@@ -48,4 +48,15 @@
 .button:focus {
   background-color: var(--dark-green);
   box-shadow: none;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+.image {
+  width: 180px;
+  height: 180px;
 }
