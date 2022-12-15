@@ -99,6 +99,10 @@ export default function UpdateTeacherProfileForm({
       setFormErrors({ ...formErrors, email: '' });
   }
 
+  const handleChangePhoneNumber = (e) => {
+    e.target.value = e.target.value.replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3");
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormInvalid() || formErrors.zipCode) return;
@@ -205,7 +209,8 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             type="text" 
             name="phoneNumber"
-            defaultValue={teacher.phoneNumber} 
+            defaultValue={teacher.phoneNumber}
+            onChange={handleChangePhoneNumber}
           />
           <Form.Label className={styles.label}>Contact Email</Form.Label>
           <Form.Control 
