@@ -4,7 +4,6 @@ import SubjectTab from "../SubjectTab/SubjectTab";
 import styles from './subjectList.module.css';
 
 export default function SubjectList({ subjects, setTeacher, displayOnly }) {
-  console.log(subjects);
   return (
     <>
       <h4 className={styles.title}>Subjects</h4>

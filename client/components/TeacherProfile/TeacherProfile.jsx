@@ -26,23 +26,6 @@ export default function TeacherProfile() {
   const [userWantsToEditImage, setUserWantsToEditImage] = useState(false);
   const [showImageEditButton, setShowImageEditButton] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await updateAccount({ ...teacher })
-    setUserWantsToEditProfile(false);
-  }
-
-  const handleChangeZipCode = async (e) => {
-    if (Number(e.target.value) && e.target.value.length === 5) {
-      const { city, state } = await getCityFromZipCode(e.target.value);
-      if (city && state) {
-        setCityName(city);
-        setStateName(state);
-        setTeacher({ ...teacher, zipCode, city, state })
-      }
-    }
-  }
-
   const handleSaveImage = async (url) => {
     setTeacher({ ...teacher, imageUrl: url });
     await updateAccount({ ...teacher, imageUrl: url });
@@ -99,9 +82,9 @@ export default function TeacherProfile() {
         zipCode={zipCode}
         setZipCode={setZipCode}
         cityName={cityName}
+        setCityName={setCityName}
         stateName={stateName}
-        handleChangeZipCode={handleChangeZipCode}
-        handleSubmit={handleSubmit}
+        setStateName={setStateName}
       />
     }
     {teacher.subjects &&
