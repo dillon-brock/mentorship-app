@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from 'react-icons/fa';
 import useStudentProfile from "../../hooks/useStudentProfile"
+import { uploadProfilePicture } from "../../services/cloudinary";
 import { updateAccount } from "../../services/student";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './studentProfile.module.css';
@@ -18,9 +19,13 @@ export default function StudentProfile() {
     setUserWantsToEditProfile(false);
   }
 
-  const handleSaveImage = async (url) => {
-    setStudent({ ...student, imageUrl: url });
-    await updateAccount({ ...student, imageUrl: url });
+  const handleSaveImage = async (imageData) => {
+    if (imageData) {
+      const cloudinaryResponse = await uploadProfilePicture(imageData);
+      const imageUrl = cloudinaryResponse.secure_url;
+      setStudent({ ...student, imageUrl });
+      await updateAccount({ ...student, imageUrl });
+    }
     setUserWantsToEditImage(false);
   }
 
@@ -63,7 +68,6 @@ export default function StudentProfile() {
     <UpdateProfilePictureModal 
       userWantsToEditImage={userWantsToEditImage}
       setUserWantsToEditImage={setUserWantsToEditImage}
-      originalImageUrl={student.imageUrl}
       handleSaveImage={handleSaveImage}
     />
     </div>

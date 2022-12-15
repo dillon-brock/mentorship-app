@@ -27,10 +27,9 @@ export default function TeacherProfile() {
   const [showImageEditButton, setShowImageEditButton] = useState(false);
 
   const handleSaveImage = async (imageData) => {
-    let imageUrl = teacher.imageUrl;
     if (imageData) {
       const cloudinaryResponse = await uploadProfilePicture(imageData);
-      imageUrl = cloudinaryResponse.secure_url
+      const imageUrl = cloudinaryResponse.secure_url
       setTeacher({ ...teacher, imageUrl});
       await updateAccount({ ...teacher, imageUrl });
     }
