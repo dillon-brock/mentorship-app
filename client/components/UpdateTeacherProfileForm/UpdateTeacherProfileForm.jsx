@@ -21,19 +21,19 @@ export default function UpdateTeacherProfileForm({
   setStateName,
 }) {
 
-  console.log(teacher);
-
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
   const zipCodeInputRef = useRef();
   const emailInputRef = useRef();
+  const [zipCodeChecked, setZipCodeChecked] = useState(false);
+  const [showCity, setShowCity] = useState(true);
   const [formErrors, setFormErrors] = useState({});
 
   const isFormInvalid = () => {
     let invalid = false;
     let errors = {};
     if (firstNameInputRef.current.value === '') {
-      errors = { firstName: 'First name is required.' }
+      errors = { ...errors, firstName: 'First name is required.' }
       invalid = true;
     }
     if (lastNameInputRef.current.value === '') {
@@ -48,26 +48,83 @@ export default function UpdateTeacherProfileForm({
       errors = { ...errors, email: 'Email is invalid.' }
       invalid = true;
     }
-    setFormErrors(errors);
+    setFormErrors(prev => ({ ...prev, ...errors }));
     return invalid;
   }
 
   const handleEnterZipCode = async (e) => {
-    if (Number(e.target.value) && e.target.value.length === 5) {
-      const { city, state } = await getCityFromZipCode(e.target.value);
-      if (city && state) {
-        setCityName(city);
-        setStateName(state);
+    if (e.target.value.length === 5) {
+      const zipCodeResponse = await getCityFromZipCode(e.target.value);
+      if (zipCodeResponse.city && zipCodeResponse.state) {
+        setCityName(zipCodeResponse.city);
+        setStateName(zipCodeResponse.state);
+        setZipCodeChecked(true);
+        setShowCity(true);
+      }
+      else if (zipCodeResponse.error_msg) {
+        setFormErrors({ ...formErrors, zipCode: 'Please enter a valid zip code.' });
+        setZipCodeChecked(true);
+        setShowCity(false);
       }
     }
+    else if (e.target.value !== '') {
+      setFormErrors({
+        ...formErrors, 
+        zipCode: 'Please enter a valid zip code.' 
+      });
+      setShowCity(false);
+    }
+  }
+
+  const handleChangeFirstName = () => {
+    if (formErrors.firstName) 
+      setFormErrors({ ...formErrors, firstName: '' });
+  }
+
+  const handleChangeLastName = () => {
+    if (formErrors.lastName)
+      setFormErrors({ ...formErrors, lastName: '' });
+  }
+
+  const handleChangeZipCode = (e) => {
+    setZipCode(e.target.value);
+    if (formErrors.zipCode)
+      setFormErrors({ ...formErrors, zipCode: '' });
+    if (zipCodeChecked)
+      setZipCodeChecked(false);
+  }
+
+  const handleChangeEmail = () => {
+    if (formErrors.email)
+      setFormErrors({ ...formErrors, email: '' });
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isFormInvalid()) return;
+    if (isFormInvalid() || formErrors.zipCode) return;
+    let city = cityName;
+    let state = stateName;
     const formData = new FormData(e.target);
+    if (!zipCodeChecked) {
+      if (formData.get('zipCode')) {
+        const zipCodeResponse = await getCityFromZipCode(formData.get('zipCode'));
+        if (zipCodeResponse.city && zipCodeResponse.state) {
+          setCityName(zipCodeResponse.city);
+          setStateName(zipCodeResponse.state);
+          city = zipCodeResponse.city;
+          state = zipCodeResponse.state;
+          setShowCity(true);
+        }
+        else if (zipCodeResponse.error_msg) {
+          setFormErrors({ ...formErrors, zipCode: 'Please enter a valid zip code.' });
+          setShowCity(false);
+          return;
+        }
+      }
+    }
     const formDataObj = Object.fromEntries(formData);
-    const updateData = { ...formDataObj, city: cityName, state: stateName}
+    const updateData = { ...formDataObj, city, state}
+    console.log(updateData);
     await updateAccount({ 
       ...updateData,
       imageUrl: teacher.imageUrl
@@ -104,6 +161,7 @@ export default function UpdateTeacherProfileForm({
             ref={firstNameInputRef}
             name="firstName"
             defaultValue={teacher.firstName}
+            onChange={handleChangeFirstName}
           />
           {formErrors.firstName &&
           <div>
@@ -117,6 +175,7 @@ export default function UpdateTeacherProfileForm({
             ref={lastNameInputRef}
             name="lastName"
             defaultValue={teacher.lastName}
+            onChange={handleChangeLastName}
           />
           {formErrors.lastName &&
           <div>
@@ -129,8 +188,8 @@ export default function UpdateTeacherProfileForm({
             type="number" 
             ref={zipCodeInputRef}
             name="zipCode"
-            value={zipCode} 
-            onChange={(e) => setZipCode(e.target.value)} 
+            defaultValue={zipCode} 
+            onChange={handleChangeZipCode} 
             onBlur={handleEnterZipCode}
           />
           {formErrors.zipCode &&
@@ -138,7 +197,9 @@ export default function UpdateTeacherProfileForm({
             <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
           </div>
           }
-          <p className={styles.formCity}>{cityName}, {stateName}</p>
+          {showCity &&
+            <p className={styles.formCity}>{cityName}, {stateName}</p>
+          }
           <Form.Label className={styles.label}>Phone Number</Form.Label>
           <Form.Control 
             className={styles.input} 
@@ -148,11 +209,12 @@ export default function UpdateTeacherProfileForm({
           />
           <Form.Label className={styles.label}>Contact Email</Form.Label>
           <Form.Control 
-            type="contactEmail" 
+            type="email" 
             className={styles.input} 
             ref={emailInputRef}
-            name="email"
-            defaultValue={teacher.contactEmail} 
+            name="contactEmail"
+            defaultValue={teacher.contactEmail}
+            onChange={handleChangeEmail}
           />
           {formErrors.email &&
           <div>
