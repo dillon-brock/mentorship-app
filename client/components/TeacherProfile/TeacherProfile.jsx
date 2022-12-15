@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Button, Form, Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext"
 import { FaEdit } from 'react-icons/fa';
 import { updateAccount } from "../../services/teacher";
-import { getCityFromZipCode } from "../../services/zipcode";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
 import SubjectList from "../SubjectList/SubjectList";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './teacherProfile.module.css';
 import UpdateTeacherProfileForm from "../UpdateTeacherProfileForm/UpdateTeacherProfileForm";
+import { uploadProfilePicture } from "../../services/cloudinary";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -26,11 +26,18 @@ export default function TeacherProfile() {
   const [userWantsToEditImage, setUserWantsToEditImage] = useState(false);
   const [showImageEditButton, setShowImageEditButton] = useState(false);
 
-  const handleSaveImage = async (url) => {
-    setTeacher({ ...teacher, imageUrl: url });
-    await updateAccount({ ...teacher, imageUrl: url });
+  const handleSaveImage = async (imageData) => {
+    let imageUrl = teacher.imageUrl;
+    if (imageData) {
+      const cloudinaryResponse = await uploadProfilePicture(imageData);
+      imageUrl = cloudinaryResponse.secure_url
+      setTeacher({ ...teacher, imageUrl});
+      await updateAccount({ ...teacher, imageUrl });
+    }
     setUserWantsToEditImage(false);
   }
+
+  console.log(teacher.imageUrl);
 
   return (
     <div className={styles.pageContainer}>
@@ -96,7 +103,6 @@ export default function TeacherProfile() {
     <UpdateProfilePictureModal
       userWantsToEditImage={userWantsToEditImage}
       setUserWantsToEditImage={setUserWantsToEditImage}
-      originalImageUrl={teacher.imageUrl}
       handleSaveImage={handleSaveImage}
     />
     </div>

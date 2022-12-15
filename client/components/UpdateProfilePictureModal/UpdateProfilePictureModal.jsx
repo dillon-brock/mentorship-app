@@ -1,30 +1,26 @@
 import { useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
-import { uploadProfilePicture } from "../../services/cloudinary";
 import styles from './updateProfilePictureModal.module.css';
 import globalStyles from '../../global.module.css';
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
   setUserWantsToEditImage,
-  originalImageUrl,
   handleSaveImage
 }) {
 
-  const [loadingPreview, setLoadingPreview] = useState(false);
-  const [imageUrl, setImageUrl] = useState(originalImageUrl);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const [imageData, setImageData] = useState(null);
 
   const handleClose = () => setUserWantsToEditImage(false);
 
   const handleChangeImage = async (e) => {
-    setLoadingPreview(true);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    const cloudinaryResponse = await uploadProfilePicture(formData);
-    setImageUrl(cloudinaryResponse.secure_url);
-    setLoadingPreview(false);
+    setImageData(formData);
+    setImagePreviewUrl(URL.createObjectURL(file));
   }
 
   return (
@@ -34,19 +30,16 @@ export default function UpdateProfilePictureModal({
       </Modal.Header>
       <Modal.Body>
         <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
-        {imageUrl && !loadingPreview &&
-          <div>
-            <h6 className={styles.previewTitle}>Preview:</h6>
-            <div className={styles.imageContainer}>
-              <Image className={styles.image} src={imageUrl} />
-            </div>
+        {imagePreviewUrl &&
+          <div className={styles.imageContainer}>
+            <Image className={styles.image} src={imagePreviewUrl} />
           </div>
         }
       </Modal.Body>
       <Modal.Footer>
         <div className={styles.buttonContainer}>
           <Button className={globalStyles.cancelButton} onClick={handleClose}>Cancel</Button>
-          <Button className={styles.saveButton} onClick={() => handleSaveImage(imageUrl)}>Save</Button>
+          <Button className={styles.saveButton} onClick={() => handleSaveImage(imageData)}>Save</Button>
         </div>
       </Modal.Footer>
     </Modal>
