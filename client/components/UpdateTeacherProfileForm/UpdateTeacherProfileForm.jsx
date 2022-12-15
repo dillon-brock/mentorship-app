@@ -12,6 +12,7 @@ export default function UpdateTeacherProfileForm({
   showImageEditButton, 
   setShowImageEditButton, 
   setUserWantsToEditProfile,
+  setUserWantsToEditImage,
   zipCode,
   setZipCode,
   cityName,
@@ -20,13 +21,13 @@ export default function UpdateTeacherProfileForm({
   setStateName,
 }) {
 
+  console.log(teacher);
+
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
   const zipCodeInputRef = useRef();
   const emailInputRef = useRef();
-  const [zipCodeChecked, setZipCodeChecked] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  console.log(formErrors);
 
   const isFormInvalid = () => {
     let invalid = false;
@@ -39,7 +40,7 @@ export default function UpdateTeacherProfileForm({
       errors = { ...errors, lastName: 'Last name is required.' }
       invalid = true;
     }
-    if (zipCodeInputRef.current.value === '') {
+    if (zipCode === '') {
       errors = { ...errors, zipCode: 'Zip code is required.' }
       invalid = true;
     }
@@ -47,7 +48,6 @@ export default function UpdateTeacherProfileForm({
       errors = { ...errors, email: 'Email is invalid.' }
       invalid = true;
     }
-    console.log(errors);
     setFormErrors(errors);
     return invalid;
   }
@@ -58,7 +58,6 @@ export default function UpdateTeacherProfileForm({
       if (city && state) {
         setCityName(city);
         setStateName(state);
-        setTeacher({ ...teacher, zipCode, city, state })
       }
     }
   }
@@ -66,7 +65,14 @@ export default function UpdateTeacherProfileForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormInvalid()) return;
-    await updateAccount({ ...teacher })
+    const formData = new FormData(e.target);
+    const formDataObj = Object.fromEntries(formData);
+    const updateData = { ...formDataObj, city: cityName, state: stateName}
+    await updateAccount({ 
+      ...updateData,
+      imageUrl: teacher.imageUrl
+    });
+    setTeacher({ ...teacher, ...updateData })
     setUserWantsToEditProfile(false);
   }
 
@@ -96,8 +102,8 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             type="text"
             ref={firstNameInputRef}
-            value={teacher.firstName} 
-            onChange={(e) => setTeacher({ ...teacher, firstName: e.target.value })}
+            name="firstName"
+            defaultValue={teacher.firstName}
           />
           {formErrors.firstName &&
           <div>
@@ -109,8 +115,8 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             type="text" 
             ref={lastNameInputRef}
-            value={teacher.lastName} 
-            onChange={(e) => setTeacher({ ...teacher, lastName: e.target.value })} 
+            name="lastName"
+            defaultValue={teacher.lastName}
           />
           {formErrors.lastName &&
           <div>
@@ -122,6 +128,7 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             type="number" 
             ref={zipCodeInputRef}
+            name="zipCode"
             value={zipCode} 
             onChange={(e) => setZipCode(e.target.value)} 
             onBlur={handleEnterZipCode}
@@ -136,16 +143,16 @@ export default function UpdateTeacherProfileForm({
           <Form.Control 
             className={styles.input} 
             type="text" 
-            value={teacher.phoneNumber} 
-            onChange={(e) => setTeacher({ ...teacher, phoneNumber: e.target.value })} 
+            name="phoneNumber"
+            defaultValue={teacher.phoneNumber} 
           />
           <Form.Label className={styles.label}>Contact Email</Form.Label>
           <Form.Control 
-            type="email" 
+            type="contactEmail" 
             className={styles.input} 
             ref={emailInputRef}
-            value={teacher.contactEmail} 
-            onChange={(e) => setTeacher({ ...teacher, contactEmail: e.target.value })} 
+            name="email"
+            defaultValue={teacher.contactEmail} 
           />
           {formErrors.email &&
           <div>
@@ -156,9 +163,9 @@ export default function UpdateTeacherProfileForm({
           <Form.Control 
             as="textarea"
             rows="6" 
+            name="bio"
             className={styles.input} 
-            value={teacher.bio} 
-            onChange={(e) => setTeacher({ ...teacher, bio: e.target.value })} 
+            defaultValue={teacher.bio} 
           />
           <div className={styles.buttonContainer}>
             <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditProfile(false)}>Cancel</Button>

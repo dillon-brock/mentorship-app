@@ -79,6 +79,7 @@ export default function TeacherProfile() {
         showImageEditButton={showImageEditButton}
         setShowImageEditButton={setShowImageEditButton}
         setUserWantsToEditProfile={setUserWantsToEditProfile}
+        setUserWantsToEditImage={setUserWantsToEditImage}
         zipCode={zipCode}
         setZipCode={setZipCode}
         cityName={cityName}
