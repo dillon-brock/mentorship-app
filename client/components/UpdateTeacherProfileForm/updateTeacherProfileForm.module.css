@@ -24,6 +24,10 @@
   color: white;
 }
 
+.edit-title {
+  border-bottom: 2px solid black;
+}
+
 .form {
   font-family: 'Poppins';
   width: 520px;
