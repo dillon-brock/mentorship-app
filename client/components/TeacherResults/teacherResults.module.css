@@ -30,3 +30,11 @@
   flex-wrap: wrap;
   gap: 30px;
 }
+
+.no-results-message {
+  width: 50%;
+  margin: 180px auto;
+  text-align: center;
+  font-family: 'Poppins';
+  font-weight: 600;
+}

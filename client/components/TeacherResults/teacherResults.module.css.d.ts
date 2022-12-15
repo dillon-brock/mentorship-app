@@ -5,6 +5,8 @@ interface CssExports {
   'list': string;
   'loader-container': string;
   'loaderContainer': string;
+  'no-results-message': string;
+  'noResultsMessage': string;
   'top-level': string;
   'topLevel': string;
 }
