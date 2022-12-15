@@ -5,6 +5,7 @@ import { uploadProfilePicture } from "../../services/cloudinary";
 import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
+import globalStyles from '../../global.module.css';
 
 export default function TeacherBioForm({
   email,
@@ -150,7 +151,7 @@ export default function TeacherBioForm({
         <Form className={styles.form} onSubmit={handleSubmit}>
           {newUser &&
             <Form.Group className="mb-2" controlId="image">
-              <Form.Label className={styles.label}>Profile Picture</Form.Label>
+              <Form.Label className={globalStyles.authFormLabel}>Profile Picture</Form.Label>
               <Form.Control 
                 className={styles.input} 
                 type="file"
@@ -165,7 +166,7 @@ export default function TeacherBioForm({
             </div>
           }
           <Form.Group className="mb-2" controlId="bio">
-            <Form.Label className={styles.label}>Bio</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>Bio</Form.Label>
             <Form.Control 
               className={styles.input} 
               as="textarea" 
@@ -181,7 +182,7 @@ export default function TeacherBioForm({
           </Form.Group>
           
           <Form.Group className="mb-1" controlId="zipCode">
-            <Form.Label className={styles.label}>Zip Code</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>Zip Code</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="number" 
@@ -197,14 +198,14 @@ export default function TeacherBioForm({
 
           {showCity &&
           <div>
-            <Form.Text>
+            <p className={styles.cityDisplay}>
               {cityName}, {stateName}
-            </Form.Text>
+            </p>
           </div>
           }
           <Form.Text>Fields below are optional, and the information will be displayed on your public profile.</Form.Text>
           <Form.Group className="mb-2" controlId="contactEmail">
-            <Form.Label className={styles.label}>Contact Email</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>Contact Email</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="email" 
@@ -213,7 +214,7 @@ export default function TeacherBioForm({
             />
           </Form.Group>
           <Form.Group className="mb-2" controlId="phoneNumber">
-            <Form.Label className={styles.label}>Phone Number</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>Phone Number</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="text" 

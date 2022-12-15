@@ -3,6 +3,7 @@ import { Button, Form, Row } from 'react-bootstrap';
 import { checkForExistingUser } from '../../services/auth';
 
 import styles from './teacherSignUpForm.module.css';
+import globalStyles from '../../global.module.css';
 
 export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName, setLastName, setStep }) {
 
@@ -118,7 +119,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       <Form className={styles.form} onSubmit={handleNext}>
         <Row xl={2}>
           <Form.Group className="mb-2" controlId="firstName">
-            <Form.Label>First Name</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>First Name</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="text" 
@@ -133,7 +134,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
           </Form.Group>
 
           <Form.Group className="mb-2" controlId="lastName">
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label className={globalStyles.authFormLabel}>Last Name</Form.Label>
             <Form.Control 
               className={styles.input} 
               type="text"
@@ -149,7 +150,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
         </Row>
 
         <Form.Group className="mb-2" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label className={globalStyles.authFormLabel}>Email address</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="email" 
@@ -158,9 +159,6 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
             onChange={handleChangeEmail} 
             ref={emailInputRef} 
           />
-          <Form.Text className="text-muted">
-            We&apos;ll never share your email with anyone else.
-          </Form.Text>
           {formErrors.email &&
           <div>
             <Form.Text className="text-danger">{formErrors.email}</Form.Text>
@@ -169,7 +167,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className={globalStyles.authFormLabel}>Password</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="password" 
@@ -184,7 +182,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="passwordCheck">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label className={globalStyles.authFormLabel}>Confirm Password</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="password" 

@@ -13,6 +13,7 @@
   text-align: center;
   font-family: 'Poppins';
   font-weight: 600;
+  font-size: 1.7rem;
 }
 
 .next-button-container {
@@ -29,6 +30,7 @@
   border-radius: 50px;
   background-color: var(--dark-green);
   border: none;
+  font-weight: 600;
 }
 
 .next-button:hover {
@@ -50,9 +52,11 @@
 .add-button {
   padding: 10px 24px;
   border-radius: 50px;
+  font-weight: 600;
   color: var(--dark-green);
   background-color: white;
   border: 2px solid var(--dark-green);
+  margin-top: 16px;
 }
 
 .add-button:hover {

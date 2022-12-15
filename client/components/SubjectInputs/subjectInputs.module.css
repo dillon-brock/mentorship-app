@@ -4,6 +4,12 @@
   margin-top: 20px;
 }
 
+.subject-title {
+  font-weight: 600;
+  width: 140px;
+  border-bottom: 2px solid var(--apricot);
+}
+
 .price-inputs {
   margin-bottom: 16px;
 }
@@ -17,6 +23,7 @@
 
 .price-label {
   padding-left: 15px;
+  font-weight: 600;
 }
 
 .currency {
