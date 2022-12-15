@@ -30,9 +30,7 @@ export default function AuthPage() {
             <>
               {!accountType && <Navigate to='/auth/sign-up/student'/>}
               {accountType == 'student' &&
-                <div className={styles.formContainer}>
-                  <StudentSignUpForm/>
-                </div>
+                <StudentSignUpForm/>
               }
               {accountType == 'teacher' &&
                 <TeacherAuth />

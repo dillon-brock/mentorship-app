@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Image, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
 import { uploadProfilePicture } from '../../services/cloudinary';
@@ -15,6 +15,7 @@ export default function StudentSignUpForm() {
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
   const [showInvalidConfirmation, setShowInvalidConfirmation] = useState(false);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [imageData, setImageData] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const { setUser } = useUserContext();
@@ -83,6 +84,7 @@ export default function StudentSignUpForm() {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+    setImagePreviewUrl(URL.createObjectURL(file));
     setImageData(formData);
   }
 
@@ -202,6 +204,11 @@ export default function StudentSignUpForm() {
           <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
           <Form.Text className="text-muted">This is optional and will only be visible in messages and to teachers with whom you are connected.</Form.Text>
         </Form.Group>
+          {imagePreviewUrl &&
+          <div className={styles.imageContainer}>
+            <Image className={styles.image} src={imagePreviewUrl} />
+          </div>
+          }
 
         <div className={styles.buttonContainer}>
           <Button className={styles.button} type="submit">
