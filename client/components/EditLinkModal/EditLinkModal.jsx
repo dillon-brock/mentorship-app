@@ -5,15 +5,10 @@ import styles from './editLinkModal.module.css';
 import globalStyles from '../../global.module.css';
 
 export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
-  const [nameFromInput, setNameFromInput] = useState(name);
   const [urlFromInput, setUrlFromInput] = useState(url);
   const [urlError, setUrlError] = useState('');
 
   const handleClose = () => setUserWantsToEditLink(false);
-
-  const handleChangeName = (e) => {
-    setNameFromInput(e.target.value);
-  }
 
   const handleChangeUrl = (e) => {
     setUrlFromInput(e.target.value);
@@ -49,24 +44,42 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
         <Form onSubmit={handleUpdate}>
           <Form.Group className="mb-3" controlId="url">
             <Form.Label>URL</Form.Label>
-            <Form.Control className={styles.input} type="text" name="url" value={urlFromInput} onChange={handleChangeUrl} /> 
+            <Form.Control 
+              className={styles.input} 
+              type="text" 
+              name="url" 
+              value={urlFromInput} 
+              onChange={handleChangeUrl} 
+            /> 
             {urlError &&
               <Form.Text className="text-danger">{urlError}</Form.Text>
             }
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
-            <Form.Control className={styles.input} type="text" placeholder="File name" name="name" value={nameFromInput} onChange={handleChangeName} />
+            <Form.Control 
+              className={styles.input} 
+              type="text" 
+              placeholder="File name" 
+              name="name" 
+              defaultValue={name}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="subject">
             <Form.Label>Subject</Form.Label>
             <Form.Select className={styles.input} name="subject" defaultValue={subjectId}>
               <option disabled value=''>Choose the subject associated with this file...</option>
-              {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
+              {subjects.map(subject => (
+                <option key={subject.id} value={subject.id}>{subject.subject}</option>
+              ))}
             </Form.Select>
           </Form.Group>
           <div className={styles.buttonContainer}>
-            <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditLink(false)}>Cancel</Button>
+            <Button 
+              className={globalStyles.cancelButton} 
+              onClick={() => setUserWantsToEditLink(false)}>
+              Cancel
+            </Button>
             <Button className={styles.updateButton} type="submit">Update</Button>
           </div>
         </Form>

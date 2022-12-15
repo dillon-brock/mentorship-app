@@ -1,3 +1,7 @@
+.link {
+  text-decoration: none;
+}
+
 .result {
   display: flex;
   flex-direction: column;
@@ -21,6 +25,8 @@
 .subjects {
   font-weight: 600;
   font-size: 1.1rem;
+  display: inline-block;
+  width: 220px;
 }
 
 .location {

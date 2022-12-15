@@ -1,5 +1,4 @@
 export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, maxPrice = 200) {
-  console.log(subject);
   const params = new URLSearchParams;
   params.set('subject', subject);
   params.set('lessonType', lessonType);
@@ -72,7 +71,7 @@ export async function addTeacherAccount({ firstName, lastName, imageUrl, subject
   if (res.ok) return newTeacherInfo;
 }
 
-export async function updateAccount({ subject, bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }) {
+export async function updateAccount({ bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }) {
   const response = await fetch(`/api/v1/teachers/me`, {
     method: 'PUT',
     credentials: 'include',
@@ -81,7 +80,6 @@ export async function updateAccount({ subject, bio, zipCode, city, state, phoneN
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      subject,
       bio,
       zipCode,
       city,

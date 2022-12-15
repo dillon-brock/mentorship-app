@@ -1,3 +1,12 @@
+.file-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 275px;
+  height: 360px;
+}
+
 .image-container {
   width: 275px;
   height: 330px;
@@ -16,6 +25,11 @@
   text-align: center;
 }
 
+.popover-button-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 
 .popover-option {
   font-family: 'Poppins';

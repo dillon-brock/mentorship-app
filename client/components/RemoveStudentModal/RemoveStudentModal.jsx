@@ -25,7 +25,9 @@ export default function RemoveStudentModal({
       <Modal.Header closeButton>
         <Modal.Title className={styles.title}>Are you sure you want to remove {firstName} from your students?</Modal.Title>
       </Modal.Header>
-        <Modal.Body className={styles.body}>{firstName} will still see your profile when searching for instructors, but they will no longer be able to leave you reviews or have access to your teaching materials.</Modal.Body>
+        <Modal.Body className={styles.body}>
+          {firstName} will still see your profile when searching for instructors, but they will no longer be able to leave you reviews or have access to your teaching materials.
+        </Modal.Body>
         <Modal.Footer>
           <div className={styles.buttonContainer}>
             <Button className={globalStyles.cancelButton} onClick={handleClose}>Cancel</Button>

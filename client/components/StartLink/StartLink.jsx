@@ -1,4 +1,4 @@
-import { Col, Container, Image, Row } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import styles from './startLink.module.css';
 import teacherImage from '../../assets/images/teacher_link.png';
 import studentImage from '../../assets/images/student_link.png';

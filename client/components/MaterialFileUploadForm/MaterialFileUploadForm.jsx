@@ -53,27 +53,42 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
   return (
     <Form className={styles.form} onSubmit={handleUpload}>
       <Form.Group className="mb-3" controlId="file">
-        <Form.Control className={styles.input} type="file" name="file" onChange={handleChangeFile} />
+        <Form.Control 
+          className={styles.input} 
+          type="file" 
+          name="file" 
+          onChange={handleChangeFile} 
+        />
         {fileError &&
           <Form.Text className="text-danger">{fileError}</Form.Text>
         }
       </Form.Group>
       <Form.Group className="mb-3" controlId="name">
         <Form.Label>Name</Form.Label>
-        <Form.Control className={styles.input} type="text" placeholder="File name" name="name" onChange={handleChangeName}/>
+        <Form.Control 
+          className={styles.input} 
+          type="text" 
+          placeholder="File name" 
+          name="name" 
+          onChange={handleChangeName}
+        />
         {nameError &&
           <>
             <Form.Text className="text-danger">{nameError}</Form.Text>
             <br />
           </>
         }
-        <Form.Text>Give your file a descriptive name. This will help you and your students to more easily find what you are looking for.</Form.Text>
+        <Form.Text>
+          Give your file a descriptive name. This will help you and your students to more easily find what you are looking for.
+        </Form.Text>
       </Form.Group>
       <Form.Group>
         <Form.Label>Subject</Form.Label>
         <Form.Select className={styles.input} name="subject" defaultValue='' onChange={handleChangeSubject}>
           <option disabled value=''>Choose the subject associated with this file...</option>
-          {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
+          {subjects.map(subject => (
+            <option key={subject.id} value={subject.id}>{subject.subject}</option>
+          ))}
         </Form.Select>
         {subjectError &&
           <Form.Text className="text-danger">{subjectError}</Form.Text>

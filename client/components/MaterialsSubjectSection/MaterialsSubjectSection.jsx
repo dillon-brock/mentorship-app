@@ -32,7 +32,12 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
         {files.length > 0 ?
           <Row className={styles.filesContainer}>
             {files.map(file => (
-              <FileMaterial key={file.id} {...file} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />
+              <FileMaterial 
+                key={file.id} 
+                {...file} 
+                setTeachingMaterials={setTeachingMaterials} 
+                subjects={subjects} 
+              />
             ))}
           </Row>
         :
@@ -43,7 +48,14 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
         <h4 className={styles.subtitle}>Links</h4>
         {links.length > 0 ?
           <ul className={styles.linkList}>
-            {links.map(link => <LinkMaterial key={link.id} link={link} {...link} setTeachingMaterials={setTeachingMaterials} subjects={subjects} />)}
+            {links.map(link => (
+              <LinkMaterial 
+                key={link.id} 
+                {...link} 
+                setTeachingMaterials={setTeachingMaterials} 
+                subjects={subjects} 
+              />
+            ))}
           </ul>
           :
           <h5 className={styles.noContent}>You currently have no saved links.</h5>

@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'image': string;
+  'link': string;
   'location': string;
   'name': string;
   'result': string;

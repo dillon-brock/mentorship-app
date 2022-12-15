@@ -13,13 +13,12 @@
 .image-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .image {
   height: 240px;
   width: 240px;
-  border: 2px solid black;
 }
 
 .button-container {

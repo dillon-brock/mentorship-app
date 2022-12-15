@@ -40,7 +40,7 @@ export default function FileMaterial({ id, subjectId, url, name, setTeachingMate
 
   return (
     <>
-      <div onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave} style={{ position: 'relative', display: 'flex', width: '275px', height: '360px', flexDirection: 'column', alignItems: 'center'}}>
+      <div onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave} className={styles.fileContainer}>
         <a href={url} key={url} target="_blank">
           <div className={styles.imageContainer}>
             <Image src={`${url.slice(0, -3)}png`} className={styles.image}/>
@@ -48,7 +48,7 @@ export default function FileMaterial({ id, subjectId, url, name, setTeachingMate
           {name && <p className={styles.fileName}>{name}</p>}
         </a>
         {showMenuButton &&
-        <div style={{ position: 'absolute', top: '5px', right: '5px' }}>
+        <div className={styles.popoverButtonContainer}>
           <OverlayTrigger show={openPopover} trigger="click" placement="right" overlay={popover}>
             <Button variant="light" onClick={() => setOpenPopover(!openPopover)}>
               <FaEllipsisV />

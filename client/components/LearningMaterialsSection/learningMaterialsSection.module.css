@@ -1,3 +1,12 @@
+.file-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 275px;
+  height: 360px;
+}
+
 .file-image-container {
   width: 275px;
   height: 330px;

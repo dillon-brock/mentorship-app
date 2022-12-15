@@ -5,6 +5,8 @@ interface CssExports {
   'date': string;
   'image': string;
   'name': string;
+  'review-container': string;
+  'reviewContainer': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

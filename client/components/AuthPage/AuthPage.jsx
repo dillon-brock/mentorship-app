@@ -1,11 +1,9 @@
-import { Container } from "react-bootstrap";
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import Header from "../Header/Header";
 import SignInForm from "../SignInForm/SignInForm";
 import StudentSignUpForm from "../StudentSignUpForm/StudentSignUpForm";
 import TeacherAuth from "../TeacherAuth/TeacherAuth";
-// import background from './squiggle_background.png';
 import styles from './authPage.module.css';
 
 export default function AuthPage() {

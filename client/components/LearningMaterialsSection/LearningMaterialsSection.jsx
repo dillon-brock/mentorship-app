@@ -38,7 +38,7 @@ export default function LearningMaterialsSection({ id, firstName, lastName, teac
           {files.length > 0 ?
             <Row className={styles.filesContainer}>
               {files.map(file => (
-                <div key={file.id} style={{ position: 'relative', display: 'flex', width: '275px', height: '360px', flexDirection: 'column', alignItems: 'center'}}>
+                <div key={file.id} className={styles.fileContainer}>
                   <a href={file.url} key={file.url} target="_blank">
                     <div className={styles.fileImageContainer}>
                       <Image className={styles.fileImage} src={`${file.url.slice(0, -3)}png`} rounded/>

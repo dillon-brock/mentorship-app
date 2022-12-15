@@ -3,7 +3,12 @@ import MaterialFileUploadForm from "../MaterialFileUploadForm/MaterialFileUpload
 import MaterialLinkUploadForm from "../MaterialLinkUploadForm/MaterialLinkUploadForm";
 import styles from './materialUploadModal.module.css';
 
-export default function MaterialUploadModal({ showUploadModal, setShowUploadModal, setTeachingMaterials, subjects }) {
+export default function MaterialUploadModal({ 
+  showUploadModal, 
+  setShowUploadModal, 
+  setTeachingMaterials, 
+  subjects 
+}) {
   
   const handleClose = () => setShowUploadModal(false);
 

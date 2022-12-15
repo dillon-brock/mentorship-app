@@ -47,7 +47,9 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
       </Button>
       <Modal className={styles.modal} show={studentWantsToConnect} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className={styles.title}>Add {firstName} {lastName} as an instructor</Modal.Title>
+          <Modal.Title className={styles.title}>
+            Add {firstName} {lastName} as an instructor
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p className={styles.message}>Requests must be approved by the instructor. If you haven&apos;t reached out to {firstName} yet, please do so before sending your request so you know you will be a good fit.</p>

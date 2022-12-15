@@ -22,13 +22,18 @@ export default function TeacherSearchPage() {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [pageLength, setPageLength] = useState(10);
   const [page, setPage] = useState(1);
-  const { teachers, totalPages, errorMessage, setErrorMessage, loading } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
+  const { 
+    teachers, 
+    totalPages, 
+    errorMessage, 
+    setErrorMessage, 
+    loading 
+  } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
   
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(Object.fromEntries(formData));
     setPage(1);
     setSubject(formData.get('subject'));
     setZipCode(formData.get('zipCode'));
@@ -61,7 +66,10 @@ export default function TeacherSearchPage() {
         totalPages={totalPages}
         loading={loading}
       />
-      <NewStudentAccountModal newStudentAccount={newStudentAccount} setNewStudentAccount={setNewStudentAccount}/>
+      <NewStudentAccountModal 
+        newStudentAccount={newStudentAccount} 
+        setNewStudentAccount={setNewStudentAccount}
+      />
     </>
   )
 }

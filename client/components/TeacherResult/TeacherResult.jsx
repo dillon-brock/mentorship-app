@@ -12,14 +12,14 @@ export default function TeacherResult({ id, firstName, lastName, zipCode, subjec
     .join(' | ');
 
   return (
-    <Link to={`/teacher/${id}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/teacher/${id}`} className={styles.link}>
       <div className={styles.result}>
         <div>
           <Image className={styles.image} src={imageUrl} />
         </div>
         <div>
           <p className={styles.name}>{firstName} {lastName}</p>
-          <p style={{ display: 'inline-block', width: '220px' }} className={styles.subjects}>{subjectList}</p>
+          <p className={styles.subjects}>{subjectList}</p>
           {city && state ?
             <p className={styles.location}>{city}, {state}</p>
             :

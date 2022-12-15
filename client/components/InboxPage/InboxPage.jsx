@@ -8,7 +8,9 @@ export default function InboxPage() {
   const { user, doneGettingUser } = useUserContext();
   const { pathname } = useLocation();
 
-  if (doneGettingUser && !user) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
+  if (doneGettingUser && !user) 
+    return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
+    
   return (
     <div style={{ height: '90vh'}}>
       <Header />

@@ -5,15 +5,19 @@ import StudentProfile from "../StudentProfile/StudentProfile";
 import TeacherProfile from "../TeacherProfile/TeacherProfile";
 
 export default function ProfilePage() {
-  const { user } = useUserContext();
+  const { user, doneGettingUser } = useUserContext();
   const { pathname } = useLocation();
-  if (!user) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
+  if (!user && doneGettingUser) return <Navigate to={`/auth/sign-in?callback=${pathname}`} />
 
   return (
     <>
       <Header />
-      {user.type === 'teacher' && <TeacherProfile />}
-      {user.type === 'student' && <StudentProfile />}
+      {user &&
+        <>
+          {user.type === 'teacher' && <TeacherProfile />}
+          {user.type === 'student' && <StudentProfile />}
+        </>
+      }
     </>
   )
 }

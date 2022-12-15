@@ -115,9 +115,6 @@ export async function signOut() {
     method: 'DELETE',
     credentials: 'include',
   });
-  if (!res.ok) {
-    console.log('Something went wrong trying to sign out. Please try again');
-  }
 }
 
 export async function updateUserType(type) {

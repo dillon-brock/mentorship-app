@@ -1,7 +1,13 @@
 import { Form } from 'react-bootstrap';
 import styles from './priceDropdown.module.css';
 
-export default function PriceDropdown({ minPrice, setMinPrice, maxPrice, setMaxPrice, showPriceDropdown }) {
+export default function PriceDropdown({ 
+  minPrice, 
+  setMinPrice, 
+  maxPrice, 
+  setMaxPrice, 
+  showPriceDropdown 
+}) {
 
   return (
     <div className={styles.container} style={{ visibility: showPriceDropdown ? 'visible' : 'hidden' }}>

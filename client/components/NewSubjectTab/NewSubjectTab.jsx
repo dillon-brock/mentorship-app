@@ -73,7 +73,13 @@ export default function NewSubjectTab({ setTeacher }) {
     <Form className={styles.form} onSubmit={handleAddSubject}>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label className={styles.label}>Subject</Form.Label>
-        <Form.Control className={styles.input} type="text" placeholder="Art" name="subject" onChange={handleChangeSubject} />
+        <Form.Control 
+          className={styles.input} 
+          type="text" 
+          placeholder="Art" 
+          name="subject" 
+          onChange={handleChangeSubject} 
+        />
         {formErrors.subject &&
           <Form.Text className="text-danger">{formErrors.subject}</Form.Text>
         }
@@ -84,12 +90,24 @@ export default function NewSubjectTab({ setTeacher }) {
         <Container className={styles.priceInputsContainer}>
           <Container className={styles.minPriceContainer}>
             <p className={styles.currency}>$</p>
-            <Form.Control className={styles.priceInput} type="number" name="minPrice" placeholder="0" onChange={handleChangeMinPrice} />
+            <Form.Control 
+              className={styles.priceInput} 
+              type="number" 
+              name="minPrice" 
+              placeholder="0" 
+              onChange={handleChangeMinPrice} 
+            />
           </Container>
           <p className={styles.currency}>to</p>
           <Container className={styles.maxPriceContainer}>
             <p className={styles.currency}>$</p>
-            <Form.Control className={styles.priceInput} type="number" name="maxPrice" placeholder="100" onChange={handleChangeMaxPrice} />
+            <Form.Control 
+              className={styles.priceInput} 
+              type="number" 
+              name="maxPrice" 
+              placeholder="100" 
+              onChange={handleChangeMaxPrice} 
+            />
           </Container>
         </Container>
         {formErrors.minPrice &&

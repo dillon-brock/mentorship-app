@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image, Row } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
@@ -79,7 +79,11 @@ export default function TeacherDetailPage() {
             {reviews.length > 0 ?
               <div className={styles.reviewsContainer}>
                 <StarRating value={avgRating} editable={false} half={true}/>
-                <ReviewListModal reviews={reviews} firstName={teacher.firstName} lastName={teacher.lastName} />
+                <ReviewListModal 
+                  reviews={reviews} 
+                  firstName={teacher.firstName} 
+                  lastName={teacher.lastName} 
+                />
               </div>
               :
               <p><em>No reviews yet</em></p>
@@ -113,7 +117,11 @@ export default function TeacherDetailPage() {
             </div>
           </div>
         </div>
-        <AuthRedirectModal teacherId={id} userNeedsToSignIn={userNeedsToSignIn} setUserNeedsToSignIn={setUserNeedsToSignIn} />
+        <AuthRedirectModal 
+          teacherId={id} 
+          userNeedsToSignIn={userNeedsToSignIn} 
+          setUserNeedsToSignIn={setUserNeedsToSignIn} 
+        />
         <div className={styles.detailsContainer}>
           <div>
             <h3>Bio</h3>
@@ -125,7 +133,11 @@ export default function TeacherDetailPage() {
             }
           </div>
           {openChatWindow &&
-            <ChatWindow primaryUser={user} secondaryUser={teacher} handleClose={handleCloseChatWindow} />
+            <ChatWindow 
+              primaryUser={user} 
+              secondaryUser={teacher} 
+              handleClose={handleCloseChatWindow} 
+            />
           }
         </div>
       </div>

@@ -71,7 +71,12 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
           <Form onSubmit={handleUpdate}>
             <Form.Group className="mb-3" controlId="file">
               <Form.Label>New File</Form.Label>
-              <Form.Control className={styles.input} type="file" name="file" onChange={handleChangeFile}/>
+              <Form.Control 
+                className={styles.input} 
+                type="file" 
+                name="file" 
+                onChange={handleChangeFile}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="current-file">
               <Form.Label>Preview:</Form.Label>
@@ -83,7 +88,14 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
             </Form.Group>
             <Form.Group className="mb-3" controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control className={styles.input} type="text" placeholder="File name" name="name" value={nameFromInput} onChange={handleChangeName} />
+              <Form.Control 
+                className={styles.input} 
+                type="text" 
+                placeholder="File name" 
+                name="name" 
+                value={nameFromInput} 
+                onChange={handleChangeName} 
+              />
               {nameError &&
                 <Form.Text className="text-danger">{nameError}</Form.Text>
               }
@@ -99,7 +111,11 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
               }
             </Form.Group>
             <div className={styles.buttonContainer}>
-              <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditFile(false)}>Cancel</Button>
+              <Button 
+                className={globalStyles.cancelButton} 
+                onClick={() => setUserWantsToEditFile(false)}>
+                Cancel
+              </Button>
               <Button className={styles.updateButton} type="submit">Update</Button>
             </div>
           </Form>

@@ -15,7 +15,6 @@ export default function StudentList() {
   const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading } = useStudents(user?.teacherId);
   const [openChatBox, setOpenChatBox] = useState(false);
   const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
-  console.log(approvedStudents);
 
   const handleApprove = async (id) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
@@ -69,13 +68,24 @@ export default function StudentList() {
               <h3 className={styles.sectionTitle}>Current Students:</h3>
               {approvedStudents.length > 0 ?
                 <div className={styles.sectionContainer}>
-                  {approvedStudents.map(student => <ApprovedStudent key={student.id} {...student} setApprovedStudents={setApprovedStudents} handleMessage={() => handleMessage(student)} />)}
+                  {approvedStudents.map(student => (
+                    <ApprovedStudent 
+                      key={student.id} 
+                      {...student} 
+                      setApprovedStudents={setApprovedStudents} 
+                      handleMessage={() => handleMessage(student)}
+                    />
+                  ))}
                 </div>
                 :
                 <h4 className={styles.emptyMessage}>You have no current students.</h4>   
               }
               {openChatBox &&
-                <ChatWindow primaryUser={user} secondaryUser={studentMessageRecipient} handleClose={handleCloseChatBox} />
+                <ChatWindow 
+                  primaryUser={user} 
+                  secondaryUser={studentMessageRecipient} 
+                  handleClose={handleCloseChatBox}
+                />
               }
             </section>
           }
