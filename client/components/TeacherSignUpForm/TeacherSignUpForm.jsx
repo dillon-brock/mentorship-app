@@ -18,29 +18,44 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
     let invalid = false;
 
     if (firstNameInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, firstName: 'First name is required'});
+      setFormErrors({ 
+        ...formErrors, 
+        firstName: 'First name is required'
+      });
       invalid = true;
       return invalid;
     }
 
     if (lastNameInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, lastName: 'Last name is required'});
+      setFormErrors({ 
+        ...formErrors, 
+        lastName: 'Last name is required'
+      });
       invalid = true;
       return invalid;
     }
 
     if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
-      setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
+      setFormErrors({ 
+        ...formErrors, 
+        email: 'Please enter a valid email.'
+      });
       invalid = true;
       return invalid;
     }
     if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
-      setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
+      setFormErrors({ 
+        ...formErrors, 
+        password: 'Password must be at least 6 characters'
+      });
       invalid = true;
       return invalid;
     }
     if (passwordConfirmationRef.current.value !== passwordInputRef.current.value) {
-      setFormErrors({ ...formErrors, passwordConfirmation: 'Passwords do not match.'});
+      setFormErrors({ 
+        ...formErrors, 
+        passwordConfirmation: 'Passwords do not match.'
+      });
       invalid = true;
       return invalid;
     }
@@ -49,19 +64,23 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
   };
 
   const handleChangeFirstName = () => {
-    if (formErrors.firstName) setFormErrors({ ...formErrors, firstName: ''});
+    if (formErrors.firstName) 
+      setFormErrors({ ...formErrors, firstName: ''});
   }
 
   const handleChangeLastName = () => {
-    if (formErrors.lastName) setFormErrors({ ...formErrors, lastName: ''});
+    if (formErrors.lastName) 
+      setFormErrors({ ...formErrors, lastName: ''});
   }
 
   const handleChangeEmail = () => {
-    if (formErrors.email) setFormErrors({ ...formErrors, email: ''});
+    if (formErrors.email) 
+      setFormErrors({ ...formErrors, email: ''});
   }
 
   const handleChangePassword = () => {
-    if (formErrors.password) setFormErrors({ ...formErrors, password: ''});
+    if (formErrors.password) 
+      setFormErrors({ ...formErrors, password: ''});
   }
 
   const handleChangePasswordConfirmation = () => {
@@ -79,7 +98,10 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
     const formData = new FormData(e.target);
     const existingUser = await checkForExistingUser(formData.get('email'));
     if (existingUser) {
-      setFormErrors({ ...formErrors, email: 'This email is already being used by another account. Please sign in or use a different email.' })
+      setFormErrors({ 
+        ...formErrors, 
+        email: 'This email is already being used by another account. Please sign in or use a different email.' 
+      })
       return;
     }
     setEmail(formData.get('email'));
@@ -97,7 +119,14 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
         <Row xl={2}>
           <Form.Group className="mb-2" controlId="firstName">
             <Form.Label>First Name</Form.Label>
-            <Form.Control className={styles.input} type="text" placeholder="Jane" name="firstName" onChange={handleChangeFirstName} ref={firstNameInputRef}/>
+            <Form.Control 
+              className={styles.input} 
+              type="text" 
+              placeholder="Jane"
+              name="firstName" 
+              onChange={handleChangeFirstName} 
+              ref={firstNameInputRef}
+            />
             {formErrors.firstName && 
               <Form.Text className="text-danger">{formErrors.firstName}</Form.Text>
             }
@@ -105,7 +134,14 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
 
           <Form.Group className="mb-2" controlId="lastName">
             <Form.Label>Last Name</Form.Label>
-            <Form.Control className={styles.input} type="text" placeholder="Doe" name="lastName" onChange={handleChangeLastName} ref={lastNameInputRef}/>
+            <Form.Control 
+              className={styles.input} 
+              type="text"
+              placeholder="Doe" 
+              name="lastName" 
+              onChange={handleChangeLastName} 
+              ref={lastNameInputRef}
+            />
             {formErrors.lastName &&
               <Form.Text className="text-danger">{formErrors.lastName}</Form.Text>
             }
@@ -114,7 +150,14 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
 
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="email" onChange={handleChangeEmail} ref={emailInputRef} />
+          <Form.Control 
+            className={styles.input} 
+            type="email" 
+            placeholder="name@example.com" 
+            name="email" 
+            onChange={handleChangeEmail} 
+            ref={emailInputRef} 
+          />
           <Form.Text className="text-muted">
             We&apos;ll never share your email with anyone else.
           </Form.Text>
@@ -127,7 +170,14 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
 
         <Form.Group className="mb-2" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control className={styles.input} type="password" placeholder="******" name="password" onChange={handleChangePassword} ref={passwordInputRef} />
+          <Form.Control 
+            className={styles.input} 
+            type="password" 
+            placeholder="******" 
+            name="password" 
+            onChange={handleChangePassword} 
+            ref={passwordInputRef} 
+          />
           {formErrors.password &&
             <Form.Text className="text-danger">{formErrors.password}</Form.Text>
           }

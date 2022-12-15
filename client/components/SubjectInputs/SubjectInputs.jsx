@@ -39,7 +39,13 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, subjectN
       <h4>Subject {displayNum}</h4>
       <Form.Group className="mb-2" controlId="subject">
         <Form.Label>Subject</Form.Label>
-        <Form.Control className={styles.input} type="text" placeholder="Art" name={`subject-${num}`} onChange={handleChangeSubject} />
+        <Form.Control 
+          className={styles.input} 
+          type="text" 
+          placeholder="Art" 
+          name={`subject-${num}`} 
+          onChange={handleChangeSubject} 
+        />
         {formErrors.subject && formErrors.subject.num == num &&
           <Form.Text className="text-danger">{formErrors.subject.message}</Form.Text>
         }
@@ -50,7 +56,13 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, subjectN
           <Form.Label className={styles.priceLabel}>Min Price</Form.Label>
           <div className={styles.priceInputContainer}>
             <p className={styles.currency}>$</p>
-            <Form.Control className={styles.input} type="number" placeholder="0" name={`minPrice-${num}`} onChange={handleChangeMinPrice}/>
+            <Form.Control 
+              className={styles.input} 
+              type="number" 
+              placeholder="0" 
+              name={`minPrice-${num}`} 
+              onChange={handleChangeMinPrice}
+            />
           </div>
           {formErrors.minPrice && formErrors.minPrice.num == num &&
             <Form.Text className="text-danger">{formErrors.minPrice.message}</Form.Text>
@@ -60,7 +72,13 @@ export default function SubjectInputs({ num, formErrors, setFormErrors, subjectN
             <Form.Label className={styles.priceLabel}>Max Price</Form.Label>
             <div className={styles.priceInputContainer}>
               <p className={styles.currency}>$</p>
-              <Form.Control className={styles.input} type="number" placeholder="0" name={`maxPrice-${num}`} onChange={handleChangeMaxPrice} />
+              <Form.Control 
+                className={styles.input} 
+                type="number" 
+                placeholder="0" 
+                name={`maxPrice-${num}`} 
+                onChange={handleChangeMaxPrice} 
+              />
             </div>
             {formErrors.maxPrice && formErrors.maxPrice.num == num &&
               <Form.Text className="text-danger">{formErrors.maxPrice.message}</Form.Text>

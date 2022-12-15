@@ -6,7 +6,11 @@ export default function PagingSelect({ setPageLength }) {
     <div>
       <Form.Group>
         <Form.Label className={styles.label}>Per Page</Form.Label>
-        <Form.Select className={styles.select} defaultValue={10} onChange={(e) => setPageLength(e.target.value)}>
+        <Form.Select 
+          className={styles.select} 
+          defaultValue={10} 
+          onChange={(e) => setPageLength(e.target.value)}
+        >
           <option value={10}>10</option>
           <option value={25}>25</option>
           <option value={50}>50</option>

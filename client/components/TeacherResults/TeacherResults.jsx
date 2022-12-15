@@ -25,7 +25,9 @@ export default function TeacherResults({ teachers, loading }) {
           {teachers.length > 0 ?
             <div className={styles.container}>
               <div className={styles.list}>
-                {teachers.map(teacher => <TeacherResult key={teacher.id} {...teacher} />)}
+                {teachers.map(teacher => (
+                  <TeacherResult key={teacher.id} {...teacher} />
+                ))}
               </div>
             </div>
             :

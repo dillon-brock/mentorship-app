@@ -235,7 +235,11 @@ export default function UpdateTeacherProfileForm({
             defaultValue={teacher.bio} 
           />
           <div className={styles.buttonContainer}>
-            <Button className={globalStyles.cancelButton} onClick={() => setUserWantsToEditProfile(false)}>Cancel</Button>
+            <Button 
+              className={globalStyles.cancelButton} 
+              onClick={() => setUserWantsToEditProfile(false)}>
+              Cancel
+            </Button>
             <Button className={styles.saveButton} type="submit">Save Changes</Button>
           </div>
         </div>

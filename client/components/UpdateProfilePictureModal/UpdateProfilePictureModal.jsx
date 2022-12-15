@@ -29,7 +29,12 @@ export default function UpdateProfilePictureModal({
         <Modal.Title>Update Profile Picture</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
+        <Form.Control 
+          className={styles.input} 
+          type="file" 
+          name="image" 
+          onChange={handleChangeImage} 
+        />
         {imagePreviewUrl &&
           <div className={styles.imageContainer}>
             <Image className={styles.image} src={imagePreviewUrl} />
@@ -39,7 +44,11 @@ export default function UpdateProfilePictureModal({
       <Modal.Footer>
         <div className={styles.buttonContainer}>
           <Button className={globalStyles.cancelButton} onClick={handleClose}>Cancel</Button>
-          <Button className={styles.saveButton} onClick={() => handleSaveImage(imageData)}>Save</Button>
+          <Button 
+            className={styles.saveButton} 
+            onClick={() => handleSaveImage(imageData)}>
+            Save
+          </Button>
         </div>
       </Modal.Footer>
     </Modal>

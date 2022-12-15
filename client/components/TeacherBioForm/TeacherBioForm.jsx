@@ -31,7 +31,10 @@ export default function TeacherBioForm({
     let invalid = false;
     
     if (bioInputRef.current.value === '') {
-      setFormErrors({ ...formErrors, bio: 'Bio is required. This will help students know if you will be a good fit for them.'});
+      setFormErrors({ 
+        ...formErrors, 
+        bio: 'Bio is required. This will help students know if you will be a good fit for them.'
+      });
       invalid = true;
     }
 
@@ -148,7 +151,12 @@ export default function TeacherBioForm({
           {newUser &&
             <Form.Group className="mb-2" controlId="image">
               <Form.Label className={styles.label}>Profile Picture</Form.Label>
-              <Form.Control className={styles.input} type="file" name="image" onChange={handleChangeImage} />
+              <Form.Control 
+                className={styles.input} 
+                type="file"
+                name="image" 
+                onChange={handleChangeImage} 
+              />
             </Form.Group>
           }
           {imagePreviewUrl &&
@@ -158,7 +166,15 @@ export default function TeacherBioForm({
           }
           <Form.Group className="mb-2" controlId="bio">
             <Form.Label className={styles.label}>Bio</Form.Label>
-            <Form.Control className={styles.input} as="textarea" rows={4} placeholder="Drawing instructor for 10 years" name="bio" ref={bioInputRef} onChange={handleChangeBio}></Form.Control>
+            <Form.Control 
+              className={styles.input} 
+              as="textarea" 
+              rows={4} 
+              placeholder="Drawing instructor for 10 years" 
+              name="bio" 
+              ref={bioInputRef} 
+              onChange={handleChangeBio}
+            />
             {formErrors.bio &&
               <Form.Text className="text-danger">{formErrors.bio}</Form.Text>
             }
@@ -166,7 +182,14 @@ export default function TeacherBioForm({
           
           <Form.Group className="mb-1" controlId="zipCode">
             <Form.Label className={styles.label}>Zip Code</Form.Label>
-            <Form.Control className={styles.input} type="number" placeholder="97214" name="zip" ref={zipCodeInputRef} onChange={handleChangeZipCode} onBlur={handleEnterZipCode}></Form.Control>
+            <Form.Control 
+              className={styles.input} 
+              type="number" 
+              placeholder="97214" 
+              name="zip" 
+              ref={zipCodeInputRef} 
+              onChange={handleChangeZipCode} onBlur={handleEnterZipCode} 
+            />
             {formErrors.zipCode &&
               <Form.Text className="text-danger">{formErrors.zipCode}</Form.Text>
             }
@@ -182,7 +205,12 @@ export default function TeacherBioForm({
           <Form.Text>Fields below are optional, and the information will be displayed on your public profile.</Form.Text>
           <Form.Group className="mb-2" controlId="contactEmail">
             <Form.Label className={styles.label}>Contact Email</Form.Label>
-            <Form.Control className={styles.input} type="email" placeholder="name@example.com" name="contactEmail"></Form.Control>
+            <Form.Control 
+              className={styles.input} 
+              type="email" 
+              placeholder="name@example.com" 
+              name="contactEmail"
+            />
           </Form.Group>
           <Form.Group className="mb-2" controlId="phoneNumber">
             <Form.Label className={styles.label}>Phone Number</Form.Label>

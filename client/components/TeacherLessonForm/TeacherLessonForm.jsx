@@ -13,25 +13,45 @@ export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
     let invalid = false;
     for (const num of subjectNums) {
       if (!formData.get(`subject-${num}`)) {
-        setFormErrors({ ...formErrors, subject: { num, message: 'Subject is required.'}});
+        setFormErrors({ 
+          ...formErrors, 
+          subject: { 
+            num, 
+            message: 'Subject is required.'
+        }});
         invalid = true;
         return invalid;
       }
       
       if (!formData.get(`minPrice-${num}`)) {
-        setFormErrors({ ...formErrors, minPrice: { num, message: 'Minimum price is required.'}});
+        setFormErrors({ 
+          ...formErrors, 
+          minPrice: { 
+            num, 
+            message: 'Minimum price is required.'
+        }});
         invalid = true;
         return invalid;
       }
       
       if (!formData.get(`maxPrice-${num}`)) {
-        setFormErrors({ ...formErrors, maxPrice: { num, message: 'Maximum price is required.'}});
+        setFormErrors({ 
+          ...formErrors, 
+          maxPrice: {
+            num, 
+            message: 'Maximum price is required.'
+        }});
         invalid = true;
         return invalid;
       }
       
       if (!formData.get(`lessonType-${num}`)) {
-        setFormErrors({ ...formErrors, lessonType: { num, message: 'Please select a lesson format.'}});
+        setFormErrors({ 
+          ...formErrors, 
+          lessonType: { 
+            num,
+            message: 'Please select a lesson format.'
+        }});
         invalid = true;
         return invalid;
       }
@@ -69,7 +89,16 @@ export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
       <h3 className={styles.title}>What do you want to teach?</h3>
       <Form className={styles.form} onSubmit={handleNext}>
 
-        {subjectNums.map((num) => <SubjectInputs key={num} num={num} subjectNums={subjectNums} setSubjectNums={setSubjectNums} formErrors={formErrors} setFormErrors={setFormErrors} />)}
+        {subjectNums.map((num) => (
+          <SubjectInputs 
+            key={num} 
+            num={num} 
+            subjectNums={subjectNums} 
+            setSubjectNums={setSubjectNums} 
+            formErrors={formErrors} 
+            setFormErrors={setFormErrors} 
+          />
+        ))}
 
         <Button className={styles.addButton} onClick={handleAddSubject}>+ Add Another Subject</Button>
 

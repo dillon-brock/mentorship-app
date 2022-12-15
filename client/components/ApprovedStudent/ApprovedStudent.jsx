@@ -3,7 +3,17 @@ import { Button, Col, Container, Image } from "react-bootstrap";
 import RemoveStudentModal from "../RemoveStudentModal/RemoveStudentModal";
 import styles from './approvedStudent.module.css';
 
-export default function ApprovedStudent({ id, imageUrl, firstName, lastName, subject, connectionId, subjectId, setApprovedStudents, handleMessage }) {
+export default function ApprovedStudent({ 
+  id, 
+  imageUrl, 
+  firstName, 
+  lastName, 
+  subject, 
+  connectionId, 
+  subjectId, 
+  setApprovedStudents, 
+  handleMessage 
+}) {
   
   const [userWantsToRemoveStudent, setUserWantsToRemoveStudent] = useState(false);
 
@@ -22,7 +32,11 @@ export default function ApprovedStudent({ id, imageUrl, firstName, lastName, sub
           </Col>
           <Col className={styles.buttonContainer}>
             <Button className={styles.messageButton} onClick={handleMessage}>Message</Button>
-            <Button className={styles.removeButton} onClick={() => setUserWantsToRemoveStudent(true)}>Remove</Button>
+            <Button 
+              className={styles.removeButton} 
+              onClick={() => setUserWantsToRemoveStudent(true)}>
+              Remove
+            </Button>
           </Col>
         </Container>
         <hr style={{ height: '1px', width: '60%', margin: '0 auto' }} />

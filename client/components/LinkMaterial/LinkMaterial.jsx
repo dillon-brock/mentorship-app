@@ -40,7 +40,11 @@ export default function LinkMaterial({ id, name, url, subjectId, setTeachingMate
   return (
     <>
     <div className={styles.container}>
-      <div className={styles.linkContainer} onMouseEnter={() => setShowMenuButton(true)} onMouseLeave={handleMouseLeave}>
+      <div 
+        className={styles.linkContainer} 
+        onMouseEnter={() => setShowMenuButton(true)} 
+        onMouseLeave={handleMouseLeave}
+      >
         {name ? <a href={url} target="_blank">{name}</a>
         :
         <a href={url} target="_blank">{url}</a>

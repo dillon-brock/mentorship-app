@@ -53,12 +53,22 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
         <Container className={styles.priceInputsContainer}>
           <Container className={styles.priceContainer}>
             <p className={styles.currency}>$</p>
-            <Form.Control className={styles.input} type="number" value={minPriceFromInput} onChange={(e) => setMinPriceFromInput(e.target.value)} />
+            <Form.Control 
+              className={styles.input} 
+              type="number" 
+              value={minPriceFromInput} 
+              onChange={(e) => setMinPriceFromInput(e.target.value)} 
+            />
           </Container>
           <p className={styles.currency}>to</p>
           <Container className={styles.maxPriceContainer}>
             <p className={styles.currency}>$</p>
-            <Form.Control className={styles.input} type="number" value={maxPriceFromInput} onChange={(e) => setMaxPriceFromInput(e.target.value)} />
+            <Form.Control 
+              className={styles.input} 
+              type="number" 
+              value={maxPriceFromInput} 
+              onChange={(e) => setMaxPriceFromInput(e.target.value)} 
+            />
           </Container>
         </Container>
         :

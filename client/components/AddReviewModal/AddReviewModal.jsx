@@ -64,7 +64,13 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
           }
           <Form onSubmit={handleAddReview}>
             <Form.Group className="mb-2" controlId="detail">
-              <Form.Control className={styles.input} as="textarea" rows={4} name="detail" placeholder="Share any details about your experience here"/>
+              <Form.Control 
+                className={styles.input} 
+                as="textarea"
+                rows={4} 
+                name="detail" 
+                placeholder="Share any details about your experience here"
+              />
             </Form.Group>
             <Form.Check
               onChange={() => setLeaveAnonymously(!leaveAnonymously)}

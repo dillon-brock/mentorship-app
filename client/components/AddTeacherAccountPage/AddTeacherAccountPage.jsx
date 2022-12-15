@@ -10,8 +10,10 @@ export default function AddTeacherAccountPage() {
   const [step, setStep] = useState(1);
   const [subjects, setSubjects] = useState([]);
 
-  if (user && doneGettingUser && user.type === 'teacher') return <Navigate to='/my-students' />
-  if (!user && doneGettingUser) return <Navigate to='/auth/sign-up/teacher' />
+  if (user && doneGettingUser && user.type === 'teacher') 
+    return <Navigate to='/my-students' />
+  if (!user && doneGettingUser) 
+    return <Navigate to='/auth/sign-up/teacher' />
 
   return (
     <>

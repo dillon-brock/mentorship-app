@@ -21,7 +21,8 @@ export default function TeachingMaterialsPage() {
 
   const [showUploadModal, setShowUploadModal] = useState(false);
 
-  if (!user && doneGettingUser) return <Navigate to={`/auth/sign-up/teacher?callback=${pathname}`} />
+  if (!user && doneGettingUser) 
+    return <Navigate to={`/auth/sign-up/teacher?callback=${pathname}`} />
 
   return (
     <>
@@ -36,7 +37,11 @@ export default function TeachingMaterialsPage() {
             {teachingMaterials.length > 0 ?
             <>
               <div className={styles.uploadButtonContainer}>
-                <Button className={styles.uploadButton} onClick={() => setShowUploadModal(true)}>Upload Materials</Button>
+                <Button 
+                  className={styles.uploadButton} 
+                  onClick={() => setShowUploadModal(true)}>
+                  Upload Materials
+                </Button>
               </div>
               <Container className={styles.body}>
                 {subjects.map(subject => <MaterialsSubjectSection
@@ -51,7 +56,11 @@ export default function TeachingMaterialsPage() {
             <div>
               <h3 className={styles.emptySubtitle}>You currently have no saved teaching materials.</h3>
               <div className={styles.firstButtonContainer}>
-                <Button className={styles.firstButton} onClick={() => setShowUploadModal(true)}>Upload Your First File</Button>
+                <Button 
+                  className={styles.firstButton} 
+                  onClick={() => setShowUploadModal(true)}>
+                  Upload Your First File
+                </Button>
               </div>
             </div>
             }
