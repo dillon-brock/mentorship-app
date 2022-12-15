@@ -18,7 +18,6 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
       maxPrice: maxPriceFromInput,
       lessonType: lessonTypeFromInput
     });
-    console.log(updatedSubject);
     setTeacher(prev => ({
       ...prev,
       subjects: [

@@ -34,7 +34,6 @@ export default function TeacherSearchPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(Object.fromEntries(formData));
     setPage(1);
     setSubject(formData.get('subject'));
     setZipCode(formData.get('zipCode'));

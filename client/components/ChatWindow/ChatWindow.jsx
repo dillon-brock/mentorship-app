@@ -35,7 +35,6 @@ export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) 
 
       const conversationId = Talk.oneOnOneId(currentUser, otherUser);
       const conversation = session.getOrCreateConversation(conversationId);
-      console.log(conversation);
       conversation.setParticipant(currentUser);
       conversation.setParticipant(otherUser);
 

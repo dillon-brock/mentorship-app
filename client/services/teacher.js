@@ -1,5 +1,4 @@
 export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, maxPrice = 200) {
-  console.log(subject);
   const params = new URLSearchParams;
   params.set('subject', subject);
   params.set('lessonType', lessonType);

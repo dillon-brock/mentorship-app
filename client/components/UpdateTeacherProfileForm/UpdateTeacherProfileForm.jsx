@@ -128,7 +128,6 @@ export default function UpdateTeacherProfileForm({
     }
     const formDataObj = Object.fromEntries(formData);
     const updateData = { ...formDataObj, city, state}
-    console.log(updateData);
     await updateAccount({ 
       ...updateData,
       imageUrl: teacher.imageUrl

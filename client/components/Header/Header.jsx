@@ -16,7 +16,6 @@ export default function Header() {
   }
 
   const handleCreateStudentProfile = async () => {
-    console.log('running profile function');
     const studentInfo = await addStudentAccount({
       firstName: user.firstName,
       lastName: user.lastName,

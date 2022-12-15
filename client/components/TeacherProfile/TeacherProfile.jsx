@@ -36,8 +36,6 @@ export default function TeacherProfile() {
     setUserWantsToEditImage(false);
   }
 
-  console.log(teacher.imageUrl);
-
   return (
     <div className={styles.pageContainer}>
     {!userWantsToEditProfile &&

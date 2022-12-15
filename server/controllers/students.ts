@@ -31,7 +31,6 @@ export default Router()
         })
         .json({ message: 'Signed in successfully!', student });
     } catch (e) {
-      console.log(e);
       next(e);
     }
   })
