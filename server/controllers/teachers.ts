@@ -8,6 +8,7 @@ import StudentSubject from '../models/StudentSubject.js';
 import Subject from '../models/Subject.js';
 import Teacher from '../models/Teacher.js';
 import { UserService } from '../services/UserService.js';
+import { filterResults } from '../utils.js';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -61,17 +62,8 @@ export default Router()
   })
   .get('/', async (req, res, next) => {
     try {
-      let teachers = await Teacher.findAll();
-      if (typeof req.query['subject'] === 'string') {
-        const subjectQuery: string = req.query['subject'];
-        teachers = teachers.filter(teacher => {
-            return teacher.subjects?.some(subject => subject.subject.toLowerCase().startsWith(subjectQuery.toLowerCase())
-            && (req.query['lessonType'] !== 'Any' ? 
-            (subject.lessonType === req.query['lessonType'] || subject.lessonType === 'Any') : subject)
-            && (subject.minPrice <= Number(req.query['minPrice']) ? 
-              subject.maxPrice >= Number(req.query['minPrice']) : subject.minPrice <= Number(req.query['maxPrice'])))
-            });
-          }
+      const allTeachers = await Teacher.findAll();
+      const teachers = filterResults(allTeachers, req);
       res.json(teachers);
     } catch (error) {
       next(error);
