@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
 import { uploadProfilePicture } from '../../services/cloudinary';

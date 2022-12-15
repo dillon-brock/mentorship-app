@@ -7,7 +7,6 @@ import {
   it,
 } from '@jest/globals'
 import setupDb from '../setup-data.js'
-import Subject from '../models/Subject'
 
 const testTeacher = {
   firstName: 'Test',

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Button, Card, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row } from 'react-bootstrap';
 import { checkForExistingUser } from '../../services/auth';
 
 import styles from './teacherSignUpForm.module.css';

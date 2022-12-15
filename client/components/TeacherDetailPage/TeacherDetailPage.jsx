@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image, Row } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";

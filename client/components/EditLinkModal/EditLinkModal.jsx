@@ -5,15 +5,10 @@ import styles from './editLinkModal.module.css';
 import globalStyles from '../../global.module.css';
 
 export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
-  const [nameFromInput, setNameFromInput] = useState(name);
   const [urlFromInput, setUrlFromInput] = useState(url);
   const [urlError, setUrlError] = useState('');
 
   const handleClose = () => setUserWantsToEditLink(false);
-
-  const handleChangeName = (e) => {
-    setNameFromInput(e.target.value);
-  }
 
   const handleChangeUrl = (e) => {
     setUrlFromInput(e.target.value);
@@ -68,7 +63,6 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
               placeholder="File name" 
               name="name" 
               defaultValue={name}
-              onChange={handleChangeName}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="subject">

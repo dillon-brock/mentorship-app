@@ -1,4 +1,4 @@
-import { Col, Nav, Row, Tab, Tabs } from "react-bootstrap";
+import { Col, Nav, Row, Tab } from "react-bootstrap";
 import NewSubjectTab from "../NewSubjectTab/NewSubjectTab";
 import SubjectTab from "../SubjectTab/SubjectTab";
 import styles from './subjectList.module.css';

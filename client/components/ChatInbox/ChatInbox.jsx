@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, Fragment } from 'react';
+import { useEffect, useRef } from 'react';
 import Talk from "talkjs";
 import { useUserContext } from '../../context/UserContext';
 
@@ -30,8 +30,6 @@ export default function ChatInbox() {
   }, [user]);
 
   return (
-  <Fragment>
     <div style={{ height: '85%' }} className="inbox-container" ref={inboxEl}>Loading...</div>
-  </Fragment>
   )
 }

@@ -3,7 +3,6 @@ import authenticateStudent from '../middleware/authenticateStudent.js';
 import authenticateTeacher from '../middleware/authenticateTeacher.js';
 import checkForUserStudentId from '../middleware/checkForUserStudentId.js';
 import Connection from '../models/Connection.js';
-import Student from '../models/Student.js';
 import StudentSubject from '../models/StudentSubject.js';
 import Subject from '../models/Subject.js';
 import Teacher from '../models/Teacher.js';

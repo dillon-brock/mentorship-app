@@ -1,5 +1,5 @@
 import { Button, Container, Image, Nav, Navbar, Offcanvas } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth';
 import { addStudentAccount } from '../../services/student';

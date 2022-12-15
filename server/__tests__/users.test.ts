@@ -1,5 +1,5 @@
 /* @jest-environment node */
-import request, { agent } from 'supertest'
+import request from 'supertest'
 import app from '../app'
 import {
   describe,

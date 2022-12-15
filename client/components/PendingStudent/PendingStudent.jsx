@@ -1,4 +1,4 @@
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Image } from "react-bootstrap";
 import styles from './pendingStudent.module.css';
 
 export default function PendingStudent({ id, imageUrl, firstName, lastName, subject, handleApprove, handleDeny, handleMessage }) {

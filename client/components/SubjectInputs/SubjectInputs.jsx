@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 
 import styles from './subjectInputs.module.css';
 
