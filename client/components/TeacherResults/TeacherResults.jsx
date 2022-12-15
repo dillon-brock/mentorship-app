@@ -17,7 +17,7 @@ export default function TeacherResults({ teachers, loading }) {
       {showLoader || loading ?
         <div className={styles.topLevel}>
           <div className={styles.loaderContainer}>
-            <div className={globalStyles.loader} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></div>
+            <div className={globalStyles.loader}></div>
           </div>
         </div>
         :

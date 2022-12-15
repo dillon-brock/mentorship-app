@@ -6,9 +6,11 @@ interface CssExports {
   'chevron-button': string;
   'chevronButton': string;
   'content': string;
+  'file-container': string;
   'file-image': string;
   'file-image-container': string;
   'file-name': string;
+  'fileContainer': string;
   'fileImage': string;
   'fileImageContainer': string;
   'fileName': string;

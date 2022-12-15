@@ -51,7 +51,6 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
             {links.map(link => (
               <LinkMaterial 
                 key={link.id} 
-                link={link} 
                 {...link} 
                 setTeachingMaterials={setTeachingMaterials} 
                 subjects={subjects} 

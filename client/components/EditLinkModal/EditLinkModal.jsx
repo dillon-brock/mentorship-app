@@ -67,7 +67,7 @@ export default function EditLinkModal({ subjects, id, name, url, subjectId, user
               type="text" 
               placeholder="File name" 
               name="name" 
-              value={nameFromInput} 
+              defaultValue={name}
               onChange={handleChangeName}
             />
           </Form.Group>

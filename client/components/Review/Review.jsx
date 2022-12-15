@@ -8,10 +8,10 @@ export default function Review({ stars, detail, firstName, lastName, imageUrl, a
   const date = `${splitDate[1]} ${splitDate[2]}, ${splitDate[3]}`;
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={styles.reviewContainer}>
       {!anonymous &&
       <Container className={styles.container}>
-        <Image className={styles.image} src={imageUrl} roundedCircle style={{ width: '42px', height: '42px', display: "inline-block" }} />
+        <Image className={styles.image} src={imageUrl} roundedCircle />
         <Col>
           <p className={styles.name}>{firstName} {lastName}</p>
           <p className={styles.date}>{date}</p>
