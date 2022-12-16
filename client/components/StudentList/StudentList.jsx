@@ -15,6 +15,13 @@ export default function StudentList() {
   const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading } = useStudents(user?.teacherId);
   const [openChatBox, setOpenChatBox] = useState(false);
   const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
+  const [prevRecipient, setPrevRecipient] = useState(null);
+  const [randomKey, setRandomKey] = useState(Math.random());
+
+  if (prevRecipient !== studentMessageRecipient) {
+    setPrevRecipient(studentMessageRecipient);
+    setRandomKey(Math.random());
+  }
 
   const handleApprove = async (id) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
@@ -85,6 +92,7 @@ export default function StudentList() {
                   primaryUser={user} 
                   secondaryUser={studentMessageRecipient} 
                   handleClose={handleCloseChatBox}
+                  key={randomKey}
                 />
               }
             </section>
