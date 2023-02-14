@@ -12,6 +12,7 @@ import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage'
 import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMaterialsPage';
 import { UserProvider } from './context/UserContext';
 import './app.css';
+import SchedulePage from './components/SchedulePage/SchedulePage';
 
 const container = document.getElementById('app') || document.createElement('div')
 container.id = 'app'
@@ -30,6 +31,7 @@ root.render(
         <Route path="/add-account" element={<AddTeacherAccountPage />} />
         <Route path="/teaching-materials" element={<TeachingMaterialsPage />}/>
         <Route path="/learning-materials" element={<LearningMaterialsPage />}/>
+        <Route path="/teacher-schedule" element={<SchedulePage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>

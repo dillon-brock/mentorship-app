@@ -87,6 +87,7 @@ export default function Header() {
                         :
                         <a className={styles.navLink} onClick={handleCreateStudentProfile}>Create Student Profile</a>
                       }
+                      <Link className={styles.navLink} to='/teacher-schedule'>Schedule</Link>
                     </>
                   }
                   <Link className={styles.navLink} to='/inbox'>Inbox</Link>
