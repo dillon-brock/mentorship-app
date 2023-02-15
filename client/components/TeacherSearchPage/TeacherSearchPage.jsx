@@ -25,8 +25,9 @@ export default function TeacherSearchPage() {
   const { 
     teachers, 
     totalPages, 
-    errorMessage, 
-    setErrorMessage, 
+    zipCodeErrorMessage, 
+    setZipCodeErrorMessage,
+    errorMessage,
     loading 
   } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
 
@@ -50,15 +51,15 @@ export default function TeacherSearchPage() {
         <h1 className={styles.title}>Find an Instructor</h1>
         <div className={styles.controlsContainer}>
           <TeacherSearchForm
-            errorMessage={errorMessage}
-            setErrorMessage={setErrorMessage}
+            errorMessage={zipCodeErrorMessage}
+            setErrorMessage={setZipCodeErrorMessage}
             handleSubmit={handleSubmit}
           />
           <PagingSelect 
             setPageLength={setPageLength}
           />
         </div>
-        <TeacherResults teachers={teachers} loading={loading} />
+        <TeacherResults teachers={teachers} loading={loading} errorMessage={errorMessage} />
       </div>
       <PagingButtons
         page={page}

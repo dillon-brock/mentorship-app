@@ -3,7 +3,7 @@ import styles from './teacherResults.module.css';
 import globalStyles from '../../global.module.css';
 import { useState } from "react";
 
-export default function TeacherResults({ teachers, loading }) {
+export default function TeacherResults({ teachers, loading, errorMessage }) {
   
   const [showLoader, setShowLoader] = useState(true);
 
@@ -19,7 +19,7 @@ export default function TeacherResults({ teachers, loading }) {
         </div>
         :
         <>
-          {teachers.length > 0 ?
+          {teachers.length > 0 && !errorMessage ?
             <div className={styles.container}>
               <div className={styles.list}>
                 {teachers.map(teacher => (
@@ -29,7 +29,11 @@ export default function TeacherResults({ teachers, loading }) {
             </div>
             :
             <div>
-              <h4 className={styles.noResultsMessage}>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</h4>
+              {errorMessage ?
+                <h4 className={styles.noResultsMessage}>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</h4>
+                :
+                <h4 className={styles.noResultsMessage}>{errorMessage}</h4>
+              }
             </div>
           }
         </>
