@@ -11,21 +11,30 @@ export function useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice,
   useEffect(() => {
     const fetchTeachers = async () => {
       setLoading(true);
-      let data = await getTeachers(subject, lessonType, minPrice, maxPrice);
+      // get list of teachers from database with parameters for backend filtering
+      let teachersData = await getTeachers(subject, lessonType, minPrice, maxPrice);
+
+      // further filter list based on location if the user has input a zip code and distance radius
       if (zipCode && Number(radius)) {
-        const zipCodesInRadius = await getZipCodesInRadius({ zipCode, radius });
+        // get list of zip codes within the distance radius, converted to Set to allow for O(1) searching
+        const zipCodeData = await getZipCodesInRadius({ zipCode, radius });
+        const zipCodesInRadius = new Set(zipCodeData.zip_codes);
         const errorStatus = zipCodesInRadius.error_code;
+
+        // check that the input zip code refers to a real location, if not the list of teachers will not be filtered by location
         if (errorStatus === 404) {
           setErrorMessage('Please enter a valid zip code to find instructors near you.');
         } else {
-          data = data.filter(t => zipCodesInRadius.zip_codes.includes(t.zipCode));
+          // filter list of teachers where their zip code is in the radius
+          teachersData = teachersData.filter(teacher => zipCodesInRadius.has(teacher.zipCode));
         }
+        // necessary to check for a radius of 0 here because the zipCode API does not allow for a radius argument of 0
       } else if (zipCode && radius === '0') {
-        data = data.filter(t => t.zipCode === zipCode);
+        teachersData = teachersData.filter(teacher => teacher.zipCode === zipCode);
       }
-      const pagedData = data.slice((page - 1) * pageLength, page * pageLength);
-      setTeachers(pagedData);
-      setTotalPages(Math.ceil(data.length / pageLength));
+      const pagedTeachers = teachersData.slice((page - 1) * pageLength, page * pageLength);
+      setTeachers(pagedTeachers);
+      setTotalPages(Math.ceil(teachersData.length / pageLength));
       setLoading(false);
     }
     fetchTeachers();
