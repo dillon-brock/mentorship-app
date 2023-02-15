@@ -30,7 +30,6 @@ export default function TeacherSearchPage() {
     errorMessage,
     loading 
   } = useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength);
-
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +58,11 @@ export default function TeacherSearchPage() {
             setPageLength={setPageLength}
           />
         </div>
-        <TeacherResults teachers={teachers} loading={loading} errorMessage={errorMessage} />
+        <TeacherResults 
+          teachers={teachers} 
+          loading={loading} 
+          errorMessage={errorMessage} 
+        />
       </div>
       <PagingButtons
         page={page}

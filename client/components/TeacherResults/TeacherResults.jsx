@@ -30,9 +30,9 @@ export default function TeacherResults({ teachers, loading, errorMessage }) {
             :
             <div>
               {errorMessage ?
-                <h4 className={styles.noResultsMessage}>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</h4>
-                :
                 <h4 className={styles.noResultsMessage}>{errorMessage}</h4>
+                :
+                <h4 className={styles.noResultsMessage}>No teachers were found matching your criteria. Please try searching for a different subject or expand your radius.</h4>
               }
             </div>
           }
