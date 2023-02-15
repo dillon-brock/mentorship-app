@@ -18,7 +18,7 @@ export function useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice,
   
         // further filter list based on location if the user has input a zip code and distance radius
         if (zipCode && Number(radius)) {
-          // get list of zip codes within the distance radius, converted to Set to allow for O(1) searching
+          // get list of zip codes within the distance radius using the ZIPcode API, converted to Set to allow for O(1) searching
           const zipCodeData = await getZipCodesInRadius({ zipCode, radius });
           const zipCodesInRadius = new Set(zipCodeData.zip_codes);
           const errorStatus = zipCodeData.error_code;
