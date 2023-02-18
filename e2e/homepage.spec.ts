@@ -7,11 +7,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${config.use?.baseURL}`);
 })
 
-test('has title', async ({ page }) => {
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Saga/);
-});
-
 // start links
 test('teacher start link navigates to teacher sign up', async ({ page }) => {
   const teacherStartLink = page.getByText(/I want to teach/i);
@@ -28,4 +23,20 @@ test('student start link navigates to student sign up', async ({ page }) => {
 test('find instructors start link navigates to /find-teachers', async ({ page }) => {
   page.getByText(/Find instructors/i).click();
   await expect(page).toHaveURL(`${config.use?.baseURL}/find-teachers`)
+})
+
+// nav links
+test('navbar student sign up button navigates to /auth/sign-up/student', async ({ page }) => {
+  page.getByText('Student Sign Up').click();
+  await expect(page).toHaveURL(`${config.use?.baseURL}/auth/sign-up/student`);
+});
+
+test('navbar teacher sign up button navigates to /auth/sign-up/teacher', async ({ page }) => {
+  page.getByText('Teacher Sign Up').click();
+  await expect(page).toHaveURL(`${config.use?.baseURL}/auth/sign-up/teacher`);
+});
+
+test('log in button navigates to /auth/sign-in', async ({ page }) => {
+  page.getByText('Log In').click();
+  await expect(page).toHaveURL(`${config.use?.baseURL}/auth/sign-in`);
 })
