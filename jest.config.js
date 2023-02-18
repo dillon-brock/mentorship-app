@@ -32,6 +32,7 @@ export default {
     '/node_modules/', // The default, but keep it here since we're overriding.
     '/dist', // Do not test files we've transpiled.
     '/public', // Do not test files we've transpiled.
+    '/e2e',
   ],
   transform: {
     '^.+\\.tsx?': [ 'ts-jest', { useESM: true } ],
