@@ -26,6 +26,10 @@ jobs:
         run: |
           npm run setup-db
           npm run test -- --runInBand
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
         env:
           CI: true
           DATABASE_URL: postgres://alchemy:alchemy@postgres:5432/alchemy
