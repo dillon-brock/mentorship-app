@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 import { postReview } from "../../services/reviews";
@@ -7,7 +7,16 @@ import StarRating from "../StarRating/StarRating";
 import styles from './addReviewModal.module.css';
 import globalStyles from '../../global.module.css';
 
-export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }) {
+type Props = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  reviews: any;
+  setReviews: Dispatch<SetStateAction<any[]>>;
+  setAvgRating: (newVal: number) => void;
+}
+
+export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }: Props) {
 
   const { user } = useUserContext();
   
@@ -22,18 +31,18 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
     setStudentWantsToAddReview(false);
   }
 
-  const ratingChanged = (newRating) => {
+  const ratingChanged = (newRating: number) => {
     setStars(newRating);
     setReviewError('');
   }
 
-  const handleAddReview = async (e) => {
+  const handleAddReview = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (stars === 0) {
       setReviewError('Star rating is required.');
       return;
     }
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const detail = formData.get("detail");
     const newReview = await postReview({
       teacherId: id,
