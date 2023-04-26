@@ -25,7 +25,7 @@ const env = Object.entries({
 }, {});
 
 export default {
-  entry: './client/app.jsx',
+  entry: './client/app.tsx',
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   output: {
     filename: 'bundle.[hash].js',

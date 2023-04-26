@@ -1,4 +1,4 @@
-import { createRoot } from 'react-dom/client';
+import { Root, createRoot } from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AddTeacherAccountPage from './components/AddTeacherAccountPage/AddTeacherAccountPage';
 import AuthPage from './components/AuthPage/AuthPage';
@@ -13,9 +13,9 @@ import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMa
 import { UserProvider } from './context/UserContext';
 import './app.css';
 
-const container = document.getElementById('app') || document.createElement('div')
+const container: HTMLElement = document.getElementById('app') || document.createElement('div')
 container.id = 'app'
-const root = createRoot(container);
+const root: Root = createRoot(container);
 root.render(
   <UserProvider>
     <Router>

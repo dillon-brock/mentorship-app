@@ -3,12 +3,12 @@
   "extends": [
     "prettier"
   ],
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "plugins": [],
+  "plugins": ["@typescript-eslint"],
   "root": true,
   "rules": {}
 }
