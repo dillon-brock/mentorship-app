@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
@@ -6,6 +6,18 @@ import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
 import globalStyles from '../../global.module.css';
+import Subject from "../../../server/models/Subject";
+
+type Props = {
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  subjects: Subject[];
+  setUser: Dispatch<SetStateAction<boolean>>;
+  newUser: boolean;
+  user: any;
+}
 
 export default function TeacherBioForm({
   email,
@@ -16,7 +28,7 @@ export default function TeacherBioForm({
   setUser,
   newUser,
   user
-}) {
+}: Props) {
 
   const bioInputRef = useRef();
   const zipCodeInputRef = useRef();
