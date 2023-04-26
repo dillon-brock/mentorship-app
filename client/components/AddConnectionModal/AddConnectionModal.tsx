@@ -1,18 +1,26 @@
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext.js";
-import useSubjects from "../../hooks/useSubjects.js";
+import useSubjects from "../../hooks/useSubjects";
 import { createConnection } from "../../services/connection.js";
 import { addStudentSubject } from "../../services/student.js";
 import styles from './addConnectionModal.module.css';
 import globalStyles from '../../global.module.css';
 
-export default function AddConnectionModal({id, firstName, lastName, setConnection, setUserNeedsToSignIn }) {
-  const [studentWantsToConnect, setStudentWantsToConnect] = useState(false);
+type Props = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  setConnection: (newVal: boolean) => void;
+  setUserNeedsToSignIn: (newVal: boolean) => void;
+}
+
+export default function AddConnectionModal({id, firstName, lastName, setConnection, setUserNeedsToSignIn }: Props) {
+  const [studentWantsToConnect, setStudentWantsToConnect] = useState<boolean>(false);
   const { subjects } = useSubjects(id);
-  const [subjectId, setSubjectId] = useState('');
+  const [subjectId, setSubjectId] = useState<string>('');
   const { user } = useUserContext();
-  const [subjectError, setSubjectError] = useState('');
+  const [subjectError, setSubjectError] = useState<string>('');
 
   const handleShow = () => {
     if (!user) {
@@ -23,7 +31,7 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
   };
   const handleClose = () => setStudentWantsToConnect(false);
 
-  const handleChangeSubject = (e) => {
+  const handleChangeSubject = (e: ChangeEvent<HTMLSelectElement>) => {
     if (subjectError) setSubjectError('');
     setSubjectId(e.target.value);
   }

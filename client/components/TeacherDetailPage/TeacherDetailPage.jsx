@@ -29,6 +29,10 @@ export default function TeacherDetailPage() {
     alreadyReviewed = checkForReviewMatch(user.studentId, id, reviews);
   }
 
+  for (const [k, v] of Object.entries(teacher)) {
+    console.log(`${k}: ${v} (${typeof v})`);
+  }
+
   let formattedSubjectList;
   if (teacher.subjects) {
     formattedSubjectList = teacher.subjects

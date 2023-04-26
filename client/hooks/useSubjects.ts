@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { getSubjectsByTeacherId } from "../services/subjects.js";
 
-export default function useSubjects(id) {
-  const [subjects, setSubjects] = useState([]);
+type Subject = {
+  id: string;
+  teacherId: string;
+  subject: string;
+  minPrice: number;
+  maxPrice: number;
+  lessonType: string;
+}
+
+export default function useSubjects(id: string) {
+  const [subjects, setSubjects] = useState<Subject[]>([]);
 
   useEffect(() => {
     const fetchSubjects = async () => {
