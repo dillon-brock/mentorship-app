@@ -6,24 +6,25 @@ import { getAverageRating } from "../../utils";
 import StarRating from "../StarRating/StarRating";
 import styles from './addReviewModal.module.css';
 import globalStyles from '../../global.module.css';
+import Review from "../../../server/models/Review";
 
 type Props = {
   id: string;
   firstName: string;
   lastName: string;
-  reviews: any;
-  setReviews: Dispatch<SetStateAction<any[]>>;
-  setAvgRating: (newVal: number) => void;
+  reviews: Review[];
+  setReviews: Dispatch<SetStateAction<Review[]>>;
+  setAvgRating: Dispatch<SetStateAction<number>>;
 }
 
 export default function AddReviewModal({ id, firstName, lastName, reviews, setReviews, setAvgRating }: Props) {
 
   const { user } = useUserContext();
   
-  const [studentWantsToAddReview, setStudentWantsToAddReview] = useState(false);
-  const [leaveAnonymously, setLeaveAnonymously] = useState(false);
-  const [stars, setStars] = useState(0);
-  const [reviewError, setReviewError] = useState('');
+  const [studentWantsToAddReview, setStudentWantsToAddReview] = useState<boolean>(false);
+  const [leaveAnonymously, setLeaveAnonymously] = useState<boolean>(false);
+  const [stars, setStars] = useState<number>(0);
+  const [reviewError, setReviewError] = useState<string>('');
 
   const handleShow = () => setStudentWantsToAddReview(true);
   const handleClose = () => {
