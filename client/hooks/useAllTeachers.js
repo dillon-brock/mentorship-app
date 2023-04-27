@@ -4,8 +4,8 @@ import { getZipCodesInRadius } from "../services/zipcode.js";
 
 export function useAllTeachers(subject, zipCode, lessonType, minPrice, maxPrice, radius, page, pageLength) {
   const [teachers, setTeachers] = useState([]);
-  const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [zipCodeErrorMessage, setZipCodeErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
 
