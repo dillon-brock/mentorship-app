@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { Button, Form, Image, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth';
@@ -6,46 +6,49 @@ import { uploadProfilePicture } from '../../services/cloudinary';
 
 import styles from './studentSignUpForm.module.css';
 import globalStyles from '../../global.module.css';
+import { StudentFormData, FormErrors } from './types';
 
 export default function StudentSignUpForm() {
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const passwordConfirmationRef = useRef();
-  const firstNameInputRef = useRef();
-  const lastNameInputRef = useRef();
-  const [showInvalidConfirmation, setShowInvalidConfirmation] = useState(false);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-  const [imageData, setImageData] = useState(null);
-  const [formErrors, setFormErrors] = useState({});
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+  const firstNameInputRef = useRef<HTMLInputElement>(null);
+  const lastNameInputRef = useRef<HTMLInputElement>(null);
+  const [showInvalidConfirmation, setShowInvalidConfirmation] = useState<boolean>(false);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
+  const [imageData, setImageData] = useState<FormData | null>(null);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const { setUser } = useUserContext();
   
   const isFormInvalid = () => {
-    let invalid = false;
+    let invalid: boolean = false;
 
-    if (firstNameInputRef.current.value === '') {
+    if (firstNameInputRef.current && firstNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, firstName: 'First name is required'});
       invalid = true;
       return invalid;
     }
 
-    if (lastNameInputRef.current.value === '') {
+    if (lastNameInputRef.current && lastNameInputRef.current.value === '') {
       setFormErrors({ ...formErrors, lastName: 'Last name is required'});
       invalid = true;
       return invalid;
     }
 
-    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
+    if (emailInputRef.current && (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity())) {
       setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
       invalid = true;
       return invalid;
     }
-    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
+    if (passwordInputRef.current && (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6)) {
       setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters.'});
       invalid = true;
       return invalid;
     }
-    if (passwordConfirmationRef.current.value !== passwordInputRef.current.value) {
+    if (passwordConfirmationRef.current &&
+      passwordInputRef.current &&
+      (passwordConfirmationRef.current.value !== passwordInputRef.current.value)) {
       setFormErrors({ ...formErrors, passwordConfirmation: 'Passwords do not match.'});
       invalid = true;
       return invalid;
@@ -71,7 +74,9 @@ export default function StudentSignUpForm() {
   }
 
   const handleChangePasswordConfirmation = () => {
-    if (passwordConfirmationRef.current.value === passwordInputRef.current.value) {
+    if (passwordConfirmationRef.current &&
+      passwordInputRef.current &&
+      passwordConfirmationRef.current.value === passwordInputRef.current.value) {
       setShowInvalidConfirmation(false);
     } else {
       setShowInvalidConfirmation(true);
@@ -79,27 +84,29 @@ export default function StudentSignUpForm() {
     }
   }
 
-  const handleChangeImage = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    setImagePreviewUrl(URL.createObjectURL(file));
-    setImageData(formData);
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : undefined;
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+      setImagePreviewUrl(URL.createObjectURL(file));
+      setImageData(formData);
+    }
   }
 
-  const handleSignUpStudent = async (e) => {
+  const handleSignUpStudent = async (e: FormEvent) => {
     e.preventDefault();
     if (isFormInvalid()) return;
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     let formDataObj = Object.fromEntries(formData);
-    let imageUrl = '';
+    let imageUrl: string = '';
     if (imageData) {
       const uploadImageResponse = await uploadProfilePicture(imageData);
       imageUrl = uploadImageResponse.secure_url;
     }
     let response = await signUpStudent({
-      ...formDataObj, 
+      ...(formDataObj as StudentFormData), 
       imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     });
     
