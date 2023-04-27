@@ -1,9 +1,19 @@
 import { Form } from "react-bootstrap";
 import styles from './locationDropdown.module.css';
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-export default function LocationDropdown({ radius, setRadius, zipCode, setZipCode, setErrorMessage, showLocationDropdown }) {
+type Props = {
+  radius: string;
+  setRadius: Dispatch<SetStateAction<string>>;
+  zipCode: string;
+  setZipCode: Dispatch<SetStateAction<string>>;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
+  showLocationDropdown: boolean;
+}
 
-  const handleChangeZipCode = (e) => {
+export default function LocationDropdown({ radius, setRadius, zipCode, setZipCode, setErrorMessage, showLocationDropdown }: Props) {
+
+  const handleChangeZipCode = (e: ChangeEvent<HTMLInputElement>) => {
     setZipCode(e.target.value);
     setErrorMessage('');
   }
@@ -14,8 +24,8 @@ export default function LocationDropdown({ radius, setRadius, zipCode, setZipCod
         <Form.Control 
           className={styles.input} 
           type="number"
-          minLength="5"
-          maxLength="5"
+          minLength={5}
+          maxLength={5}
           placeholder="ZIP CODE" 
           name="zipCode"
           value={zipCode} 
@@ -31,7 +41,7 @@ export default function LocationDropdown({ radius, setRadius, zipCode, setZipCod
           step="5" 
           name="radius" 
           value={radius} 
-          onInput={(e) => setRadius(e.target.value)}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)}
         />
         <Form.Text className={styles.radiusDisplay}>{radius} miles</Form.Text>
       </Form.Group>
