@@ -3,7 +3,7 @@ import StarRating from "../StarRating/StarRating";
 import styles from './reviewDisplay.module.css';
 import { Review } from "../../types";
 
-export default function Review({ 
+export default function ReviewDisplay({ 
   stars, detail, firstName, lastName, 
   imageUrl, anonymous, createdAt }: Review) {
 

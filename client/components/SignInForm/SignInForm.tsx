@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
 import { getUser, signIn } from "../../services/auth";
@@ -6,21 +6,30 @@ import { getUser, signIn } from "../../services/auth";
 import styles from './signInForm.module.css';
 import globalStyles from '../../global.module.css';
 
+type FormErrors = {
+  email?: string;
+  password?: string;
+}
+
 export default function SignInForm() {
 
   const { setUser } = useUserContext();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const [formErrors, setFormErrors] = useState({});
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const isFormInvalid = () => {
-    let invalid = false;
+    let invalid: boolean = false;
 
-    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
+    if (emailInputRef.current && (
+      emailInputRef.current.value === '' || 
+      !emailInputRef.current.checkValidity())) {
       setFormErrors({ ...formErrors, email: 'Please enter a valid email.'});
       invalid = true;
     }
-    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
+    if (passwordInputRef.current && (
+      passwordInputRef.current.value === '' || 
+      passwordInputRef.current.value.length < 6)) {
       setFormErrors({ ...formErrors, password: 'Password must be at least 6 characters'});
       invalid = true;
     }
@@ -36,10 +45,10 @@ export default function SignInForm() {
     if (formErrors.password) setFormErrors({ ...formErrors, password: ''});
   }
 
-  const handleSignIn = async (e) => {
+  const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();
     if (isFormInvalid()) return;
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const signInResponse = await signIn({ 
       email: formData.get('email'), 
       password: formData.get('password') 
