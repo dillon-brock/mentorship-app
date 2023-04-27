@@ -155,3 +155,7 @@ export type CityErrorResponse =  {
   valid: false;
 }
 
+export type DatabaseErrorResponse = {
+  status: number;
+  message: string;
+}

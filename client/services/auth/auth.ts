@@ -1,8 +1,9 @@
+import { DatabaseErrorResponse } from "../../types";
 import { SignInInfo, StudentSignUpInfo, StudentSignUpResponse, TeacherSignUpInfo, UserSignUpInfo } from "./types";
 
 export async function signUpStudent({ email, password, firstName, lastName, 
   imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
-}: StudentSignUpInfo): Promise<StudentSignUpResponse> {
+}: StudentSignUpInfo): Promise<StudentSignUpResponse | DatabaseErrorResponse> {
   const response = await fetch(`/api/v1/students`, {
     method: "POST",
     credentials: "include",
@@ -18,8 +19,9 @@ export async function signUpStudent({ email, password, firstName, lastName,
       "Accept": "application/json"
     }
   })
-
-  return await response.json();
+  const res = await response.json();
+  if (res.ok) res.status = 200;
+  return res;
 }
 
 export async function signUpTeacher({

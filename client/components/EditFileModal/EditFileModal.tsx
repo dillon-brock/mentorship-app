@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
-import { uploadFile } from "../../services/cloudinary";
+import { uploadFile } from "../../services/cloudinary/cloudinary";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './editFileModal.module.css';
 import globalStyles from '../../global.module.css';

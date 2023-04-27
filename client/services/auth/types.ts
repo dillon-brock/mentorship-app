@@ -11,6 +11,8 @@ export type StudentSignUpInfo = {
 export type StudentSignUpResponse = {
   message: string;
   student: Student;
+  status: number;
+  ok: boolean;
 }
 
 export type TeacherSignUpInfo = {

@@ -8,7 +8,7 @@ import SubjectList from "../SubjectList/SubjectList";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './teacherProfile.module.css';
 import UpdateTeacherProfileForm from "../UpdateTeacherProfileForm/UpdateTeacherProfileForm";
-import { uploadProfilePicture } from "../../services/cloudinary";
+import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();

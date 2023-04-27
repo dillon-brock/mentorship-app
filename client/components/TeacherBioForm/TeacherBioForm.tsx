@@ -1,12 +1,12 @@
 import { ChangeEvent, FocusEvent, FormEvent, useRef, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { getUser, signUpTeacher, updateUserType } from "../../services/auth/auth";
-import { uploadProfilePicture } from "../../services/cloudinary";
+import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
 import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
 import globalStyles from '../../global.module.css';
-import { FormErrors, NewUserProps, Props } from "./types";
+import { FormErrors, Props } from "./types";
 
 export default function TeacherBioForm({
   email,
@@ -17,7 +17,7 @@ export default function TeacherBioForm({
   setUser,
   newUser,
   user
-}: NewUserProps) {
+}: Props) {
 
   const bioInputRef = useRef<HTMLTextAreaElement>(null);
   const zipCodeInputRef = useRef<HTMLInputElement>(null);
@@ -113,6 +113,10 @@ export default function TeacherBioForm({
     }
 
     if (newUser) {
+      email = email as string;
+      password = password as string;
+      firstName = firstName as string;
+      lastName = lastName as string;
       await signUpTeacher({
         email,
         password,

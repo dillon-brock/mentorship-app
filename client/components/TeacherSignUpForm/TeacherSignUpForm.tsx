@@ -110,7 +110,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
     e.preventDefault();
     if (isFormInvalid()) return;
     const formData = new FormData(e.target as HTMLFormElement);
-    const existingUser = await checkForExistingUser(formData.get('email'));
+    const existingUser = await checkForExistingUser(formData.get('email') as string);
     if (existingUser) {
       setFormErrors({ 
         ...formErrors, 

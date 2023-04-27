@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from 'react-icons/fa';
 import useStudentProfile from "../../hooks/useStudentProfile"
-import { uploadProfilePicture } from "../../services/cloudinary";
+import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
 import { updateAccount } from "../../services/student";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './studentProfile.module.css';

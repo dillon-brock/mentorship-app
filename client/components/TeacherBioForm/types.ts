@@ -11,11 +11,8 @@ export interface Props {
   setUser: Dispatch<SetStateAction<boolean>>;
   newUser: boolean;
   user: any;
-}
-
-export interface NewUserProps extends Props {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  email?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
 }

@@ -50,8 +50,8 @@ export default function SignInForm() {
     if (isFormInvalid()) return;
     const formData = new FormData(e.target as HTMLFormElement);
     const signInResponse = await signIn({ 
-      email: formData.get('email'), 
-      password: formData.get('password') 
+      email: formData.get('email') as string, 
+      password: formData.get('password') as string 
     });
     if (signInResponse.status) {
       if (signInResponse.message === 'Invalid email') {

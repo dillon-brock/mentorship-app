@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { Button, Form, Image, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
 import { getUser, signUpStudent } from '../../services/auth/auth';
-import { uploadProfilePicture } from '../../services/cloudinary';
+import { uploadProfilePicture } from '../../services/cloudinary/cloudinary';
 
 import styles from './studentSignUpForm.module.css';
 import globalStyles from '../../global.module.css';
@@ -110,7 +110,7 @@ export default function StudentSignUpForm() {
       imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     });
     
-    if (response.status && response.status === 500) {
+    if (response.status === 500) {
       setFormErrors({ email: 'This email is already being used by another account. Please sign in or use a different email.'});
       return;
     }
