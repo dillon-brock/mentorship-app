@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { addSubject } from "../../services/subjects";
 import styles from './newSubjectTab.module.css';
 import { FormErrors } from "./types";
-import { Teacher } from "../../types";
+import { Subject, Teacher } from "../../types";
 
 export type Props = {
   setTeacher: Dispatch<SetStateAction<Teacher>>;
@@ -68,7 +68,7 @@ export default function NewSubjectTab({ setTeacher }: Props) {
     setTeacher((prev: Teacher) => ({
       ...prev,
       subjects: [
-        ...[prev.subjects],
+        ...(prev.subjects as Subject[]),
         newSubject
       ]
     }));

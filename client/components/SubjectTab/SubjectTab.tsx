@@ -1,27 +1,37 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import { updateSubject } from "../../services/subjects";
 import styles from './subjectTab.module.css';
+import { Subject, Teacher } from "../../types";
 
-export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeacher, displayOnly }) {
-  const [editing, setEditing] = useState(false);
-  const [minPriceFromInput, setMinPriceFromInput] = useState(minPrice);
-  const [maxPriceFromInput, setMaxPriceFromInput] = useState(maxPrice);
-  const [lessonTypeFromInput, setLessonTypeFromInput] = useState(lessonType);
-  const [showEditButton, setShowEditButton] = useState(false);
+type Props = {
+  id: string;
+  minPrice: number;
+  maxPrice: number;
+  lessonType: string;
+  setTeacher?: Dispatch<SetStateAction<Teacher>>;
+  displayOnly: boolean;
+}
+
+export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeacher, displayOnly }: Props) {
+  const [editing, setEditing] = useState<boolean>(false);
+  const [minPriceFromInput, setMinPriceFromInput] = useState<number>(minPrice);
+  const [maxPriceFromInput, setMaxPriceFromInput] = useState<number>(maxPrice);
+  const [lessonTypeFromInput, setLessonTypeFromInput] = useState<string>(lessonType);
+  const [showEditButton, setShowEditButton] = useState<boolean>(false);
 
   const handleUpdateSubject = async () => {
-    const updatedSubject = await updateSubject({
+    const updatedSubject: Subject = await updateSubject({
       id,
       minPrice: minPriceFromInput,
       maxPrice: maxPriceFromInput,
       lessonType: lessonTypeFromInput
     });
-    setTeacher(prev => ({
+    (setTeacher as Dispatch<SetStateAction<Teacher>>)(prev => ({
       ...prev,
       subjects: [
-        ...prev.subjects.filter(subject => subject.id !== id),
+        ...(prev.subjects?.filter(subject => subject.id !== id) as Subject[]),
         updatedSubject
     ]}))
     setEditing(false);
@@ -56,7 +66,7 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
               className={styles.input} 
               type="number" 
               value={minPriceFromInput} 
-              onChange={(e) => setMinPriceFromInput(e.target.value)} 
+              onChange={(e) => setMinPriceFromInput(Number(e.target.value))} 
             />
           </Container>
           <p className={styles.currency}>to</p>
@@ -66,7 +76,7 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
               className={styles.input} 
               type="number" 
               value={maxPriceFromInput} 
-              onChange={(e) => setMaxPriceFromInput(e.target.value)} 
+              onChange={(e) => setMaxPriceFromInput(Number(e.target.value))} 
             />
           </Container>
         </Container>
@@ -78,7 +88,7 @@ export default function SubjectTab({ id, minPrice, maxPrice, lessonType, setTeac
           <FaEdit />
         </Button>
       }
-      {editing && !displayOnly &&
+      {editing && !displayOnly && setTeacher &&
         <div className={styles.buttonContainer}>
           <Button className={styles.saveButton} onClick={handleUpdateSubject}>Save Changes</Button>
         </div>
