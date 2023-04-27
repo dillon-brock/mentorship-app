@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, FocusEvent, FormEvent, useRef, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
@@ -6,18 +6,7 @@ import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
 import globalStyles from '../../global.module.css';
-import Subject from "../../../server/models/Subject";
-
-type Props = {
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  subjects: Subject[];
-  setUser: Dispatch<SetStateAction<boolean>>;
-  newUser: boolean;
-  user: any;
-}
+import { FormErrors, Props } from "./types";
 
 export default function TeacherBioForm({
   email,
@@ -30,20 +19,20 @@ export default function TeacherBioForm({
   user
 }: Props) {
 
-  const bioInputRef = useRef();
-  const zipCodeInputRef = useRef();
-  const [showCity, setShowCity] = useState(false);
-  const [zipCodeChecked, setZipCodeChecked] = useState(false);
-  const [imageData, setImageData] = useState(null);
-  const [cityName, setCityName] = useState('');
-  const [stateName, setStateName] = useState('');
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-  const [formErrors, setFormErrors] = useState({});
+  const bioInputRef = useRef<HTMLTextAreaElement>(null);
+  const zipCodeInputRef = useRef<HTMLInputElement>(null);
+  const [showCity, setShowCity] = useState<boolean>(false);
+  const [zipCodeChecked, setZipCodeChecked] = useState<boolean>(false);
+  const [imageData, setImageData] = useState<FormData | null>(null);
+  const [cityName, setCityName] = useState<string>('');
+  const [stateName, setStateName] = useState<string>('');
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const isFormInvalid = () => {
-    let invalid = false;
+    let invalid: boolean = false;
     
-    if (bioInputRef.current.value === '') {
+    if (bioInputRef.current && bioInputRef.current.value === '') {
       setFormErrors({ 
         ...formErrors, 
         bio: 'Bio is required. This will help students know if you will be a good fit for them.'
@@ -51,7 +40,7 @@ export default function TeacherBioForm({
       invalid = true;
     }
 
-    if (zipCodeInputRef.current.value === '') {
+    if (zipCodeInputRef.current && zipCodeInputRef.current.value === '') {
       setFormErrors({ ...formErrors, zipCode: 'Zip code is required'});
       invalid = true;
     }
@@ -65,20 +54,23 @@ export default function TeacherBioForm({
     if (formErrors.bio) setFormErrors({ ...formErrors, bio: ''});
   }
 
-  const handleChangeImage = (e) => {
-    const file = e.target.files[0];
-    setImagePreviewUrl(URL.createObjectURL(file));
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    setImageData(formData);
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const file = target.files ? target.files[0] : undefined;
+    if (file != undefined) {
+      setImagePreviewUrl(URL.createObjectURL(file));
+      const formData: FormData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+      setImageData(formData);
+    }
   }
 
   const handleChangeZipCode = () => {
     if (formErrors.zipCode) setFormErrors({ ...formErrors, zipCode: ''});
   }
 
-  const handleEnterZipCode = async (e) => {
+  const handleEnterZipCode = async (e: FocusEvent<HTMLInputElement>) => {
     if (Number(e.target.value) && e.target.value.length === 5) {
       const zipCodeResponse = await getCityFromZipCode(e.target.value);
       if (zipCodeResponse.city && zipCodeResponse.state) {
@@ -94,14 +86,14 @@ export default function TeacherBioForm({
     }
   }
 
-  const handleEnterPhoneNumber = (e) => {
+  const handleEnterPhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3");
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isFormInvalid()) return;
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (!zipCodeChecked) {
       const zipCodeResponse = await getCityFromZipCode(formData.get('zip'));
       if (zipCodeResponse.city && zipCodeResponse.state) {
@@ -110,11 +102,11 @@ export default function TeacherBioForm({
         setZipCodeChecked(true);
       }
       else if (zipCodeResponse.error_msg) {
-        setFormErrors({ zipCode: 'Please enter a valid zip code'});
+        setFormErrors({ zipCode: 'Please enter a valid zip code' });
         return;
       }
     }
-    let imageUrl = '';
+    let imageUrl: string = '';
     if (imageData) {
       const uploadImageResponse = await uploadProfilePicture(imageData);
       imageUrl = uploadImageResponse.secure_url;
