@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Row } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import FileMaterial from "../FileMaterial/FileMaterial";
 import LinkMaterial from "../LinkMaterial/LinkMaterial";
 import styles from './materialSubjectSection.module.css';
+import Subject from "../../../server/models/Subject";
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
 
-export default function MaterialsSubjectSection({ subject, teachingMaterials, setTeachingMaterials, subjects }) {
-  const files = teachingMaterials.filter(material => material.type === 'file' && material.subjectId == subject.id );
-  const links = teachingMaterials.filter(material => material.type === 'link' && material.subjectId == subject.id );
-  const [expanded, setExpanded] = useState(false);
+type Props = {
+  subject: Subject;
+  teachingMaterials: TeachingMaterial[];
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  subjects: Subject[];
+}
+
+export default function MaterialsSubjectSection({ subject, teachingMaterials, setTeachingMaterials, subjects }: Props) {
+  const files: TeachingMaterial[] = teachingMaterials.filter(material => material.type === 'file' && material.subjectId == subject.id && typeof material.name == 'string' );
+  const links: TeachingMaterial[] = teachingMaterials.filter(material => material.type === 'link' && material.subjectId == subject.id );
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
     <section className={styles.section}>
@@ -34,7 +43,8 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
             {files.map(file => (
               <FileMaterial 
                 key={file.id} 
-                {...file} 
+                {...file}
+                name={file.name != undefined ? file.name : ''}
                 setTeachingMaterials={setTeachingMaterials} 
                 subjects={subjects} 
               />

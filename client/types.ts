@@ -1,4 +1,5 @@
 import Connection from "../server/models/Connection";
+import Subject from "../server/models/Subject";
 import Teacher from "../server/models/Teacher";
 import TeachingMaterial from "../server/models/TeachingMaterial";
 

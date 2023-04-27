@@ -9,7 +9,7 @@ import Subject from "../../../server/models/Subject";
 
 type Props = {
   id: string;
-  name: string;
+  name?: string;
   url: string;
   subjectId: string;
   setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;

@@ -9,7 +9,7 @@ import TeachingMaterial from "../../../server/models/TeachingMaterial";
 type Props = {
   subjects: Subject[];
   id: string;
-  name: string;
+  name: string | undefined;
   url: string;
   subjectId: string;
   userWantsToEditLink: boolean;
