@@ -4,14 +4,15 @@ import { useUserContext } from "../../context/UserContext";
 import TeacherBioForm from "../TeacherBioForm/TeacherBioForm";
 import TeacherLessonForm from "../TeacherLessonForm/TeacherLessonForm";
 import TeacherSignUpForm from "../TeacherSignUpForm/TeacherSignUpForm";
+import { NumberedSubject } from "../../types";
 
 export default function TeacherAuth() {
-  const [step, setStep] = useState(1);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [subjects, setSubjects] = useState([]);
+  const [step, setStep] = useState<number>(1);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [subjects, setSubjects] = useState<NumberedSubject[]>([]);
 
   const { user, setUser, doneGettingUser } = useUserContext();
   
