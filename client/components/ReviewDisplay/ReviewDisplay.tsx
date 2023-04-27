@@ -24,8 +24,6 @@ export default function ReviewDisplay({
       <StarRating 
         value={Number(stars)} 
         editable={false} 
-        half={false}
-        ratingChanged={null}
       />
       <p>{detail}</p>
       <hr />
