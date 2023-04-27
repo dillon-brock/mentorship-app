@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { deleteTeachingMaterial } from "../../services/teachingMaterials";
+import { deleteTeachingMaterial } from "../../services/teachingMaterials/teachingMaterials";
 import styles from './deleteMaterialModal.module.css';
 import globalStyles from '../../global.module.css';
 import { Dispatch, SetStateAction } from "react";

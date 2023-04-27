@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { updateTeachingMaterial } from "../../services/teachingMaterials";
+import { updateTeachingMaterial } from "../../services/teachingMaterials/teachingMaterials";
 import styles from './editLinkModal.module.css';
 import globalStyles from '../../global.module.css';
 import Subject from "../../../server/models/Subject";
@@ -40,9 +40,9 @@ export default function EditLinkModal({
     }
     const updatedLink: TeachingMaterial = await updateTeachingMaterial({
       id,
-      name: formData.get('name'),
-      url: formData.get('url'),
-      subjectId: formData.get('subject')
+      name: formData.get('name') ? formData.get('name') as string : null,
+      url: formData.get('url') as string,
+      subjectId: formData.get('subject') as string
     });
     setTeachingMaterials(prev => {
       let otherMaterials = prev.filter(material => material.id !== id);

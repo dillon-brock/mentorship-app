@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary/cloudinary";
-import { addTeachingMaterial } from "../../services/teachingMaterials";
+import { addTeachingMaterial } from "../../services/teachingMaterials/teachingMaterials";
 import styles from './materialFileUploadForm.module.css';
 import globalStyles from '../../global.module.css';
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
@@ -51,10 +51,10 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
       return;
     }
     const newTeachingMaterial: TeachingMaterial = await addTeachingMaterial({
-      subjectId: formData.get('subject'),
+      subjectId: formData.get('subject') as string,
       url: fileUrl,
       type: 'file',
-      name: formData.get('name')
+      name: formData.get('name') as string
     });
 
     setTeachingMaterials((prev) => [...prev, newTeachingMaterial]);

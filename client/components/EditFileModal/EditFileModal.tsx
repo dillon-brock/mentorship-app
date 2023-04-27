@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary/cloudinary";
-import { updateTeachingMaterial } from "../../services/teachingMaterials";
+import { updateTeachingMaterial } from "../../services/teachingMaterials/teachingMaterials";
 import styles from './editFileModal.module.css';
 import globalStyles from '../../global.module.css';
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
@@ -75,9 +75,9 @@ export default function EditFileModal({
 
     const updatedFile: TeachingMaterial = await updateTeachingMaterial({
       id,
-      subjectId: formData.get('subject'),
+      subjectId: formData.get('subject') as string,
       url: fileUrl,
-      name: formData.get('name'),
+      name: formData.get('name') as string,
     });
     setTeachingMaterials(prev => {
       let otherMaterials = prev.filter(material => material.id !== id);

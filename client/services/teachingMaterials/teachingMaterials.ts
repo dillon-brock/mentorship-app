@@ -1,4 +1,6 @@
-export async function addTeachingMaterial({ subjectId, url, type, name }) {
+import { ExistingMaterial, NewMaterial } from "./types";
+
+export async function addTeachingMaterial({ subjectId, url, type, name }: NewMaterial) {
   const response = await fetch(`/api/v1/teaching-materials`, {
     method: 'POST',
     credentials: 'include',
@@ -30,7 +32,7 @@ export async function getTeachingMaterials() {
   return teachingMaterials;
 }
 
-export async function deleteTeachingMaterial(id) {
+export async function deleteTeachingMaterial(id: string) {
   const response = await fetch(`/api/v1/teaching-materials/${id}`, {
     method: 'DELETE',
     credentials: 'include',
@@ -42,7 +44,7 @@ export async function deleteTeachingMaterial(id) {
   return await response.json();
 }
 
-export async function updateTeachingMaterial({ id, subjectId, url, name }) {
+export async function updateTeachingMaterial({ id, subjectId, url, name }: ExistingMaterial) {
   const response = await fetch(`/api/v1/teaching-materials/${id}`, {
     method: 'PUT',
     credentials: 'include',

@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { addTeachingMaterial } from "../../services/teachingMaterials";
+import { addTeachingMaterial } from "../../services/teachingMaterials/teachingMaterials";
 import styles from './materialLinkUploadForm.module.css';
 import globalStyles from '../../global.module.css';
 import Subject from "../../../server/models/Subject";
@@ -30,9 +30,9 @@ export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials,
       return;
     }
     const newTeachingMaterial: TeachingMaterial = await addTeachingMaterial({
-      subjectId: formData.get('subject'),
-      name: formData.get('name'),
-      url: formData.get('url'),
+      subjectId: formData.get('subject') as string,
+      name: formData.get('name') ? formData.get('name') as string : null,
+      url: formData.get('url') as string,
       type: 'link'
     });
     setTeachingMaterials(prev => [...prev, newTeachingMaterial]);

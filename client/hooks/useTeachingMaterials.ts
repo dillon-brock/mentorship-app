@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSubjectsByTeacherId } from "../services/subjects/subjects";
-import { getTeachingMaterials } from "../services/teachingMaterials.js";
+import { getTeachingMaterials } from "../services/teachingMaterials/teachingMaterials";
 import { Subject, TeachingMaterial } from "../types";
 
 export default function useTeachingMaterials(id: string) {
