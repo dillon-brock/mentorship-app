@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getReviews } from "../services/reviews.js";
+import { getReviews } from "../services/reviews/reviews";
 import { getTeacherById } from "../services/teacher.js";
 import { getAverageRating } from "../utils.js";
 import Review from "../../server/models/Review";

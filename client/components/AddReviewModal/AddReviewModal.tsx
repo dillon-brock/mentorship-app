@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
-import { postReview } from "../../services/reviews";
+import { postReview } from "../../services/reviews/reviews";
 import { getAverageRating } from "../../utils";
 import StarRating from "../StarRating/StarRating";
 import styles from './addReviewModal.module.css';
@@ -44,7 +44,7 @@ export default function AddReviewModal({ id, firstName, lastName, reviews, setRe
       return;
     }
     const formData = new FormData(e.target as HTMLFormElement);
-    const detail = formData.get("detail");
+    const detail = formData.get("detail") as string;
     const newReview = await postReview({
       teacherId: id,
       stars,
