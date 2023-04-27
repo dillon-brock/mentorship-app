@@ -2,8 +2,18 @@ import { Button, Modal } from "react-bootstrap";
 import { deleteTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './deleteMaterialModal.module.css';
 import globalStyles from '../../global.module.css';
+import { Dispatch, SetStateAction } from "react";
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
 
-export default function DeleteMaterialModal({ userWantsToDelete, setUserWantsToDelete, id, setTeachingMaterials, materialType }) {
+type Props = {
+  userWantsToDelete: boolean;
+  setUserWantsToDelete: Dispatch<SetStateAction<boolean>>;
+  id: string;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  materialType: string;
+}
+
+export default function DeleteMaterialModal({ userWantsToDelete, setUserWantsToDelete, id, setTeachingMaterials, materialType }: Props) {
   const handleClose = () => setUserWantsToDelete(false);
 
   const handleDelete = async () => {
