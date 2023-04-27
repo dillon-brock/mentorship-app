@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   subjects: Subject[];
-  setTeacher?: Dispatch<SetStateAction<Teacher>>;
+  setTeacher?: Dispatch<SetStateAction<Teacher>>
   displayOnly: boolean;
 }
 

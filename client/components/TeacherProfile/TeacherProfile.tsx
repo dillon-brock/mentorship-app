@@ -22,16 +22,18 @@ export default function TeacherProfile() {
     cityName, 
     setCityName 
   } = useTeacherProfile(user.teacherId);
-  const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
-  const [userWantsToEditImage, setUserWantsToEditImage] = useState(false);
-  const [showImageEditButton, setShowImageEditButton] = useState(false);
+  const [userWantsToEditProfile, setUserWantsToEditProfile] = useState<boolean>(false);
+  const [userWantsToEditImage, setUserWantsToEditImage] = useState<boolean>(false);
+  const [showImageEditButton, setShowImageEditButton] = useState<boolean>(false);
 
-  const handleSaveImage = async (imageData) => {
+  const handleSaveImage = async (imageData: FormData) => {
     if (imageData) {
       const cloudinaryResponse = await uploadProfilePicture(imageData);
       const imageUrl = cloudinaryResponse.secure_url
-      setTeacher({ ...teacher, imageUrl});
-      await updateAccount({ ...teacher, imageUrl });
+      if (teacher) {
+        setTeacher({ ...teacher, imageUrl});
+        await updateAccount({ ...teacher, imageUrl });
+      }
     }
     setUserWantsToEditImage(false);
   }
@@ -51,27 +53,27 @@ export default function TeacherProfile() {
                 <FaEdit />
               </Button>
             }
-            <Image fluid roundedCircle src={teacher.imageUrl} style={{width: '300px', height: '300px' }}/>
+            <Image fluid roundedCircle src={teacher?.imageUrl} style={{width: '300px', height: '300px' }}/>
           </div>
           <div>
             <div className={styles.titleContainer}>
-              <h1 className={styles.name}>{teacher.firstName} {teacher.lastName}</h1>
+              <h1 className={styles.name}>{teacher?.firstName} {teacher?.lastName}</h1>
               <Button className={styles.editButton} onClick={() => setUserWantsToEditProfile(true)}>
                 <FaEdit />
               </Button>
             </div>
-            {teacher.city && teacher.state ? 
-              <h5 className={styles.location}>{teacher.city}, {teacher.state}</h5>
+            {teacher?.city && teacher?.state ? 
+              <h5 className={styles.location}>{teacher?.city}, {teacher?.state}</h5>
               :
-              <h5 className={styles.location}>{teacher.zipCode}</h5>
+              <h5 className={styles.location}>{teacher?.zipCode}</h5>
             }
-            <p><strong>Phone: </strong>{teacher.phoneNumber}  |  <strong>Email: </strong>{teacher.contactEmail}</p>
+            <p><strong>Phone: </strong>{teacher?.phoneNumber}  |  <strong>Email: </strong>{teacher?.contactEmail}</p>
           </div>
         </div>
         <div className={styles.detailsContainer}>
         <div>
           <h3>Bio</h3>
-          <p>{teacher.bio}</p>
+          <p>{teacher?.bio}</p>
         </div>
       </div>
     </div>
@@ -92,9 +94,9 @@ export default function TeacherProfile() {
         setStateName={setStateName}
       />
     }
-    {teacher.subjects &&
+    {teacher?.subjects &&
       <div className={styles.subjectsContainer}>
-        <SubjectList subjects={teacher.subjects} setTeacher={setTeacher} displayOnly={false} />
+        <SubjectList subjects={teacher?.subjects} setTeacher={setTeacher} displayOnly={false} />
       </div>
     }
     <UpdateProfilePictureModal

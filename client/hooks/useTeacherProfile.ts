@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getTeacherProfile } from "../services/teacher.js";
+import { Teacher } from "../types";
+import { defaultTeacher } from "../defaultValues";
 
-export default function useTeacherProfile(id) {
-  const [teacher, setTeacher] = useState({});
-  const [zipCode, setZipCode] = useState('');
-  const [stateName, setStateName] = useState('');
-  const [cityName, setCityName] = useState('');
+export default function useTeacherProfile(id: string) {
+  const [teacher, setTeacher] = useState<Teacher>(defaultTeacher);
+  const [zipCode, setZipCode] = useState<string>('');
+  const [stateName, setStateName] = useState<string>('');
+  const [cityName, setCityName] = useState<string>('');
 
   useEffect(() => {
     const fetchProfileData = async () => {
