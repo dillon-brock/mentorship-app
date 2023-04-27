@@ -1,5 +1,4 @@
 import Connection from "../server/models/Connection";
-import TeachingMaterial from "../server/models/TeachingMaterial";
 
 export type EmptyObject = {};
 
@@ -81,6 +80,15 @@ export type NumberedSubject = {
   minPrice: number;
   maxPrice: number;
   lessonType: string;
+}
+
+export type TeachingMaterial = {
+  id: string;
+  subjectId: string;
+  type: string;
+  url: string;
+  createdAt: string;
+  name?: string;
 }
 
 export interface SubjectWithMaterials extends Subject {
