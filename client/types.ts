@@ -90,8 +90,8 @@ type LessonFormError = {
 }
 
 export type LessonFormErrors = {
-  subject?: LessonFormError;
-  minPrice?: LessonFormError;
-  maxPrice?: LessonFormError;
-  lessonType?: LessonFormError;
+  subject: LessonFormError | null;
+  minPrice: LessonFormError | null;
+  maxPrice: LessonFormError | null;
+  lessonType: LessonFormError | null;
 }

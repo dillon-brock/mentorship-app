@@ -2,8 +2,18 @@ import { Button, Form, Row } from "react-bootstrap";
 
 import styles from './subjectInputs.module.css';
 import globalStyles from '../../global.module.css';
+import { LessonFormErrors } from "../../types";
+import { Dispatch, SetStateAction } from "react";
 
-export default function SubjectInputs({ num, formErrors, setFormErrors, subjectNums, setSubjectNums }) {
+type Props = {
+  num: number;
+  formErrors: LessonFormErrors;
+  setFormErrors: Dispatch<SetStateAction<LessonFormErrors>>;
+  subjectNums: number[];
+  setSubjectNums: Dispatch<SetStateAction<number[]>>;
+}
+
+export default function SubjectInputs({ num, formErrors, setFormErrors, subjectNums, setSubjectNums }: Props) {
 
   let displayNum = subjectNums.indexOf(num) + 1;
 

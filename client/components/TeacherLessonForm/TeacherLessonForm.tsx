@@ -12,7 +12,12 @@ type Props = {
 
 export default function TeacherLessonForm({ setSubjects, setStep, newUser }: Props) {
 
-  const [formErrors, setFormErrors] = useState<LessonFormErrors>({});
+  const [formErrors, setFormErrors] = useState<LessonFormErrors>({
+    subject: null,
+    minPrice: null,
+    maxPrice: null,
+    lessonType: null
+  });
   const [subjectNums, setSubjectNums] = useState<number[]>([1]);
   let subjectFormData: NumberedSubject[] = [];
 
