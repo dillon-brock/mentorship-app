@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { Button, Form, Image, Row } from 'react-bootstrap';
 import { useUserContext } from '../../context/UserContext';
-import { getUser, signUpStudent } from '../../services/auth';
+import { getUser, signUpStudent } from '../../services/auth/auth';
 import { uploadProfilePicture } from '../../services/cloudinary';
 
 import styles from './studentSignUpForm.module.css';

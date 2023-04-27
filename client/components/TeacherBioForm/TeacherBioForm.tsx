@@ -1,12 +1,12 @@
 import { ChangeEvent, FocusEvent, FormEvent, useRef, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
-import { getUser, signUpTeacher, updateUserType } from "../../services/auth";
+import { getUser, signUpTeacher, updateUserType } from "../../services/auth/auth";
 import { uploadProfilePicture } from "../../services/cloudinary";
 import { addTeacherAccount } from "../../services/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
 import globalStyles from '../../global.module.css';
-import { FormErrors, Props } from "./types";
+import { FormErrors, NewUserProps, Props } from "./types";
 
 export default function TeacherBioForm({
   email,
@@ -17,7 +17,7 @@ export default function TeacherBioForm({
   setUser,
   newUser,
   user
-}: Props) {
+}: NewUserProps) {
 
   const bioInputRef = useRef<HTMLTextAreaElement>(null);
   const zipCodeInputRef = useRef<HTMLInputElement>(null);
@@ -119,10 +119,10 @@ export default function TeacherBioForm({
         firstName,
         lastName,
         subjects,
-        bio: formData.get('bio'),
-        zipCode: formData.get('zip'),
-        phoneNumber: formData.get('phoneNumber'),
-        contactEmail: formData.get('contactEmail'),
+        bio: formData.get('bio') ? formData.get('bio') as string : null,
+        zipCode: formData.get('zip') as string,
+        phoneNumber: formData.get('phoneNumber') ? formData.get('phoneNumber') as string : null,
+        contactEmail: formData.get('contactEmail') ? formData.get('contactEmail') as string : null,
         imageUrl: imageUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
         city: cityName,
         state: stateName

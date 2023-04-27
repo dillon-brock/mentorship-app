@@ -1,4 +1,8 @@
-export async function signUpStudent({ email, password, firstName, lastName, imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" }) {
+import { SignInInfo, StudentSignUpInfo, StudentSignUpResponse, TeacherSignUpInfo, UserSignUpInfo } from "./types";
+
+export async function signUpStudent({ email, password, firstName, lastName, 
+  imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" 
+}: StudentSignUpInfo): Promise<StudentSignUpResponse> {
   const response = await fetch(`/api/v1/students`, {
     method: "POST",
     credentials: "include",
@@ -31,7 +35,7 @@ export async function signUpTeacher({
   imageUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   city,
   state
-}) {
+}: TeacherSignUpInfo) {
   const response = await fetch(`/api/v1/teachers`, {
     method: "POST",
     credentials: "include",
@@ -60,7 +64,7 @@ export async function signUpTeacher({
   }
 }
 
-export async function signUpUser({ email, password, type }) {
+export async function signUpUser({ email, password, type }: UserSignUpInfo) {
   const response = await fetch(`/api/v1/users`, {
     method: "POST",
     credentials: "include",
@@ -80,7 +84,7 @@ export async function signUpUser({ email, password, type }) {
   }
 }
 
-export async function signIn({ email, password }) {
+export async function signIn({ email, password }: SignInInfo) {
   const response = await fetch(`/api/v1/users/sessions`, {
     method: "POST",
     credentials: "include",
@@ -117,7 +121,7 @@ export async function signOut() {
   });
 }
 
-export async function updateUserType(type) {
+export async function updateUserType(type: string) {
   const res = await fetch(`/api/v1/users/me`, {
     method: 'PUT',
     credentials: 'include',
@@ -132,7 +136,7 @@ export async function updateUserType(type) {
   if (res.ok) return updatedUser;
 }
 
-export async function checkForExistingUser(email) {
+export async function checkForExistingUser(email: string) {
   const response = await fetch(`/api/v1/users/find`, {
     method: 'POST',
     headers: {

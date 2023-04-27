@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext";
-import { getUser, signIn } from "../../services/auth";
+import { getUser, signIn } from "../../services/auth/auth";
 
 import styles from './signInForm.module.css';
 import globalStyles from '../../global.module.css';

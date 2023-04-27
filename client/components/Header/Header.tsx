@@ -1,7 +1,7 @@
 import { Button, Container, Image, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { signOut, updateUserType } from '../../services/auth';
+import { signOut, updateUserType } from '../../services/auth/auth';
 import { addStudentAccount } from '../../services/student';
 import styles from './header.module.css';
 
