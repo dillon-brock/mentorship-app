@@ -1,11 +1,23 @@
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from './teacherResult.module.css';
+import { Subject } from "../../types";
 
-export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }) {
+type Props = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  zipCode: string;
+  subjects: Subject[];
+  imageUrl: string;
+  city: string;
+  state: string;
+}
+
+export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }: Props) {
   
   const subjectList = subjects
-    .reduce((a, b) => {
+    .reduce((a: string[], b) => {
       a.push(b.subject);
       return a;
     }, [])

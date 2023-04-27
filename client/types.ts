@@ -94,3 +94,4 @@ export type LessonFormErrors = {
   maxPrice: LessonFormError | null;
   lessonType: LessonFormError | null;
 }
+
