@@ -2,7 +2,7 @@ import { Button, Container, Image, Nav, Navbar, Offcanvas } from 'react-bootstra
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth/auth';
-import { addStudentAccount } from '../../services/student';
+import { addStudentAccount } from '../../services/student/student';
 import styles from './header.module.css';
 
 export default function Header() {

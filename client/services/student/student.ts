@@ -1,4 +1,6 @@
-export async function addStudentAccount({ firstName, lastName, imageUrl }) {
+import { StudentAccountData } from "./types";
+
+export async function addStudentAccount({ firstName, lastName, imageUrl }: StudentAccountData) {
   const response = await fetch(`/api/v1/students/add-account`, {
     method: 'POST',
     credentials: 'include',
@@ -29,7 +31,7 @@ export async function getStudentProfile() {
   if (response.ok) return studentProfileInfo;
 }
 
-export async function updateAccount({ firstName, lastName, imageUrl }) {
+export async function updateAccount({ firstName, lastName, imageUrl }: StudentAccountData) {
   const response = await fetch(`/api/v1/students/me`, {
     method: 'PUT',
     credentials: 'include',
@@ -47,7 +49,7 @@ export async function updateAccount({ firstName, lastName, imageUrl }) {
   if (response.ok) return await response.json();
 }
 
-export async function addStudentSubject(subjectId) {
+export async function addStudentSubject(subjectId: string) {
   const response = await fetch(`/api/v1/students/subject`, {
     method: 'POST',
     credentials: 'include',

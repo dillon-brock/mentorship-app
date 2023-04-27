@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLearningMaterials } from "../services/student.js";
+import { getLearningMaterials } from "../services/student/student.js";
 import { TeacherWithMaterials } from "../types.js";
 
 export default function useLearningMaterials() {

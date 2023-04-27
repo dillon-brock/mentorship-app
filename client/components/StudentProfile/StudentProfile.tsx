@@ -3,7 +3,7 @@ import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from 'react-icons/fa';
 import useStudentProfile from "../../hooks/useStudentProfile"
 import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
-import { updateAccount } from "../../services/student";
+import { updateAccount } from "../../services/student/student";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './studentProfile.module.css';
 import { Student } from "../../types";
