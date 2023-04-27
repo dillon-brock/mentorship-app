@@ -1,7 +1,20 @@
 import { Button, Col, Container, Image } from "react-bootstrap";
 import styles from './pendingStudent.module.css';
 
-export default function PendingStudent({ id, imageUrl, firstName, lastName, subject, handleApprove, handleDeny, handleMessage }) {
+type Props = {
+  id: string;
+  imageUrl: string;
+  firstName: string;
+  lastName: string;
+  subject: string;
+  handleApprove: (id: string) => void;
+  handleDeny: (id: string) => void;
+  handleMessage: () => void;
+}
+
+export default function PendingStudent({ 
+  id, imageUrl, firstName, lastName, subject, 
+  handleApprove, handleDeny, handleMessage }: Props) {
   
   return (
     <div>
