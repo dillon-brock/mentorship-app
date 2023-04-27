@@ -1,27 +1,35 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { addTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './materialLinkUploadForm.module.css';
 import globalStyles from '../../global.module.css';
+import Subject from "../../../server/models/Subject";
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
 
-export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials, setShowUploadModal }) {
+type Props = {
+  subjects: Subject[];
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  setShowUploadModal: Dispatch<SetStateAction<boolean>>;
+}
 
-  const [urlError, setUrlError] = useState('');
-  const [subjectError, setSubjectError] = useState('');
+export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials, setShowUploadModal }: Props) {
+
+  const [urlError, setUrlError] = useState<string>('');
+  const [subjectError, setSubjectError] = useState<string>('');
 
   const handleChangeUrl = () => setUrlError('');
 
   const handleChangeSubject = () => setSubjectError('');
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (!formData.get('url') || !formData.get('subject')) {
       if (!formData.get('url')) setUrlError('URL is required.');
       if (!formData.get('subject')) setSubjectError('Subject is required.');
       return;
     }
-    const newTeachingMaterial = await addTeachingMaterial({
+    const newTeachingMaterial: TeachingMaterial = await addTeachingMaterial({
       subjectId: formData.get('subject'),
       name: formData.get('name'),
       url: formData.get('url'),
