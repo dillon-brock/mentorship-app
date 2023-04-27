@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useUserContext } from "../../context/UserContext.js";
-import { useStudents } from "../../hooks/useStudents.js";
-import { updateConnectionStatus } from "../../services/connection.js";
-import ApprovedStudent from "../ApprovedStudent/ApprovedStudent.jsx";
-import ChatWindow from "../ChatWindow/ChatWindow.jsx";
-import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay.jsx";
-import PendingStudent from "../PendingStudent/PendingStudent.jsx";
+import { useUserContext } from "../../context/UserContext";
+import { useStudents } from "../../hooks/useStudents";
+import { updateConnectionStatus } from "../../services/connection";
+import ApprovedStudent from "../ApprovedStudent/ApprovedStudent";
+import ChatWindow from "../ChatWindow/ChatWindow";
+import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay";
+import PendingStudent from "../PendingStudent/PendingStudent";
 import globalStyles from '../../global.module.css';
 
 import styles from './studentList.module.css';

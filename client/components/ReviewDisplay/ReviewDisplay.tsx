@@ -1,6 +1,6 @@
 import { Col, Container, Image } from "react-bootstrap";
 import StarRating from "../StarRating/StarRating";
-import styles from './review.module.css';
+import styles from './reviewDisplay.module.css';
 
 type Props = {
   stars: string;

@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Col, Container, Image } from "react-bootstrap";
 import RemoveStudentModal from "../RemoveStudentModal/RemoveStudentModal";
 import styles from './approvedStudent.module.css';
-import Student from "../../../server/models/Student";
+import { CurrentStudent, Student } from "../../types";
 
-interface Props extends Student {
-  setApprovedStudents: Dispatch<SetStateAction<Student[]>>;
+interface Props extends CurrentStudent {
+  setApprovedStudents: Dispatch<SetStateAction<CurrentStudent[]>>;
   handleMessage: () => void;
 }
 

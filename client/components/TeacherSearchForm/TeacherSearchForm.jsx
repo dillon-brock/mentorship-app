@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaChevronDown } from "react-icons/fa";
-import LocationDropdown from "../LocationDropdown/LocationDropdown.jsx";
-import PriceDropdown from "../PriceDropdown/PriceDropdown.jsx";
+import LocationDropdown from "../LocationDropdown/LocationDropdown";
+import PriceDropdown from "../PriceDropdown/PriceDropdown";
 import styles from './teacherSearchForm.module.css';
 
 export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }) {

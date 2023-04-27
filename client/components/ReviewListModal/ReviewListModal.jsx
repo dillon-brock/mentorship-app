@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import Review from "../Review/Review";
+import ReviewDisplay from "../ReviewDisplay/ReviewDisplay";
 import styles from './reviewListModal.module.css';
+
+
 
 export default function ReviewListModal({ reviews, firstName, lastName }) {
 
@@ -19,7 +21,7 @@ export default function ReviewListModal({ reviews, firstName, lastName }) {
           <Modal.Title className={styles.title}>Reviews for {firstName} {lastName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {reviews.map(review => <Review key={review.id} {...review} />)}
+          {reviews.map(review => <ReviewDisplay key={review.id} {...review} />)}
         </Modal.Body>
       </Modal>
     </>
