@@ -1,34 +1,45 @@
-import { useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary";
 import { addTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './materialFileUploadForm.module.css';
 import globalStyles from '../../global.module.css';
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import Subject from "../../../server/models/Subject";
 
-export default function MaterialFileUploadForm({ setShowUploadModal, setTeachingMaterials, subjects }) {
+type Props = {
+  setShowUploadModal: Dispatch<SetStateAction<boolean>>;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  subjects: Subject[];
+}
 
-  const [nameError, setNameError] = useState('');
-  const [subjectError, setSubjectError] = useState('');
-  const [fileError, setFileError] = useState('');
-  const [fileUrl, setFileUrl] = useState('');
+export default function MaterialFileUploadForm({ setShowUploadModal, setTeachingMaterials, subjects }: Props) {
 
-  const handleChangeFile = async (e) => {
+  const [nameError, setNameError] = useState<string>('');
+  const [subjectError, setSubjectError] = useState<string>('');
+  const [fileError, setFileError] = useState<string>('');
+  const [fileUrl, setFileUrl] = useState<string>('');
+
+  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     setFileError('');
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    const fileUploadResponse = await uploadFile(formData);
-    setFileUrl(fileUploadResponse.secure_url);
+    const target: HTMLInputElement = e.target;
+    const file = target.files ? target.files[0] : undefined;
+    if (file != undefined) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+      const fileUploadResponse = await uploadFile(formData);
+      setFileUrl(fileUploadResponse.secure_url);
+    }
   }
 
   const handleChangeName = () => setNameError('');
 
   const handleChangeSubject = () => setSubjectError('');
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (!formData.get('name') || !formData.get('subject') || !fileUrl) {
       if (!formData.get('name')) {
         setNameError('Name is required.');
@@ -39,7 +50,7 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
       if (!fileUrl) setFileError('File is required.');
       return;
     }
-    const newTeachingMaterial = await addTeachingMaterial({
+    const newTeachingMaterial: TeachingMaterial = await addTeachingMaterial({
       subjectId: formData.get('subject'),
       url: fileUrl,
       type: 'file',
