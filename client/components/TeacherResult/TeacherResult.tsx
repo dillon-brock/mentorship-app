@@ -1,20 +1,10 @@
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from './teacherResult.module.css';
-import { Subject } from "../../types";
+import { TeacherWithSubjects } from "../../types";
 
-type Props = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  zipCode: string;
-  subjects: Subject[];
-  imageUrl: string;
-  city: string;
-  state: string;
-}
 
-export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }: Props) {
+export default function TeacherResult({ id, firstName, lastName, zipCode, subjects, imageUrl, city, state }: TeacherWithSubjects) {
   
   const subjectList = subjects
     .reduce((a: string[], b) => {

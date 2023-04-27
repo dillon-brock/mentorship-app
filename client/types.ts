@@ -22,6 +22,10 @@ export interface Teacher {
   subjects?: Array<Subject>;
 }
 
+export interface TeacherWithSubjects extends Teacher {
+  subjects: Subject[];
+}
+
 export interface TeacherWithMaterials extends Teacher {
   teachingMaterials: TeachingMaterial[];
 }

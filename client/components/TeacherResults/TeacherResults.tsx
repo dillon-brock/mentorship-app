@@ -2,10 +2,17 @@ import TeacherResult from "../TeacherResult/TeacherResult";
 import styles from './teacherResults.module.css';
 import globalStyles from '../../global.module.css';
 import { useState } from "react";
+import { TeacherWithSubjects } from "../../types";
 
-export default function TeacherResults({ teachers, loading, errorMessage }) {
+type Props = {
+  teachers: TeacherWithSubjects[];
+  loading: boolean;
+  errorMessage: string;
+}
+
+export default function TeacherResults({ teachers, loading, errorMessage }: Props) {
   
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   setTimeout(() => setShowLoader(false), 2000);
 
