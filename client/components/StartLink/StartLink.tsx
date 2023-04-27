@@ -4,9 +4,13 @@ import teacherImage from '../../assets/images/teacher_link.png';
 import studentImage from '../../assets/images/student_link.png';
 import searchImage from '../../assets/images/search_link.png';
 
-export default function StartLink({ type }) {
-  let description;
-  let imageSrc;
+type Props = { type: string }
+
+export default function StartLink({ type }: Props) {
+
+  let description: string;
+  let imageSrc: string;
+  
   if (type === 'teach') {
     description = 'Create a public profile, upload teaching materials, and connect with students.'
     imageSrc = teacherImage;
