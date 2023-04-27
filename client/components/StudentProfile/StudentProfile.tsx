@@ -24,7 +24,7 @@ export default function StudentProfile() {
     setUserWantsToEditProfile(false);
   }
 
-  const handleSaveImage = async (imageData: FormData) => {
+  const handleSaveImage = async (imageData: FormData | null) => {
     if (imageData) {
       const cloudinaryResponse = await uploadProfilePicture(imageData);
       const imageUrl = cloudinaryResponse.secure_url;

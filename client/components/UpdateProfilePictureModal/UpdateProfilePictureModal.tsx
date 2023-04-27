@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
 import styles from './updateProfilePictureModal.module.css';
 import globalStyles from '../../global.module.css';
+
+type Props = {
+  userWantsToEditImage: boolean;
+  setUserWantsToEditImage: Dispatch<SetStateAction<boolean>>;
+  handleSaveImage: (imageData: FormData | null) => void;
+}
 
 export default function UpdateProfilePictureModal({ 
   userWantsToEditImage, 
   setUserWantsToEditImage,
   handleSaveImage
-}) {
+}: Props) {
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState<FormData | null>(null);
 
   const handleClose = () => setUserWantsToEditImage(false);
 
-  const handleChangeImage = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    setImageData(formData);
-    setImagePreviewUrl(URL.createObjectURL(file));
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = e.target.files ? e.target.files[0] : undefined;
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+      setImageData(formData);
+      setImagePreviewUrl(URL.createObjectURL(file));
+    }
   }
 
   return (

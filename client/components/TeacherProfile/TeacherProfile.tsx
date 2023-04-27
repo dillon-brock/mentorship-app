@@ -26,7 +26,7 @@ export default function TeacherProfile() {
   const [userWantsToEditImage, setUserWantsToEditImage] = useState<boolean>(false);
   const [showImageEditButton, setShowImageEditButton] = useState<boolean>(false);
 
-  const handleSaveImage = async (imageData: FormData) => {
+  const handleSaveImage = async (imageData: FormData | null) => {
     if (imageData) {
       const cloudinaryResponse = await uploadProfilePicture(imageData);
       const imageUrl = cloudinaryResponse.secure_url
