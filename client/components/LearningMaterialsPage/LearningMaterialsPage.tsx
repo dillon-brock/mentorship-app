@@ -8,15 +8,17 @@ import LearningMaterialsSection from "../LearningMaterialsSection/LearningMateri
 import styles from './learningMaterialsPage.module.css';
 import globalStyles from '../../global.module.css';
 import { Button } from "react-bootstrap";
+import Teacher from "../../../server/models/Teacher";
+import { TeacherWithMaterials } from "../../types";
 
 export default function LearningMaterialsPage() {
   const { teachersWithMaterials, loading } = useLearningMaterials();
   const { user, doneGettingUser } = useUserContext();
   const { pathname } = useLocation();
-  const [openChatBox, setOpenChatBox] = useState(false);
-  const [teacherRecipient, setTeacherRecipient] = useState(null);
+  const [openChatBox, setOpenChatBox] = useState<boolean>(false);
+  const [teacherRecipient, setTeacherRecipient] = useState<Teacher | null>(null);
 
-  const handleMessage = (teacher, e) => {
+  const handleMessage = (teacher: Teacher, e: Event) => {
     e.stopPropagation();
     setTeacherRecipient(teacher);
     setOpenChatBox(true);
@@ -41,13 +43,10 @@ export default function LearningMaterialsPage() {
         <>
           {teachersWithMaterials.length > 0 ?
             <>
-              {teachersWithMaterials.map((teacher, i) => (
+              {teachersWithMaterials.map((teacher: TeacherWithMaterials, i: number) => (
                 <LearningMaterialsSection
                   key={teacher.id}
                   { ...teacher }
-                  i={i}
-                  setTeacherRecipient={setTeacherRecipient}
-                  handleMessage={(e) => handleMessage(teacher, e)}
                 />
               ))}
             </>

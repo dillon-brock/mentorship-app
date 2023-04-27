@@ -4,14 +4,16 @@ import { Button, Image } from 'react-bootstrap';
 import styles from './chatWindow.module.css';
 import { User } from '../../../server/models/User';
 import Student from '../../../server/models/Student';
+import Teacher from '../../../server/models/Teacher';
 
 type Props = {
   primaryUser: User;
-  secondaryUser: Student;
+  secondaryUser: Student | Teacher | null;
   handleClose: () => void;
 }
 
 export default function ChatWindow({ primaryUser, secondaryUser, handleClose }: Props) {
+  if (!secondaryUser) return <div></div>;
   const chatboxEl = useRef<HTMLDivElement>(null);
   const [talkLoaded, setTalkLoaded] = useState<boolean>(false);
   const [recipient, setRecipient] = useState<Talk.User | undefined>();
@@ -69,5 +71,8 @@ export default function ChatWindow({ primaryUser, secondaryUser, handleClose }: 
         <div className={styles.window} ref={chatboxEl} />;
       </div>
     ) 
+  }
+  else {
+    return <div></div>;
   }
 }

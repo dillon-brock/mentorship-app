@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { getLearningMaterials } from "../services/student.js";
+import { TeacherWithMaterials } from "../types.js";
 
 export default function useLearningMaterials() {
 
-  const [teachersWithMaterials, setTeachersWithMaterials] = useState([])
-  const [loading, setLoading] = useState(true);
+  const [teachersWithMaterials, setTeachersWithMaterials] = useState<TeacherWithMaterials[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchMaterials = async () => {
-      const data = await getLearningMaterials();
+      const data: TeacherWithMaterials[] = await getLearningMaterials();
       setTeachersWithMaterials(data);
       setLoading(false);
     }

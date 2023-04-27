@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from './learningMaterialsSection.module.css';
 
-export default function LearningMaterialsSection({ id, firstName, lastName, teachingMaterials, handleMessage }) {
+export default function LearningMaterialsSection({ id, firstName, lastName, teachingMaterials }) {
   const [expanded, setExpanded] = useState(false);
   const files = teachingMaterials.filter(material => material.type === 'file');
   const links = teachingMaterials.filter(material => material.type === 'link');
