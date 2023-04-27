@@ -4,7 +4,7 @@ type Props = {
   value: number;
   editable: boolean;
   half?: boolean;
-  ratingChanged?: () => void;
+  ratingChanged?: (newRating: number) => void;
 }
 
 export default function StarRating({ value, editable, ratingChanged, half }: Props) {

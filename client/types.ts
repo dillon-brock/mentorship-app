@@ -55,3 +55,10 @@ export interface Review {
   lastName?: string;
   imageUrl?: string;
 }
+
+export type Recipient = {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+}

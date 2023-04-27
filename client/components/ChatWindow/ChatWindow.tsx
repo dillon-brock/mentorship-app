@@ -3,12 +3,11 @@ import { useEffect, useState, useRef } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import styles from './chatWindow.module.css';
 import { User } from '../../../server/models/User';
-import Student from '../../../server/models/Student';
-import Teacher from '../../../server/models/Teacher';
+import { Recipient } from '../../types';
 
 type Props = {
   primaryUser: User;
-  secondaryUser: Student | Teacher | null;
+  secondaryUser: Recipient | null;
   handleClose: () => void;
 }
 

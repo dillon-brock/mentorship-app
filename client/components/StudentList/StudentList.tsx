@@ -9,33 +9,36 @@ import PendingStudent from "../PendingStudent/PendingStudent";
 import globalStyles from '../../global.module.css';
 
 import styles from './studentList.module.css';
+import { CurrentStudent, Student } from "../../types";
 
 export default function StudentList() {
   const { user } = useUserContext();
-  const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading } = useStudents(user?.teacherId);
-  const [openChatBox, setOpenChatBox] = useState(false);
-  const [studentMessageRecipient, setStudentMessageRecipient] = useState(null);
-  const [prevRecipient, setPrevRecipient] = useState(null);
-  const [randomKey, setRandomKey] = useState(Math.random());
+  const { pendingStudents, setPendingStudents, approvedStudents, setApprovedStudents, loading } = useStudents();
+  const [openChatBox, setOpenChatBox] = useState<boolean>(false);
+  const [studentMessageRecipient, setStudentMessageRecipient] = useState<Student | null>(null);
+  const [prevRecipient, setPrevRecipient] = useState<Student | null>(null);
+  const [randomKey, setRandomKey] = useState<number>(Math.random());
 
   if (prevRecipient !== studentMessageRecipient) {
     setPrevRecipient(studentMessageRecipient);
     setRandomKey(Math.random());
   }
 
-  const handleApprove = async (id) => {
+  const handleApprove = async (id: string) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
     const updatedStudent = pendingStudents.find(s => s.id === id);
-    setPendingStudents(prev => prev.filter(s => s.id !== id));
-    setApprovedStudents(prev => [...prev, updatedStudent]);
+    if (updatedStudent != undefined) {
+      setPendingStudents(prev => prev.filter(s => s.id !== id));
+      setApprovedStudents((prev: CurrentStudent[]) => [...prev, updatedStudent]);
+    }
   }
 
-  const handleDeny = async (id) => {
+  const handleDeny = async (id: string) => {
     await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'rejected' });
     setPendingStudents(prev => prev.filter(s => s.id !== id));
   }
 
-  const handleMessage = (student) => {
+  const handleMessage = (student: Student) => {
     setStudentMessageRecipient(student);
     setOpenChatBox(true);
   }
