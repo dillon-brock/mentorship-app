@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
-import { updateSubject } from "../../services/subjects";
+import { updateSubject } from "../../services/subjects/subjects";
 import styles from './subjectTab.module.css';
 import { Subject, Teacher } from "../../types";
 

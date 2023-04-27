@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStudents } from "../services/teacher.js";
-import { CurrentStudent } from "../types.js";
+import { CurrentStudent } from "../types";
 
 export function useStudents() {
   const [pendingStudents, setPendingStudents] = useState<CurrentStudent[]>([]);

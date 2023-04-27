@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSubjectsByTeacherId } from "../services/subjects.js";
+import { getSubjectsByTeacherId } from "../services/subjects/subjects";
 import { getTeachingMaterials } from "../services/teachingMaterials.js";
 import { Subject, TeachingMaterial } from "../types";
 

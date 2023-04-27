@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { addSubject } from "../../services/subjects";
+import { addSubject } from "../../services/subjects/subjects";
 import styles from './newSubjectTab.module.css';
 import { FormErrors } from "./types";
 import { Subject, Teacher } from "../../types";
@@ -60,10 +60,10 @@ export default function NewSubjectTab({ setTeacher }: Props) {
     const formData = new FormData(e.target as HTMLFormElement);
     if (isSubjectInvalid(formData)) return;
     const newSubject = await addSubject({
-      subject: formData.get('subject'),
-      minPrice: formData.get('minPrice'),
-      maxPrice: formData.get('maxPrice'),
-      lessonType: formData.get('lessonType')
+      subject: formData.get('subject') as string,
+      minPrice: Number(formData.get('minPrice')),
+      maxPrice: Number(formData.get('maxPrice')),
+      lessonType: formData.get('lessonType') as string
     });
     setTeacher((prev: Teacher) => ({
       ...prev,

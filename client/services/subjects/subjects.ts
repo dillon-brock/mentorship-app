@@ -1,4 +1,6 @@
-export async function getSubjectsByTeacherId(teacherId) {
+import { NamedSubject, SubjectUpdateData } from "./types";
+
+export async function getSubjectsByTeacherId(teacherId: string) {
   const response = await fetch(`/api/v1/subjects/${teacherId}`, {
     credentials: 'include',
     headers: {
@@ -10,7 +12,7 @@ export async function getSubjectsByTeacherId(teacherId) {
   return subjects;
 }
 
-export async function addSubject({ subject, minPrice, maxPrice, lessonType }) {
+export async function addSubject({ subject, minPrice, maxPrice, lessonType }: NamedSubject) {
   const response = await fetch(`/api/v1/subjects`, {
     method: 'POST',
     credentials: 'include',
@@ -30,7 +32,7 @@ export async function addSubject({ subject, minPrice, maxPrice, lessonType }) {
   return newSubject;
 }
 
-export async function updateSubject({ id, minPrice, maxPrice, lessonType }) {
+export async function updateSubject({ id, minPrice, maxPrice, lessonType }: SubjectUpdateData) {
   const response = await fetch(`/api/v1/subjects/${id}`, {
     method: 'PUT',
     credentials: 'include',

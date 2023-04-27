@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getStudentProfile } from "../services/student/student.js";
-import { Student } from "../types.js";
+import { getStudentProfile } from "../services/student/student";
+import { Student } from "../types";
 
 export default function useStudentProfile() {
   const [student, setStudent] = useState<Student>();

@@ -16,11 +16,13 @@ export default function StudentProfile() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await updateAccount({
-      firstName: student?.firstName,
-      lastName: student?.lastName,
-      imageUrl: student?.imageUrl
-    });
+    if (student) {
+      await updateAccount({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        imageUrl: student.imageUrl
+      });
+    }
     setUserWantsToEditProfile(false);
   }
 
