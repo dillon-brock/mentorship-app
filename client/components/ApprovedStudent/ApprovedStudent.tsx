@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Col, Container, Image } from "react-bootstrap";
 import RemoveStudentModal from "../RemoveStudentModal/RemoveStudentModal";
 import styles from './approvedStudent.module.css';
+import Student from "../../../server/models/Student";
+
+interface Props extends Student {
+  setApprovedStudents: Dispatch<SetStateAction<Student[]>>;
+  handleMessage: () => void;
+}
 
 export default function ApprovedStudent({ 
   id, 
@@ -13,9 +19,9 @@ export default function ApprovedStudent({
   subjectId, 
   setApprovedStudents, 
   handleMessage 
-}) {
+}: Props) {
   
-  const [userWantsToRemoveStudent, setUserWantsToRemoveStudent] = useState(false);
+  const [userWantsToRemoveStudent, setUserWantsToRemoveStudent] = useState<boolean>(false);
 
   return (
     <>
