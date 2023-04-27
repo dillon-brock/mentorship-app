@@ -1,13 +1,18 @@
 import { Form } from 'react-bootstrap';
 import styles from './priceDropdown.module.css';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+
+type Props = {
+  minPrice: string;
+  setMinPrice: Dispatch<SetStateAction<string>>;
+  maxPrice: string;
+  setMaxPrice: Dispatch<SetStateAction<string>>;
+  showPriceDropdown: boolean;
+}
 
 export default function PriceDropdown({ 
-  minPrice, 
-  setMinPrice, 
-  maxPrice, 
-  setMaxPrice, 
-  showPriceDropdown 
-}) {
+  minPrice, setMinPrice, maxPrice, 
+  setMaxPrice, showPriceDropdown }: Props) {
 
   return (
     <div className={styles.container} style={{ visibility: showPriceDropdown ? 'visible' : 'hidden' }}>
@@ -33,7 +38,9 @@ export default function PriceDropdown({
             type="number" 
             name="maxPrice" 
             value={maxPrice} 
-            onInput={(e) => setMaxPrice(e.target.value)}
+            onInput={
+              (e: ChangeEvent<HTMLInputElement>) => setMaxPrice(e.target.value)
+            }
           />
         </div>
       </Form.Group>
