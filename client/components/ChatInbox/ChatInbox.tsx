@@ -3,7 +3,7 @@ import Talk from "talkjs";
 import { useUserContext } from '../../context/UserContext';
 
 export default function ChatInbox() {
-  const inboxEl = useRef(null);
+  const inboxEl = useRef<HTMLDivElement>(null);
   const { user, doneGettingUser } = useUserContext();
 
   useEffect(() => {

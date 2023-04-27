@@ -2,11 +2,19 @@ import Talk from 'talkjs';
 import { useEffect, useState, useRef } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import styles from './chatWindow.module.css';
+import { User } from '../../../server/models/User';
+import Student from '../../../server/models/Student';
 
-export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) {
-  const chatboxEl = useRef();
-  const [talkLoaded, setTalkLoaded] = useState(false);
-  const [recipient, setRecipient] = useState({});
+type Props = {
+  primaryUser: User;
+  secondaryUser: Student;
+  handleClose: () => void;
+}
+
+export default function ChatWindow({ primaryUser, secondaryUser, handleClose }: Props) {
+  const chatboxEl = useRef<HTMLDivElement>(null);
+  const [talkLoaded, setTalkLoaded] = useState<boolean>(false);
+  const [recipient, setRecipient] = useState<Talk.User | undefined>();
 
   useEffect(() => {
     Talk.ready.then(() => setTalkLoaded(true));
@@ -46,16 +54,20 @@ export default function ChatWindow({ primaryUser, secondaryUser, handleClose }) 
     }
   }, [talkLoaded]);
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.recipientInfo}>
-          <Image className={styles.image} roundedCircle src={recipient.photoUrl} />
-          <p className={styles.name}>{recipient.name}</p>
+  if (recipient) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.recipientInfo}>
+            {recipient.photoUrl &&
+              <Image className={styles.image} roundedCircle src={recipient.photoUrl} />
+            }
+            <p className={styles.name}>{recipient.name}</p>
+          </div>
+          <Button className={styles.button} onClick={handleClose}>X</Button>
         </div>
-        <Button className={styles.button} onClick={handleClose}>X</Button>
+        <div className={styles.window} ref={chatboxEl} />;
       </div>
-      <div className={styles.window} ref={chatboxEl} />;
-    </div>
-  ) 
+    ) 
+  }
 }
