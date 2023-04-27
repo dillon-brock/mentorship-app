@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { deleteConnection } from "../../services/connection";
+import { deleteConnection } from "../../services/connection/connection";
 import globalStyles from '../../global.module.css';
 import styles from './removeStudentModal.module.css';
 import { CurrentStudent } from "../../types";

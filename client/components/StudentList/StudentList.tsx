@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUserContext } from "../../context/UserContext";
 import { useStudents } from "../../hooks/useStudents";
-import { updateConnectionStatus } from "../../services/connection";
+import { updateConnectionStatus } from "../../services/connection/connection";
 import ApprovedStudent from "../ApprovedStudent/ApprovedStudent";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import NoStudentsDisplay from "../NoStudentsDisplay/NoStudentsDisplay";

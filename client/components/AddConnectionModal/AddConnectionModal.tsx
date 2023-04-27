@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext.js";
 import useSubjects from "../../hooks/useSubjects";
-import { createConnection } from "../../services/connection.js";
+import { createConnection } from "../../services/connection/connection";
 import { addStudentSubject } from "../../services/student.js";
 import styles from './addConnectionModal.module.css';
 import globalStyles from '../../global.module.css';

@@ -3,7 +3,7 @@ import { Button, Image } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
-import { deleteConnection } from "../../services/connection";
+import { deleteConnection } from "../../services/connection/connection";
 import { checkForReviewMatch } from "../../utils";
 import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
 import AddReviewModal from "../AddReviewModal/AddReviewModal";
@@ -52,11 +52,14 @@ export default function TeacherDetailPage() {
   }
 
   const handleRemoveTeacher = async () => {
-    await deleteConnection({ 
-      id: connection?.id, 
-      subjectId: connection?.subjectId, 
-      studentId: user.studentId
-    });
+    if (connection) {
+
+      await deleteConnection({ 
+        id: connection.id, 
+        subjectId: connection.subjectId, 
+        studentId: user.studentId
+      });
+    }
     setConnection(null);
     setUserWantsToRemoveTeacher(false);
   }

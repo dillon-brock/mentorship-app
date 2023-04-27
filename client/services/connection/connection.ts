@@ -1,4 +1,6 @@
-export async function createConnection(teacherId, studentId) {
+import { ConnectionUpdateInfo, DeleteConnectionInfo } from "./types";
+
+export async function createConnection(teacherId: string, studentId: string) {
   const response = await fetch(`/api/v1/connections`, {
     method: "POST",
     credentials: "include",
@@ -17,7 +19,7 @@ export async function createConnection(teacherId, studentId) {
   }
 }
 
-export async function updateConnectionStatus({ teacherId, studentId, connectionStatus }) {
+export async function updateConnectionStatus({ teacherId, studentId, connectionStatus }: ConnectionUpdateInfo) {
   const response = await fetch(`/api/v1/connections`, {
     method: "PUT",
     credentials: "include",
@@ -37,7 +39,7 @@ export async function updateConnectionStatus({ teacherId, studentId, connectionS
   }
 }
 
-export async function deleteConnection({ id, studentId, subjectId }) {
+export async function deleteConnection({ id, studentId, subjectId }: DeleteConnectionInfo) {
   const response = await fetch(`/api/v1/connections/${id}?studentId=${studentId}&subjectId=${subjectId}`, {
     method: 'DELETE',
     credentials: 'include',
