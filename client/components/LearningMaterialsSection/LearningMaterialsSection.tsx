@@ -3,11 +3,19 @@ import { Button, Image, Row } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from './learningMaterialsSection.module.css';
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
 
-export default function LearningMaterialsSection({ id, firstName, lastName, teachingMaterials }) {
-  const [expanded, setExpanded] = useState(false);
-  const files = teachingMaterials.filter(material => material.type === 'file');
-  const links = teachingMaterials.filter(material => material.type === 'link');
+type Props = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  teachingMaterials: TeachingMaterial[];
+}
+
+export default function LearningMaterialsSection({ id, firstName, lastName, teachingMaterials }: Props) {
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const files: TeachingMaterial[] = teachingMaterials.filter(material => material.type === 'file');
+  const links: TeachingMaterial[] = teachingMaterials.filter(material => material.type === 'link');
 
   return (
       <section className={styles.section}>
