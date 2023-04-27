@@ -22,7 +22,7 @@ export default function HomePage() {
         </div>
         <div className={styles.linkContainer}>
           <Link to='/find-teachers' className={styles.link}>
-            <StartLink />
+            <StartLink type='' />
           </Link>
         </div>
       </div>
