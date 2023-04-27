@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import Subject from "../../../server/models/Subject";
+import { NumberedSubject } from "../../types";
 
 export type FormErrors = {
   zipCode?: string;
@@ -11,7 +11,7 @@ export type Props = {
   password?: string;
   firstName?: string;
   lastName?: string;
-  subjects: Subject[];
+  subjects: NumberedSubject[];
   setUser: Dispatch<SetStateAction<boolean>>;
   newUser: boolean;
   user: any;

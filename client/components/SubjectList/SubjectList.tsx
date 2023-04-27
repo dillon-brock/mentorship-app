@@ -2,12 +2,20 @@ import { Col, Nav, Row, Tab } from "react-bootstrap";
 import NewSubjectTab from "../NewSubjectTab/NewSubjectTab";
 import SubjectTab from "../SubjectTab/SubjectTab";
 import styles from './subjectList.module.css';
+import { Subject, Teacher } from "../../types";
+import { Dispatch, SetStateAction } from "react";
 
-export default function SubjectList({ subjects, setTeacher, displayOnly }) {
+type Props = {
+  subjects: Subject[];
+  setTeacher?: Dispatch<SetStateAction<Teacher>>;
+  displayOnly: boolean;
+}
+
+export default function SubjectList({ subjects, setTeacher, displayOnly }: Props) {
   return (
     <>
       <h4 className={styles.title}>Subjects</h4>
-      <Tab.Container defaultActiveKey={subjects[0].subject}>
+      <Tab.Container defaultActiveKey={subjects[0] ? subjects[0].subject : undefined}>
           <Row>
           <Row md={3}>
             <Nav variant="tabs">
@@ -27,10 +35,10 @@ export default function SubjectList({ subjects, setTeacher, displayOnly }) {
             <Tab.Content>
               {subjects.map((subject, i) => (
                 <Tab.Pane key={subject.id} eventKey={subject.subject}>
-                  <SubjectTab {...subject} i={i} setTeacher={setTeacher} displayOnly={displayOnly} />
+                  <SubjectTab {...subject} setTeacher={setTeacher} displayOnly={displayOnly} />
                 </Tab.Pane>
               ))}
-              {!displayOnly &&
+              {!displayOnly && setTeacher &&
                 <Tab.Pane eventKey="add-new">
                   <NewSubjectTab setTeacher={setTeacher} />
                 </Tab.Pane>
