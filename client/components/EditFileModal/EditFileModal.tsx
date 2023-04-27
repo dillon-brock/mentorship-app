@@ -1,42 +1,67 @@
-import { useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Image, Modal } from "react-bootstrap";
 import { uploadFile } from "../../services/cloudinary";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './editFileModal.module.css';
 import globalStyles from '../../global.module.css';
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import Subject from "../../../server/models/Subject";
 
-export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditFile, id, subjectId, name, url, setTeachingMaterials, subjects }) {
+type Props = {
+  userWantsToEditFile: boolean;
+  setUserWantsToEditFile: Dispatch<SetStateAction<boolean>>;
+  id: string;
+  subjectId: string;
+  name: string;
+  url: string;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  subjects: Subject[];
+}
 
-  const [newFile, setNewFile] = useState(false);
-  const [nameFromInput, setNameFromInput] = useState(name);
-  const [previewUrl, setPreviewUrl] = useState(`${url.slice(0, -3)}png`);
-  const [uploadUrl, setUploadUrl] = useState(url);
-  const [nameError, setNameError] = useState('');
-  const [subjectError, setSubjectError] = useState('');
+export default function EditFileModal({ 
+  userWantsToEditFile, 
+  setUserWantsToEditFile, 
+  id, 
+  subjectId, 
+  name, 
+  url, 
+  setTeachingMaterials, 
+  subjects 
+}: Props) {
+
+  const [newFile, setNewFile] = useState<boolean>(false);
+  const [nameFromInput, setNameFromInput] = useState<string>(name);
+  const [previewUrl, setPreviewUrl] = useState<string>(`${url.slice(0, -3)}png`);
+  const [uploadUrl, setUploadUrl] = useState<string>(url);
+  const [nameError, setNameError] = useState<string>('');
+  const [subjectError, setSubjectError] = useState<string>('');
 
   const handleClose = () => setUserWantsToEditFile(false);
 
-  const handleChangeName = (e) => {
+  const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setNameFromInput(e.target.value);
     if (nameError) setNameError('');
   }
 
-  const handleChangeFile = async (e) => {
+  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     setNewFile(true);
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
-    const fileUploadResponse = await uploadFile(formData);
-    setUploadUrl(fileUploadResponse.secure_url);
-    setPreviewUrl(`${fileUploadResponse.secure_url.slice(0, -3)}png`);
+    const target: HTMLInputElement = e.target;
+    const file: File | undefined = target.files ? target.files[0] : undefined;
+    if (file != undefined) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', process.env.CLOUDINARY_PRESET_NAME);
+      const fileUploadResponse = await uploadFile(formData);
+      setUploadUrl(fileUploadResponse.secure_url);
+      setPreviewUrl(`${fileUploadResponse.secure_url.slice(0, -3)}png`);
+    }
   }
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
-    let fileUrl = url;
+    let fileUrl: string = url;
     if (newFile) fileUrl = uploadUrl;
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     
     if (!formData.get('name')) {
       setNameError('Name is required.');
@@ -48,7 +73,7 @@ export default function EditFileModal({ userWantsToEditFile, setUserWantsToEditF
       return;
     }
 
-    const updatedFile = await updateTeachingMaterial({
+    const updatedFile: TeachingMaterial = await updateTeachingMaterial({
       id,
       subjectId: formData.get('subject'),
       url: fileUrl,
