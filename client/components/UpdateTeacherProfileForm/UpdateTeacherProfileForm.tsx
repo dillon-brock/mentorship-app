@@ -3,8 +3,25 @@ import { FaEdit } from "react-icons/fa";
 import styles from './updateTeacherProfileForm.module.css';
 import globalStyles from '../../global.module.css';
 import { updateAccount } from "../../services/teacher";
-import { useRef, useState } from "react";
+import { ChangeEvent, Dispatch, FocusEvent, FormEvent, SetStateAction, useRef, useState } from "react";
 import { getCityFromZipCode } from "../../services/zipcode.js";
+import { Teacher, TeacherProfile } from "../../types";
+import { FormErrors } from "./types";
+
+type Props = {
+  teacher: Teacher;
+  setTeacher: Dispatch<SetStateAction<Teacher>>;
+  showImageEditButton: boolean;
+  setShowImageEditButton: Dispatch<SetStateAction<boolean>>;
+  setUserWantsToEditProfile: Dispatch<SetStateAction<boolean>>;
+  setUserWantsToEditImage: Dispatch<SetStateAction<boolean>>;
+  zipCode: string;
+  setZipCode: Dispatch<SetStateAction<string>>;
+  cityName: string;
+  setCityName: Dispatch<SetStateAction<string>>;
+  stateName: string;
+  setStateName: Dispatch<SetStateAction<string>>;
+}
 
 export default function UpdateTeacherProfileForm({
   teacher,
@@ -19,24 +36,24 @@ export default function UpdateTeacherProfileForm({
   setCityName,
   stateName,
   setStateName,
-}) {
+}: Props) {
 
-  const firstNameInputRef = useRef();
-  const lastNameInputRef = useRef();
-  const zipCodeInputRef = useRef();
-  const emailInputRef = useRef();
-  const [zipCodeChecked, setZipCodeChecked] = useState(false);
-  const [showCity, setShowCity] = useState(true);
-  const [formErrors, setFormErrors] = useState({});
+  const firstNameInputRef = useRef<HTMLInputElement>(null);
+  const lastNameInputRef = useRef<HTMLInputElement>(null);
+  const zipCodeInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const [zipCodeChecked, setZipCodeChecked] = useState<boolean>(false);
+  const [showCity, setShowCity] = useState<boolean>(true);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const isFormInvalid = () => {
-    let invalid = false;
-    let errors = {};
-    if (firstNameInputRef.current.value === '') {
+    let invalid: boolean = false;
+    let errors: FormErrors = {};
+    if (firstNameInputRef.current && firstNameInputRef.current.value === '') {
       errors = { ...errors, firstName: 'First name is required.' }
       invalid = true;
     }
-    if (lastNameInputRef.current.value === '') {
+    if (lastNameInputRef.current && lastNameInputRef.current.value === '') {
       errors = { ...errors, lastName: 'Last name is required.' }
       invalid = true;
     }
@@ -44,7 +61,7 @@ export default function UpdateTeacherProfileForm({
       errors = { ...errors, zipCode: 'Zip code is required.' }
       invalid = true;
     }
-    if (emailInputRef.current.value !== '' && !emailInputRef.current.checkValidity()) {
+    if (emailInputRef.current && emailInputRef.current.value !== '' && !emailInputRef.current.checkValidity()) {
       errors = { ...errors, email: 'Email is invalid.' }
       invalid = true;
     }
@@ -52,7 +69,7 @@ export default function UpdateTeacherProfileForm({
     return invalid;
   }
 
-  const handleEnterZipCode = async (e) => {
+  const handleEnterZipCode = async (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value.length === 5) {
       const zipCodeResponse = await getCityFromZipCode(e.target.value);
       if (zipCodeResponse.city && zipCodeResponse.state) {
@@ -86,7 +103,7 @@ export default function UpdateTeacherProfileForm({
       setFormErrors({ ...formErrors, lastName: '' });
   }
 
-  const handleChangeZipCode = (e) => {
+  const handleChangeZipCode = (e: ChangeEvent<HTMLInputElement>) => {
     setZipCode(e.target.value);
     if (formErrors.zipCode)
       setFormErrors({ ...formErrors, zipCode: '' });
@@ -99,16 +116,16 @@ export default function UpdateTeacherProfileForm({
       setFormErrors({ ...formErrors, email: '' });
   }
 
-  const handleChangePhoneNumber = (e) => {
+  const handleChangePhoneNumber = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3");
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isFormInvalid() || formErrors.zipCode) return;
-    let city = cityName;
-    let state = stateName;
-    const formData = new FormData(e.target);
+    let city: string = cityName;
+    let state: string = stateName;
+    const formData = new FormData(e.target as HTMLFormElement);
     if (!zipCodeChecked) {
       if (formData.get('zipCode')) {
         const zipCodeResponse = await getCityFromZipCode(formData.get('zipCode'));
@@ -127,7 +144,7 @@ export default function UpdateTeacherProfileForm({
       }
     }
     const formDataObj = Object.fromEntries(formData);
-    const updateData = { ...formDataObj, city, state}
+    const updateData = { ...(formDataObj as TeacherProfile), city, state}
     await updateAccount({ 
       ...updateData,
       imageUrl: teacher.imageUrl
@@ -208,7 +225,7 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             type="text" 
             name="phoneNumber"
-            defaultValue={teacher.phoneNumber}
+            defaultValue={teacher.phoneNumber ? teacher.phoneNumber : ''}
             onChange={handleChangePhoneNumber}
           />
           <Form.Label className={styles.label}>Contact Email</Form.Label>
@@ -217,7 +234,7 @@ export default function UpdateTeacherProfileForm({
             className={styles.input} 
             ref={emailInputRef}
             name="contactEmail"
-            defaultValue={teacher.contactEmail}
+            defaultValue={teacher.contactEmail ? teacher.contactEmail : ''}
             onChange={handleChangeEmail}
           />
           {formErrors.email &&
@@ -228,10 +245,10 @@ export default function UpdateTeacherProfileForm({
           <Form.Label className={styles.label}>Bio</Form.Label>
           <Form.Control 
             as="textarea"
-            rows="6" 
+            rows={6} 
             name="bio"
             className={styles.input} 
-            defaultValue={teacher.bio} 
+            defaultValue={teacher.bio ? teacher.bio : ''} 
           />
           <div className={styles.buttonContainer}>
             <Button 

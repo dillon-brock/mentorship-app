@@ -107,3 +107,18 @@ export type LessonFormErrors = {
   lessonType: LessonFormError | null;
 }
 
+// bio
+// contactEmail
+// phoneNumber
+// zipCode
+// lastName
+// firstName
+
+export type TeacherProfile = {
+  bio: string;
+  contactEmail: string;
+  phoneNumber: string;
+  zipCode: string;
+  firstName: string;
+  lastName: string;
+}
