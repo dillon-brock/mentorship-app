@@ -1,24 +1,33 @@
-import { useRef, useState } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
 import { Button, Form, Row } from 'react-bootstrap';
 import { checkForExistingUser } from '../../services/auth';
 
 import styles from './teacherSignUpForm.module.css';
 import globalStyles from '../../global.module.css';
+import { FormErrors } from './types';
 
-export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName, setLastName, setStep }) {
+type Props = {
+  setEmail: Dispatch<SetStateAction<string>>;
+  setPassword: Dispatch<SetStateAction<string>>;
+  setFirstName: Dispatch<SetStateAction<string>>;
+  setLastName: Dispatch<SetStateAction<string>>;
+  setStep: Dispatch<SetStateAction<number>>;
+}
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const passwordConfirmationRef = useRef();
-  const firstNameInputRef = useRef();
-  const lastNameInputRef = useRef();
-  const [formErrors, setFormErrors] = useState({});
-  const [showInvalidConfirmation, setShowInvalidConfirmation] = useState(false);
+export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName, setLastName, setStep }: Props) {
+
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+  const firstNameInputRef = useRef<HTMLInputElement>(null);
+  const lastNameInputRef = useRef<HTMLInputElement>(null);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [showInvalidConfirmation, setShowInvalidConfirmation] = useState<boolean>(false);
 
   const isFormInvalid = () => {
-    let invalid = false;
+    let invalid: boolean = false;
 
-    if (firstNameInputRef.current.value === '') {
+    if (firstNameInputRef.current && firstNameInputRef.current.value === '') {
       setFormErrors({ 
         ...formErrors, 
         firstName: 'First name is required'
@@ -27,7 +36,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       return invalid;
     }
 
-    if (lastNameInputRef.current.value === '') {
+    if (lastNameInputRef.current && lastNameInputRef.current.value === '') {
       setFormErrors({ 
         ...formErrors, 
         lastName: 'Last name is required'
@@ -36,7 +45,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       return invalid;
     }
 
-    if (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity()) {
+    if (emailInputRef.current && (emailInputRef.current.value === '' || !emailInputRef.current.checkValidity())) {
       setFormErrors({ 
         ...formErrors, 
         email: 'Please enter a valid email.'
@@ -44,7 +53,7 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       invalid = true;
       return invalid;
     }
-    if (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6) {
+    if (passwordInputRef.current && (passwordInputRef.current.value === '' || passwordInputRef.current.value.length < 6)) {
       setFormErrors({ 
         ...formErrors, 
         password: 'Password must be at least 6 characters'
@@ -52,7 +61,9 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       invalid = true;
       return invalid;
     }
-    if (passwordConfirmationRef.current.value !== passwordInputRef.current.value) {
+    if (passwordConfirmationRef.current &&
+      passwordInputRef.current &&
+      passwordConfirmationRef.current.value !== passwordInputRef.current.value) {
       setFormErrors({ 
         ...formErrors, 
         passwordConfirmation: 'Passwords do not match.'
@@ -85,7 +96,9 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
   }
 
   const handleChangePasswordConfirmation = () => {
-    if (passwordConfirmationRef.current.value === passwordInputRef.current.value) {
+    if (passwordConfirmationRef.current &&
+      passwordInputRef.current &&
+      passwordConfirmationRef.current.value === passwordInputRef.current.value) {
       setShowInvalidConfirmation(false);
     } else {
       setShowInvalidConfirmation(true);
@@ -93,10 +106,10 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
     }
   }
 
-  const handleNext = async (e) => {
+  const handleNext = async (e: FormEvent) => {
     e.preventDefault();
     if (isFormInvalid()) return;
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const existingUser = await checkForExistingUser(formData.get('email'));
     if (existingUser) {
       setFormErrors({ 
@@ -105,10 +118,10 @@ export default function TeacherSignUpForm({ setEmail, setPassword, setFirstName,
       })
       return;
     }
-    setEmail(formData.get('email'));
-    setPassword(formData.get('password'));
-    setFirstName(formData.get('firstName'));
-    setLastName(formData.get('lastName'));
+    setEmail(formData.get('email') as string);
+    setPassword(formData.get('password') as string);
+    setFirstName(formData.get('firstName') as string);
+    setLastName(formData.get('lastName') as string);
     setStep(2);
   }
 
