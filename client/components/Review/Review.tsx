@@ -2,10 +2,22 @@ import { Col, Container, Image } from "react-bootstrap";
 import StarRating from "../StarRating/StarRating";
 import styles from './review.module.css';
 
-export default function Review({ stars, detail, firstName, lastName, imageUrl, anonymous, createdAt }) {
+type Props = {
+  stars: string;
+  detail: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  anonymous: boolean;
+  createdAt: string;
+}
 
-  const splitDate = new Date(createdAt).toString().split(' ');
-  const date = `${splitDate[1]} ${splitDate[2]}, ${splitDate[3]}`;
+export default function Review({ 
+  stars, detail, firstName, lastName, 
+  imageUrl, anonymous, createdAt }: Props) {
+
+  const splitDate: string[] = new Date(createdAt).toString().split(' ');
+  const date: string = `${splitDate[1]} ${splitDate[2]}, ${splitDate[3]}`;
 
   return (
     <div className={styles.reviewContainer}>
@@ -18,7 +30,12 @@ export default function Review({ stars, detail, firstName, lastName, imageUrl, a
         </Col>
       </Container>
       }
-      <StarRating value={Number(stars)} editable={false} />
+      <StarRating 
+        value={Number(stars)} 
+        editable={false} 
+        half={false}
+        ratingChanged={null}
+      />
       <p>{detail}</p>
       <hr />
     </div>
