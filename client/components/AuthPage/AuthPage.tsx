@@ -9,7 +9,7 @@ import styles from './authPage.module.css';
 export default function AuthPage() {
   const { method, accountType } = useParams();
   const [searchParams] = useSearchParams();
-  const callback = searchParams.get('callback');
+  const callback: string | null = searchParams.get('callback');
   const { user, doneGettingUser } = useUserContext();
 
   if (doneGettingUser && user) {

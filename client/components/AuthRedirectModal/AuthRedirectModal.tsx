@@ -2,8 +2,14 @@ import { Button, Modal } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styles from './authRedirectModal.module.css';
 import globalStyles from '../../global.module.css';
+import { Dispatch, SetStateAction } from "react";
 
-export default function AuthRedirectModal({ userNeedsToSignIn, setUserNeedsToSignIn }) {
+type Props = {
+  userNeedsToSignIn: boolean;
+  setUserNeedsToSignIn: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function AuthRedirectModal({ userNeedsToSignIn, setUserNeedsToSignIn }: Props) {
 
   const { pathname } = useLocation();
   const handleClose = () => setUserNeedsToSignIn(false);
