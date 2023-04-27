@@ -1,8 +1,18 @@
 import { Button, Modal } from "react-bootstrap";
 import styles from './removeTeacherModal.module.css';
 import globalStyles from '../../global.module.css';
+import { Dispatch, SetStateAction } from "react";
 
-export default function RemoveTeacherModal({ handleRemoveTeacher, userWantsToRemoveTeacher, setUserWantsToRemoveTeacher, firstName }) {
+type Props = {
+  handleRemoveTeacher: () => Promise<void>;
+  userWantsToRemoveTeacher: boolean;
+  setUserWantsToRemoveTeacher: Dispatch<SetStateAction<boolean>>;
+  firstName: string;
+}
+
+export default function RemoveTeacherModal({ 
+  handleRemoveTeacher, userWantsToRemoveTeacher, 
+  setUserWantsToRemoveTeacher, firstName }: Props) {
 
   const handleClose = () => setUserWantsToRemoveTeacher(false);
 
