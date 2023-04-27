@@ -2,7 +2,7 @@ import { ChangeEvent, FocusEvent, FormEvent, useRef, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { getUser, signUpTeacher, updateUserType } from "../../services/auth/auth";
 import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
-import { addTeacherAccount } from "../../services/teacher";
+import { addTeacherAccount } from "../../services/teacher/teacher";
 import { getCityFromZipCode } from "../../services/zipcode";
 import styles from './teacherBioForm.module.css'
 import globalStyles from '../../global.module.css';
@@ -141,10 +141,10 @@ export default function TeacherBioForm({
         lastName: user.lastName,
         imageUrl: user.imageUrl,
         subjects,
-        bio: formData.get('bio'),
-        zipCode: formData.get('zip'),
-        phoneNumber: formData.get('phoneNumber'),
-        contactEmail: formData.get('contactEmail'),
+        bio: formData.get('bio') ? formData.get('bio') as string : null,
+        zipCode: formData.get('zip') as string,
+        phoneNumber: formData.get('phoneNumber') ? formData.get('phoneNumber') as string : null,
+        contactEmail: formData.get('contactEmail') ? formData.get('contactEmail') as string : null,
         city: cityName,
         state: stateName
       })

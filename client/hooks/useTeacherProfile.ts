@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTeacherProfile } from "../services/teacher.js";
+import { getTeacherProfile } from "../services/teacher/teacher";
 import { Teacher } from "../types";
 import { defaultTeacher } from "../defaultValues";
 

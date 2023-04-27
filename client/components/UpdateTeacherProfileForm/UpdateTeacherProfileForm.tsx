@@ -2,7 +2,7 @@ import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import styles from './updateTeacherProfileForm.module.css';
 import globalStyles from '../../global.module.css';
-import { updateAccount } from "../../services/teacher";
+import { updateAccount } from "../../services/teacher/teacher";
 import { ChangeEvent, Dispatch, FocusEvent, FormEvent, SetStateAction, useRef, useState } from "react";
 import { getCityFromZipCode } from "../../services/zipcode";
 import { Teacher, TeacherProfile } from "../../types";

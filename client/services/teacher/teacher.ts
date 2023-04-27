@@ -1,9 +1,11 @@
-export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, maxPrice = 200) {
+import { TeacherAccountData, TeacherAccountWithSubjects } from "./types";
+
+export async function getTeachers(subject: string, lessonType = 'Any', minPrice = 0, maxPrice = 200) {
   const params = new URLSearchParams;
   params.set('subject', subject);
   params.set('lessonType', lessonType);
-  params.set('minPrice', minPrice);
-  params.set('maxPrice', maxPrice);
+  params.set('minPrice', String(minPrice));
+  params.set('maxPrice', String(maxPrice));
   const response = await fetch(`/api/v1/teachers?${params.toString()}`, {
     credentials: "include",
     headers: {
@@ -17,7 +19,7 @@ export async function getTeachers(subject, lessonType = 'Any', minPrice = 0, max
   }
 }
 
-export async function getTeacherById(id) {
+export async function getTeacherById(id: string) {
   const response = await fetch(`/api/v1/teachers/${id}`, {
     credentials: "include",
     headers: {
@@ -45,7 +47,9 @@ export async function getStudents() {
   }
 }
 
-export async function addTeacherAccount({ firstName, lastName, imageUrl, subjects, bio, zipCode, phoneNumber, contactEmail, city, state }) {
+export async function addTeacherAccount({ firstName, lastName, 
+  imageUrl, subjects, bio, zipCode, phoneNumber, contactEmail, 
+  city, state }: TeacherAccountWithSubjects) {
   const res = await fetch(`/api/v1/teachers/add-account`, {
     method: "POST",
     credentials: "include",
@@ -71,7 +75,7 @@ export async function addTeacherAccount({ firstName, lastName, imageUrl, subject
   if (res.ok) return newTeacherInfo;
 }
 
-export async function updateAccount({ bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }) {
+export async function updateAccount({ bio, zipCode, city, state, phoneNumber, contactEmail, firstName, lastName, imageUrl }: TeacherAccountData) {
   const response = await fetch(`/api/v1/teachers/me`, {
     method: 'PUT',
     credentials: 'include',

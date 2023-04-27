@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStudents } from "../services/teacher.js";
+import { getStudents } from "../services/teacher/teacher";
 import { CurrentStudent } from "../types";
 
 export function useStudents() {

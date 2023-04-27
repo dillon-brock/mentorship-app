@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getTeachers } from "../services/teacher.js";
+import { getTeachers } from "../services/teacher/teacher";
 import { getZipCodesInRadius } from "../services/zipcode";
-import { TeacherWithSubjects, ZipCodeListResponse } from "../types";
+import { TeacherWithSubjects } from "../types";
 
 export function useAllTeachers(subject: string, zipCode: string, lessonType: string, 
   minPrice: number, maxPrice: number, radius: string, page: number, pageLength: number) {

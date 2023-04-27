@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext"
 import { FaEdit } from 'react-icons/fa';
-import { updateAccount } from "../../services/teacher";
+import { updateAccount } from "../../services/teacher/teacher";
 import useTeacherProfile from "../../hooks/useTeacherProfile";
 import SubjectList from "../SubjectList/SubjectList";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
@@ -32,7 +32,12 @@ export default function TeacherProfile() {
       const imageUrl = cloudinaryResponse.secure_url
       if (teacher) {
         setTeacher({ ...teacher, imageUrl});
-        await updateAccount({ ...teacher, imageUrl });
+        await updateAccount({ 
+          ...teacher, 
+          imageUrl, 
+          city: teacher.city || '',
+          state: teacher.state || ''
+        });
       }
     }
     setUserWantsToEditImage(false);
