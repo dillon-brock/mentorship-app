@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaChevronDown } from "react-icons/fa";
 import LocationDropdown from "../LocationDropdown/LocationDropdown";
 import PriceDropdown from "../PriceDropdown/PriceDropdown";
 import styles from './teacherSearchForm.module.css';
 
-export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }) {
-  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
-  const [showPriceDropdown, setShowPriceDropdown] = useState(false);
-  const [radius, setRadius] = useState(25);
-  const [zipCode, setZipCode] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+type Props = {
+  errorMessage: string;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
+  handleSubmit: (e: FormEvent) => void;
+}
+
+export default function TeacherSearchForm({ errorMessage, setErrorMessage, handleSubmit }: Props) {
+  const [showLocationDropdown, setShowLocationDropdown] = useState<boolean>(false);
+  const [showPriceDropdown, setShowPriceDropdown] = useState<boolean>(false);
+  const [radius, setRadius] = useState<number>(25);
+  const [zipCode, setZipCode] = useState<string>('');
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
 
   return (
     <div className={styles.container}>

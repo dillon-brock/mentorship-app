@@ -3,8 +3,8 @@ import styles from './locationDropdown.module.css';
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 type Props = {
-  radius: string;
-  setRadius: Dispatch<SetStateAction<string>>;
+  radius: number;
+  setRadius: Dispatch<SetStateAction<number>>;
   zipCode: string;
   setZipCode: Dispatch<SetStateAction<string>>;
   setErrorMessage: Dispatch<SetStateAction<string>>;
@@ -41,7 +41,7 @@ export default function LocationDropdown({ radius, setRadius, zipCode, setZipCod
           step="5" 
           name="radius" 
           value={radius} 
-          onInput={(e: ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => setRadius(Number(e.target.value))}
         />
         <Form.Text className={styles.radiusDisplay}>{radius} miles</Form.Text>
       </Form.Group>
