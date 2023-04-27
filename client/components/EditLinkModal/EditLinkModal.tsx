@@ -1,28 +1,44 @@
-import { useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { updateTeachingMaterial } from "../../services/teachingMaterials";
 import styles from './editLinkModal.module.css';
 import globalStyles from '../../global.module.css';
+import Subject from "../../../server/models/Subject";
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
 
-export default function EditLinkModal({ subjects, id, name, url, subjectId, userWantsToEditLink, setUserWantsToEditLink, setTeachingMaterials }) {
-  const [urlFromInput, setUrlFromInput] = useState(url);
-  const [urlError, setUrlError] = useState('');
+type Props = {
+  subjects: Subject[];
+  id: string;
+  name: string;
+  url: string;
+  subjectId: string;
+  userWantsToEditLink: boolean;
+  setUserWantsToEditLink: Dispatch<SetStateAction<boolean>>;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+}
+
+export default function EditLinkModal({ 
+  subjects, id, name, url, subjectId, userWantsToEditLink, 
+  setUserWantsToEditLink, setTeachingMaterials }: Props) {
+
+  const [urlFromInput, setUrlFromInput] = useState<string>(url);
+  const [urlError, setUrlError] = useState<string>('');
 
   const handleClose = () => setUserWantsToEditLink(false);
 
-  const handleChangeUrl = (e) => {
+  const handleChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
     setUrlFromInput(e.target.value);
     if (urlError) setUrlError('');
   }
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (!formData.get('url')) {
       setUrlError('URL is required.');
       return;
     }
-    const updatedLink = await updateTeachingMaterial({
+    const updatedLink: TeachingMaterial = await updateTeachingMaterial({
       id,
       name: formData.get('name'),
       url: formData.get('url'),
