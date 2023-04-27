@@ -3,13 +3,13 @@ import { getReviews } from "../services/reviews.js";
 import { getTeacherById } from "../services/teacher.js";
 import { getAverageRating } from "../utils.js";
 import Review from "../../server/models/Review";
-import Teacher from "../../server/models/Teacher.js";
-import { ConnectionData, EmptyObject } from "../types";
+import { Teacher } from '../types';
+import { ConnectionData } from "../types";
 
 export function useTeacher(id: string) {
-  const [teacher, setTeacher] = useState<Teacher | EmptyObject>({});
+  const [teacher, setTeacher] = useState<Teacher>();
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [connection, setConnection] = useState<ConnectionData | EmptyObject | null>({});
+  const [connection, setConnection] = useState<ConnectionData | null>(null);
   const [avgRating, setAvgRating] = useState<number>(0);
 
   useEffect(() => {

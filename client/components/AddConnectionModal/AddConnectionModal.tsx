@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Button, Modal, Form } from "react-bootstrap";
 import { useUserContext } from "../../context/UserContext.js";
 import useSubjects from "../../hooks/useSubjects";
@@ -6,12 +6,13 @@ import { createConnection } from "../../services/connection.js";
 import { addStudentSubject } from "../../services/student.js";
 import styles from './addConnectionModal.module.css';
 import globalStyles from '../../global.module.css';
+import { ConnectionData } from "../../types";
 
 type Props = {
   id: string;
   firstName: string;
   lastName: string;
-  setConnection: (newVal: boolean) => void;
+  setConnection: Dispatch<SetStateAction<ConnectionData | null>>;
   setUserNeedsToSignIn: (newVal: boolean) => void;
 }
 

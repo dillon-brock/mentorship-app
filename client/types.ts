@@ -1,6 +1,5 @@
 import Connection from "../server/models/Connection";
 import TeachingMaterial from "../server/models/TeachingMaterial";
-import { AggregatedSubject } from "../server/types/subjectTypes";
 
 export type EmptyObject = {};
 
@@ -20,7 +19,7 @@ export interface Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
-  subjects?: Array<AggregatedSubject>;
+  subjects?: Array<Subject>;
 }
 
 export interface TeacherWithMaterials extends Teacher {
