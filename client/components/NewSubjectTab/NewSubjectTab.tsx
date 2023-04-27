@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { addSubject } from "../../services/subjects";
 import styles from './newSubjectTab.module.css';
+import { FormErrors } from "./types";
+import { Teacher } from "../../types";
 
-export default function NewSubjectTab({ setTeacher }) {
+export type Props = {
+  setTeacher: Dispatch<SetStateAction<Teacher>>;
+}
 
-  const [formErrors, setFormErrors] = useState({});
+export default function NewSubjectTab({ setTeacher }: Props) {
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const handleChangeSubject = () => {
     if (formErrors.subject) setFormErrors({ ...formErrors, subject: ''});
@@ -23,8 +29,8 @@ export default function NewSubjectTab({ setTeacher }) {
     if (formErrors.lessonType) setFormErrors({ ...formErrors, lessonType: ''});
   }
   
-  const isSubjectInvalid = (formData) => {
-    let invalid = false;
+  const isSubjectInvalid = (formData: FormData) => {
+    let invalid: boolean = false;
     if (!formData.get('subject')) {
       setFormErrors({ ...formErrors, subject: 'Subject is required.'});
       invalid = true;
@@ -49,9 +55,9 @@ export default function NewSubjectTab({ setTeacher }) {
     }
   }
 
-  const handleAddSubject = async (e) => {
+  const handleAddSubject = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (isSubjectInvalid(formData)) return;
     const newSubject = await addSubject({
       subject: formData.get('subject'),
@@ -59,14 +65,14 @@ export default function NewSubjectTab({ setTeacher }) {
       maxPrice: formData.get('maxPrice'),
       lessonType: formData.get('lessonType')
     });
-    setTeacher(prev => ({
+    setTeacher((prev: Teacher) => ({
       ...prev,
       subjects: [
-        ...prev.subjects,
+        ...[prev.subjects],
         newSubject
       ]
     }));
-    window.location.reload(true);
+    window.location.reload();
   }
 
   return (
