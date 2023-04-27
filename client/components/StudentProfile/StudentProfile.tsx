@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { FaEdit } from 'react-icons/fa';
 import useStudentProfile from "../../hooks/useStudentProfile"
@@ -6,25 +6,30 @@ import { uploadProfilePicture } from "../../services/cloudinary";
 import { updateAccount } from "../../services/student";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './studentProfile.module.css';
+import { Student } from "../../types";
 
 export default function StudentProfile() {
   const { student, setStudent } = useStudentProfile();
-  const [userWantsToEditProfile, setUserWantsToEditProfile] = useState(false);
-  const [userWantsToEditImage, setUserWantsToEditImage] = useState(false);
-  const [showEditImageButton, setShowEditImageButton] = useState(false);
+  const [userWantsToEditProfile, setUserWantsToEditProfile] = useState<boolean>(false);
+  const [userWantsToEditImage, setUserWantsToEditImage] = useState<boolean>(false);
+  const [showEditImageButton, setShowEditImageButton] = useState<boolean>(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await updateAccount({ ...student });
+    await updateAccount({
+      firstName: student?.firstName,
+      lastName: student?.lastName,
+      imageUrl: student?.imageUrl
+    });
     setUserWantsToEditProfile(false);
   }
 
-  const handleSaveImage = async (imageData) => {
+  const handleSaveImage = async (imageData: FormData) => {
     if (imageData) {
       const cloudinaryResponse = await uploadProfilePicture(imageData);
       const imageUrl = cloudinaryResponse.secure_url;
-      setStudent({ ...student, imageUrl });
-      await updateAccount({ ...student, imageUrl });
+      setStudent({ ...(student as Student), imageUrl });
+      await updateAccount({ ...(student as Student), imageUrl });
     }
     setUserWantsToEditImage(false);
   }
@@ -38,18 +43,18 @@ export default function StudentProfile() {
           onMouseLeave={() => setShowEditImageButton(false)}
         >
           {showEditImageButton &&
-            <Button className={styles.editImageButton} onClick={setUserWantsToEditImage}>
+            <Button className={styles.editImageButton} onClick={() => setUserWantsToEditImage(true)}>
               <FaEdit />
             </Button>
           }
-          <Image roundedCircle src={student.imageUrl} style={{ width: '300px', height: '300px' }} />
+          <Image roundedCircle src={student?.imageUrl} style={{ width: '300px', height: '300px' }} />
         </div>
     {!userWantsToEditProfile &&
       <div className={styles.nameContainer}>
         <Button className={styles.editNameButton} onClick={() => setUserWantsToEditProfile(true)}>
           <FaEdit />
         </Button>
-        <h3 className={styles.name}>{student.firstName} {student.lastName}</h3>
+        <h3 className={styles.name}>{student?.firstName} {student?.lastName}</h3>
       </div>
     }
     {userWantsToEditProfile &&
@@ -59,15 +64,15 @@ export default function StudentProfile() {
           <Form.Control 
             className={styles.input} 
             type="text" 
-            value={student.firstName} 
-            onChange={(e) => setStudent({ ...student, firstName: e.target.value })}
+            value={student?.firstName} 
+            onChange={(e) => setStudent({ ...(student as Student), firstName: e.target.value })}
           />
           <Form.Label className={styles.label}>Last Name</Form.Label>
           <Form.Control 
             className={styles.input} 
             type="text" 
-            value={student.lastName} 
-            onChange={(e) => setStudent({ ...student, lastName: e.target.value })} 
+            value={student?.lastName} 
+            onChange={(e) => setStudent({ ...(student as Student), lastName: e.target.value })} 
           />
           <div className={styles.buttonContainer}>
             <Button className={styles.saveButton} type="submit">Save Changes</Button>
