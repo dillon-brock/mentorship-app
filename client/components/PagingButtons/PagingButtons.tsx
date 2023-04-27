@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styles from './pagingButtons.module.css';
+import { Teacher } from "../../types";
 
-export default function PagingButtons({ page, setPage, totalPages, loading, teachers }) {
+type Props = {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  totalPages: number;
+  loading: boolean;
+  teachers: Teacher[];
+}
+
+export default function PagingButtons({ page, setPage, totalPages, loading, teachers }: Props) {
   
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   setTimeout(() => setShowLoader(false), 2000);
 

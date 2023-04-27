@@ -1,5 +1,4 @@
 import Connection from "../server/models/Connection";
-import Subject from "../server/models/Subject";
 import TeachingMaterial from "../server/models/TeachingMaterial";
 import { AggregatedSubject } from "../server/types/subjectTypes";
 

@@ -1,7 +1,17 @@
 import { Form } from "react-bootstrap";
 import styles from './pagingSelect.module.css';
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-export default function PagingSelect({ setPageLength }) {
+type Props = {
+  setPageLength: Dispatch<SetStateAction<number>>;
+}
+
+export default function PagingSelect({ setPageLength }: Props) {
+
+  const handleChangePageLength = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPageLength(e.target.value as unknown as number)
+  }
+
   return (
     <div>
       <Form.Group>
@@ -9,7 +19,7 @@ export default function PagingSelect({ setPageLength }) {
         <Form.Select 
           className={styles.select} 
           defaultValue={10} 
-          onChange={(e) => setPageLength(e.target.value)}
+          onChange={handleChangePageLength}
         >
           <option value={10}>10</option>
           <option value={25}>25</option>
