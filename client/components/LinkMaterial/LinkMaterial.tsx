@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button, Container, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisH } from "react-icons/fa";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import EditLinkModal from "../EditLinkModal/EditLinkModal";
 import styles from './linkMaterial.module.css';
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import Subject from "../../../server/models/Subject";
 
-export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }) {
-  const [showMenuButton, setShowMenuButton] = useState(false);
-  const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState(false);
-  const [userWantsToEditLink, setUserWantsToEditLink] = useState(false);
-  const [openPopover, setOpenPopover] = useState(false);
+type Props = {
+  id: string;
+  name: string;
+  url: string;
+  subjectId: string;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>;
+  subjects: Subject[];
+}
+
+export default function LinkMaterial({ id, name, url, subjectId, setTeachingMaterials, subjects }: Props) {
+
+  const [showMenuButton, setShowMenuButton] = useState<boolean>(false);
+  const [userWantsToDeleteLink, setUserWantsToDeleteLink] = useState<boolean>(false);
+  const [userWantsToEditLink, setUserWantsToEditLink] = useState<boolean>(false);
+  const [openPopover, setOpenPopover] = useState<boolean>(false);
 
   const handleMouseLeave = () => {
     setShowMenuButton(false);
@@ -26,7 +38,7 @@ export default function LinkMaterial({ id, name, url, subjectId, setTeachingMate
     setOpenPopover(false);
   }
 
-  const popover = (
+  const popover: JSX.Element = (
     <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
