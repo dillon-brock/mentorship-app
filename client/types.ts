@@ -42,3 +42,16 @@ export interface CurrentStudent extends Student {
   connectionId: string;
   subjectId: string;
 }
+
+export interface Review {
+  id: string;
+  teacherId: string;
+  studentId: string | null;
+  stars: number;
+  detail: string | null;
+  anonymous: boolean;
+  createdAt: string;
+  firstName?: string;
+  lastName?: string;
+  imageUrl?: string;
+}

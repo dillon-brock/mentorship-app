@@ -1,20 +1,11 @@
 import { Col, Container, Image } from "react-bootstrap";
 import StarRating from "../StarRating/StarRating";
 import styles from './reviewDisplay.module.css';
-
-type Props = {
-  stars: string;
-  detail: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  anonymous: boolean;
-  createdAt: string;
-}
+import { Review } from "../../types";
 
 export default function Review({ 
   stars, detail, firstName, lastName, 
-  imageUrl, anonymous, createdAt }: Props) {
+  imageUrl, anonymous, createdAt }: Review) {
 
   const splitDate: string[] = new Date(createdAt).toString().split(' ');
   const date: string = `${splitDate[1]} ${splitDate[2]}, ${splitDate[3]}`;

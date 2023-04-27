@@ -2,12 +2,17 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ReviewDisplay from "../ReviewDisplay/ReviewDisplay";
 import styles from './reviewListModal.module.css';
+import { Review } from "../../types";
 
+type Props = {
+  reviews: Review[];
+  firstName: string;
+  lastName: string;
+}
 
+export default function ReviewListModal({ reviews, firstName, lastName }: Props) {
 
-export default function ReviewListModal({ reviews, firstName, lastName }) {
-
-  const [showReviews, setShowReviews] = useState(false);
+  const [showReviews, setShowReviews] = useState<boolean>(false);
   const handleShow = () => setShowReviews(true);
   const handleClose = () => setShowReviews(false);
 
