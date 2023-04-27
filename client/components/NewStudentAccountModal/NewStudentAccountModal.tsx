@@ -1,7 +1,13 @@
 import { Button, Modal } from "react-bootstrap";
 import styles from './newStudentAccountModal.module.css';
+import { Dispatch, SetStateAction } from "react";
 
-export default function NewStudentAccountModal({ newStudentAccount, setNewStudentAccount }) {
+type Props = {
+  newStudentAccount: boolean;
+  setNewStudentAccount: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function NewStudentAccountModal({ newStudentAccount, setNewStudentAccount }: Props) {
 
   const handleClose = () => {
     setNewStudentAccount(false);
