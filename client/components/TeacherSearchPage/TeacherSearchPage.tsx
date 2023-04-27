@@ -16,7 +16,7 @@ export default function TeacherSearchPage() {
   const [newStudentAccount, setNewStudentAccount] = useState<boolean>(newStudentFromLocation);
   const [subject, setSubject] = useState<string>('');
   const [zipCode, setZipCode] = useState<string>('');
-  const [radius, setRadius] = useState<number>(0);
+  const [radius, setRadius] = useState<string>('0');
   const [lessonType, setLessonType] = useState<string>('Any');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
@@ -37,7 +37,7 @@ export default function TeacherSearchPage() {
     setPage(1);
     setSubject(formData.get('subject') as string);
     setZipCode(formData.get('zipCode') as string);
-    setRadius(formData.get('radius') as unknown as number);
+    setRadius(formData.get('radius') as string);
     if (formData.get('lessonType')) setLessonType(formData.get('lessonType') as string);
     if (formData.get('minPrice')) setMinPrice(formData.get('minPrice') as unknown as number);
     if (formData.get('maxPrice')) setMaxPrice(formData.get('maxPrice') as unknown as number);

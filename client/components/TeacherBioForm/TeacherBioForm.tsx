@@ -73,13 +73,13 @@ export default function TeacherBioForm({
   const handleEnterZipCode = async (e: FocusEvent<HTMLInputElement>) => {
     if (Number(e.target.value) && e.target.value.length === 5) {
       const zipCodeResponse = await getCityFromZipCode(e.target.value);
-      if (zipCodeResponse.city && zipCodeResponse.state) {
+      if (zipCodeResponse.valid) {
         setShowCity(true);
         setCityName(zipCodeResponse.city);
         setStateName(zipCodeResponse.state);
         setZipCodeChecked(true);
       }
-      else if (zipCodeResponse.error_msg) {
+      else {
         setFormErrors({ zipCode: 'Please enter a valid zip code'});
         setZipCodeChecked(true);
       }
@@ -95,13 +95,13 @@ export default function TeacherBioForm({
     if (isFormInvalid()) return;
     const formData = new FormData(e.target as HTMLFormElement);
     if (!zipCodeChecked) {
-      const zipCodeResponse = await getCityFromZipCode(formData.get('zip'));
-      if (zipCodeResponse.city && zipCodeResponse.state) {
+      const zipCodeResponse = await getCityFromZipCode(formData.get('zip') as string);
+      if (zipCodeResponse.valid) {
         setCityName(zipCodeResponse.city);
         setStateName(zipCodeResponse.state);
         setZipCodeChecked(true);
       }
-      else if (zipCodeResponse.error_msg) {
+      else {
         setFormErrors({ zipCode: 'Please enter a valid zip code' });
         return;
       }

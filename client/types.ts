@@ -107,13 +107,6 @@ export type LessonFormErrors = {
   lessonType: LessonFormError | null;
 }
 
-// bio
-// contactEmail
-// phoneNumber
-// zipCode
-// lastName
-// firstName
-
 export type TeacherProfile = {
   bio: string;
   contactEmail: string;
@@ -122,3 +115,43 @@ export type TeacherProfile = {
   firstName: string;
   lastName: string;
 }
+
+export type ZipCodeListResponse = {
+  zip_codes: string[];
+  valid: true;
+}
+
+export type ZipCodeErrorResponse = {
+  error_code: number;
+  valid: false;
+}
+
+export type ZipCodeRadiusArgs = {
+  zipCode: string;
+  radius: string;
+}
+
+type Timezone = {
+  timezone_identifier: string;
+  timezone_abbr: string;
+  utc_offset_sec: number;
+  is_dst: string;
+}
+
+export type ZipCodeCityResponse = {
+  valid: true;
+  zip_code: string;
+  lat: number;
+  lng: number;
+  city: string;
+  state: string;
+  timezone: Timezone;
+  acceptable_city_names: string[];
+  area_codes: number[];
+}
+
+export type CityErrorResponse =  {
+  error_msg: string;
+  valid: false;
+}
+

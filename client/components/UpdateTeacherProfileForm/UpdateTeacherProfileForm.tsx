@@ -4,7 +4,7 @@ import styles from './updateTeacherProfileForm.module.css';
 import globalStyles from '../../global.module.css';
 import { updateAccount } from "../../services/teacher";
 import { ChangeEvent, Dispatch, FocusEvent, FormEvent, SetStateAction, useRef, useState } from "react";
-import { getCityFromZipCode } from "../../services/zipcode.js";
+import { getCityFromZipCode } from "../../services/zipcode";
 import { Teacher, TeacherProfile } from "../../types";
 import { FormErrors } from "./types";
 
@@ -72,13 +72,13 @@ export default function UpdateTeacherProfileForm({
   const handleEnterZipCode = async (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value.length === 5) {
       const zipCodeResponse = await getCityFromZipCode(e.target.value);
-      if (zipCodeResponse.city && zipCodeResponse.state) {
+      if (zipCodeResponse.valid) {
         setCityName(zipCodeResponse.city);
         setStateName(zipCodeResponse.state);
         setZipCodeChecked(true);
         setShowCity(true);
       }
-      else if (zipCodeResponse.error_msg) {
+      else {
         setFormErrors({ ...formErrors, zipCode: 'Please enter a valid zip code.' });
         setZipCodeChecked(true);
         setShowCity(false);
@@ -128,15 +128,15 @@ export default function UpdateTeacherProfileForm({
     const formData = new FormData(e.target as HTMLFormElement);
     if (!zipCodeChecked) {
       if (formData.get('zipCode')) {
-        const zipCodeResponse = await getCityFromZipCode(formData.get('zipCode'));
-        if (zipCodeResponse.city && zipCodeResponse.state) {
+        const zipCodeResponse = await getCityFromZipCode(formData.get('zipCode') as string);
+        if (zipCodeResponse.valid) {
           setCityName(zipCodeResponse.city);
           setStateName(zipCodeResponse.state);
           city = zipCodeResponse.city;
           state = zipCodeResponse.state;
           setShowCity(true);
         }
-        else if (zipCodeResponse.error_msg) {
+        else {
           setFormErrors({ ...formErrors, zipCode: 'Please enter a valid zip code.' });
           setShowCity(false);
           return;
