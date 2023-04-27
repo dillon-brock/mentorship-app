@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import SubjectInputs from "../SubjectInputs/SubjectInputs";
 import styles from './teacherLessonForm.module.css';
+import { LessonFormErrors, NumberedSubject } from "../../types";
 
-export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
+type Props = {
+  setSubjects: Dispatch<SetStateAction<NumberedSubject[]>>;
+  setStep: Dispatch<SetStateAction<number>>;
+  newUser: boolean;
+}
 
-  const [formErrors, setFormErrors] = useState({});
-  const [subjectNums, setSubjectNums] = useState([1]);
-  let subjectFormData = [];
+export default function TeacherLessonForm({ setSubjects, setStep, newUser }: Props) {
 
-  const areSubjectsInvalid = (formData) => {
-    let invalid = false;
+  const [formErrors, setFormErrors] = useState<LessonFormErrors>({});
+  const [subjectNums, setSubjectNums] = useState<number[]>([1]);
+  let subjectFormData: NumberedSubject[] = [];
+
+  const areSubjectsInvalid = (formData: FormData) => {
+    let invalid: boolean = false;
     for (const num of subjectNums) {
       if (!formData.get(`subject-${num}`)) {
         setFormErrors({ 
@@ -59,17 +66,17 @@ export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
     return invalid;
   }
 
-  const handleNext = async (e) => {
+  const handleNext = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     if (areSubjectsInvalid(formData)) return;
     for (const num of subjectNums) {
       subjectFormData.push({
         num,
-        subject: formData.get(`subject-${num}`),
+        subject: formData.get(`subject-${num}`) as string,
         minPrice: Number(formData.get(`minPrice-${num}`)),
         maxPrice: Number(formData.get(`maxPrice-${num}`)),
-        lessonType: formData.get(`lessonType-${num}`)
+        lessonType: formData.get(`lessonType-${num}`) as string
       })
     }
     setSubjects(subjectFormData);
@@ -81,7 +88,7 @@ export default function TeacherLessonForm({ setSubjects, setStep, newUser }) {
   }
 
   const handleAddSubject = () => {
-    setSubjectNums(prev => [...prev, prev[prev.length - 1] + 1]);
+    setSubjectNums(prev => [...prev, (prev[prev.length - 1] as number) + 1]);
   }
   
   return (

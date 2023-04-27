@@ -62,3 +62,36 @@ export type Recipient = {
   lastName: string;
   imageUrl: string;
 }
+
+export interface Subject {
+  id: string;
+  teacherId: string;
+  subject: string;
+  minPrice: number;
+  maxPrice: number;
+  lessonType: string;
+}
+
+export type NumberedSubject = {
+  num: number;
+  subject: string;
+  minPrice: number;
+  maxPrice: number;
+  lessonType: string;
+}
+
+export interface SubjectWithMaterials extends Subject {
+  teachingMaterials: Array<TeachingMaterial>
+}
+
+type LessonFormError = {
+  num: number;
+  message: string;
+}
+
+export type LessonFormErrors = {
+  subject?: LessonFormError;
+  minPrice?: LessonFormError;
+  maxPrice?: LessonFormError;
+  lessonType?: LessonFormError;
+}
