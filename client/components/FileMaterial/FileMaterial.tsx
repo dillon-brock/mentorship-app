@@ -1,16 +1,27 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { Button, Container, Image, OverlayTrigger, Popover } from "react-bootstrap";
 import { FaEllipsisV } from "react-icons/fa";
 import DeleteMaterialModal from "../DeleteMaterialModal/DeleteMaterialModal";
 import EditFileModal from "../EditFileModal/EditFileModal";
 import styles from './fileMaterial.module.css';
+import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import Subject from "../../../server/models/Subject";
 
-export default function FileMaterial({ id, subjectId, url, name, setTeachingMaterials, subjects }) {
+type Props = {
+  id: string;
+  subjectId: string;
+  url: string;
+  name: string;
+  setTeachingMaterials: Dispatch<SetStateAction<TeachingMaterial[]>>; 
+  subjects: Subject[];
+}
 
-  const [showMenuButton, setShowMenuButton] = useState(false);
-  const [openPopover, setOpenPopover] = useState(false);
-  const [userWantsToDeleteFile, setUserWantsToDeleteFile] = useState(false);
-  const [userWantsToEditFile, setUserWantsToEditFile] = useState(false);
+export default function FileMaterial({ id, subjectId, url, name, setTeachingMaterials, subjects }: Props) {
+
+  const [showMenuButton, setShowMenuButton] = useState<boolean>(false);
+  const [openPopover, setOpenPopover] = useState<boolean>(false);
+  const [userWantsToDeleteFile, setUserWantsToDeleteFile] = useState<boolean>(false);
+  const [userWantsToEditFile, setUserWantsToEditFile] = useState<boolean>(false);
 
   const handleMouseLeave = () => {
     setShowMenuButton(false);
@@ -27,7 +38,7 @@ export default function FileMaterial({ id, subjectId, url, name, setTeachingMate
     setOpenPopover(false);
   }
 
-  const popover = (
+  const popover: JSX.Element = (
   <Popover id="popover-basic">
     <Popover.Body>
       <Container className="d-flex flex-column">
