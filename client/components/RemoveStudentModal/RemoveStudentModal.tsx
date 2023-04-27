@@ -2,6 +2,18 @@ import { Button, Modal } from "react-bootstrap";
 import { deleteConnection } from "../../services/connection";
 import globalStyles from '../../global.module.css';
 import styles from './removeStudentModal.module.css';
+import { CurrentStudent } from "../../types";
+import { Dispatch, SetStateAction } from "react";
+
+type Props = {
+  id: string;
+  firstName: string;
+  connectionId: string;
+  subjectId: string;
+  setApprovedStudents: Dispatch<SetStateAction<CurrentStudent[]>>;
+  userWantsToRemoveStudent: boolean;
+  setUserWantsToRemoveStudent: Dispatch<SetStateAction<boolean>>;
+}
 
 export default function RemoveStudentModal({
   id,
@@ -11,7 +23,7 @@ export default function RemoveStudentModal({
   setApprovedStudents, 
   userWantsToRemoveStudent, 
   setUserWantsToRemoveStudent 
-}) {
+}: Props) {
 
   const handleClose = () => setUserWantsToRemoveStudent(false);
 

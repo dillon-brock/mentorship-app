@@ -20,10 +20,25 @@ export interface Teacher {
   firstName: string;
   lastName: string;
   imageUrl: string;
-  subjects?: Array<AggregatedSubject>
-  teachingMaterials?: Array<TeachingMaterial>
+  subjects?: Array<AggregatedSubject>;
 }
 
 export interface TeacherWithMaterials extends Teacher {
   teachingMaterials: TeachingMaterial[];
+}
+
+export interface Student {
+  id: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  teachers?: Array<Teacher>;
+}
+
+export interface CurrentStudent extends Student {
+  connectionApproved: string;
+  subject: string;
+  connectionId: string;
+  subjectId: string;
 }
