@@ -1,6 +1,6 @@
 import { Button, Container, Image, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useUserContext } from '../../context/UserContext';
+import { User, useUserContext } from '../../context/UserContext';
 import { signOut, updateUserType } from '../../services/auth/auth';
 import { addStudentAccount } from '../../services/student/student';
 import styles from './header.module.css';
@@ -17,12 +17,12 @@ export default function Header() {
 
   const handleCreateStudentProfile = async () => {
     const studentInfo = await addStudentAccount({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      imageUrl: user.imageUrl
+      firstName: user?.firstName as string,
+      lastName: user?.lastName as string,
+      imageUrl: user?.imageUrl as string
     });
     await updateUserType('student');
-    setUser({ ...user, type: 'student', studentId: studentInfo.id });
+    setUser(prev => ({ ...(prev as User), type: 'student', studentId: studentInfo.id }));
     navigate('/find-teachers', {state: { newStudentAccount: true }});
   }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getReviews } from "../services/reviews/reviews";
 import { getTeacherById } from "../services/teacher/teacher";
-import { getAverageRating } from "../utils.js";
+import { getAverageRating } from "../utils";
 import Review from "../../server/models/Review";
 import { Teacher } from '../types';
 import { ConnectionData } from "../types";

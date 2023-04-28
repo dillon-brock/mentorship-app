@@ -17,7 +17,7 @@ export default function TeachingMaterialsPage() {
     setTeachingMaterials,
     subjects,
     loading
-  } = useTeachingMaterials(user?.teacherId);
+  } = useTeachingMaterials(user?.teacherId as string);
 
   const [showUploadModal, setShowUploadModal] = useState<boolean>(false);
 

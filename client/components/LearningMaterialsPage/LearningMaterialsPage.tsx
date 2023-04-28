@@ -62,7 +62,7 @@ export default function LearningMaterialsPage() {
           }
         </>
       }
-      {openChatBox &&
+      {openChatBox && user &&
         <ChatWindow
           primaryUser={user}
           secondaryUser={teacherRecipient}

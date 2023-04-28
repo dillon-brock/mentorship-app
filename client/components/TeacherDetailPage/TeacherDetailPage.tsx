@@ -26,7 +26,7 @@ export default function TeacherDetailPage() {
   const [userWantsToRemoveTeacher, setUserWantsToRemoveTeacher] = useState(false);
   let alreadyReviewed = false;
   if (user && user.studentId) {
-    alreadyReviewed = checkForReviewMatch(user.studentId, id, reviews);
+    alreadyReviewed = checkForReviewMatch(user.studentId, id as string, reviews);
   }
 
   let formattedSubjectList;
@@ -57,7 +57,7 @@ export default function TeacherDetailPage() {
       await deleteConnection({ 
         id: connection.id, 
         subjectId: connection.subjectId, 
-        studentId: user.studentId
+        studentId: user?.studentId as string
       });
     }
     setConnection(null);
@@ -135,7 +135,7 @@ export default function TeacherDetailPage() {
                 <SubjectList displayOnly={true} subjects={teacher.subjects} />
               }
             </div>
-            {openChatWindow &&
+            {openChatWindow && user &&
               <ChatWindow 
                 primaryUser={user} 
                 secondaryUser={teacher} 

@@ -25,7 +25,7 @@ export default function StudentList() {
   }
 
   const handleApprove = async (id: string) => {
-    await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'approved' });
+    await updateConnectionStatus({ teacherId: user?.teacherId as string, studentId: id, connectionStatus: 'approved' });
     const updatedStudent = pendingStudents.find(s => s.id === id);
     if (updatedStudent != undefined) {
       setPendingStudents(prev => prev.filter(s => s.id !== id));
@@ -34,7 +34,7 @@ export default function StudentList() {
   }
 
   const handleDeny = async (id: string) => {
-    await updateConnectionStatus({ teacherId: user.teacherId, studentId: id, connectionStatus: 'rejected' });
+    await updateConnectionStatus({ teacherId: user?.teacherId as string, studentId: id, connectionStatus: 'rejected' });
     setPendingStudents(prev => prev.filter(s => s.id !== id));
   }
 
@@ -90,7 +90,7 @@ export default function StudentList() {
                 :
                 <h4 className={styles.emptyMessage}>You have no current students.</h4>   
               }
-              {openChatBox &&
+              {openChatBox && user &&
                 <ChatWindow 
                   primaryUser={user} 
                   secondaryUser={studentMessageRecipient} 
