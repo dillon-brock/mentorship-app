@@ -8,7 +8,7 @@ export default function ChatInbox() {
 
   useEffect(() => {
       Talk.ready.then(() => {
-        if (doneGettingUser && user.id) {
+        if (doneGettingUser && user && user.id) {
           const currentUser = new Talk.User({
             id: user.id,
             name: `${user.firstName} ${user.lastName}`,

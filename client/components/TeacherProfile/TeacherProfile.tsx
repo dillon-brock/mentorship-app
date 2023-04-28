@@ -21,7 +21,7 @@ export default function TeacherProfile() {
     setStateName, 
     cityName, 
     setCityName 
-  } = useTeacherProfile(user.teacherId);
+  } = useTeacherProfile(user?.teacherId as string);
   const [userWantsToEditProfile, setUserWantsToEditProfile] = useState<boolean>(false);
   const [userWantsToEditImage, setUserWantsToEditImage] = useState<boolean>(false);
   const [showImageEditButton, setShowImageEditButton] = useState<boolean>(false);

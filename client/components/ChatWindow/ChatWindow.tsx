@@ -2,8 +2,8 @@ import Talk from 'talkjs';
 import { useEffect, useState, useRef } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import styles from './chatWindow.module.css';
-import { User } from '../../../server/models/User';
 import { Recipient } from '../../types';
+import { User } from '../../context/UserContext';
 
 type Props = {
   primaryUser: User;

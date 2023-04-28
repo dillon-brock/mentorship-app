@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Button, Modal, Form } from "react-bootstrap";
-import { useUserContext } from "../../context/UserContext.js";
+import { useUserContext } from "../../context/UserContext";
 import useSubjects from "../../hooks/useSubjects";
 import { createConnection } from "../../services/connection/connection";
 import { addStudentSubject } from "../../services/student/student";
@@ -42,10 +42,12 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
       setSubjectError('Subject is required.');
       return;
     }
-    const newConnection = await createConnection(id, user.studentId);
-    await addStudentSubject(subjectId);
-    setConnection(newConnection);
-    setStudentWantsToConnect(false);
+    if (user && user.type == 'student') {
+      const newConnection = await createConnection(id, user.studentId as string);
+      await addStudentSubject(subjectId);
+      setConnection(newConnection);
+      setStudentWantsToConnect(false);
+    }
   }
 
 
