@@ -5,7 +5,7 @@ import { ChangeEvent } from "react";
 
 type Props = {
   subjects: Subject[];
-  error: string;
+  error?: string;
   handleChangeSubject?: (e: ChangeEvent<HTMLSelectElement>) => void;
   showLabel?: boolean;
   defaultValue?: string;
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function SubjectSelect({ 
-  subjects, error, 
+  subjects, error = "", 
   handleChangeSubject = () => {}, 
   showLabel = false, defaultValue,
   firstOption
@@ -23,7 +23,7 @@ export default function SubjectSelect({
     <>
       {showLabel && <Form.Label>Subject</Form.Label>}
       <Form.Select className={styles.select} name="subject" onChange={handleChangeSubject} defaultValue={defaultValue}>
-        <option value=''>{firstOption && firstOption}</option>
+        <option disabled value=''>{firstOption && firstOption}</option>
         {subjects.map(subject => (
           <option key={subject.id} value={subject.id}>{subject.subject}</option>))}
       </Form.Select>

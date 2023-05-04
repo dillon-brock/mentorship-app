@@ -6,6 +6,7 @@ import styles from './materialFileUploadForm.module.css';
 import globalStyles from '../../global.module.css';
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
 import Subject from "../../../server/models/Subject";
+import SubjectSelect from "../SubjectSelect/SubjectSelect";
 
 type Props = {
   setShowUploadModal: Dispatch<SetStateAction<boolean>>;
@@ -94,16 +95,13 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
         </Form.Text>
       </Form.Group>
       <Form.Group>
-        <Form.Label>Subject</Form.Label>
-        <Form.Select className={styles.input} name="subject" defaultValue='' onChange={handleChangeSubject}>
-          <option disabled value=''>Choose the subject associated with this file...</option>
-          {subjects.map(subject => (
-            <option key={subject.id} value={subject.id}>{subject.subject}</option>
-          ))}
-        </Form.Select>
-        {subjectError &&
-          <Form.Text className="text-danger">{subjectError}</Form.Text>
-        }
+        <SubjectSelect 
+          subjects={subjects} 
+          error={subjectError} 
+          handleChangeSubject={handleChangeSubject}
+          showLabel={true}
+          defaultValue=""
+          firstOption="Choose the subject associated with this file..." />
       </Form.Group>
       <div className={styles.buttonContainer}>
         <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>

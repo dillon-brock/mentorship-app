@@ -5,6 +5,7 @@ import styles from './editLinkModal.module.css';
 import globalStyles from '../../global.module.css';
 import Subject from "../../../server/models/Subject";
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import SubjectSelect from "../SubjectSelect/SubjectSelect";
 
 type Props = {
   subjects: Subject[];
@@ -82,13 +83,12 @@ export default function EditLinkModal({
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="subject">
-            <Form.Label>Subject</Form.Label>
-            <Form.Select className={styles.input} name="subject" defaultValue={subjectId}>
-              <option disabled value=''>Choose the subject associated with this file...</option>
-              {subjects.map(subject => (
-                <option key={subject.id} value={subject.id}>{subject.subject}</option>
-              ))}
-            </Form.Select>
+            <SubjectSelect 
+              subjects={subjects} 
+              showLabel={true} 
+              defaultValue={subjectId} 
+              firstOption="Choose the subject associated with this link..."
+            />
           </Form.Group>
           <div className={styles.buttonContainer}>
             <Button 

@@ -5,6 +5,7 @@ import styles from './materialLinkUploadForm.module.css';
 import globalStyles from '../../global.module.css';
 import Subject from "../../../server/models/Subject";
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import SubjectSelect from "../SubjectSelect/SubjectSelect";
 
 type Props = {
   subjects: Subject[];
@@ -65,15 +66,12 @@ export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials,
         <Form.Text>A name is not required for link uploads, but it&apos;s helpful for students to find materials.</Form.Text>
       </Form.Group>
       <Form.Group>
-        <Form.Select className={styles.input} name="subject" defaultValue='' onChange={handleChangeSubject}>
-        <option disabled value=''>Choose the subject associated with this link...</option>
-        {subjects.map(subject => (
-          <option key={subject.id} value={subject.id}>{subject.subject}</option>
-        ))}
-        </Form.Select>
-        {subjectError &&
-          <Form.Text className="text-danger">{subjectError}</Form.Text>
-        }
+        <SubjectSelect 
+          subjects={subjects} 
+          error={subjectError} 
+          handleChangeSubject={handleChangeSubject}
+          defaultValue=""
+          firstOption="Choose the subject associated with this link..." />
       </Form.Group>
       <div className={styles.buttonContainer}>
         <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>
