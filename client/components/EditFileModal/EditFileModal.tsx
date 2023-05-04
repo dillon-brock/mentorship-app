@@ -6,6 +6,7 @@ import styles from './editFileModal.module.css';
 import globalStyles from '../../global.module.css';
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
 import Subject from "../../../server/models/Subject";
+import SubjectSelect from "../SubjectSelect/SubjectSelect";
 
 type Props = {
   userWantsToEditFile: boolean;
@@ -126,14 +127,12 @@ export default function EditFileModal({
               }
             </Form.Group>
             <Form.Group className="mb-3" controlId="subject">
-              <Form.Label>Subject</Form.Label>
-              <Form.Select className={styles.input} name="subject" defaultValue={subjectId}>
-                <option disabled value=''>Choose the subject associated with this file...</option>
-                {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
-              </Form.Select>
-              {subjectError &&
-                <Form.Text className="text-danger">{subjectError}</Form.Text>
-              }
+              <SubjectSelect 
+                subjects={subjects} 
+                error={subjectError} 
+                showLabel={true} 
+                defaultValue={subjectId}
+                firstOption="Choose the subject associated with this file..." />
             </Form.Group>
             <div className={styles.buttonContainer}>
               <Button 
