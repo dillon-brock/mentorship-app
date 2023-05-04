@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Image, Row } from "react-bootstrap";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from './learningMaterialsSection.module.css';
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import ExpandButton from "../ExpandButton/ExpandButton";
 
 type Props = {
   id: string;
@@ -28,15 +28,9 @@ export default function LearningMaterialsSection({ id, firstName, lastName, teac
                 <Button className={styles.profileButton}>View Profile</Button>  
               </Link>
             </div>
-            {expanded ?
-              <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
-                <FaChevronUp />
-              </Button>
-              :
-              <Button className={styles.chevronButton} onClick={() => setExpanded(true)}>
-                <FaChevronDown />
-              </Button>
-            }
+            <ExpandButton 
+              expanded={expanded} 
+              setExpanded={setExpanded} />
           </div>
         </div>
         <hr className={styles.hr} />

@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Button, Row } from "react-bootstrap";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { Row } from "react-bootstrap";
 import FileMaterial from "../FileMaterial/FileMaterial";
 import LinkMaterial from "../LinkMaterial/LinkMaterial";
 import styles from './materialSubjectSection.module.css';
 import Subject from "../../../server/models/Subject";
 import TeachingMaterial from "../../../server/models/TeachingMaterial";
+import ExpandButton from "../ExpandButton/ExpandButton";
 
 type Props = {
   subject: Subject;
@@ -23,15 +23,7 @@ export default function MaterialsSubjectSection({ subject, teachingMaterials, se
     <section className={styles.section}>
       <div className={styles.titleContainer}>
         <h3 className={styles.sectionTitle}>{subject.subject}</h3>
-        {expanded ?
-          <Button className={styles.chevronButton} onClick={() => setExpanded(false)}>
-            <FaChevronUp />
-          </Button>
-          :
-          <Button className={styles.chevronButton} onClick={() => setExpanded(true)}>
-            <FaChevronDown />
-          </Button>
-        }
+        <ExpandButton expanded={expanded} setExpanded={setExpanded} />
       </div>
       <hr className={styles.hr} />
       {expanded &&
