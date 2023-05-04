@@ -88,6 +88,7 @@ export default function EditLinkModal({
               showLabel={true} 
               defaultValue={subjectId} 
               firstOption="Choose the subject associated with this link..."
+              className={styles.input}
             />
           </Form.Group>
           <div className={styles.buttonContainer}>

@@ -132,7 +132,8 @@ export default function EditFileModal({
                 error={subjectError} 
                 showLabel={true} 
                 defaultValue={subjectId}
-                firstOption="Choose the subject associated with this file..." />
+                firstOption="Choose the subject associated with this file..."
+                className={styles.input} />
             </Form.Group>
             <div className={styles.buttonContainer}>
               <Button 

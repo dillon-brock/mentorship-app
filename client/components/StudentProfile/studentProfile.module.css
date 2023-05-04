@@ -46,28 +46,6 @@
   color: white;
 }
 
-.edit-image-button {
-  position: absolute;
-  top: 129px;
-  left: 127px;
-  padding: 12px 16px;
-  background-color: white;
-  border: 2px solid black;
-  color: black;
-}
-
-.edit-image-button:focus {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
-}
-
-.edit-image-button:hover {
-  background-color: black;
-  border: 2px solid black;
-  color: white;
-}
-
 .label {
   font-family: 'Poppins';
   font-weight: 600;

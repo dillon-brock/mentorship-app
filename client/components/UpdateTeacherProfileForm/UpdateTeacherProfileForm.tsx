@@ -7,6 +7,7 @@ import { ChangeEvent, Dispatch, FocusEvent, FormEvent, SetStateAction, useRef, u
 import { getCityFromZipCode } from "../../services/zipcode";
 import { Teacher, TeacherProfile } from "../../types";
 import { FormErrors } from "./types";
+import EditableProfilePicture from "../EditableProfilePicture/EditableProfilePicture";
 
 type Props = {
   teacher: Teacher;
@@ -161,16 +162,10 @@ export default function UpdateTeacherProfileForm({
           onMouseEnter={() => setShowImageEditButton(true)}
           onMouseLeave={() => setShowImageEditButton(false)}
         >
-          {showImageEditButton &&
-            <Button className={styles.imageEditButton} onClick={() => setUserWantsToEditImage(true)}>
-              <FaEdit />
-            </Button>
-          }
-          <Image 
-            roundedCircle 
-            src={teacher.imageUrl} 
-            style={{ width: '300px', height: '300px' }} 
-            />
+          <EditableProfilePicture 
+            showButton={showImageEditButton} 
+            imgSrc={teacher.imageUrl}
+            onClick={() => setUserWantsToEditImage(true)} />
         </div>
         <div>
           <h3 className={styles.editTitle}>Edit Your Profile</h3>

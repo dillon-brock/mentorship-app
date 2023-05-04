@@ -15,9 +15,7 @@ interface CssExports {
   'formContent': string;
   'formInfoContainer': string;
   'image-container': string;
-  'image-edit-button': string;
   'imageContainer': string;
-  'imageEditButton': string;
   'input': string;
   'label': string;
   'save-button': string;

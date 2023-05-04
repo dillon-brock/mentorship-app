@@ -71,7 +71,8 @@ export default function MaterialLinkUploadForm({ subjects, setTeachingMaterials,
           error={subjectError} 
           handleChangeSubject={handleChangeSubject}
           defaultValue=""
-          firstOption="Choose the subject associated with this link..." />
+          firstOption="Choose the subject associated with this link..."
+          className={styles.input} />
       </Form.Group>
       <div className={styles.buttonContainer}>
         <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>

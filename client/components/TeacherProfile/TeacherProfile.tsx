@@ -9,6 +9,7 @@ import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfil
 import styles from './teacherProfile.module.css';
 import UpdateTeacherProfileForm from "../UpdateTeacherProfileForm/UpdateTeacherProfileForm";
 import { uploadProfilePicture } from "../../services/cloudinary/cloudinary";
+import EditableProfilePicture from "../EditableProfilePicture/EditableProfilePicture";
 
 export default function TeacherProfile() {
   const { user } = useUserContext();
@@ -53,12 +54,10 @@ export default function TeacherProfile() {
             onMouseEnter={() => setShowImageEditButton(true)}
             onMouseLeave={() => setShowImageEditButton(false)}
           >
-            {showImageEditButton &&
-              <Button className={styles.imageEditButton} onClick={() => setUserWantsToEditImage(true)}>
-                <FaEdit />
-              </Button>
-            }
-            <Image fluid roundedCircle src={teacher?.imageUrl} style={{width: '300px', height: '300px' }}/>
+            <EditableProfilePicture 
+              showButton={showImageEditButton} 
+              imgSrc={teacher?.imageUrl} 
+              onClick={() => setUserWantsToEditImage(true)} />
           </div>
           <div>
             <div className={styles.titleContainer}>

@@ -70,7 +70,8 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
           <SubjectSelect 
             handleChangeSubject={handleChangeSubject}
             subjects={subjects}
-            error={subjectError} />
+            error={subjectError}
+            className={styles.select} />
         </Modal.Body>
         <Modal.Footer>
           <Button className={globalStyles.cancelButton} onClick={handleClose}>

@@ -7,6 +7,7 @@ import { updateAccount } from "../../services/student/student";
 import UpdateProfilePictureModal from "../UpdateProfilePictureModal/UpdateProfilePictureModal";
 import styles from './studentProfile.module.css';
 import { Student } from "../../types";
+import EditableProfilePicture from "../EditableProfilePicture/EditableProfilePicture";
 
 export default function StudentProfile() {
   const { student, setStudent } = useStudentProfile();
@@ -44,12 +45,10 @@ export default function StudentProfile() {
           onMouseEnter={() => setShowEditImageButton(true)}
           onMouseLeave={() => setShowEditImageButton(false)}
         >
-          {showEditImageButton &&
-            <Button className={styles.editImageButton} onClick={() => setUserWantsToEditImage(true)}>
-              <FaEdit />
-            </Button>
-          }
-          <Image roundedCircle src={student?.imageUrl} style={{ width: '300px', height: '300px' }} />
+          <EditableProfilePicture 
+            showButton={showEditImageButton} 
+            imgSrc={student ? student.imageUrl : ''}
+            onClick={() => setUserWantsToEditImage(true)} />
         </div>
     {!userWantsToEditProfile &&
       <div className={styles.nameContainer}>

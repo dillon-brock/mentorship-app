@@ -101,7 +101,8 @@ export default function MaterialFileUploadForm({ setShowUploadModal, setTeaching
           handleChangeSubject={handleChangeSubject}
           showLabel={true}
           defaultValue=""
-          firstOption="Choose the subject associated with this file..." />
+          firstOption="Choose the subject associated with this file..."
+          className={styles.input} />
       </Form.Group>
       <div className={styles.buttonContainer}>
         <Button className={globalStyles.cancelButton} onClick={() => setShowUploadModal(false)}>Cancel</Button>

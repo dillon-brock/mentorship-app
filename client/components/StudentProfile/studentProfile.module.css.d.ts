@@ -4,9 +4,7 @@ interface CssExports {
   'button-container': string;
   'buttonContainer': string;
   'container': string;
-  'edit-image-button': string;
   'edit-name-button': string;
-  'editImageButton': string;
   'editNameButton': string;
   'image-container': string;
   'imageContainer': string;
