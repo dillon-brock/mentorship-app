@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import Header from "../Header/Header";
-import StudentList from "../StudentList/StudentList";
+import Header from "../../components/Header/Header";
+import StudentList from "../../components/StudentList/StudentList";
 import styles from './studentListPage.module.css';
 
 export default function StudentListPage() {

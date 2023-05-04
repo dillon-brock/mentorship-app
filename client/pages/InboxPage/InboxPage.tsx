@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import ChatInbox from "../ChatInbox/ChatInbox";
-import Header from "../Header/Header";
+import ChatInbox from "../../components/ChatInbox/ChatInbox";
+import Header from "../../components/Header/Header";
 import styles from './inboxPage.module.css';
 
 export default function InboxPage() {

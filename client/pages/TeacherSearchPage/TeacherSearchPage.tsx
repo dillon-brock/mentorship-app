@@ -1,12 +1,12 @@
 import { FormEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAllTeachers } from "../../hooks/useAllTeachers";
-import Header from "../Header/Header";
-import NewStudentAccountModal from "../NewStudentAccountModal/NewStudentAccountModal";
-import PagingButtons from "../PagingButtons/PagingButtons";
-import PagingSelect from "../PagingSelect/PagingSelect";
-import TeacherResults from "../TeacherResults/TeacherResults";
-import TeacherSearchForm from "../TeacherSearchForm/TeacherSearchForm";
+import Header from "../../components/Header/Header";
+import NewStudentAccountModal from "../../components/NewStudentAccountModal/NewStudentAccountModal";
+import PagingButtons from "../../components/PagingButtons/PagingButtons";
+import PagingSelect from "../../components/PagingSelect/PagingSelect";
+import TeacherResults from "../../components/TeacherResults/TeacherResults";
+import TeacherSearchForm from "../../components/TeacherSearchForm/TeacherSearchForm";
 import styles from './teacherSearchPage.module.css';
 
 export default function TeacherSearchPage() {

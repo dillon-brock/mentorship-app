@@ -3,9 +3,9 @@ import { Button, Container } from "react-bootstrap";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useTeachingMaterials from "../../hooks/useTeachingMaterials";
-import Header from "../Header/Header";
-import MaterialsSubjectSection from "../MaterialsSubjectSection/MaterialsSubjectSection";
-import MaterialUploadModal from "../MaterialUploadModal/MaterialUploadModal";
+import Header from "../../components/Header/Header";
+import MaterialsSubjectSection from "../../components/MaterialsSubjectSection/MaterialsSubjectSection";
+import MaterialUploadModal from "../../components/MaterialUploadModal/MaterialUploadModal";
 import styles from './teachingMaterialsPage.module.css';
 import globalStyles from '../../global.module.css';
 

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import Banner from '../Banner/Banner';
-import Header from '../Header/Header';
-import StartLink from '../StartLink/StartLink';
+import Banner from '../../components/Banner/Banner';
+import Header from '../../components/Header/Header';
+import StartLink from '../../components/StartLink/StartLink';
 import styles from './homePage.module.css';
 
 export default function HomePage() {

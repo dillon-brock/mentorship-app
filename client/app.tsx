@@ -1,15 +1,15 @@
 import { Root, createRoot } from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AddTeacherAccountPage from './components/AddTeacherAccountPage/AddTeacherAccountPage';
-import AuthPage from './components/AuthPage/AuthPage';
-import HomePage from './components/HomePage/HomePage';
-import InboxPage from './components/InboxPage/InboxPage';
-import LearningMaterialsPage from './components/LearningMaterialsPage/LearningMaterialsPage';
-import ProfilePage from './components/ProfilePage/ProfilePage';
-import StudentListPage from './components/StudentListPage/StudentListPage';
-import TeacherDetailPage from './components/TeacherDetailPage/TeacherDetailPage';
-import TeacherSearchPage from './components/TeacherSearchPage/TeacherSearchPage';
-import TeachingMaterialsPage from './components/TeachingMaterialsPage/TeachingMaterialsPage';
+import AuthPage from './pages/AuthPage/AuthPage';
+import HomePage from './pages/HomePage/HomePage';
+import InboxPage from './pages/InboxPage/InboxPage';
+import LearningMaterialsPage from './pages/LearningMaterialsPage/LearningMaterialsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import StudentListPage from './pages/StudentListPage/StudentListPage';
+import TeacherDetailPage from './pages/TeacherDetailPage/TeacherDetailPage';
+import TeacherSearchPage from './pages/TeacherSearchPage/TeacherSearchPage';
+import TeachingMaterialsPage from './pages/TeachingMaterialsPage/TeachingMaterialsPage';
 import { UserProvider } from './context/UserContext';
 import './app.css';
 

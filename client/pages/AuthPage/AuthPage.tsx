@@ -1,9 +1,9 @@
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import Header from "../Header/Header";
-import SignInForm from "../SignInForm/SignInForm";
-import StudentSignUpForm from "../StudentSignUpForm/StudentSignUpForm";
-import TeacherAuth from "../TeacherAuth/TeacherAuth";
+import Header from "../../components/Header/Header";
+import SignInForm from "../../components/SignInForm/SignInForm";
+import StudentSignUpForm from "../../components/StudentSignUpForm/StudentSignUpForm";
+import TeacherAuth from "../../components/TeacherAuth/TeacherAuth";
 import styles from './authPage.module.css';
 
 export default function AuthPage() {

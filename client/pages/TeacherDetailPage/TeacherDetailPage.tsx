@@ -5,15 +5,15 @@ import { useUserContext } from "../../context/UserContext";
 import { useTeacher } from "../../hooks/useTeacher";
 import { deleteConnection } from "../../services/connection/connection";
 import { checkForReviewMatch } from "../../utils";
-import AddConnectionModal from "../AddConnectionModal/AddConnectionModal";
-import AddReviewModal from "../AddReviewModal/AddReviewModal";
-import AuthRedirectModal from "../AuthRedirectModal/AuthRedirectModal";
-import ChatWindow from "../ChatWindow/ChatWindow";
-import Header from "../Header/Header";
-import RemoveTeacherModal from "../RemoveTeacherModal/RemoveTeacherModal";
-import ReviewListModal from "../ReviewListModal/ReviewListModal";
-import StarRating from "../StarRating/StarRating";
-import SubjectList from "../SubjectList/SubjectList";
+import AddConnectionModal from "../../components/AddConnectionModal/AddConnectionModal";
+import AddReviewModal from "../../components/AddReviewModal/AddReviewModal";
+import AuthRedirectModal from "../../components/AuthRedirectModal/AuthRedirectModal";
+import ChatWindow from "../../components/ChatWindow/ChatWindow";
+import Header from "../../components/Header/Header";
+import RemoveTeacherModal from "../../components/RemoveTeacherModal/RemoveTeacherModal";
+import ReviewListModal from "../../components/ReviewListModal/ReviewListModal";
+import StarRating from "../../components/StarRating/StarRating";
+import SubjectList from "../../components/SubjectList/SubjectList";
 import styles from './teacherDetailPage.module.css';
 
 export default function TeacherDetailPage() {

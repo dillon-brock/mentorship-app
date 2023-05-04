@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 import useLearningMaterials from "../../hooks/useLearningMaterials"
-import ChatWindow from "../ChatWindow/ChatWindow";
-import Header from "../Header/Header";
-import LearningMaterialsSection from "../LearningMaterialsSection/LearningMaterialsSection";
+import ChatWindow from "../../components/ChatWindow/ChatWindow";
+import Header from "../../components/Header/Header";
+import LearningMaterialsSection from "../../components/LearningMaterialsSection/LearningMaterialsSection";
 import styles from './learningMaterialsPage.module.css';
 import globalStyles from '../../global.module.css';
 import Teacher from "../../../server/models/Teacher";
 import { TeacherWithMaterials } from "../../types";
-import NoTeachersDisplay from "../NoTeachersDisplay/NoTeachersDisplay";
+import NoTeachersDisplay from "../../components/NoTeachersDisplay/NoTeachersDisplay";
 
 export default function LearningMaterialsPage() {
   const { teachersWithMaterials, loading } = useLearningMaterials();
