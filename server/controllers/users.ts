@@ -71,5 +71,5 @@ export default Router()
         maxAge: ONE_DAY_IN_MS,
       })
       .status(204)
-      .send();
+      .json({ message: 'Signed out successfully' });
   });

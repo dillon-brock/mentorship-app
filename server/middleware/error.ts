@@ -3,7 +3,7 @@ import {
   type Response,
   type NextFunction,
   type ErrorRequestHandler,
-} from 'express'
+} from 'express';
 const handler: ErrorRequestHandler = (
   err: any,
   req: Request,

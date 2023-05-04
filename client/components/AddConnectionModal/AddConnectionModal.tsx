@@ -7,6 +7,7 @@ import { addStudentSubject } from "../../services/student/student";
 import styles from './addConnectionModal.module.css';
 import globalStyles from '../../global.module.css';
 import { ConnectionData } from "../../types";
+import SubjectSelect from "../SubjectSelect/SubjectSelect";
 
 type Props = {
   id: string;
@@ -66,13 +67,10 @@ export default function AddConnectionModal({id, firstName, lastName, setConnecti
           <p className={styles.message}>Requests must be approved by the instructor. If you haven&apos;t reached out to {firstName} yet, please do so before sending your request so you know you will be a good fit.</p>
           <hr />
           <p>Please select the subject you&apos;re interested in learning:</p>
-          <Form.Select className={styles.select} onChange={handleChangeSubject}>
-            <option value=''></option>
-            {subjects.map(subject => <option key={subject.id} value={subject.id}>{subject.subject}</option>)}
-          </Form.Select>
-          {subjectError &&
-            <Form.Text className="text-danger">{subjectError}</Form.Text>
-          }
+          <SubjectSelect 
+            handleChangeSubject={handleChangeSubject}
+            subjects={subjects}
+            error={subjectError} />
         </Modal.Body>
         <Modal.Footer>
           <Button className={globalStyles.cancelButton} onClick={handleClose}>
