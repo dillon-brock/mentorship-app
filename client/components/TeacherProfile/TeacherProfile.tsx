@@ -56,7 +56,7 @@ export default function TeacherProfile() {
           >
             <EditableProfilePicture 
               showButton={showImageEditButton} 
-              imgSrc={teacher?.imageUrl} 
+              imgSrc={teacher ? teacher.imageUrl : ''} 
               onClick={() => setUserWantsToEditImage(true)} />
           </div>
           <div>
