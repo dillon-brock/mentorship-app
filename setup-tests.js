@@ -3,4 +3,4 @@
  * Jest's config play nice with TypeScript for bootstrapping.
  */
 
-require('jest-fetch-mock').enableMocks()
+require('jest-fetch-mock').enableMocks();
